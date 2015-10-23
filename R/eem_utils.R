@@ -42,13 +42,20 @@ summary.eem <- function(object, ...){
 
   stopifnot(class(object) == "eem")
 
-  cat("eem object:", dim(object$x)[1], "object",  dim(object$x)[2], "\n")
-  cat("eobject: (", range(object$x), "nm.)", head(object$x, 3), "...", tail(object$eobject, 3), "\n")
+  cat("eem object:", dim(object$x)[1],
+      "x",  dim(object$x)[2],
+      "(", dim(object$x)[1] * dim(object$x)[2], ")", "\n")
+
+  cat("ex: (", range(object$ex), "nm.)", head(object$ex, 3), "...", tail(object$ex, 3), "\n")
+
   cat("em: (", range(object$em), "nm.)", head(object$em, 3), "...", tail(object$em, 3), "\n")
 
   cat("is_blank_corrected:", attr(object, "is_blank_corrected"), "\n")
+
   cat("is_scatter_corrected:", attr(object, "is_scatter_corrected"), "\n")
+
   cat("is_ife_corrected:", attr(object, "is_ife_corrected"), "\n")
+
   cat("is_raman_normalized:", attr(object, "is_raman_normalized"), "\n")
 }
 
