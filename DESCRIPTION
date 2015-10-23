@@ -5,7 +5,7 @@ Version: 0.0.0.9000
 Date: 23-10-2015
 Authors@R: person("Philippe", "Massicotte", email = "pm@bios.au.dk",
   role = c("aut", "cre"))
-Description: This package provides various tools to (1) calculate EEM metrics and (2) preprocess EEM for PARAFAC analysis
+Description: This package provides various tools to (1) calculate EEM metrics and (2) preprocess EEM for PARAFAC analysis.
 License: GPL (>= 2)
 Depends: R (>= 3.0)
 LazyData: TRUE
