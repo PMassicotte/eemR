@@ -105,7 +105,7 @@ eem_coble_peaks <- function(eem){
   #--------------------------------------------
   # Return the data
   #--------------------------------------------
-  return(list(b = peak_b,
+  return(data.frame(b = peak_b,
               t = peak_t,
               a = peak_a,
               m = peak_m,
