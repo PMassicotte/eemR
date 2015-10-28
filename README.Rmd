@@ -16,6 +16,8 @@ knitr::opts_chunk$set(
 
 ```
 
+[![Travis-CI Build Status](https://travis-ci.org/PMassicotte/eem.svg?branch=master)](https://travis-ci.org/PMassicotte/eem)
+
 # EEM (excitation-emission fluorescence matrix)
 
 The **eem** package implements various functions used calculate metrics from excitation-emission matrix (EEM) as well as to preform pre-processing corrections before PARAFAC analysis [@Bro1997; @Stedmon2005; @Murphy2013]. All functions from this package start with the `eem_` prefix.

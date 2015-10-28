@@ -1,4 +1,6 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+[![Travis-CI Build Status](https://travis-ci.org/PMassicotte/eem.svg?branch=master)](https://travis-ci.org/PMassicotte/eem)
+
 EEM (excitation-emission fluorescence matrix)
 =============================================
 
