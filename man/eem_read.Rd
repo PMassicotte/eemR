@@ -4,14 +4,10 @@
 \alias{eem_read}
 \title{Read excitation-emission fluorecence matrix (eem)}
 \usage{
-eem_read(file, ex, em)
+eem_read(file)
 }
 \arguments{
-\item{file}{File name or folder containing fluorescence file.}
-
-\item{ex}{Excitation vector of wavelengths.}
-
-\item{em}{Emission vector of wavelengths.}
+\item{file}{File name or folder containing fluorescence file(s).}
 }
 \value{
 An object of class \code{eem} containing:
@@ -25,10 +21,11 @@ An object of class \code{eem} containing:
 \description{
 Read excitation-emission fluorecence matrix (eem)
 }
+\details{
+Note that \code{em} and \code{ex} are rounded before returned.
+}
 \examples{
-fluo <- system.file("extdata/eem", "sample1.csv", package = "eem")
-ex <- seq(220, 450, by = 5)
-em <- seq(230, 600, by = 2)
-eem <- eem_read(fluo, ex, em)
+file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+eem <- eem_read(file)
 }
 

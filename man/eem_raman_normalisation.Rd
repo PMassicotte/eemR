@@ -26,14 +26,19 @@ An object of class \code{eem} containing:
 Title
 }
 \examples{
-fluo <- system.file("extdata/eem", "sample1.csv", package = "eem")
-b <- system.file("extdata", "nano.csv", package = "eem")
-ex <- seq(220, 450, by = 5)
-em <- seq(230, 600, by = 2)
+# Open the fluorescence eem
+file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+eem <- eem_read(file)
 
-eem <- eem_read(fluo, ex, em)
-blank <- eem_read(b, ex, em)
+plot(eem)
 
-eem_raman_normalisation(eem, blank)
+# Open the blank eem
+file <- system.file("extdata", "nano.csv", package = "eem")
+blank <- eem_read(file)
+
+# Do the normalisation
+eem <- eem_raman_normalisation(eem, blank)
+
+plot(eem)
 }
 

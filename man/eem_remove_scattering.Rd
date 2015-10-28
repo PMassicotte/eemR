@@ -22,13 +22,15 @@ Either an object of class \code{eem} or a list of \code{eem}.
 Remove Raman and Rayleigh scattering
 }
 \examples{
-fluo <- system.file("extdata/eem", "sample1.csv", package = "eem")
-b <- system.file("extdata", "nano.csv", package = "eem")
-ex <- seq(220, 450, by = 5)
-em <- seq(230, 600, by = 2)
+# Open the fluorescence eem
+file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+eem <- eem_read(file)
 
-eem <- eem_read(fluo, ex, em)
+plot(eem)
 
-eem_remove_scattering(eem = eem, type = "raman", order = 1, width = 10)
+# Remove the scattering
+eem <- eem_remove_scattering(eem = eem, type = "raman", order = 1, width = 10)
+
+plot(eem)
 }
 

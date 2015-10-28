@@ -15,18 +15,12 @@
 #' @export
 #'
 #' @examples
-#' fluo <- system.file("extdata/eem", "sample1.csv", package = "eem")
-#' ex <- seq(220, 450, by = 5)
-#' em <- seq(230, 600, by = 2)
-#' eem <- eem_read(fluo, ex, em)
+#' file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+#' eem <- eem_read(file)
 
 eem_read <- function(file) {
 
-  stopifnot(file.exists(file) | file.info(file)$isdir,
-            is.vector(ex),
-            is.vector(em),
-            is.numeric(ex),
-            is.numeric(em))
+  stopifnot(file.exists(file) | file.info(file)$isdir)
 
   #--------------------------------------------
   # Verify if user provided a dir or a file.
@@ -82,7 +76,8 @@ eem_read <- function(file) {
 #'
 #' @param sample A string containing the file name of the eem.
 #' @param x A matrix with fluorescence values.
-#' @inheritParams eem_read
+#' @param ex Vector of excitation wavelengths.
+#' @param em Vector of emission wavelengths.
 #'
 #' @return An object of class \code{eem} containing:
 #' \itemize{
@@ -91,9 +86,6 @@ eem_read <- function(file) {
 #'  \item em Emission vector of wavelengths.
 #'  \item ex Excitation vector of wavelengths.
 #' }
-#'
-#' @export
-#'
 
 eem <- function(sample, x, ex, em){
 

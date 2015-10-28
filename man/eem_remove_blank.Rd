@@ -18,14 +18,21 @@ Either an object of class \code{eem} or a list of \code{eem}.
 Blank correction
 }
 \examples{
-fluo <- system.file("extdata/eem", "sample1.csv", package = "eem")
-b <- system.file("extdata", "nano.csv", package = "eem")
-ex <- seq(220, 450, by = 5)
-em <- seq(230, 600, by = 2)
+# Open the fluorescence eem
+file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+eem <- eem_read(file)
 
-eem <- eem_read(fluo, ex, em)
-blank <- eem_read(b, ex, em)
+plot(eem)
 
-eem_remove_blank(eem, blank)
+# Open the blank eem
+file <- system.file("extdata", "nano.csv", package = "eem")
+blank <- eem_read(file)
+
+plot(blank)
+
+# Remove the blank
+eem <- eem_remove_blank(eem, blank)
+
+plot(eem)
 }
 

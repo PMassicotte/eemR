@@ -6,9 +6,8 @@
 #'
 #' @examples
 #' fluo <- system.file("extdata/eem", "sample1.csv", package = "eem")
-#' ex <- seq(220, 450, by = 5)
-#' em <- seq(230, 600, by = 2)
-#' eem <- eem_read(fluo, ex, em)
+#' eem <- eem_read(fluo)
+#'
 #' plot(eem)
 
 plot.eem <- function(x, ...){
@@ -33,9 +32,7 @@ plot.eem <- function(x, ...){
 #'
 #' @examples
 #' fluo <- system.file("extdata/eem", "sample1.csv", package = "eem")
-#' ex <- seq(220, 450, by = 5)
-#' em <- seq(230, 600, by = 2)
-#' eem <- eem_read(fluo, ex, em)
+#' eem <- eem_read(fluo)
 #' summary(eem)
 
 summary.eem <- function(object, ...){
@@ -68,15 +65,23 @@ summary.eem <- function(object, ...){
 #' @export
 #'
 #' @examples
-#' fluo <- system.file("extdata/eem", "sample1.csv", package = "eem")
-#' b <- system.file("extdata", "nano.csv", package = "eem")
-#' ex <- seq(220, 450, by = 5)
-#' em <- seq(230, 600, by = 2)
 #'
-#' eem <- eem_read(fluo, ex, em)
-#' blank <- eem_read(b, ex, em)
+#' # Open the fluorescence eem
+#' file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+#' eem <- eem_read(file)
 #'
-#' eem_remove_blank(eem, blank)
+#' plot(eem)
+#'
+#' # Open the blank eem
+#' file <- system.file("extdata", "nano.csv", package = "eem")
+#' blank <- eem_read(file)
+#'
+#' plot(blank)
+#'
+#' # Remove the blank
+#' eem <- eem_remove_blank(eem, blank)
+#'
+#' plot(eem)
 eem_remove_blank <- function(eem, blank) {
 
   stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"),
@@ -121,14 +126,16 @@ eem_remove_blank <- function(eem, blank) {
 #' @export
 #'
 #' @examples
-#' fluo <- system.file("extdata/eem", "sample1.csv", package = "eem")
-#' b <- system.file("extdata", "nano.csv", package = "eem")
-#' ex <- seq(220, 450, by = 5)
-#' em <- seq(230, 600, by = 2)
+#' # Open the fluorescence eem
+#' file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+#' eem <- eem_read(file)
 #'
-#' eem <- eem_read(fluo, ex, em)
+#' plot(eem)
 #'
-#' eem_remove_scattering(eem = eem, type = "raman", order = 1, width = 10)
+#' # Remove the scattering
+#' eem <- eem_remove_scattering(eem = eem, type = "raman", order = 1, width = 10)
+#'
+#' plot(eem)
 
 eem_remove_scattering <- function(eem, type, order = 1, width){
 
@@ -215,15 +222,20 @@ eem_remove_scattering <- function(eem, type, order = 1, width){
 #' @export
 #'
 #' @examples
-#' fluo <- system.file("extdata/eem", "sample1.csv", package = "eem")
-#' b <- system.file("extdata", "nano.csv", package = "eem")
-#' ex <- seq(220, 450, by = 5)
-#' em <- seq(230, 600, by = 2)
+#' # Open the fluorescence eem
+#' file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+#' eem <- eem_read(file)
 #'
-#' eem <- eem_read(fluo, ex, em)
-#' blank <- eem_read(b, ex, em)
+#' plot(eem)
 #'
-#' eem_raman_normalisation(eem, blank)
+#' # Open the blank eem
+#' file <- system.file("extdata", "nano.csv", package = "eem")
+#' blank <- eem_read(file)
+#'
+#' # Do the normalisation
+#' eem <- eem_raman_normalisation(eem, blank)
+#'
+#' plot(eem)
 
 eem_raman_normalisation <- function(eem, blank){
 

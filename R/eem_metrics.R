@@ -8,10 +8,9 @@
 #' @export
 #'
 #' @examples
-#' fluo <- system.file("extdata/eem", "sample1.csv", package = "eem")
-#' ex <- seq(220, 450, by = 5)
-#' em <- seq(230, 600, by = 2)
-#' eem <- eem_read(fluo, ex, em)
+#' file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+#' eem <- eem_read(file)
+#'
 #' eem_fluorescence_index(eem)
 
 eem_fluorescence_index <- function(eem){
@@ -49,10 +48,9 @@ eem_fluorescence_index <- function(eem){
 #'
 #'
 #' @examples
-#' fluo <- system.file("extdata/eem", "sample1.csv", package = "eem")
-#' ex <- seq(220, 450, by = 5)
-#' em <- seq(230, 600, by = 2)
-#' eem <- eem_read(fluo, ex, em)
+#' file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+#' eem <- eem_read(file)
+#'
 #' eem_coble_peaks(eem)
 eem_coble_peaks <- function(eem){
 

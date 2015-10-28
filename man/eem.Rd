@@ -11,9 +11,9 @@ eem(sample, x, ex, em)
 
 \item{x}{A matrix with fluorescence values.}
 
-\item{ex}{Excitation vector of wavelengths.}
+\item{ex}{Vector of excitation wavelengths.}
 
-\item{em}{Emission vector of wavelengths.}
+\item{em}{Vector of emission wavelengths.}
 }
 \value{
 An object of class \code{eem} containing:
