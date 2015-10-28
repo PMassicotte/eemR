@@ -26,7 +26,7 @@ An object of class \code{eem} containing:
 Read excitation-emission fluorecence matrix (eem)
 }
 \examples{
-fluo <- "/home/persican/Desktop/test/eem/"
+fluo <- system.file("extdata/eem", "sample1.csv", package = "eem")
 ex <- seq(220, 450, by = 5)
 em <- seq(230, 600, by = 2)
 eem1 <- eem_read(fluo, ex, em)

@@ -24,8 +24,8 @@ An object of class \code{eem} containing:
 Title
 }
 \examples{
-fluo <- "/home/persican/Desktop/test/eem/sn21.csv"
-b <- "/home/persican/Desktop/test/nano.csv"
+fluo <- system.file("extdata/eem", "sample1.csv", package = "eem")
+b <- system.file("extdata", "nano.csv", package = "eem")
 ex <- seq(220, 450, by = 5)
 em <- seq(230, 600, by = 2)
 

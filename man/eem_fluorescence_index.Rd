@@ -16,7 +16,7 @@ A vector containing fluorescence index
 Calculate the fluorescence index (FI)
 }
 \examples{
-fluo <- "/home/persican/Desktop/test/eem/sn21.csv"
+fluo <- system.file("extdata/eem", "sample1.csv", package = "eem")
 ex <- seq(220, 450, by = 5)
 em <- seq(230, 600, by = 2)
 eem <- eem_read(fluo, ex, em)
