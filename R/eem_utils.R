@@ -13,8 +13,8 @@
 
 plot.eem <- function(x, ...){
 
-  fields::image.plot(x = x$ex,
-             y = x$em,
+  fields::image.plot(y = x$em,
+             x = x$ex,
              z = t(x$x),
              main = x$sample,
              xlab = "Excitation (nm.)",

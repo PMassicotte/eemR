@@ -1,8 +1,6 @@
 #' Read excitation-emission fluorecence matrix (eem)
 #'
-#' @param file File name or folder containing fluorescence file.
-#' @param ex Excitation vector of wavelengths.
-#' @param em Emission vector of wavelengths.
+#' @param file File name or folder containing fluorescence file(s).
 #'
 #' @return An object of class \code{eem} containing:
 #' \itemize{
@@ -12,6 +10,8 @@
 #'  \item ex Excitation vector of wavelengths.
 #' }
 #'
+#' @details Note that \code{em} and \code{ex} are rounded before returned.
+#'
 #' @export
 #'
 #' @examples
@@ -20,7 +20,7 @@
 #' em <- seq(230, 600, by = 2)
 #' eem <- eem_read(fluo, ex, em)
 
-eem_read <- function(file, ex, em) {
+eem_read <- function(file) {
 
   stopifnot(file.exists(file) | file.info(file)$isdir,
             is.vector(ex),
@@ -36,23 +36,25 @@ eem_read <- function(file, ex, em) {
   if(isdir){
 
     files <- list.files(file, "*.csv", full.names = TRUE)
-    res <- lapply(files, eem_read, ex = ex, em = em)
+    res <- lapply(files, eem_read)
     return(res)
   }
-
-  #nrow <- length(em)
-  ncol <- length(ex)
-  expected_col <- ncol * 2 + 1
 
   data <- readLines(file)
 
   data <- stringr::str_split(data, ",")
 
+  expected_col <- unlist(lapply(data, length))[1]
+
   data[lapply(data, length) != expected_col] <- NULL
+
+  ex <- as.numeric(na.omit(stringr::str_extract(data[[1]], "\\d{3}.\\d{2}")))
 
   data[1:2] <- NULL ## Remove the first 2 header lines
 
   data <- matrix(as.numeric(unlist(data)), ncol = expected_col, byrow = TRUE)
+
+  em <- round(data[, 1])
 
   eem <- data[, seq(2, ncol(data), by = 2)]
 
