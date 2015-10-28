@@ -42,6 +42,12 @@ eem_read <- function(file) {
 
   data <- readLines(file)
 
+  if(!is_cary_eclipse(data)){
+    message("The file does not seems to be from a Cary Eclipse instrument.\n")
+
+    return(NULL)
+  }
+
   data <- stringr::str_split(data, ",")
 
   expected_col <- unlist(lapply(data, length))[1]
@@ -99,4 +105,9 @@ eem <- function(sample, x, ex, em){
   class(eem) <- "eem"
 
   return(eem)
+}
+
+
+is_cary_eclipse <- function(x) {
+  any(grepl("Instrument\\s+(Cary Eclipse)", x)) ## Need to be more robust
 }
