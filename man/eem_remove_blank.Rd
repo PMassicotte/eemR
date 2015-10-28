@@ -7,18 +7,12 @@
 eem_remove_blank(eem, blank)
 }
 \arguments{
-\item{eem}{An object of class \code{eem}}
+\item{eem}{Either an object of class \code{eem} or a list of \code{eem}.}
 
-\item{blank}{An object of class \code{eem}}
+\item{blank}{Either an object of class \code{eem} or a list of \code{eem}.}
 }
 \value{
-An object of class \code{eem} containing:
-\itemize{
- \item sample The file name of the eem.
- \item x A matrix with fluorescence values.
- \item em Emission vector of wavelengths.
- \item ex Excitation vector of wavelengths.
-}
+Either an object of class \code{eem} or a list of \code{eem}.
 }
 \description{
 Blank correction

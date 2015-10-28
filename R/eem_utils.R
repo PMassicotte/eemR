@@ -62,16 +62,9 @@ summary.eem <- function(object, ...){
 
 #' Blank correction
 #'
-#' @param eem An object of class \code{eem}
-#' @param blank An object of class \code{eem}
+#' @template template_eem
+#' @template template_blank
 #'
-#' @return An object of class \code{eem} containing:
-#' \itemize{
-#'  \item sample The file name of the eem.
-#'  \item x A matrix with fluorescence values.
-#'  \item em Emission vector of wavelengths.
-#'  \item ex Excitation vector of wavelengths.
-#' }
 #' @export
 #'
 #' @examples
@@ -117,21 +110,14 @@ eem_remove_blank <- function(eem, blank) {
   return(res)
 }
 
-
 #' Remove Raman and Rayleigh scattering
 #'
-#' @param eem eem An object of class \code{eem}
+#' @template template_eem
+#'
 #' @param type A string, either "raman" or "rayleigh"
 #' @param order A integer number, either 1 (first order) or 2 (second order)
 #' @param width Slit width in nm for the cut
 #'
-#' @return An object of class \code{eem} containing:
-#' \itemize{
-#'  \item sample The file name of the eem.
-#'  \item x A matrix with fluorescence values.
-#'  \item em Emission vector of wavelengths.
-#'  \item ex Excitation vector of wavelengths.
-#' }
 #' @export
 #'
 #' @examples
@@ -216,8 +202,8 @@ eem_remove_scattering <- function(eem, type, order = 1, width){
 
 #' Title
 #'
-#' @param eem An object of class \code{eem}
-#' @param blank An object of class \code{eem}
+#' @template template_eem
+#' @template template_blank
 #'
 #' @return An object of class \code{eem} containing:
 #' \itemize{

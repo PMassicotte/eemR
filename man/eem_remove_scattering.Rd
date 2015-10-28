@@ -7,7 +7,7 @@
 eem_remove_scattering(eem, type, order = 1, width)
 }
 \arguments{
-\item{eem}{eem An object of class \code{eem}}
+\item{eem}{Either an object of class \code{eem} or a list of \code{eem}.}
 
 \item{type}{A string, either "raman" or "rayleigh"}
 
@@ -16,13 +16,7 @@ eem_remove_scattering(eem, type, order = 1, width)
 \item{width}{Slit width in nm for the cut}
 }
 \value{
-An object of class \code{eem} containing:
-\itemize{
- \item sample The file name of the eem.
- \item x A matrix with fluorescence values.
- \item em Emission vector of wavelengths.
- \item ex Excitation vector of wavelengths.
-}
+Either an object of class \code{eem} or a list of \code{eem}.
 }
 \description{
 Remove Raman and Rayleigh scattering

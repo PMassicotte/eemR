@@ -7,11 +7,13 @@
 eem_raman_normalisation(eem, blank)
 }
 \arguments{
-\item{eem}{An object of class \code{eem}}
+\item{eem}{Either an object of class \code{eem} or a list of \code{eem}.}
 
-\item{blank}{An object of class \code{eem}}
+\item{blank}{Either an object of class \code{eem} or a list of \code{eem}.}
 }
 \value{
+Either an object of class \code{eem} or a list of \code{eem}.
+
 An object of class \code{eem} containing:
 \itemize{
  \item sample The file name of the eem.

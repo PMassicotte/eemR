@@ -18,7 +18,7 @@
 #' fluo <- system.file("extdata/eem", "sample1.csv", package = "eem")
 #' ex <- seq(220, 450, by = 5)
 #' em <- seq(230, 600, by = 2)
-#' eem1 <- eem_read(fluo, ex, em)
+#' eem <- eem_read(fluo, ex, em)
 
 eem_read <- function(file, ex, em) {
 
