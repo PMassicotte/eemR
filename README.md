@@ -7,22 +7,18 @@ The **eem** package implements various functions used calculate metrics from exc
 ``` r
 library(eem)
 ls("package:eem")
-#> [1] "eem"                     "eem_coble_peaks"        
-#> [3] "eem_fluorescence_index"  "eem_raman_normalisation"
-#> [5] "eem_read"                "eem_remove_blank"       
-#> [7] "eem_remove_scattering"
+#> [1] "eem_coble_peaks"         "eem_fluorescence_index" 
+#> [3] "eem_raman_normalisation" "eem_read"               
+#> [5] "eem_remove_blank"        "eem_remove_scattering"
 ```
 
 At the moment, only EEM csv files produced by Cary Eclipse are supported. EEM can be read using the `eem_read()` function.
 
 ``` r
 library(eem)
-eem_file <- "/home/persican/Desktop/test/eem/sn21.csv"
 
-ex <- seq(220, 450, by = 5) ## Excitation vector of wavelengths
-em <- seq(230, 600, by = 2) ## Emission vector of wavelengths
-
-eem <- eem_read(eem_file, ex, em) ## Read the eem (csv) file
+file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+eem <- eem_read(file)
 
 plot(eem)
 ```
@@ -39,33 +35,18 @@ The current implemented metrics are:
 
 ``` r
 library(eem)
-eem_file <- "/home/persican/Desktop/test/eem/sn21.csv"
 
-ex <- seq(220, 450, by = 5) ## Excitation vector of wavelengths
-em <- seq(230, 600, by = 2) ## Emission vector of wavelengths
-
-eem <- eem_read(eem_file, ex, em) ## Read the eem (csv) file
+file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+eem <- eem_read(file)
 
 eem_fluorescence_index(eem)
-#> [1] 1.3693
+#> [1] 1.264782
 
 eem_coble_peaks(eem)
 #> Warning: Some Coble excitation wavelengths were not found.
 #>             Closest excitation wavelenghts will be used instead.
-#> $b
-#> [1] 1.312223
-#> 
-#> $t
-#> [1] 0.9630169
-#> 
-#> $a
-#> [1] 2.512414
-#> 
-#> $m
-#> [1] 1.764488
-#> 
-#> $c
-#> [1] 1.426791
+#>          b        t        a        m        c
+#> 1 1.545298 1.060331 3.731836 2.459364 1.815422
 ```
 
 PARAFAC pre-processing
@@ -83,12 +64,8 @@ Three types of correction are currently supported:
 
 ``` r
 
-eem_file <- "/home/persican/Desktop/test/eem/sn21.csv"
-
-ex <- seq(220, 450, by = 5) ## Excitation vector of wavelengths
-em <- seq(230, 600, by = 2) ## Emission vector of wavelengths
-
-eem <- eem_read(eem_file, ex, em) ## Read the eem (csv) file
+file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+eem <- eem_read(file)
 
 res <- eem_remove_scattering(eem = eem, type = "raman", order = 1, width = 10)
 res <- eem_remove_scattering(eem = res, type = "rayleigh", order = 1, width = 10)
@@ -104,9 +81,9 @@ plot(res)
 
 ``` r
 
-mq_file <- "/home/persican/Desktop/test/nano.csv"
+file <- system.file("extdata", "nano.csv", package = "eem")
 
-blank <- eem_read(mq_file, ex, em) ## Read the mq (csv) file
+blank <- eem_read(file)
 
 res <- eem_remove_blank(res, blank)
 

@@ -29,12 +29,9 @@ At the moment, only EEM csv files produced by Cary Eclipse are supported. EEM ca
 
 ```{r}
 library(eem)
-eem_file <- "/home/persican/Desktop/test/eem/sn21.csv"
 
-ex <- seq(220, 450, by = 5) ## Excitation vector of wavelengths
-em <- seq(230, 600, by = 2) ## Emission vector of wavelengths
-
-eem <- eem_read(eem_file, ex, em) ## Read the eem (csv) file
+file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+eem <- eem_read(file)
 
 plot(eem)
 
@@ -49,12 +46,9 @@ The current implemented metrics are:
 
 ```{r}
 library(eem)
-eem_file <- "/home/persican/Desktop/test/eem/sn21.csv"
 
-ex <- seq(220, 450, by = 5) ## Excitation vector of wavelengths
-em <- seq(230, 600, by = 2) ## Emission vector of wavelengths
-
-eem <- eem_read(eem_file, ex, em) ## Read the eem (csv) file
+file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+eem <- eem_read(file)
 
 eem_fluorescence_index(eem)
 
@@ -76,12 +70,8 @@ Three types of correction are currently supported:
 
 ```{r, out.width='300cm', out.height='250cm', fig.show='hold'}
 
-eem_file <- "/home/persican/Desktop/test/eem/sn21.csv"
-
-ex <- seq(220, 450, by = 5) ## Excitation vector of wavelengths
-em <- seq(230, 600, by = 2) ## Emission vector of wavelengths
-
-eem <- eem_read(eem_file, ex, em) ## Read the eem (csv) file
+file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+eem <- eem_read(file)
 
 res <- eem_remove_scattering(eem = eem, type = "raman", order = 1, width = 10)
 res <- eem_remove_scattering(eem = res, type = "rayleigh", order = 1, width = 10)
@@ -95,9 +85,9 @@ plot(res)
 
 ```{r, out.width='300cm', out.height='250cm', fig.show='hold'}
 
-mq_file <- "/home/persican/Desktop/test/nano.csv"
+file <- system.file("extdata", "nano.csv", package = "eem")
 
-blank <- eem_read(mq_file, ex, em) ## Read the mq (csv) file
+blank <- eem_read(file)
 
 res <- eem_remove_blank(res, blank)
 
