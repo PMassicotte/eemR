@@ -1,6 +1,6 @@
 Package: eem
 Type: Package
-Title: Tools for pre-processing emission-excitation-matrix (EEM)
+Title: Tools for Pre-Processing Emission-Excitation-Matrix (EEM)
 Version: 0.0.0.9000
 Date: 23-10-2015
 Authors@R: person("Philippe", "Massicotte", email = "pm@bios.au.dk",
