@@ -2,7 +2,6 @@
 
 S3method(plot,eem)
 S3method(summary,eem)
-export(eem)
 export(eem_coble_peaks)
 export(eem_fluorescence_index)
 export(eem_raman_normalisation)
