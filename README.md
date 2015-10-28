@@ -14,6 +14,11 @@ ls("package:eem")
 #> [5] "eem_remove_blank"        "eem_remove_scattering"
 ```
 
+Please note this is a very alpha version of the package.
+
+Reading EEMs
+============
+
 At the moment, only EEM csv files produced by Cary Eclipse are supported. EEM can be read using the `eem_read()` function.
 
 ``` r
@@ -61,8 +66,10 @@ Three types of correction are currently supported:
 3.  `eem_raman_normalisation()` which normalise EEM fluoresence intensities.
 4.  `eem_inner_filter()` which correct (Ohno 2002) **TODO**
 
-`eem_remove_scattering()`
--------------------------
+Removing Raman and Rayleigh scattering
+--------------------------------------
+
+The `eem_remove_scattering()` function removes both Raman and Rayleigh scattering from EEMs.
 
 ``` r
 
@@ -78,8 +85,10 @@ plot(res)
 
 <img src="README-unnamed-chunk-5-1.png" title="" alt="" width="300cm" height="250cm" /><img src="README-unnamed-chunk-5-2.png" title="" alt="" width="300cm" height="250cm" />
 
-`eem_remove_blank()`
---------------------
+Blank removal
+-------------
+
+The `eem_remove_blank()` function subtract blank (miliq) water from eem.
 
 ``` r
 
@@ -94,8 +103,10 @@ plot(res)
 
 <img src="README-unnamed-chunk-6-1.png" title="" alt="" width="300cm" height="250cm" />
 
-`eem_raman_normalisation()`
----------------------------
+Raman normalization
+-------------------
+
+The `eem_raman_normalisation()` function implement a simple calibration method for fluorescence intensity using only the integrated area of a water Raman peak. More details can be found in Lawaetz and Stedmon (2009).
 
 ``` r
 
@@ -113,6 +124,8 @@ References
 Bro, Rasmus. 1997. “PARAFAC. Tutorial and applications.” *Chemometrics and Intelligent Laboratory Systems* 38 (2): 149–71. [doi:10.1016/S0169-7439(97)00032-4](http://doi.org/10.1016/S0169-7439(97)00032-4).
 
 Coble, Paula G. 1996. “Characterization of marine and terrestrial DOM in seawater using excitation-emission matrix spectroscopy.” *Marine Chemistry* 51 (4): 325–46. [doi:10.1016/0304-4203(95)00062-3](http://doi.org/10.1016/0304-4203(95)00062-3).
+
+Lawaetz, A J, and C A Stedmon. 2009. “Fluorescence Intensity Calibration Using the Raman Scatter Peak of Water.” *Applied Spectroscopy* 63 (8): 936–40. [doi:10.1366/000370209788964548](http://doi.org/10.1366/000370209788964548).
 
 McKnight, Diane M., Elizabeth W. Boyer, Paul K. Westerhoff, Peter T. Doran, Thomas Kulbe, and Dale T. Andersen. 2001. “Spectrofluorometric characterization of dissolved organic matter for indication of precursor organic material and aromaticity.” *Limnology and Oceanography* 46 (1). American Society of Limnology; Oceanography: 38–48. [doi:10.4319/lo.2001.46.1.0038](http://doi.org/10.4319/lo.2001.46.1.0038).
 

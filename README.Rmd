@@ -27,6 +27,10 @@ library(eem)
 ls("package:eem")
 ```
 
+Please note this is a very alpha version of the package.
+
+# Reading EEMs
+
 At the moment, only EEM csv files produced by Cary Eclipse are supported. EEM can be read using the `eem_read()` function.
 
 ```{r}
@@ -68,7 +72,9 @@ Three types of correction are currently supported:
 3. `eem_raman_normalisation()` which normalise EEM fluoresence intensities.
 4. `eem_inner_filter()` which correct [@Ohno2002] **TODO**
 
-## `eem_remove_scattering()`
+## Removing Raman and Rayleigh scattering
+
+The `eem_remove_scattering()` function removes both Raman and Rayleigh scattering from EEMs.
 
 ```{r, out.width='300cm', out.height='250cm', fig.show='hold'}
 
@@ -83,7 +89,9 @@ plot(res)
 
 ```
 
-## `eem_remove_blank()`
+## Blank removal
+
+The `eem_remove_blank()` function subtract blank (miliq) water from eem.
 
 ```{r, out.width='300cm', out.height='250cm', fig.show='hold'}
 
@@ -96,7 +104,10 @@ res <- eem_remove_blank(res, blank)
 plot(res)
 ```
 
-## `eem_raman_normalisation()`
+
+## Raman normalization
+
+The `eem_raman_normalisation()` function implement a simple calibration method for fluorescence intensity using only the integrated area of a water Raman peak. More details can be found in @Lawaetz2009.
 
 ```{r, out.width='300cm', out.height='250cm', fig.show='hold'}
 
