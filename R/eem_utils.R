@@ -3,7 +3,6 @@
 #' @param x An object of class \code{eem}
 #' @param ... Extra arguments for \code{image.plot}
 #' @export
-#'
 #' @examples
 #' fluo <- system.file("extdata/eem", "sample1.csv", package = "eemR")
 #' eem <- eem_read(fluo)
@@ -29,7 +28,6 @@ plot.eem <- function(x, ...){
 #' @references \url{http://linkinghub.elsevier.com/retrieve/pii/0304420395000623}
 #'
 #' @export
-#'
 #' @examples
 #' fluo <- system.file("extdata/eem", "sample1.csv", package = "eemR")
 #' eem <- eem_read(fluo)
@@ -63,7 +61,6 @@ summary.eem <- function(object, ...){
 #' @template template_blank
 #'
 #' @export
-#'
 #' @examples
 #'
 #' # Open the fluorescence eem
@@ -124,7 +121,6 @@ eem_remove_blank <- function(eem, blank) {
 #' @param width Slit width in nm for the cut
 #'
 #' @export
-#'
 #' @examples
 #' # Open the fluorescence eem
 #' file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
@@ -207,7 +203,7 @@ eem_remove_scattering <- function(eem, type, order = 1, width){
   return(raman_peaks)
 }
 
-#' Title
+#' Normalize fluorescence intensities
 #'
 #' @template template_eem
 #' @template template_blank
@@ -220,7 +216,6 @@ eem_remove_scattering <- function(eem, type, order = 1, width){
 #'  \item ex Excitation vector of wavelengths.
 #' }
 #' @export
-#'
 #' @examples
 #' # Open the fluorescence eem
 #' file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
@@ -279,6 +274,100 @@ eem_raman_normalisation <- function(eem, blank){
   return(res)
 }
 
-eem_export_matlab <- function(eem){
+#' Export EEMs to Matlab
+#'
+#' @param file The .mat file name where to export the structure.
+#' @template template_eem
+#'
+#' @details
+#'
+#' @export
+#' @examples
+#' file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+#' eem <- eem_read(file)
+#'
+#' export_to <- paste(tempfile(), ".mat", sep = "")
+#' eem_export_matlab(export_to, eem)
+
+eem_export_matlab <- function(file, eem){
+
+  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"),
+            file.info(dirname(file))$isdir,
+            grepl(".mat", basename(file)))
+
+
+  ## If only one eem is provided...
+  if(class(eem) == "eem"){
+    eem <- list(eem = eem)
+  }
+
+  ## Number of eem
+  nSample <- length(eem)
+
+  #---------------------------------------------------------------------
+  # Check emission wavelengths
+  #---------------------------------------------------------------------
+  nEm <- unique(unlist(lapply(eem, function(x) length(x$em))))
+
+  if(length(nEm) != 1){
+    stop("Length of emission vectors are not the same across all eem.",
+         call. = FALSE)
+  }
+
+  Em <- mapply(function(x) x$em, eem)
+
+  if(ncol(unique(Em, MARGIN = 2)) != 1){
+    stop("Emission vectors are not the same across all eem.",
+         call. = FALSE)
+  }
+
+  #---------------------------------------------------------------------
+  # Check excitation wavelengths
+  #---------------------------------------------------------------------
+  nEx <- unique(unlist(lapply(eem, function(x) length(x$ex))))
+
+  if(length(nEx) != 1){
+    stop("Length of excitation vectors are not the same across all eem.",
+         call. = FALSE)
+  }
+
+  Ex <- mapply(function(x) x$ex, eem)
+
+  if(ncol(unique(Ex, MARGIN = 2)) != 1){
+    stop("Exctiation vectors are not the same across all eem.",
+         call. = FALSE)
+  }
+
+  #---------------------------------------------------------------------
+  # Prepare the 3D X matrix contianing eem sample nSample x nEm x nEx
+  #---------------------------------------------------------------------
+
+  ncol = unlist(lapply(eem, function(x) ncol(x$x)))
+
+  if(length(ncol) != 1){
+    stop("EEMs do not have all the same number of columns across the dataset.",
+         call. = FALSE)
+  }
+
+  nrow = unlist(lapply(eem, function(x) nrow(x$x)))
+
+  if(length(nrow) != 1){
+    stop("EEMs do not have all the same number of rows across the dataset.",
+         call. = FALSE)
+  }
+
+  X <- simplify2array(lapply(eem, function(x)x$x))
+
+  X <- array(aperm(X, c(3, 1, 2)), dim = c(nSample, nEm, nEx))
+
+  ## Use PARAFAC "naming" convention
+  OriginalData <- list(X = X,
+                       nEm = nEm,
+                       nEx = nEx,
+                       nSample = nSample,
+                       Ex = Ex,
+                       Em = Em)
+
+  R.matlab::writeMat(file, OriginalData = OriginalData)
 
 }

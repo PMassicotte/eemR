@@ -6,7 +6,6 @@
 #'
 #' @return A vector containing fluorescence index
 #' @export
-#'
 #' @examples
 #' file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
 #' eem <- eem_read(file)
@@ -45,8 +44,6 @@ eem_fluorescence_index <- function(eem){
 #'
 #' @return A data frame containing peaks B, T, A, M and C
 #' @export
-#'
-#'
 #' @examples
 #' file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
 #' eem <- eem_read(file)
