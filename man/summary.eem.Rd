@@ -20,6 +20,6 @@ eem <- eem_read(fluo)
 summary(eem)
 }
 \references{
-\url{http://linkinghub.elsevier.com/retrieve/pii/0304420395000623}
+\url{http://www.sciencedirect.com/science/article/pii/0304420395000623}
 }
 
