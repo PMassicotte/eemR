@@ -16,7 +16,7 @@ A data frame containing peaks B, T, A, M and C
 Extrace fluorescence peaks
 }
 \examples{
-file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
 eem <- eem_read(file)
 
 eem_coble_peaks(eem)

@@ -15,7 +15,7 @@
 Surface plot of eem
 }
 \examples{
-fluo <- system.file("extdata/eem", "sample1.csv", package = "eem")
+fluo <- system.file("extdata/eem", "sample1.csv", package = "eemR")
 eem <- eem_read(fluo)
 
 plot(eem)

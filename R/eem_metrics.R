@@ -8,7 +8,7 @@
 #' @export
 #'
 #' @examples
-#' file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+#' file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
 #' eem <- eem_read(file)
 #'
 #' eem_fluorescence_index(eem)
@@ -48,7 +48,7 @@ eem_fluorescence_index <- function(eem){
 #'
 #'
 #' @examples
-#' file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+#' file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
 #' eem <- eem_read(file)
 #'
 #' eem_coble_peaks(eem)
