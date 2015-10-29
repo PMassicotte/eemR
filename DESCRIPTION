@@ -1,4 +1,4 @@
-Package: eem
+Package: eemR
 Type: Package
 Title: Tools for Pre-Processing Emission-Excitation-Matrix (EEM)
 Version: 0.0.0.9000
