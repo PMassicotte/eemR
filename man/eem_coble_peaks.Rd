@@ -10,7 +10,7 @@ eem_coble_peaks(eem)
 \item{eem}{An object of class \code{eem}}
 }
 \value{
-A data frame containing peaks B, T, A, M and C
+A data frame containing peaks B, T, A, M and C for each eem.
 }
 \description{
 Extrace fluorescence peaks

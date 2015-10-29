@@ -10,7 +10,7 @@ eem_fluorescence_index(eem)
 \item{eem}{An object of class \code{eem}}
 }
 \value{
-A vector containing fluorescence index
+A data frame containing fluorescence index (FI) for each eem.
 }
 \description{
 Calculate the fluorescence index (FI)

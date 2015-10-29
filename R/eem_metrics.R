@@ -4,7 +4,7 @@
 #'
 #' @references \url{http://doi.wiley.com/10.4319/lo.2001.46.1.0038}
 #'
-#' @return A vector containing fluorescence index
+#' @return A data frame containing fluorescence index (FI) for each eem.
 #' @export
 #' @examples
 #' file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
@@ -19,7 +19,8 @@ eem_fluorescence_index <- function(eem){
   ## It is a list of eems, then call lapply
   if(any(lapply(eem, class) == "eem")){
 
-    res <- unlist(lapply(eem, eem_fluorescence_index))
+    res <- lapply(eem, eem_fluorescence_index)
+    res <- dplyr::bind_rows(res)
 
     return(res)
   }
@@ -33,7 +34,7 @@ eem_fluorescence_index <- function(eem){
 
   fi <- fluo_450 / fluo_500
 
-  return(fi)
+  return(data.frame(sample = eem$sample, fi = fi))
 
 }
 
@@ -42,7 +43,7 @@ eem_fluorescence_index <- function(eem){
 #'
 #' @param eem An object of class \code{eem}
 #'
-#' @return A data frame containing peaks B, T, A, M and C
+#' @return A data frame containing peaks B, T, A, M and C for each eem.
 #' @export
 #' @examples
 #' file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
@@ -100,10 +101,11 @@ eem_coble_peaks <- function(eem){
   #--------------------------------------------
   # Return the data
   #--------------------------------------------
-  return(data.frame(b = peak_b,
-              t = peak_t,
-              a = peak_a,
-              m = peak_m,
-              c = peak_c))
+  return(data.frame(sample = eem$sample,
+                    b = peak_b,
+                    t = peak_t,
+                    a = peak_a,
+                    m = peak_m,
+                    c = peak_c))
 
 }
