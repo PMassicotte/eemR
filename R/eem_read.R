@@ -30,7 +30,7 @@ eem_read <- function(file) {
 
   if(isdir){
 
-    files <- list.files(file, "*.csv", full.names = TRUE)
+    files <- list.files(file, full.names = TRUE)
     res <- lapply(files, eem_read)
 
     class(res) <- "eemlist"
@@ -38,42 +38,20 @@ eem_read <- function(file) {
     return(res)
   }
 
+  #---------------------------------------------------------------------
+  # Read the file and try to figure from which spectrofluo it belongs.
+  #---------------------------------------------------------------------
   data <- readLines(file)
 
-  if(!is_cary_eclipse(data)){
-    message("The file does not seems to be from a Cary Eclipse instrument.\n")
-
-    return(NULL)
+  if(is_cary_eclipse(data)){
+    return(.eem_read_cary(data, file))
   }
 
-  data <- stringr::str_split(data, ",")
+  if(is_aqualog(data)){
+    .eem_read_aqualog(data, file)
+  }
 
-  expected_col <- unlist(lapply(data, length))[1]
 
-  data[lapply(data, length) != expected_col] <- NULL
-
-  ex <- as.numeric(na.omit(stringr::str_extract(data[[1]], "\\d{3}.\\d{2}")))
-
-  data[1:2] <- NULL ## Remove the first 2 header lines
-
-  data <- matrix(as.numeric(unlist(data)), ncol = expected_col, byrow = TRUE)
-
-  em <- round(data[, 1])
-
-  eem <- data[, seq(2, ncol(data), by = 2)]
-
-  ## Construct an eem object.
-  res <- eem(sample = file,
-             x = eem,
-             ex = ex,
-             em = em)
-
-  attr(res, "is_blank_corrected") <- FALSE
-  attr(res, "is_scatter_corrected") <- FALSE
-  attr(res, "is_ife_corrected") <- FALSE
-  attr(res, "is_raman_normalized") <- FALSE
-
-  return(res)
 }
 
 #' eem constructor
@@ -106,4 +84,75 @@ eem <- function(sample, x, ex, em){
 
 is_cary_eclipse <- function(x) {
   any(grepl("Instrument\\s+(Cary Eclipse)", x)) ## Need to be more robust
+}
+
+is_aqualog <- function(x) {
+  any(grepl("Normalized by", x)) ## Need to be more robust
+}
+
+
+.eem_read_cary <- function(data, file){
+
+  data <- stringr::str_split(data, ",")
+
+  expected_col <- unlist(lapply(data, length))[1]
+
+  data[lapply(data, length) != expected_col] <- NULL
+
+  ex <- as.numeric(na.omit(stringr::str_extract(data[[1]], "\\d{3}.\\d{2}")))
+
+  data[1:2] <- NULL ## Remove the first 2 header lines
+
+  data <- matrix(as.numeric(unlist(data)), ncol = expected_col, byrow = TRUE)
+
+  em <- round(data[, 1])
+
+  eem <- data[, seq(2, ncol(data), by = 2)]
+
+  ## Construct an eem object.
+  res <- eem(sample = file,
+             x = eem,
+             ex = ex,
+             em = em)
+
+  attr(res, "is_blank_corrected") <- FALSE
+  attr(res, "is_scatter_corrected") <- FALSE
+  attr(res, "is_ife_corrected") <- FALSE
+  attr(res, "is_raman_normalized") <- FALSE
+  attr(res, "manucafturer") <- "Cary Eclipse"
+
+  return(res)
+}
+
+.eem_read_aqualog <- function(data, file){
+
+  data <- stringr::str_split(data, "\t")
+
+  ex <- rev(as.numeric(na.omit(stringr::str_extract(data[[1]], "\\d+"))))
+
+  data[1:3] <- NULL ## Remove the first 3 header lines
+
+  data <- lapply(data, as.numeric)
+
+  eem <- do.call(rbind, data)
+
+  em <- eem[, 1]
+
+  eem <- eem[, 2:ncol(eem)]
+
+  eem <- eem[, c(ncol(eem):1)]
+
+  ## Construct an eem object.
+  res <- eem(sample = file,
+             x = eem,
+             ex = ex,
+             em = em)
+
+  attr(res, "is_blank_corrected") <- FALSE
+  attr(res, "is_scatter_corrected") <- FALSE
+  attr(res, "is_ife_corrected") <- FALSE
+  attr(res, "is_raman_normalized") <- FALSE
+  attr(res, "manucafturer") <- "Aqualog"
+
+  return(res)
 }
