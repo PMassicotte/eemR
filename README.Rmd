@@ -31,25 +31,38 @@ ls("package:eemR")
 
 # Reading EEMs
 
-At the moment, only EEM csv files produced by Cary Eclipse are supported. EEM can be read using the `eem_read()` function. *Please fill an [issue](https://github.com/PMassicotte/eemR/issues) if you have other file formats you would like to add to the package*.
+At the moment, the following EEM types are supported:
+
+- Cary Eclipse `.csv` files
+
+- Aqualog `.dat` files
+
+EEM can be read using the `eem_read()` function. *Please fill an [issue](https://github.com/PMassicotte/eemR/issues) if you have other file formats you would like to add to the package*.
 
 ```{r}
 
 library(eemR)
 
 ## Reading a single eem
-file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
+file <- system.file("extdata/cary/eem", "sample1.csv", package = "eemR")
 eem <- eem_read(file)
 
 plot(eem)
 
 ## Reading a folder
 
-folder <- system.file("extdata/eem", package = "eemR")
+folder <- system.file("extdata/cary/eem", package = "eemR")
 eem <- eem_read(folder)
 
 plot(eem) ## Plot the first eem
 plot(eem, which = 2) ## Plot the second eem
+
+## Aqualog EEM
+
+folder <- system.file("extdata/aqualog", package = "eemR")
+eem <- eem_read(folder)
+
+plot(eem) ## Plot the first eem
 
 ```
 
@@ -69,7 +82,7 @@ The current implemented metrics are:
 
 library(eemR)
 
-folder <- system.file("extdata/eem", package = "eemR")
+folder <- system.file("extdata/cary/eem", package = "eemR")
 eem <- eem_read(folder)
 
 eem_fluorescence_index(eem)
@@ -101,7 +114,7 @@ The `eem_remove_scattering()` function removes both Raman and Rayleigh scatterin
 
 ```{r, out.width='300cm', out.height='250cm', fig.show='hold'}
 
-file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
+file <- system.file("extdata/cary/eem", "sample1.csv", package = "eemR")
 eem <- eem_read(file)
 
 res <- eem_remove_scattering(eem = eem, type = "raman", order = 1, width = 10)
@@ -118,7 +131,7 @@ The `eem_remove_blank()` function subtract blank (miliq) water from eem. Scatter
 
 ```{r, out.width='300cm', out.height='250cm', fig.show='hold'}
 
-file <- system.file("extdata", "nano.csv", package = "eemR")
+file <- system.file("extdata/cary", "nano.csv", package = "eemR")
 blank <- eem_read(file)
 
 res <- eem_remove_blank(res, blank)
@@ -143,7 +156,7 @@ plot(res)
 PARAFAC analysis was made easy with the fantastic Matlab [`drEEM`](http://www.models.life.ku.dk/drEEM) toolbox [@Murphy2013]. The function `eem_export_matlab()` can be  used to export the EEMs into a `m-file` directly usable in Matlab by the `drEEM` toolbox.
 
 ```{r}
-folder <- system.file("extdata/eem", package = "eemR")
+folder <- system.file("extdata/cary/eem", package = "eemR")
 eem <- eem_read(folder)
 
 filename <- paste(tempfile(), ".mat", sep = "")
