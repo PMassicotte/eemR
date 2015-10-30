@@ -15,7 +15,10 @@ knitr::opts_chunk$set(
 )
 ```
 
-[![Travis-CI Build Status](https://travis-ci.org/PMassicotte/eemR.svg?branch=master)](https://travis-ci.org/PMassicotte/eemR)
+| **OS** 	| **Build status** 	|
+|-------------	|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|
+| Linux & Mac 	| [![Travis-CI Build Status](https://travis-ci.org/PMassicotte/eemR.svg?branch=master)](https://travis-ci.org/PMassicotte/eemR) 	|
+| Windows 	| [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/PMassicotte/eemR?branch=master&amp;svg=true)](https://ci.appveyor.com/project/PMassicotte/eemR) 	|
 
 # EEM (excitation-emission fluorescence matrix)
 
