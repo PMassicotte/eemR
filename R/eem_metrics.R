@@ -109,3 +109,62 @@ eem_coble_peaks <- function(eem){
                     c = peak_c))
 
 }
+
+
+#' Calculate the humification index (HIX)
+#'
+#' @param eem An object of class \code{eem} or \code{eemlist}.
+#'
+#' @description The fluorescence humification index (HIX), which compares two
+#'   broad aromatic dominated fluorescence maxima, is calculated at 255 nm
+#'   excitation by dividing the integrated emission from 435 to 480 nm by the
+#'   integrated emission from 300 to 346 nm.
+#'
+#' @references Kalbitz, K., Geyer, W., & Geyer, S. (1999). Spectroscopic
+#'   properties of dissolved humic substances - a reflection of land use history
+#'   in a fen area. Biogeochemistry, 47(2), 219-238.
+#'
+#'   \url{http://doi.org/10.1023/A:1006134214244}
+#'
+#' @return A data frame containing the humification index (HIX) for each eem.
+#' @export
+#' @examples
+#' file <- system.file("extdata/eem", package = "eemR")
+#' eem <- eem_read(file)
+#'
+#' eem_humification_index(eem)
+#'
+eem_humification_index <- function(eem) {
+
+  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"))
+
+  ## It is a list of eems, then call lapply
+  if(any(lapply(eem, class) == "eem")){
+
+    res <- lapply(eem, eem_humification_index)
+    res <- dplyr::bind_rows(res)
+
+    return(res)
+  }
+
+  #---------------------------------------------------------------------
+  # Get the data and calculate the humification index (HIX)
+  #---------------------------------------------------------------------
+  index_ex <- which(eem$ex == 255)
+  index_em1 <- which(eem$em >= 435 & eem$em <= 480)
+  index_em2 <- which(eem$em >= 300 & eem$em <= 346)
+
+  ## First integral
+  x <- eem$em[index_em1]
+  y <- eem$x[index_em1, index_ex]
+  integral1 <- sum(diff(x) * (y[-length(y)] + y[-1]) / 2)
+
+  ## Second integral
+  x <- eem$em[index_em2]
+  y <- eem$x[index_em2, index_ex]
+  integral2 <- sum(diff(x) * (y[-length(y)] + y[-1]) / 2)
+
+  hix <- integral1 / integral2
+
+  return(data.frame(sample = eem$sample, hix = hix))
+}
