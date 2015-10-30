@@ -308,13 +308,13 @@ eem_remove_scattering <- function(eem, type, order = 1, width = 10){
 #' @references
 #'
 #' Lawaetz, A. J., & Stedmon, C. A. (2009). Fluorescence Intensity Calibration
-#' Using the Raman Scatter Peak of Water. Applied Spectroscopy, 63(8), 936–940.
+#' Using the Raman Scatter Peak of Water. Applied Spectroscopy, 63(8), 936-940.
 #'
 #' \url{http://doi.org/10.1366/000370209788964548}
 #'
 #' Murphy, K. R., Stedmon, C. a., Graeber, D., & Bro, R. (2013). Fluorescence
 #' spectroscopy and multi-way techniques. PARAFAC. Analytical Methods, 5(23),
-#' 6557. http://doi.org/10.1039/c3ay41160e#'
+#' 6557.
 #'
 #' \url{http://xlink.rsc.org/?DOI=c3ay41160e}
 #'
@@ -496,5 +496,7 @@ eem_export_matlab <- function(file, eem){
                        Em = Em)
 
   R.matlab::writeMat(file, OriginalData = OriginalData)
+
+  message("Sucesfully exported ", nSample, " EEMs to ", file, ".\n")
 
 }
