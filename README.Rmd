@@ -69,13 +69,6 @@ The current implemented metrics are:
 
 library(eemR)
 
-file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
-eem <- eem_read(file)
-
-eem_fluorescence_index(eem)
-
-eem_coble_peaks(eem)
-
 folder <- system.file("extdata/eem", package = "eemR")
 eem <- eem_read(folder)
 
