@@ -7,28 +7,44 @@ EEM (excitation-emission fluorescence matrix)
 The **eemR** package implements various functions used calculate metrics from excitation-emission matrix (EEM) as well as to preform pre-processing corrections before PARAFAC analysis (Bro 1997; C. A. Stedmon and Markager 2005; Murphy et al. 2013). All functions from this package start with the `eem_` prefix. Please note this is a very alpha version of the package for testing purpose only.
 
 ``` r
-library(eem)
-ls("package:eem")
-#> [1] "eem_coble_peaks"         "eem_fluorescence_index"
-#> [3] "eem_raman_normalisation" "eem_read"               
-#> [5] "eem_remove_blank"        "eem_remove_scattering"
+library(eemR)
+ls("package:eemR")
+#> [1] "eem_coble_peaks"         "eem_export_matlab"      
+#> [3] "eem_fluorescence_index"  "eem_raman_normalisation"
+#> [5] "eem_read"                "eem_remove_blank"       
+#> [7] "eem_remove_scattering"
 ```
 
 Reading EEMs
 ============
 
-At the moment, only EEM csv files produced by Cary Eclipse are supported. EEM can be read using the `eem_read()` function. *Please contact me if you have other file formats you would like to add to the package*.
+At the moment, only EEM csv files produced by Cary Eclipse are supported. EEM can be read using the `eem_read()` function. *Please fill an [issue](https://github.com/PMassicotte/eemR/issues) if you have other file formats you would like to add to the package*.
 
 ``` r
-library(eem)
 
-file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+library(eemR)
+
+## Reading a single eem
+file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
 eem <- eem_read(file)
 
 plot(eem)
+
+## Reading a folder
+
+folder <- system.file("extdata/eem", package = "eemR")
+eem <- eem_read(folder)
+
+plot(eem) ## Plot the first eem
 ```
 
 ![](README-unnamed-chunk-3-1.png)
+
+``` r
+plot(eem, which = 2) ## Plot the second eem
+```
+
+![](README-unnamed-chunk-3-2.png)
 
 Implemented metrics
 ===================
@@ -36,22 +52,43 @@ Implemented metrics
 The current implemented metrics are:
 
 1.  The fluorescence index (FI) developed by McKnight et al. (2001).
-2.  The Coble fluorescence peaks proposed by Coble (1996).
+2.  The fluorescence peaks proposed by Coble (1996).
 
 ``` r
-library(eem)
 
-file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+library(eemR)
+
+file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
 eem <- eem_read(file)
 
 eem_fluorescence_index(eem)
-#> [1] 1.264782
+#>        sample       fi
+#> 1 sample1.csv 1.264782
 
 eem_coble_peaks(eem)
-#> Warning: Some Coble excitation wavelengths were not found.
-#>             Closest excitation wavelenghts will be used instead.
-#>          b        t        a        m        c
-#> 1 1.545298 1.060331 3.731836 2.459364 1.815422
+#>        sample        b        t        a        m        c
+#> 1 sample1.csv 1.545298 1.060331 3.731836 2.459364 1.815422
+
+folder <- system.file("extdata/eem", package = "eemR")
+eem <- eem_read(folder)
+
+eem_fluorescence_index(eem)
+#> Source: local data frame [3 x 2]
+#> 
+#>        sample       fi
+#>         (chr)    (dbl)
+#> 1 sample1.csv 1.264782
+#> 2 sample2.csv 1.455333
+#> 3 sample3.csv 1.329413
+
+eem_coble_peaks(eem)
+#> Source: local data frame [3 x 6]
+#> 
+#>        sample        b         t        a        m         c
+#>         (chr)    (dbl)     (dbl)    (dbl)    (dbl)     (dbl)
+#> 1 sample1.csv 1.545298 1.0603312 3.731836 2.459364 1.8154222
+#> 2 sample2.csv 1.262997 0.6647042 1.584842 1.067836 0.7729534
+#> 3 sample3.csv 1.474086 1.3162812 8.416034 6.084682 6.3361907
 ```
 
 PARAFAC pre-processing
@@ -60,9 +97,12 @@ PARAFAC pre-processing
 Three types of correction are currently supported:
 
 1.  `eem_remove_blank()` which subtract a water blank from the eem.
+
 2.  `eem_remove_scattering()` which remove both *Raman* and *Rayleigh* scattering.
+
 3.  `eem_raman_normalisation()` which normalize EEM fluoresence intensities (Lawaetz and Stedmon 2009).
-4.  `eem_inner_filter()` which correct for both primary and secondary inner-filter effect (Ohno 2002). **TODO**
+
+4.  `eem_inner_filter()` which correct for both primary and secondary inner-filter effect (Ohno 2002). **TODO \#1**
 
 Removing Raman and Rayleigh scattering (1st and 2nd order)
 ----------------------------------------------------------
@@ -71,7 +111,7 @@ The `eem_remove_scattering()` function removes both Raman and Rayleigh scatterin
 
 ``` r
 
-file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
 eem <- eem_read(file)
 
 res <- eem_remove_scattering(eem = eem, type = "raman", order = 1, width = 10)
@@ -86,11 +126,11 @@ plot(res)
 Blank removal
 -------------
 
-The `eem_remove_blank()` function subtract blank (miliq) water from eem.
+The `eem_remove_blank()` function subtract blank (miliq) water from eem. Scatter bands can often be reduced by subtracting water blank (Murphy et al. 2013).
 
 ``` r
 
-file <- system.file("extdata", "nano.csv", package = "eem")
+file <- system.file("extdata", "nano.csv", package = "eemR")
 blank <- eem_read(file)
 
 res <- eem_remove_blank(res, blank)
@@ -118,11 +158,22 @@ plot(res)
 Export to Matlab
 ----------------
 
-The fantastic `drEEM` package (Murphy et al. 2013).
+PARAFAC analysis was made easy with the fantastic Matlab [`drEEM`](http://www.models.life.ku.dk/drEEM) toolbox (Murphy et al. 2013). The function `eem_export_matlab()` can be used to export the EEMs into a `m-file` directly usable in Matlab by the `drEEM` toolbox.
 
-``` Matlab
-x = 1;
-plot(x);
+``` r
+folder <- system.file("extdata/eem", package = "eemR")
+eem <- eem_read(folder)
+
+filename <- paste(tempfile(), ".mat", sep = "")
+
+eem_export_matlab(filename, eem)
+#> Sucesfully exported 3 EEMs to /tmp/RtmpbfSzsV/file5ac47979b88.mat.
+```
+
+Note that the name of the structure generated by the function will be `OriginalData` to *complement* with PARAFAC standard. Then, the importation into Matlab is made easy using the `load()` function.
+
+``` matlab
+load('FileName.mat')
 ```
 
 References
