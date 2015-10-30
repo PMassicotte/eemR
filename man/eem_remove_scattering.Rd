@@ -4,16 +4,16 @@
 \alias{eem_remove_scattering}
 \title{Remove Raman and Rayleigh scattering}
 \usage{
-eem_remove_scattering(eem, type, order = 1, width)
+eem_remove_scattering(eem, type, order = 1, width = 10)
 }
 \arguments{
 \item{eem}{Either an object of class \code{eem} or a list of \code{eem}.}
 
-\item{type}{A string, either "raman" or "rayleigh"}
+\item{type}{A string, either "raman" or "rayleigh".}
 
-\item{order}{A integer number, either 1 (first order) or 2 (second order)}
+\item{order}{A integer number, either 1 (first order) or 2 (second order).}
 
-\item{width}{Slit width in nm for the cut}
+\item{width}{Slit width in nm for the cut. Default is 10 nm.}
 }
 \value{
 Either an object of class \code{eem} or a list of \code{eem}.
@@ -32,5 +32,17 @@ plot(eem)
 eem <- eem_remove_scattering(eem = eem, type = "raman", order = 1, width = 10)
 
 plot(eem)
+}
+\references{
+Lakowicz, J. R. (2006). Principles of Fluorescence Spectroscopy.
+Boston, MA: Springer US.#'
+
+\url{http://doi.org/10.1007/978-0-387-46312-4}
+
+Murphy, K. R., Stedmon, C. a., Graeber, D., & Bro, R. (2013).
+Fluorescence spectroscopy and multi-way techniques. PARAFAC. Analytical
+Methods, 5(23), 6557. http://doi.org/10.1039/c3ay41160e#'
+
+ \url{http://xlink.rsc.org/?DOI=c3ay41160e}
 }
 

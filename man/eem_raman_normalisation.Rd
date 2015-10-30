@@ -2,7 +2,7 @@
 % Please edit documentation in R/eem_utils.R
 \name{eem_raman_normalisation}
 \alias{eem_raman_normalisation}
-\title{Normalize fluorescence intensities}
+\title{Fluorescence Intensity Calibration Using the Raman Scatter Peak of Water}
 \usage{
 eem_raman_normalisation(eem, blank)
 }
@@ -14,16 +14,20 @@ eem_raman_normalisation(eem, blank)
 \value{
 Either an object of class \code{eem} or a list of \code{eem}.
 
-An object of class \code{eem} containing:
-\itemize{
- \item sample The file name of the eem.
- \item x A matrix with fluorescence values.
- \item em Emission vector of wavelengths.
- \item ex Excitation vector of wavelengths.
-}
+An object of class \code{eem} containing: \itemize{ \item sample The
+  file name of the eem. \item x A matrix with fluorescence values. \item em
+  Emission vector of wavelengths. \item ex Excitation vector of wavelengths.
+  }
 }
 \description{
-Normalize fluorescence intensities
+Normalize fluorescence intensities to the standard scale of
+  Raman Units (R.U).
+}
+\details{
+The normalization procedure consists in dividing all fluorescence
+  intensities by the area (integral) of the Raman peak. The peak is located
+  at excitation of 350 nm. (ex = 370) betwen 371 nm. and 428 nm in emission
+  (371 <= em <= 428).
 }
 \examples{
 # Open the fluorescence eem
@@ -40,5 +44,17 @@ blank <- eem_read(file)
 eem <- eem_raman_normalisation(eem, blank)
 
 plot(eem)
+}
+\references{
+Lawaetz, A. J., & Stedmon, C. A. (2009). Fluorescence Intensity Calibration
+Using the Raman Scatter Peak of Water. Applied Spectroscopy, 63(8), 936–940.
+
+\url{http://doi.org/10.1366/000370209788964548}
+
+Murphy, K. R., Stedmon, C. a., Graeber, D., & Bro, R. (2013). Fluorescence
+spectroscopy and multi-way techniques. PARAFAC. Analytical Methods, 5(23),
+6557. http://doi.org/10.1039/c3ay41160e#'
+
+\url{http://xlink.rsc.org/?DOI=c3ay41160e}
 }
 

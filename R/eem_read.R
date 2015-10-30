@@ -2,13 +2,15 @@
 #'
 #' @param file File name or folder containing fluorescence file(s).
 #'
-#' @return An object of class \code{eem} containing:
-#' \itemize{
-#'  \item sample The file name of the eem.
-#'  \item x A matrix with fluorescence values.
-#'  \item em Emission vector of wavelengths.
-#'  \item ex Excitation vector of wavelengths.
-#' }
+#' @return If \code{file} is a single filename:
+#'
+#'   An object of class \code{eem} containing: \itemize{ \item sample The file
+#'   name of the eem. \item x A matrix with fluorescence values. \item em
+#'   Emission vector of wavelengths. \item ex Excitation vector of wavelengths.
+#'   }
+#'
+#'   If \code{file} is a folder, the function returns an object of class
+#'   \code{eemlist} which is simply a list of \code{eem}.
 #'
 #' @details Note that \code{em} and \code{ex} are rounded before returned.
 #'

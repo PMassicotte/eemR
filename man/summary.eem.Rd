@@ -7,16 +7,17 @@
 \method{summary}{eem}(object, ...)
 }
 \arguments{
-\item{object}{An object of class \code{eem}}
+\item{object}{An object of class \code{eem}.}
 
-\item{...}{Extra arguments}
+\item{...}{Extra arguments.}
 }
 \description{
 Display summary of an eem object
 }
 \examples{
-fluo <- system.file("extdata/eem", "sample1.csv", package = "eemR")
-eem <- eem_read(fluo)
+file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
+eem <- eem_read(file)
+
 summary(eem)
 }
 \references{

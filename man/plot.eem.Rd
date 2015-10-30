@@ -7,16 +7,16 @@
 \method{plot}{eem}(x, ...)
 }
 \arguments{
-\item{x}{An object of class \code{eem}}
+\item{x}{An object of class \code{eem}.}
 
-\item{...}{Extra arguments for \code{image.plot}}
+\item{...}{Extra arguments for \code{image.plot}.}
 }
 \description{
 Surface plot of eem
 }
 \examples{
-fluo <- system.file("extdata/eem", "sample1.csv", package = "eemR")
-eem <- eem_read(fluo)
+file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
+eem <- eem_read(file)
 
 plot(eem)
 }

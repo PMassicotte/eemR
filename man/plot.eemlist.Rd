@@ -17,8 +17,8 @@
 Surface plot of eem
 }
 \examples{
-fluo <- system.file("extdata/eem", package = "eemR")
-eem <- eem_read(fluo)
+folder <- system.file("extdata/eem", package = "eemR")
+eem <- eem_read(folder)
 
 plot(eem, which = 2)
 }

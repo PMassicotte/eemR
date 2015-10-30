@@ -10,13 +10,15 @@ eem_read(file)
 \item{file}{File name or folder containing fluorescence file(s).}
 }
 \value{
-An object of class \code{eem} containing:
-\itemize{
- \item sample The file name of the eem.
- \item x A matrix with fluorescence values.
- \item em Emission vector of wavelengths.
- \item ex Excitation vector of wavelengths.
-}
+If \code{file} is a single filename:
+
+  An object of class \code{eem} containing: \itemize{ \item sample The file
+  name of the eem. \item x A matrix with fluorescence values. \item em
+  Emission vector of wavelengths. \item ex Excitation vector of wavelengths.
+  }
+
+  If \code{file} is a folder, the function returns an object of class
+  \code{eemlist} which is simply a list of \code{eem}.
 }
 \description{
 Read excitation-emission fluorecence matrix (eem)

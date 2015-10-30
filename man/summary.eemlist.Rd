@@ -7,16 +7,17 @@
 \method{summary}{eemlist}(object, ...)
 }
 \arguments{
-\item{object}{An object of class \code{eemlist}}
+\item{object}{An object of class \code{eemlist}.}
 
-\item{...}{Extra arguments}
+\item{...}{Extra arguments.}
 }
 \description{
 Display summary of an eemlist object
 }
 \examples{
-fluo <- system.file("extdata/eem", package = "eemR")
-eem <- eem_read(fluo)
+folder <- system.file("extdata/eem", package = "eemR")
+eem <- eem_read(folder)
+
 summary(eem)
 }
 

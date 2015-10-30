@@ -1,11 +1,11 @@
 #' Surface plot of eem
 #'
-#' @param x An object of class \code{eem}
-#' @param ... Extra arguments for \code{image.plot}
+#' @param x An object of class \code{eem}.
+#' @param ... Extra arguments for \code{image.plot}.
 #' @export
 #' @examples
-#' fluo <- system.file("extdata/eem", "sample1.csv", package = "eemR")
-#' eem <- eem_read(fluo)
+#' file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
+#' eem <- eem_read(file)
 #'
 #' plot(eem)
 
@@ -27,8 +27,8 @@ plot.eem <- function(x, ...){
 #'
 #' @export
 #' @examples
-#' fluo <- system.file("extdata/eem", package = "eemR")
-#' eem <- eem_read(fluo)
+#' folder <- system.file("extdata/eem", package = "eemR")
+#' eem <- eem_read(folder)
 #'
 #' plot(eem, which = 2)
 plot.eemlist <- function(x, which = 1, ...) {
@@ -42,15 +42,16 @@ plot.eemlist <- function(x, which = 1, ...) {
 
 #' Display summary of an eem object
 #'
-#' @param object An object of class \code{eem}
-#' @param ... Extra arguments
+#' @param object An object of class \code{eem}.
+#' @param ... Extra arguments.
 #'
 #' @references \url{http://www.sciencedirect.com/science/article/pii/0304420395000623}
 #'
 #' @export
 #' @examples
-#' fluo <- system.file("extdata/eem", "sample1.csv", package = "eemR")
-#' eem <- eem_read(fluo)
+#' file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
+#' eem <- eem_read(file)
+#'
 #' summary(eem)
 
 summary.eem <- function(object, ...){
@@ -77,19 +78,23 @@ summary.eem <- function(object, ...){
 
 #' Display summary of an eemlist object
 #'
-#' @param object An object of class \code{eemlist}
-#' @param ... Extra arguments
+#' @param object An object of class \code{eemlist}.
+#' @param ... Extra arguments.
 #'
 #' @export
 #' @examples
-#' fluo <- system.file("extdata/eem", package = "eemR")
-#' eem <- eem_read(fluo)
+#' folder <- system.file("extdata/eem", package = "eemR")
+#' eem <- eem_read(folder)
+#'
 #' summary(eem)
 summary.eemlist <- function(object, ...){
 
   stopifnot(class(object) == "eemlist")
 
-  cat("eemlist object containing:", length(object), "eem\n")
+  cat("eemlist object containing:", length(object), "eem\n\n")
+
+  cat("First eem object:\n\n")
+  summary.eem(object[[1]])
 }
 
 #' Blank correction
@@ -97,8 +102,18 @@ summary.eemlist <- function(object, ...){
 #' @template template_eem
 #' @template template_blank
 #'
+#' @details Scatter bands can often be reduced by subtracting water blank.
+#'
+#' @references Murphy, K. R., Stedmon, C. a., Graeber, D., & Bro, R. (2013).
+#'   Fluorescence spectroscopy and multi-way techniques. PARAFAC. Analytical
+#'   Methods, 5(23), 6557. http://doi.org/10.1039/c3ay41160e
+#'
+#'   \url{http://xlink.rsc.org/?DOI=c3ay41160e}
+#'
 #' @export
 #' @examples
+#'
+#' ## Example 1
 #'
 #' # Open the fluorescence eem
 #' file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
@@ -116,6 +131,26 @@ summary.eemlist <- function(object, ...){
 #' eem <- eem_remove_blank(eem, blank)
 #'
 #' plot(eem)
+#'
+#' ## Example 2
+#'
+#' # Open the fluorescence eem
+#' folder <- system.file("extdata/eem", package = "eemR")
+#' eem <- eem_read(folder)
+#'
+#' plot(eem, which = 3)
+#'
+#' # Open the blank eem
+#' file <- system.file("extdata", "nano.csv", package = "eemR")
+#' blank <- eem_read(file)
+#'
+#' plot(blank)
+#'
+#' # Remove the blank
+#' eem <- eem_remove_blank(eem, blank)
+#'
+#' plot(eem, which = 3)
+
 eem_remove_blank <- function(eem, blank) {
 
   stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"),
@@ -154,9 +189,22 @@ eem_remove_blank <- function(eem, blank) {
 #'
 #' @template template_eem
 #'
-#' @param type A string, either "raman" or "rayleigh"
-#' @param order A integer number, either 1 (first order) or 2 (second order)
-#' @param width Slit width in nm for the cut
+#' @param type A string, either "raman" or "rayleigh".
+#' @param order A integer number, either 1 (first order) or 2 (second order).
+#' @param width Slit width in nm for the cut. Default is 10 nm.
+#'
+#' @references
+#'
+#' Lakowicz, J. R. (2006). Principles of Fluorescence Spectroscopy.
+#' Boston, MA: Springer US.#'
+#'
+#' \url{http://doi.org/10.1007/978-0-387-46312-4}
+#'
+#' Murphy, K. R., Stedmon, C. a., Graeber, D., & Bro, R. (2013).
+#' Fluorescence spectroscopy and multi-way techniques. PARAFAC. Analytical
+#' Methods, 5(23), 6557. http://doi.org/10.1039/c3ay41160e#'
+#'
+#'  \url{http://xlink.rsc.org/?DOI=c3ay41160e}
 #'
 #' @export
 #' @examples
@@ -171,7 +219,7 @@ eem_remove_blank <- function(eem, blank) {
 #'
 #' plot(eem)
 
-eem_remove_scattering <- function(eem, type, order = 1, width){
+eem_remove_scattering <- function(eem, type, order = 1, width = 10){
 
   stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"),
             type %in% c("raman", "rayleigh"),
@@ -244,18 +292,37 @@ eem_remove_scattering <- function(eem, type, order = 1, width){
   return(raman_peaks)
 }
 
-#' Normalize fluorescence intensities
+#' Fluorescence Intensity Calibration Using the Raman Scatter Peak of Water
 #'
 #' @template template_eem
 #' @template template_blank
 #'
-#' @return An object of class \code{eem} containing:
-#' \itemize{
-#'  \item sample The file name of the eem.
-#'  \item x A matrix with fluorescence values.
-#'  \item em Emission vector of wavelengths.
-#'  \item ex Excitation vector of wavelengths.
-#' }
+#' @description Normalize fluorescence intensities to the standard scale of
+#'   Raman Units (R.U).
+#'
+#' @details The normalization procedure consists in dividing all fluorescence
+#'   intensities by the area (integral) of the Raman peak. The peak is located
+#'   at excitation of 350 nm. (ex = 370) betwen 371 nm. and 428 nm in emission
+#'   (371 <= em <= 428).
+#'
+#' @references
+#'
+#' Lawaetz, A. J., & Stedmon, C. A. (2009). Fluorescence Intensity Calibration
+#' Using the Raman Scatter Peak of Water. Applied Spectroscopy, 63(8), 936–940.
+#'
+#' \url{http://doi.org/10.1366/000370209788964548}
+#'
+#' Murphy, K. R., Stedmon, C. a., Graeber, D., & Bro, R. (2013). Fluorescence
+#' spectroscopy and multi-way techniques. PARAFAC. Analytical Methods, 5(23),
+#' 6557. http://doi.org/10.1039/c3ay41160e#'
+#'
+#' \url{http://xlink.rsc.org/?DOI=c3ay41160e}
+#'
+#' @return An object of class \code{eem} containing: \itemize{ \item sample The
+#'   file name of the eem. \item x A matrix with fluorescence values. \item em
+#'   Emission vector of wavelengths. \item ex Excitation vector of wavelengths.
+#'   }
+#'
 #' @export
 #' @examples
 #' # Open the fluorescence eem
