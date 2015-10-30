@@ -16,7 +16,7 @@ A data frame containing fluorescence index (FI) for each eem.
 Calculate the fluorescence index (FI)
 }
 \examples{
-file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
+file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
 eem <- eem_read(file)
 
 eem_fluorescence_index(eem)

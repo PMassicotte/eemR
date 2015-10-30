@@ -19,7 +19,7 @@ The biological fluorescence index (BIX) is calculated by
   310, em = 380).
 }
 \examples{
-file <- system.file("extdata/eem", package = "eemR")
+file <- system.file("extdata/cary/eem/", package = "eemR")
 eem <- eem_read(file)
 
 eem_biological_index(eem)

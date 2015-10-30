@@ -25,13 +25,13 @@ Scatter bands can often be reduced by subtracting water blank.
 ## Example 1
 
 # Open the fluorescence eem
-file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
+file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
 eem <- eem_read(file)
 
 plot(eem)
 
 # Open the blank eem
-file <- system.file("extdata", "nano.csv", package = "eemR")
+file <- system.file("extdata/cary/", "nano.csv", package = "eemR")
 blank <- eem_read(file)
 
 plot(blank)
@@ -44,13 +44,13 @@ plot(eem)
 ## Example 2
 
 # Open the fluorescence eem
-folder <- system.file("extdata/eem", package = "eemR")
+folder <- system.file("extdata/cary/eem/", package = "eemR")
 eem <- eem_read(folder)
 
 plot(eem, which = 3)
 
 # Open the blank eem
-file <- system.file("extdata", "nano.csv", package = "eemR")
+file <- system.file("extdata/cary/", "nano.csv", package = "eemR")
 blank <- eem_read(file)
 
 plot(blank)

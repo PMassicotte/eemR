@@ -7,7 +7,7 @@
 #' @return A data frame containing fluorescence index (FI) for each eem.
 #' @export
 #' @examples
-#' file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
+#' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
 #' eem <- eem_read(file)
 #'
 #' eem_fluorescence_index(eem)
@@ -46,7 +46,7 @@ eem_fluorescence_index <- function(eem){
 #' @return A data frame containing peaks B, T, A, M and C for each eem.
 #' @export
 #' @examples
-#' file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
+#' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
 #' eem <- eem_read(file)
 #'
 #' eem_coble_peaks(eem)
@@ -129,7 +129,7 @@ eem_coble_peaks <- function(eem){
 #' @return A data frame containing the humification index (HIX) for each eem.
 #' @export
 #' @examples
-#' file <- system.file("extdata/eem", package = "eemR")
+#' file <- system.file("extdata/cary/eem/", package = "eemR")
 #' eem <- eem_read(file)
 #'
 #' eem_humification_index(eem)
@@ -187,7 +187,7 @@ eem_humification_index <- function(eem) {
 #' @return A data frame containing the biological index (BIX) for each eem.
 #' @export
 #' @examples
-#' file <- system.file("extdata/eem", package = "eemR")
+#' file <- system.file("extdata/cary/eem/", package = "eemR")
 #' eem <- eem_read(file)
 #'
 #' eem_biological_index(eem)

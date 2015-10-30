@@ -15,7 +15,7 @@
 Display summary of an eem object
 }
 \examples{
-file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
+file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
 eem <- eem_read(file)
 
 summary(eem)

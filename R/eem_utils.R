@@ -4,7 +4,7 @@
 #' @param ... Extra arguments for \code{image.plot}.
 #' @export
 #' @examples
-#' file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
+#' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
 #' eem <- eem_read(file)
 #'
 #' plot(eem)
@@ -27,7 +27,7 @@ plot.eem <- function(x, ...){
 #'
 #' @export
 #' @examples
-#' folder <- system.file("extdata/eem", package = "eemR")
+#' folder <- system.file("extdata/cary/eem/", package = "eemR")
 #' eem <- eem_read(folder)
 #'
 #' plot(eem, which = 2)
@@ -49,7 +49,7 @@ plot.eemlist <- function(x, which = 1, ...) {
 #'
 #' @export
 #' @examples
-#' file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
+#' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
 #' eem <- eem_read(file)
 #'
 #' summary(eem)
@@ -83,7 +83,7 @@ summary.eem <- function(object, ...){
 #'
 #' @export
 #' @examples
-#' folder <- system.file("extdata/eem", package = "eemR")
+#' folder <- system.file("extdata/cary/eem/", package = "eemR")
 #' eem <- eem_read(folder)
 #'
 #' summary(eem)
@@ -116,13 +116,13 @@ summary.eemlist <- function(object, ...){
 #' ## Example 1
 #'
 #' # Open the fluorescence eem
-#' file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
+#' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
 #' eem <- eem_read(file)
 #'
 #' plot(eem)
 #'
 #' # Open the blank eem
-#' file <- system.file("extdata", "nano.csv", package = "eemR")
+#' file <- system.file("extdata/cary/", "nano.csv", package = "eemR")
 #' blank <- eem_read(file)
 #'
 #' plot(blank)
@@ -135,13 +135,13 @@ summary.eemlist <- function(object, ...){
 #' ## Example 2
 #'
 #' # Open the fluorescence eem
-#' folder <- system.file("extdata/eem", package = "eemR")
+#' folder <- system.file("extdata/cary/eem/", package = "eemR")
 #' eem <- eem_read(folder)
 #'
 #' plot(eem, which = 3)
 #'
 #' # Open the blank eem
-#' file <- system.file("extdata", "nano.csv", package = "eemR")
+#' file <- system.file("extdata/cary/", "nano.csv", package = "eemR")
 #' blank <- eem_read(file)
 #'
 #' plot(blank)
@@ -209,7 +209,7 @@ eem_remove_blank <- function(eem, blank) {
 #' @export
 #' @examples
 #' # Open the fluorescence eem
-#' file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
+#' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
 #' eem <- eem_read(file)
 #'
 #' plot(eem)
@@ -326,13 +326,13 @@ eem_remove_scattering <- function(eem, type, order = 1, width = 10){
 #' @export
 #' @examples
 #' # Open the fluorescence eem
-#' file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
+#' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
 #' eem <- eem_read(file)
 #'
 #' plot(eem)
 #'
 #' # Open the blank eem
-#' file <- system.file("extdata", "nano.csv", package = "eemR")
+#' file <- system.file("extdata/cary/", "nano.csv", package = "eemR")
 #' blank <- eem_read(file)
 #'
 #' # Do the normalisation
@@ -406,7 +406,7 @@ eem_raman_normalisation <- function(eem, blank){
 #'
 #' @export
 #' @examples
-#' file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
+#' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
 #' eem <- eem_read(file)
 #'
 #' export_to <- paste(tempfile(), ".mat", sep = "")

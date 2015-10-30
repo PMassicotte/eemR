@@ -19,7 +19,7 @@ The fluorescence humification index (HIX), which compares two
   integrated emission from 300 to 346 nm.
 }
 \examples{
-file <- system.file("extdata/eem", package = "eemR")
+file <- system.file("extdata/cary/eem/", package = "eemR")
 eem <- eem_read(file)
 
 eem_humification_index(eem)

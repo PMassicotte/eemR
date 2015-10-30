@@ -27,7 +27,7 @@ Read excitation-emission fluorecence matrix (eem)
 Note that \code{em} and \code{ex} are rounded before returned.
 }
 \examples{
-file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
+file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
 eem <- eem_read(file)
 }
 
