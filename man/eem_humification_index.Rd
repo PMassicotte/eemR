@@ -2,7 +2,7 @@
 % Please edit documentation in R/eem_metrics.R
 \name{eem_humification_index}
 \alias{eem_humification_index}
-\title{Calculate the humification index (HIX)}
+\title{Calculate the fluorescence humification index (HIX)}
 \usage{
 eem_humification_index(eem)
 }

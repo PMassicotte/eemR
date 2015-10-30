@@ -111,7 +111,7 @@ eem_coble_peaks <- function(eem){
 }
 
 
-#' Calculate the humification index (HIX)
+#' Calculate the fluorescence humification index (HIX)
 #'
 #' @param eem An object of class \code{eem} or \code{eemlist}.
 #'
@@ -167,4 +167,52 @@ eem_humification_index <- function(eem) {
   hix <- integral1 / integral2
 
   return(data.frame(sample = eem$sample, hix = hix))
+}
+
+#' Calculate the biological fluorescence index (BIX)
+#'
+#' @param eem An object of class \code{eem} or \code{eemlist}.
+#'
+#' @description The biological fluorescence index (BIX) is calculated by
+#'   dividing the fluorescence at excitation 310 nm and emission at 380 nm (ex =
+#'   310, em = 430) by that at excitation 310 nm and emission at 430 nm (ex =
+#'   310, em = 380).
+#'
+#' @references Huguet, A., Vacher, L., Relexans, S., Saubusse, S., Froidefond,
+#'   J. M., & Parlanti, E. (2009). Properties of fluorescent dissolved organic
+#'   matter in the Gironde Estuary. Organic Geochemistry, 40(6), 706-719.
+#'
+#'   \url{http://doi.org/10.1016/j.orggeochem.2009.03.002}
+#'
+#' @return A data frame containing the biological index (BIX) for each eem.
+#' @export
+#' @examples
+#' file <- system.file("extdata/eem", package = "eemR")
+#' eem <- eem_read(file)
+#'
+#' eem_biological_index(eem)
+#'
+eem_biological_index <- function(eem) {
+
+  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"))
+
+  ## It is a list of eems, then call lapply
+  if(any(lapply(eem, class) == "eem")){
+
+    res <- lapply(eem, eem_biological_index)
+    res <- dplyr::bind_rows(res)
+
+    return(res)
+  }
+
+  #---------------------------------------------------------------------
+  # Get the data and calculate the biological index (BIX)
+  #---------------------------------------------------------------------
+  index_ex <- which(eem$ex == 310)
+  index_em1 <- which(eem$em == 380)
+  index_em2 <- which(eem$em == 430)
+
+  bix <- eem$x[index_em1, index_ex] / eem$x[index_em2, index_ex]
+
+  return(data.frame(sample = eem$sample, bix = bix))
 }
