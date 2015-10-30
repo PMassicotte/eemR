@@ -58,7 +58,12 @@ plot(eem, which = 2) ## Plot the second eem
 The current implemented metrics are:
 
 1. The fluorescence index (FI) developed by @McKnight2001.
+
 2. The fluorescence peaks proposed by @Coble1996.
+
+3. The fluorescence humification index (HIX) by @Kalbitz1999.
+
+4. The biological fluorescence index (BIX) by @Huguet2009.
 
 ```{r, warning = FALSE}
 
@@ -77,6 +82,10 @@ eem <- eem_read(folder)
 eem_fluorescence_index(eem)
 
 eem_coble_peaks(eem)
+
+eem_humification_index(eem)
+
+eem_biological_index(eem)
 
 ```
 
