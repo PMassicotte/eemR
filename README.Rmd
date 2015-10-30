@@ -13,25 +13,22 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.path = "README-"
 )
-
 ```
 
 [![Travis-CI Build Status](https://travis-ci.org/PMassicotte/eemR.svg?branch=master)](https://travis-ci.org/PMassicotte/eemR)
 
 # EEM (excitation-emission fluorescence matrix)
 
-The **eem** package implements various functions used calculate metrics from excitation-emission matrix (EEM) as well as to preform pre-processing corrections before PARAFAC analysis [@Bro1997; @Stedmon2005; @Murphy2013]. All functions from this package start with the `eem_` prefix.
+The **eemR** package implements various functions used calculate metrics from excitation-emission matrix (EEM) as well as to preform pre-processing corrections before PARAFAC analysis [@Bro1997; @Stedmon2005; @Murphy2013]. All functions from this package start with the `eem_` prefix. Please note this is a very alpha version of the package for testing purpose only.
 
 ```{r}
 library(eem)
 ls("package:eem")
 ```
 
-Please note this is a very alpha version of the package.
-
 # Reading EEMs
 
-At the moment, only EEM csv files produced by Cary Eclipse are supported. EEM can be read using the `eem_read()` function.
+At the moment, only EEM csv files produced by Cary Eclipse are supported. EEM can be read using the `eem_read()` function. *Please contact me if you have other file formats you would like to add to the package*.
 
 ```{r}
 library(eem)
@@ -47,8 +44,8 @@ plot(eem)
 
 The current implemented metrics are:
 
-1. The fluorescence index (FI) developped by @McKnight2001
-2. The Coble fluorescence peaks proposed by @Coble1996
+1. The fluorescence index (FI) developed by @McKnight2001.
+2. The Coble fluorescence peaks proposed by @Coble1996.
 
 ```{r}
 library(eem)
@@ -69,10 +66,10 @@ Three types of correction are currently supported:
 
 1. `eem_remove_blank()` which subtract a water blank from the eem.
 2. `eem_remove_scattering()` which remove both *Raman* and *Rayleigh* scattering.
-3. `eem_raman_normalisation()` which normalise EEM fluoresence intensities.
-4. `eem_inner_filter()` which correct [@Ohno2002] **TODO**
+3. `eem_raman_normalisation()` which normalize EEM fluoresence intensities [@Lawaetz2009].
+4. `eem_inner_filter()` which correct for both primary and secondary inner-filter effect [@Ohno2002]. **TODO**
 
-## Removing Raman and Rayleigh scattering
+## Removing Raman and Rayleigh scattering (1st and 2nd order)
 
 The `eem_remove_scattering()` function removes both Raman and Rayleigh scattering from EEMs.
 
@@ -96,14 +93,12 @@ The `eem_remove_blank()` function subtract blank (miliq) water from eem.
 ```{r, out.width='300cm', out.height='250cm', fig.show='hold'}
 
 file <- system.file("extdata", "nano.csv", package = "eem")
-
 blank <- eem_read(file)
 
 res <- eem_remove_blank(res, blank)
 
 plot(res)
 ```
-
 
 ## Raman normalization
 
@@ -115,6 +110,15 @@ res <- eem_raman_normalisation(res, blank)
 
 plot(res)
 
+```
+
+## Export to Matlab
+
+PARAFAC analysis was made easy with the fantastic Matlab `drEEM` toolbox [@Murphy2013]. The function `eem_export_matlab()` can be  used to export the EEMs into a `m-file` directly usable in Matlab by the `drEEM` toolbox.
+
+
+```matlab
+load('OriginalData.mat')
 ```
 
 # References

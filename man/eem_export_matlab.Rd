@@ -29,7 +29,7 @@ The function exports EEMs into PARAFAC-ready Matlab \code{.mat} file
   }
 }
 \examples{
-file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
 eem <- eem_read(file)
 
 export_to <- paste(tempfile(), ".mat", sep = "")

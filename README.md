@@ -4,22 +4,20 @@
 EEM (excitation-emission fluorescence matrix)
 =============================================
 
-The **eem** package implements various functions used calculate metrics from excitation-emission matrix (EEM) as well as to preform pre-processing corrections before PARAFAC analysis (Bro 1997; C. A. Stedmon and Markager 2005; Murphy et al. 2013). All functions from this package start with the `eem_` prefix.
+The **eemR** package implements various functions used calculate metrics from excitation-emission matrix (EEM) as well as to preform pre-processing corrections before PARAFAC analysis (Bro 1997; C. A. Stedmon and Markager 2005; Murphy et al. 2013). All functions from this package start with the `eem_` prefix. Please note this is a very alpha version of the package for testing purpose only.
 
 ``` r
 library(eem)
 ls("package:eem")
-#> [1] "eem_coble_peaks"         "eem_fluorescence_index" 
+#> [1] "eem_coble_peaks"         "eem_fluorescence_index"
 #> [3] "eem_raman_normalisation" "eem_read"               
 #> [5] "eem_remove_blank"        "eem_remove_scattering"
 ```
 
-Please note this is a very alpha version of the package.
-
 Reading EEMs
 ============
 
-At the moment, only EEM csv files produced by Cary Eclipse are supported. EEM can be read using the `eem_read()` function.
+At the moment, only EEM csv files produced by Cary Eclipse are supported. EEM can be read using the `eem_read()` function. *Please contact me if you have other file formats you would like to add to the package*.
 
 ``` r
 library(eem)
@@ -37,8 +35,8 @@ Implemented metrics
 
 The current implemented metrics are:
 
-1.  The fluorescence index (FI) developped by McKnight et al. (2001)
-2.  The Coble fluorescence peaks proposed by Coble (1996)
+1.  The fluorescence index (FI) developed by McKnight et al. (2001).
+2.  The Coble fluorescence peaks proposed by Coble (1996).
 
 ``` r
 library(eem)
@@ -63,11 +61,11 @@ Three types of correction are currently supported:
 
 1.  `eem_remove_blank()` which subtract a water blank from the eem.
 2.  `eem_remove_scattering()` which remove both *Raman* and *Rayleigh* scattering.
-3.  `eem_raman_normalisation()` which normalise EEM fluoresence intensities.
-4.  `eem_inner_filter()` which correct (Ohno 2002) **TODO**
+3.  `eem_raman_normalisation()` which normalize EEM fluoresence intensities (Lawaetz and Stedmon 2009).
+4.  `eem_inner_filter()` which correct for both primary and secondary inner-filter effect (Ohno 2002). **TODO**
 
-Removing Raman and Rayleigh scattering
---------------------------------------
+Removing Raman and Rayleigh scattering (1st and 2nd order)
+----------------------------------------------------------
 
 The `eem_remove_scattering()` function removes both Raman and Rayleigh scattering from EEMs.
 
@@ -93,7 +91,6 @@ The `eem_remove_blank()` function subtract blank (miliq) water from eem.
 ``` r
 
 file <- system.file("extdata", "nano.csv", package = "eem")
-
 blank <- eem_read(file)
 
 res <- eem_remove_blank(res, blank)
@@ -117,6 +114,16 @@ plot(res)
 ```
 
 <img src="README-unnamed-chunk-7-1.png" title="" alt="" width="300cm" height="250cm" />
+
+Export to Matlab
+----------------
+
+The fantastic `drEEM` package (Murphy et al. 2013).
+
+``` Matlab
+x = 1;
+plot(x);
+```
 
 References
 ==========

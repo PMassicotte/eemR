@@ -30,6 +30,9 @@ eem_read <- function(file) {
 
     files <- list.files(file, "*.csv", full.names = TRUE)
     res <- lapply(files, eem_read)
+
+    class(res) <- "eemlist"
+
     return(res)
   }
 

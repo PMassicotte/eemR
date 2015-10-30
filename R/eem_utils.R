@@ -19,6 +19,26 @@ plot.eem <- function(x, ...){
              ylab = "Emission (nm.)")
 }
 
+#' Surface plot of eem
+#'
+#' @param x An object of class \code{eemlist}.
+#' @param which An integer representing the index of eem to be plotted.
+#' @param ... Extra arguments for \code{image.plot}.
+#'
+#' @export
+#' @examples
+#' fluo <- system.file("extdata/eem", package = "eemR")
+#' eem <- eem_read(fluo)
+#'
+#' plot(eem, which = 2)
+plot.eemlist <- function(x, which = 1, ...) {
+
+  stopifnot(which <= length(x))
+
+  plot.eem(x[[which]])
+
+}
+
 
 #' Display summary of an eem object
 #'
@@ -54,6 +74,23 @@ summary.eem <- function(object, ...){
   cat("is_raman_normalized:", attr(object, "is_raman_normalized"), "\n")
 }
 
+
+#' Display summary of an eemlist object
+#'
+#' @param object An object of class \code{eemlist}
+#' @param ... Extra arguments
+#'
+#' @export
+#' @examples
+#' fluo <- system.file("extdata/eem", package = "eemR")
+#' eem <- eem_read(fluo)
+#' summary(eem)
+summary.eemlist <- function(object, ...){
+
+  stopifnot(class(object) == "eemlist")
+
+  cat("eemlist object containing:", length(object), "eem\n")
+}
 
 #' Blank correction
 #'
@@ -91,6 +128,7 @@ eem_remove_blank <- function(eem, blank) {
                   eem_remove_blank,
                   blank = blank)
 
+    class(res) <- class(eem)
     return(res)
   }
 
@@ -149,6 +187,7 @@ eem_remove_scattering <- function(eem, type, order = 1, width){
                   order = order,
                   width = width)
 
+    class(res) <- class(eem)
     return(res)
   }
 
@@ -181,6 +220,8 @@ eem_remove_scattering <- function(eem, type, order = 1, width){
 
   attributes(res) <- attributes(eem)
   attr(res, "is_scatter_corrected") <- TRUE
+
+  class(res) <- class(eem)
 
   return(res)
 }
@@ -244,6 +285,8 @@ eem_raman_normalisation <- function(eem, blank){
                   eem_raman_normalisation,
                   blank = blank)
 
+    class(res) <- class(eem)
+
     return(res)
   }
 
@@ -271,6 +314,8 @@ eem_raman_normalisation <- function(eem, blank){
   attributes(res) <- attributes(eem)
   attr(res, "is_raman_normalized") <- TRUE
 
+  class(res) <- class(eem)
+
   return(res)
 }
 
@@ -294,7 +339,7 @@ eem_raman_normalisation <- function(eem, blank){
 #'
 #' @export
 #' @examples
-#' file <- system.file("extdata/eem", "sample1.csv", package = "eem")
+#' file <- system.file("extdata/eem", "sample1.csv", package = "eemR")
 #' eem <- eem_read(file)
 #'
 #' export_to <- paste(tempfile(), ".mat", sep = "")
