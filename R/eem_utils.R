@@ -25,7 +25,7 @@ plot.eem <- function(x, ...){
 #' @param object An object of class \code{eem}
 #' @param ... Extra arguments
 #'
-#' @references \url{http://linkinghub.elsevier.com/retrieve/pii/0304420395000623}
+#' @references \url{http://www.sciencedirect.com/science/article/pii/0304420395000623}
 #'
 #' @export
 #' @examples
@@ -277,9 +277,20 @@ eem_raman_normalisation <- function(eem, blank){
 #' Export EEMs to Matlab
 #'
 #' @param file The .mat file name where to export the structure.
-#' @template template_eem
+#' @param eem Either an object of class \code{eem} or a list of \code{eem}.
 #'
-#' @details
+#' @details The function exports EEMs into PARAFAC-ready Matlab \code{.mat} file
+#'   usable by the \href{www.models.life.ku.dk/drEEM}{drEEM} toolbox. A
+#'   structure named \code{OriginalData} is created and contains:
+#'
+#'   \describe{
+#'    \item{nSample}{The number of eems.}
+#'    \item{nEx}{The number of excitation wavelengths.}
+#'    \item{nEm}{The number of emission wavelengths.}
+#'    \item{Ex}{A vector containing excitation wavelengths.}
+#'    \item{Em}{A vector containing emission wavelengths.}
+#'    \item{X}{A 3D matrix (nSample X nEx X nEm) containing EEMs.}
+#'   }
 #'
 #' @export
 #' @examples
@@ -321,6 +332,8 @@ eem_export_matlab <- function(file, eem){
          call. = FALSE)
   }
 
+  Em <- Em[, 1] ## Just get the first column
+
   #---------------------------------------------------------------------
   # Check excitation wavelengths
   #---------------------------------------------------------------------
@@ -338,18 +351,20 @@ eem_export_matlab <- function(file, eem){
          call. = FALSE)
   }
 
+  Ex <- Ex[, 1] ## Just get the first column
+
   #---------------------------------------------------------------------
   # Prepare the 3D X matrix contianing eem sample nSample x nEm x nEx
   #---------------------------------------------------------------------
 
-  ncol = unlist(lapply(eem, function(x) ncol(x$x)))
+  ncol = unique(unlist(lapply(eem, function(x) ncol(x$x))))
 
   if(length(ncol) != 1){
     stop("EEMs do not have all the same number of columns across the dataset.",
          call. = FALSE)
   }
 
-  nrow = unlist(lapply(eem, function(x) nrow(x$x)))
+  nrow = unique(unlist(lapply(eem, function(x) nrow(x$x))))
 
   if(length(nrow) != 1){
     stop("EEMs do not have all the same number of rows across the dataset.",

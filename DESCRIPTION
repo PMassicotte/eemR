@@ -5,10 +5,15 @@ Version: 0.0.0.9000
 Date: 28-10-2015
 Authors@R: person("Philippe", "Massicotte", email = "pm@bios.au.dk",
   role = c("aut", "cre"))
-Description: Provides various tools to (1) calculate EEM metrics and (2) preprocess EEM for PARAFAC analysis.
+Description: Provides various tools to (1) calculate EEM metrics and (2)
+    preprocess EEM for PARAFAC analysis.
 License: GPL (>= 2)
-Depends: R (>= 3.0)
+Depends:
+    R (>= 3.0)
 LazyData: TRUE
-Imports: stringr,
+Imports:
+    stringr,
     fields,
-    dplyr
+    dplyr,
+    R.matlab
+RoxygenNote: 5.0.0
