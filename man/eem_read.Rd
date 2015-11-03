@@ -24,7 +24,16 @@ If \code{file} is a single filename:
 Read excitation-emission fluorecence matrix (eem)
 }
 \details{
-Note that \code{em} and \code{ex} are rounded before returned.
+At the moment,
+  \href{https://www.agilent.com/en-us/products/fluorescence/fluorescence-systems/cary-eclipse-fluorescence-spectrophotometer}{Cary
+   Eclipse} and
+  \href{http://www.horiba.com/us/en/scientific/products/fluorescence-spectroscopy/}{Aqualog}
+   EEMs are supported.
+
+  \code{eemR} will automatically try to determine from which
+  spectrofluorometer the files originate and load the data accordingly. Note
+  that EEMs are reshaped so X[1, 1] represents the fluoresence intensity at
+  X[min(ex), min(em)].
 }
 \examples{
 file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
