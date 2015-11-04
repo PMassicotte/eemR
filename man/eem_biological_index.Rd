@@ -18,6 +18,16 @@ The biological fluorescence index (BIX) is calculated by
   310, em = 430) by that at excitation 310 nm and emission at 430 nm (ex =
   310, em = 380).
 }
+\section{Interpolation}{
+
+
+  Different excitation and emission wavelenghts are often used to measure
+  EEMs. Hence, it is possible to have mismatchs bewteen measured wavelengths
+  and wavelenghts used to calculate specific metrics. In these circumstances,
+  EEMs are interpolated using the \code{\link{interp2}} function from the
+  \code{parcma} library. A message warning the user will be prompted
+  if data interpolation is performed.
+}
 \examples{
 file <- system.file("extdata/cary/eem/", package = "eemR")
 eem <- eem_read(file)
@@ -31,5 +41,8 @@ Huguet, A., Vacher, L., Relexans, S., Saubusse, S., Froidefond,
   matter in the Gironde Estuary. Organic Geochemistry, 40(6), 706-719.
 
   \url{http://doi.org/10.1016/j.orggeochem.2009.03.002}
+}
+\seealso{
+\link[pracma]{interp2}
 }
 

@@ -15,6 +15,16 @@ A data frame containing fluorescence index (FI) for each eem.
 \description{
 Calculate the fluorescence index (FI)
 }
+\section{Interpolation}{
+
+
+  Different excitation and emission wavelenghts are often used to measure
+  EEMs. Hence, it is possible to have mismatchs bewteen measured wavelengths
+  and wavelenghts used to calculate specific metrics. In these circumstances,
+  EEMs are interpolated using the \code{\link{interp2}} function from the
+  \code{parcma} library. A message warning the user will be prompted
+  if data interpolation is performed.
+}
 \examples{
 file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
 eem <- eem_read(file)
@@ -23,5 +33,8 @@ eem_fluorescence_index(eem)
 }
 \references{
 \url{http://doi.wiley.com/10.4319/lo.2001.46.1.0038}
+}
+\seealso{
+\link[pracma]{interp2}
 }
 

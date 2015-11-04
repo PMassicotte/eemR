@@ -17,9 +17,20 @@ A data frame containing the humification index (HIX) for each eem.
 }
 \description{
 The fluorescence humification index (HIX), which compares two
-  broad aromatic dominated fluorescence maxima, is calculated at 255 nm
-  excitation by dividing the integrated emission from 435 to 480 nm by the
-  integrated emission from 300 to 346 nm.
+  broad aromatic dominated fluorescence maxima, is calculated at 254 nm
+  excitation by dividing the sum of fluorescence intensities between emission
+  435 to 480 nm by the the sum of fluorescence intensities between 300 to 345
+  nm.
+}
+\section{Interpolation}{
+
+
+  Different excitation and emission wavelenghts are often used to measure
+  EEMs. Hence, it is possible to have mismatchs bewteen measured wavelengths
+  and wavelenghts used to calculate specific metrics. In these circumstances,
+  EEMs are interpolated using the \code{\link{interp2}} function from the
+  \code{parcma} library. A message warning the user will be prompted
+  if data interpolation is performed.
 }
 \examples{
 file <- system.file("extdata/cary/eem/", package = "eemR")
@@ -31,8 +42,11 @@ eem_humification_index(eem)
 \references{
 Ohno, T. (2002). Fluorescence Inner-Filtering Correction for
   Determining the Humification Index of Dissolved Organic Matter.
-  Environmental Science & Technology, 36(4), 742–746.
+  Environmental Science & Technology, 36(4), 742-746.
 
   \url{http://doi.org/10.1021/es0155276}
+}
+\seealso{
+\link[pracma]{interp2}
 }
 

@@ -2,6 +2,8 @@
 #'
 #' @param eem An object of class \code{eem}
 #'
+#' @template template_section_interp2
+#'
 #' @references \url{http://doi.wiley.com/10.4319/lo.2001.46.1.0038}
 #'
 #' @return A data frame containing fluorescence index (FI) for each eem.
@@ -25,12 +27,13 @@ eem_fluorescence_index <- function(eem){
     return(res)
   }
 
-  index_em_370 <- which(eem$ex == 370)
-  index_em_450 <- which(eem$em == 450)
-  index_em_500 <- which(eem$em == 500)
+  if(!all(370 %in% eem$ex & c(450, 500) %in% eem$em)){
+    warning("Either ex = 370, em = 450 or em = 500 was not found in your data. The data has been interpolated.",
+            call. = FALSE)
+  }
 
-  fluo_450 <- eem$x[index_em_450, index_em_370]
-  fluo_500 <- eem$x[index_em_500, index_em_370]
+  fluo_450 <- pracma::interp2(eem$ex, eem$em, eem$x, 370, 450)
+  fluo_500 <- pracma::interp2(eem$ex, eem$em, eem$x, 370, 500)
 
   fi <- fluo_450 / fluo_500
 
@@ -42,6 +45,8 @@ eem_fluorescence_index <- function(eem){
 #' Extrace fluorescence peaks
 #'
 #' @param eem An object of class \code{eem}
+#'
+#' @template template_section_interp2
 #'
 #' @return A data frame containing peaks B, T, A, M and C for each eem.
 #' @export
@@ -63,53 +68,39 @@ eem_coble_peaks <- function(eem){
     return(res)
   }
 
-  coble_ex_peak <- c(b = 275, t = 275, a = 260, m = 312, c = 350)
+  coble_ex_peak <- list(b = 275, t = 275, a = 260, m = 312, c = 350)
 
   if(!all(coble_ex_peak %in% eem$ex)){
-    warning("Some Coble excitation wavelengths were not found.
-            Closest excitation wavelenghts will be used instead.",
+    warning("Some wavelengths (", coble_ex_peak, ") were not found in your data. The data has been interpolated at 1 nm. resolution.",
             call. = FALSE)
   }
 
-  #--------------------------------------------
-  # Excitation peaks
-  #--------------------------------------------
-  index_ex_peak_b <- which.min(abs(eem$ex - 275))
-  index_ex_peak_t <- which.min(abs(eem$ex - 275))
-  index_ex_peak_a <- which.min(abs(eem$ex - 260))
-  index_ex_peak_m <- which.min(abs(eem$ex - 312))
-  index_ex_peak_c <- which.min(abs(eem$ex - 350))
 
-  #--------------------------------------------
-  # Emission peaks
-  #--------------------------------------------
-  index_em_peak_b <- which.min(abs(eem$em - 310))
-  index_em_peak_t <- which.min(abs(eem$em - 340))
-  index_em_peak_a <- which(eem$em >= 380 & eem$em <= 460)
-  index_em_peak_m <- which(eem$em >= 380 & eem$em <= 420)
-  index_em_peak_c <- which(eem$em >= 420 & eem$em <= 480)
+  ## Get the peaks
+  b <- pracma::interp2(eem$ex, eem$em, eem$x, 275, 310)
 
-  #--------------------------------------------
-  # Get peak values
-  #--------------------------------------------
-  peak_b <- max(eem$x[index_em_peak_b, index_ex_peak_b])
-  peak_t <- max(eem$x[index_em_peak_t, index_ex_peak_t])
-  peak_a <- max(eem$x[index_em_peak_a, index_ex_peak_a], na.rm = TRUE)
-  peak_m <- max(eem$x[index_em_peak_m, index_ex_peak_m], na.rm = TRUE)
-  peak_c <- max(eem$x[index_em_peak_c, index_ex_peak_c], na.rm = TRUE)
+  t <- pracma::interp2(eem$ex, eem$em, eem$x, 275, 340)
+
+  a <- max(pracma::interp2(eem$ex, eem$em, eem$x,
+                           rep(260, length(380:460)), 380:460))
+
+  m <- max(pracma::interp2(eem$ex, eem$em, eem$x,
+                           rep(312, length(380:420)), 380:420))
+
+  c <- max(pracma::interp2(eem$ex, eem$em, eem$x,
+                           rep(350, length(420:480)), 420:480))
 
   #--------------------------------------------
   # Return the data
   #--------------------------------------------
   return(data.frame(sample = eem$sample,
-                    b = peak_b,
-                    t = peak_t,
-                    a = peak_a,
-                    m = peak_m,
-                    c = peak_c))
+                    b = b,
+                    t = t,
+                    a = a,
+                    m = m,
+                    c = c))
 
 }
-
 
 #' Calculate the fluorescence humification index (HIX)
 #'
@@ -117,14 +108,17 @@ eem_coble_peaks <- function(eem){
 #' @param scale Logical indicating if HIX should be scaled, default is FALSE.
 #'   See details for more information.
 #'
+#' @template template_section_interp2
+#'
 #' @description The fluorescence humification index (HIX), which compares two
-#'   broad aromatic dominated fluorescence maxima, is calculated at 255 nm
-#'   excitation by dividing the integrated emission from 435 to 480 nm by the
-#'   integrated emission from 300 to 346 nm.
+#'   broad aromatic dominated fluorescence maxima, is calculated at 254 nm
+#'   excitation by dividing the sum of fluorescence intensities between emission
+#'   435 to 480 nm by the the sum of fluorescence intensities between 300 to 345
+#'   nm.
 #'
 #' @references Ohno, T. (2002). Fluorescence Inner-Filtering Correction for
 #'   Determining the Humification Index of Dissolved Organic Matter.
-#'   Environmental Science & Technology, 36(4), 742–746.
+#'   Environmental Science & Technology, 36(4), 742-746.
 #'
 #'   \url{http://doi.org/10.1021/es0155276}
 #'
@@ -153,12 +147,18 @@ eem_humification_index <- function(eem, scale = FALSE) {
   #---------------------------------------------------------------------
   # Get the data and calculate the humification index (HIX)
   #---------------------------------------------------------------------
-  index_ex <- which(eem$ex == 254)
-  index_em_435_480 <- which(eem$em >= 435 & eem$em <= 480)
-  index_em_300_345 <- which(eem$em >= 300 & eem$em <= 345)
 
-  sum_em_435_480 <- sum(eem$x[index_em_435_480, index_ex])
-  sum_em_300_345 <- sum(eem$x[index_em_300_345, index_ex])
+  if(!254 %in% eem$ex){
+    warning("The HIX index is calculated at ex = 254 which was not found in your data. The data has been interpolated at 1 nm resolution.",
+            call. = FALSE)
+  }
+
+  em_435_480 <- seq(from = 435, to = 480, by = 1)
+  em_300_345 <- seq(from = 300, to = 345, by = 1)
+  ex_254 <- rep(254, length(em_300_345))
+
+  sum_em_435_480 <- sum(pracma::interp2(eem$ex, eem$em, eem$x, ex_254, em_435_480))
+  sum_em_300_345 <- sum(pracma::interp2(eem$ex, eem$em, eem$x, ex_254, em_300_345))
 
   if(scale){
     hix <- sum_em_435_480 / (sum_em_300_345 + sum_em_435_480)
@@ -172,6 +172,8 @@ eem_humification_index <- function(eem, scale = FALSE) {
 #' Calculate the biological fluorescence index (BIX)
 #'
 #' @param eem An object of class \code{eem} or \code{eemlist}.
+#'
+#' @template template_section_interp2
 #'
 #' @description The biological fluorescence index (BIX) is calculated by
 #'   dividing the fluorescence at excitation 310 nm and emission at 380 nm (ex =
@@ -208,11 +210,16 @@ eem_biological_index <- function(eem) {
   #---------------------------------------------------------------------
   # Get the data and calculate the biological index (BIX)
   #---------------------------------------------------------------------
-  index_ex <- which(eem$ex == 310)
-  index_em1 <- which(eem$em == 380)
-  index_em2 <- which(eem$em == 430)
 
-  bix <- eem$x[index_em1, index_ex] / eem$x[index_em2, index_ex]
+  if(!all(310 %in% eem$ex & c(380, 430) %in% eem$em)){
+    warning("Either ex = 310, em = 380 or em = 430 was not found in your data. The data has been interpolated.",
+            call. = FALSE)
+  }
+
+  fluo_380 <- pracma::interp2(eem$ex, eem$em, eem$x, 310, 380)
+  fluo_430 <- pracma::interp2(eem$ex, eem$em, eem$x, 310, 430)
+
+  bix <- fluo_380 / fluo_430
 
   return(data.frame(sample = eem$sample, bix = bix))
 }
