@@ -4,10 +4,12 @@
 \alias{eem_biological_index}
 \title{Calculate the biological fluorescence index (BIX)}
 \usage{
-eem_biological_index(eem)
+eem_biological_index(eem, verbose = TRUE)
 }
 \arguments{
 \item{eem}{An object of class \code{eem} or \code{eemlist}.}
+
+\item{verbose}{Logical determining if additional messages should be printed.}
 }
 \value{
 A data frame containing the biological index (BIX) for each eem.

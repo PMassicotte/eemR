@@ -4,10 +4,12 @@
 \alias{eem_fluorescence_index}
 \title{Calculate the fluorescence index (FI)}
 \usage{
-eem_fluorescence_index(eem)
+eem_fluorescence_index(eem, verbose = TRUE)
 }
 \arguments{
 \item{eem}{An object of class \code{eem}}
+
+\item{verbose}{Logical determining if additional messages should be printed.}
 }
 \value{
 A data frame containing fluorescence index (FI) for each eem.

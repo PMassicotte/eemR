@@ -14,20 +14,20 @@
 #'
 #' eem_fluorescence_index(eem)
 
-eem_fluorescence_index <- function(eem){
+eem_fluorescence_index <- function(eem, verbose = TRUE){
 
   stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"))
 
   ## It is a list of eems, then call lapply
   if(any(lapply(eem, class) == "eem")){
 
-    res <- lapply(eem, eem_fluorescence_index)
+    res <- lapply(eem, eem_fluorescence_index, verbose = verbose)
     res <- dplyr::bind_rows(res)
 
     return(res)
   }
 
-  if(!all(370 %in% eem$ex & c(450, 500) %in% eem$em)){
+  if(!all(370 %in% eem$ex & c(450, 500) %in% eem$em) & verbose){
     warning("Either ex = 370, em = 450 or em = 500 was not found in your data. The data has been interpolated.",
             call. = FALSE)
   }
@@ -55,14 +55,14 @@ eem_fluorescence_index <- function(eem){
 #' eem <- eem_read(file)
 #'
 #' eem_coble_peaks(eem)
-eem_coble_peaks <- function(eem){
+eem_coble_peaks <- function(eem, verbose = TRUE){
 
   stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"))
 
   ## It is a list of eems, then call lapply
   if(any(lapply(eem, class) == "eem")){
 
-    res <- lapply(eem, eem_coble_peaks)
+    res <- lapply(eem, eem_coble_peaks, verbose = verbose)
     res <- dplyr::bind_rows(res)
 
     return(res)
@@ -70,8 +70,9 @@ eem_coble_peaks <- function(eem){
 
   coble_ex_peak <- list(b = 275, t = 275, a = 260, m = 312, c = 350)
 
-  if(!all(coble_ex_peak %in% eem$ex)){
-    warning("Some wavelengths (", coble_ex_peak, ") were not found in your data. The data has been interpolated at 1 nm. resolution.",
+  if(!all(coble_ex_peak %in% eem$ex) & verbose){
+
+    warning("Some wavelengths in excitation were not found in your data. The data has been interpolated at 1 nm. resolution.",
             call. = FALSE)
   }
 
@@ -130,7 +131,7 @@ eem_coble_peaks <- function(eem){
 #'
 #' eem_humification_index(eem)
 #'
-eem_humification_index <- function(eem, scale = FALSE) {
+eem_humification_index <- function(eem, scale = FALSE, verbose = TRUE) {
 
   stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"),
             is.logical(scale))
@@ -138,7 +139,7 @@ eem_humification_index <- function(eem, scale = FALSE) {
   ## It is a list of eems, then call lapply
   if(any(lapply(eem, class) == "eem")){
 
-    res <- lapply(eem, eem_humification_index)
+    res <- lapply(eem, eem_humification_index, verbose = verbose)
     res <- dplyr::bind_rows(res)
 
     return(res)
@@ -148,7 +149,7 @@ eem_humification_index <- function(eem, scale = FALSE) {
   # Get the data and calculate the humification index (HIX)
   #---------------------------------------------------------------------
 
-  if(!254 %in% eem$ex){
+  if(!254 %in% eem$ex & verbose){
     warning("The HIX index is calculated at ex = 254 which was not found in your data. The data has been interpolated at 1 nm resolution.",
             call. = FALSE)
   }
@@ -194,14 +195,14 @@ eem_humification_index <- function(eem, scale = FALSE) {
 #'
 #' eem_biological_index(eem)
 #'
-eem_biological_index <- function(eem) {
+eem_biological_index <- function(eem, verbose = TRUE) {
 
   stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"))
 
   ## It is a list of eems, then call lapply
   if(any(lapply(eem, class) == "eem")){
 
-    res <- lapply(eem, eem_biological_index)
+    res <- lapply(eem, eem_biological_index, verbose = verbose)
     res <- dplyr::bind_rows(res)
 
     return(res)
@@ -211,7 +212,7 @@ eem_biological_index <- function(eem) {
   # Get the data and calculate the biological index (BIX)
   #---------------------------------------------------------------------
 
-  if(!all(310 %in% eem$ex & c(380, 430) %in% eem$em)){
+  if(!all(310 %in% eem$ex & c(380, 430) %in% eem$em) & verbose){
     warning("Either ex = 310, em = 380 or em = 430 was not found in your data. The data has been interpolated.",
             call. = FALSE)
   }

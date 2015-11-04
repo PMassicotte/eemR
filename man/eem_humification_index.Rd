@@ -4,13 +4,15 @@
 \alias{eem_humification_index}
 \title{Calculate the fluorescence humification index (HIX)}
 \usage{
-eem_humification_index(eem, scale = FALSE)
+eem_humification_index(eem, scale = FALSE, verbose = TRUE)
 }
 \arguments{
 \item{eem}{An object of class \code{eem} or \code{eemlist}.}
 
 \item{scale}{Logical indicating if HIX should be scaled, default is FALSE.
 See details for more information.}
+
+\item{verbose}{Logical determining if additional messages should be printed.}
 }
 \value{
 A data frame containing the humification index (HIX) for each eem.

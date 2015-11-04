@@ -1,3 +1,5 @@
+#' @param verbose Logical determining if additional messages should be printed.
+#'
 #' @section Interpolation:
 #'
 #'   Different excitation and emission wavelenghts are often used to measure
