@@ -139,7 +139,7 @@ eem_humification_index <- function(eem, scale = FALSE, verbose = TRUE) {
   ## It is a list of eems, then call lapply
   if(any(lapply(eem, class) == "eem")){
 
-    res <- lapply(eem, eem_humification_index, verbose = verbose)
+    res <- lapply(eem, eem_humification_index, verbose = verbose, scale = scale)
     res <- dplyr::bind_rows(res)
 
     return(res)
