@@ -22,12 +22,20 @@ knitr::opts_chunk$set(
 
 # EEM (excitation-emission fluorescence matrix)
 
-The **eemR** package implements various functions used calculate metrics from excitation-emission matrix (EEM) as well as to preform pre-processing corrections before PARAFAC analysis [@Bro1997; @Stedmon2005; @Murphy2013]. All functions from this package start with the `eem_` prefix. Please note this is a very alpha version of the package for testing purpose only.
+The **eemR** package implements various functions used calculate metrics from excitation-emission matrix (EEM) as well as to preform pre-processing corrections before PARAFAC analysis [@Bro1997; @Stedmon2005; @Murphy2013]. All functions from this package start with the `eem_` prefix. 
 
 ```{r}
 library(eemR)
 ls("package:eemR")
 ```
+
+The package can be installed using the following command.
+
+```{r install, eval = FALSE}
+devtools::install_github("PMassicotte/eemR")
+```
+
+Please note this is a very alpha version of the package for testing purpose only.
 
 # Reading EEMs
 
@@ -74,7 +82,7 @@ The current implemented metrics are:
 
 2. The fluorescence peaks proposed by @Coble1996.
 
-3. The fluorescence humification index (HIX) by @Kalbitz1999.
+3. The fluorescence humification index (HIX) by @Ohno2002.
 
 4. The biological fluorescence index (BIX) by @Huguet2009.
 
@@ -85,13 +93,15 @@ library(eemR)
 folder <- system.file("extdata/cary/eem", package = "eemR")
 eem <- eem_read(folder)
 
-eem_fluorescence_index(eem)
+eem_fluorescence_index(eem, verbose = FALSE)
 
-eem_coble_peaks(eem)
+eem_coble_peaks(eem, verbose = FALSE)
 
-eem_humification_index(eem)
+eem_humification_index(eem, verbose = FALSE)
 
-eem_biological_index(eem)
+eem_humification_index(eem, verbose = FALSE, scale = TRUE)
+
+eem_biological_index(eem, verbose = FALSE)
 
 ```
 
@@ -106,35 +116,33 @@ Three types of correction are currently supported:
 
 3. `eem_raman_normalisation()` which normalize EEM fluoresence intensities [@Lawaetz2009].
 
-4. `eem_inner_filter()` which correct for both primary and secondary inner-filter effect [@Ohno2002]. **TODO #1**
-
-## Removing Raman and Rayleigh scattering (1st and 2nd order)
-
-The `eem_remove_scattering()` function removes both Raman and Rayleigh scattering from EEMs.
-
-```{r, out.width='300cm', out.height='250cm', fig.show='hold'}
-
-file <- system.file("extdata/cary/eem", "sample1.csv", package = "eemR")
-eem <- eem_read(file)
-
-res <- eem_remove_scattering(eem = eem, type = "raman", order = 1, width = 10)
-res <- eem_remove_scattering(eem = res, type = "rayleigh", order = 1, width = 10)
-
-plot(eem)
-plot(res)
-
-```
+4. `eem_inner_filter()` which correct for both primary and secondary inner-filter effect. **TODO #1**
 
 ## Blank removal
 
 The `eem_remove_blank()` function subtract blank (miliq) water from eem. Scatter bands can often be reduced by subtracting water blank [@Murphy2013].
 
 ```{r, out.width='300cm', out.height='250cm', fig.show='hold'}
+file <- system.file("extdata/cary/eem", "sample1.csv", package = "eemR")
+eem <- eem_read(file)
 
 file <- system.file("extdata/cary", "nano.csv", package = "eemR")
 blank <- eem_read(file)
 
-res <- eem_remove_blank(res, blank)
+res <- eem_remove_blank(eem, blank)
+
+plot(eem)
+plot(res)
+```
+
+## Removing Raman and Rayleigh scattering (1st and 2nd order)
+
+The `eem_remove_scattering()` function removes both Raman and Rayleigh scattering from EEMs.
+
+```{r, out.width = '300cm', out.height = '250cm', fig.show = 'hold'}
+
+res <- eem_remove_scattering(eem = eem, type = "raman", order = 1, width = 10)
+res <- eem_remove_scattering(eem = res, type = "rayleigh", order = 1, width = 10)
 
 plot(res)
 ```

@@ -7,7 +7,7 @@
 EEM (excitation-emission fluorescence matrix)
 =============================================
 
-The **eemR** package implements various functions used calculate metrics from excitation-emission matrix (EEM) as well as to preform pre-processing corrections before PARAFAC analysis (Bro 1997; C. A. Stedmon and Markager 2005; Murphy et al. 2013). All functions from this package start with the `eem_` prefix. Please note this is a very alpha version of the package for testing purpose only.
+The **eemR** package implements various functions used calculate metrics from excitation-emission matrix (EEM) as well as to preform pre-processing corrections before PARAFAC analysis (Bro 1997; C. A. Stedmon and Markager 2005; Murphy et al. 2013). All functions from this package start with the `eem_` prefix.
 
 ``` r
 library(eemR)
@@ -18,6 +18,14 @@ ls("package:eemR")
 #> [7] "eem_read"                "eem_remove_blank"       
 #> [9] "eem_remove_scattering"
 ```
+
+The package can be installed using the following command.
+
+``` r
+devtools::install_github("PMassicotte/eemR")
+```
+
+Please note this is a very alpha version of the package for testing purpose only.
 
 Reading EEMs
 ============
@@ -77,7 +85,7 @@ The current implemented metrics are:
 
 2.  The fluorescence peaks proposed by Coble (1996).
 
-3.  The fluorescence humification index (HIX) by Kalbitz, Geyer, and Geyer (1999).
+3.  The fluorescence humification index (HIX) by Ohno (2002).
 
 4.  The biological fluorescence index (BIX) by Huguet et al. (2009).
 
@@ -88,7 +96,7 @@ library(eemR)
 folder <- system.file("extdata/cary/eem", package = "eemR")
 eem <- eem_read(folder)
 
-eem_fluorescence_index(eem)
+eem_fluorescence_index(eem, verbose = FALSE)
 #> Source: local data frame [3 x 2]
 #> 
 #>        sample       fi
@@ -97,25 +105,34 @@ eem_fluorescence_index(eem)
 #> 2 sample2.csv 1.455333
 #> 3 sample3.csv 1.329413
 
-eem_coble_peaks(eem)
+eem_coble_peaks(eem, verbose = FALSE)
 #> Source: local data frame [3 x 6]
 #> 
 #>        sample        b         t        a        m         c
 #>         (chr)    (dbl)     (dbl)    (dbl)    (dbl)     (dbl)
-#> 1 sample1.csv 1.545298 1.0603312 3.731836 2.459364 1.8154222
-#> 2 sample2.csv 1.262997 0.6647042 1.584842 1.067836 0.7729534
-#> 3 sample3.csv 1.474086 1.3162812 8.416034 6.084682 6.3361907
+#> 1 sample1.csv 1.545298 1.0603312 3.731836 2.426597 1.8154222
+#> 2 sample2.csv 1.262997 0.6647042 1.584842 1.023998 0.7729534
+#> 3 sample3.csv 1.474086 1.3162812 8.416034 6.063355 6.3361907
 
-eem_humification_index(eem)
+eem_humification_index(eem, verbose = FALSE)
 #> Source: local data frame [3 x 2]
 #> 
 #>        sample       hix
 #>         (chr)     (dbl)
-#> 1 sample1.csv  5.856856
-#> 2 sample2.csv  3.903486
-#> 3 sample3.csv 12.113457
+#> 1 sample1.csv  6.383002
+#> 2 sample2.csv  4.252252
+#> 3 sample3.csv 13.025595
 
-eem_biological_index(eem)
+eem_humification_index(eem, verbose = FALSE, scale = TRUE)
+#> Source: local data frame [3 x 2]
+#> 
+#>        sample       hix
+#>         (chr)     (dbl)
+#> 1 sample1.csv 0.8645537
+#> 2 sample2.csv 0.8096055
+#> 3 sample3.csv 0.9287018
+
+eem_biological_index(eem, verbose = FALSE)
 #> Source: local data frame [3 x 2]
 #> 
 #>        sample       bix
@@ -136,7 +153,27 @@ Three types of correction are currently supported:
 
 3.  `eem_raman_normalisation()` which normalize EEM fluoresence intensities (Lawaetz and Stedmon 2009).
 
-4.  `eem_inner_filter()` which correct for both primary and secondary inner-filter effect (Ohno 2002). **TODO \#1**
+4.  `eem_inner_filter()` which correct for both primary and secondary inner-filter effect. **TODO \#1**
+
+Blank removal
+-------------
+
+The `eem_remove_blank()` function subtract blank (miliq) water from eem. Scatter bands can often be reduced by subtracting water blank (Murphy et al. 2013).
+
+``` r
+file <- system.file("extdata/cary/eem", "sample1.csv", package = "eemR")
+eem <- eem_read(file)
+
+file <- system.file("extdata/cary", "nano.csv", package = "eemR")
+blank <- eem_read(file)
+
+res <- eem_remove_blank(eem, blank)
+
+plot(eem)
+plot(res)
+```
+
+<img src="README-unnamed-chunk-5-1.png" title="" alt="" width="300cm" height="250cm" /><img src="README-unnamed-chunk-5-2.png" title="" alt="" width="300cm" height="250cm" />
 
 Removing Raman and Rayleigh scattering (1st and 2nd order)
 ----------------------------------------------------------
@@ -145,29 +182,8 @@ The `eem_remove_scattering()` function removes both Raman and Rayleigh scatterin
 
 ``` r
 
-file <- system.file("extdata/cary/eem", "sample1.csv", package = "eemR")
-eem <- eem_read(file)
-
 res <- eem_remove_scattering(eem = eem, type = "raman", order = 1, width = 10)
 res <- eem_remove_scattering(eem = res, type = "rayleigh", order = 1, width = 10)
-
-plot(eem)
-plot(res)
-```
-
-<img src="README-unnamed-chunk-5-1.png" title="" alt="" width="300cm" height="250cm" /><img src="README-unnamed-chunk-5-2.png" title="" alt="" width="300cm" height="250cm" />
-
-Blank removal
--------------
-
-The `eem_remove_blank()` function subtract blank (miliq) water from eem. Scatter bands can often be reduced by subtracting water blank (Murphy et al. 2013).
-
-``` r
-
-file <- system.file("extdata/cary", "nano.csv", package = "eemR")
-blank <- eem_read(file)
-
-res <- eem_remove_blank(res, blank)
 
 plot(res)
 ```
@@ -201,7 +217,7 @@ eem <- eem_read(folder)
 filename <- paste(tempfile(), ".mat", sep = "")
 
 eem_export_matlab(filename, eem)
-#> Sucesfully exported 3 EEMs to /tmp/RtmpkBNOT2/file53115a0485e7.mat.
+#> Sucesfully exported 3 EEMs to /tmp/Rtmp7TkFQL/file50e523ba3b8b.mat.
 ```
 
 Note that the name of the structure generated by the function will be `OriginalData` to *complement* with PARAFAC standard. Then, the importation into Matlab is made easy using the `load()` function.
@@ -218,8 +234,6 @@ Bro, Rasmus. 1997. “PARAFAC. Tutorial and applications.” *Chemometrics and I
 Coble, Paula G. 1996. “Characterization of marine and terrestrial DOM in seawater using excitation-emission matrix spectroscopy.” *Marine Chemistry* 51 (4): 325–46. [doi:10.1016/0304-4203(95)00062-3](http://doi.org/10.1016/0304-4203(95)00062-3).
 
 Huguet, A., L. Vacher, S. Relexans, S. Saubusse, J.M. Froidefond, and E. Parlanti. 2009. “Properties of fluorescent dissolved organic matter in the Gironde Estuary.” *Organic Geochemistry* 40 (6). Elsevier Ltd: 706–19. [doi:10.1016/j.orggeochem.2009.03.002](http://doi.org/10.1016/j.orggeochem.2009.03.002).
-
-Kalbitz, K., W. Geyer, and S. Geyer. 1999. “Spectroscopic properties of dissolved humic substances - a reflection of land use history in a fen area.” *Biogeochemistry* 47 (2): 219–38. [doi:10.1023/A:1006134214244](http://doi.org/10.1023/A:1006134214244).
 
 Lawaetz, A J, and C A Stedmon. 2009. “Fluorescence Intensity Calibration Using the Raman Scatter Peak of Water.” *Applied Spectroscopy* 63 (8): 936–40. [doi:10.1366/000370209788964548](http://doi.org/10.1366/000370209788964548).
 
