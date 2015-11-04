@@ -114,17 +114,19 @@ eem_coble_peaks <- function(eem){
 #' Calculate the fluorescence humification index (HIX)
 #'
 #' @param eem An object of class \code{eem} or \code{eemlist}.
+#' @param scale Logical indicating if HIX should be scaled, default is FALSE.
+#'   See details for more information.
 #'
 #' @description The fluorescence humification index (HIX), which compares two
 #'   broad aromatic dominated fluorescence maxima, is calculated at 255 nm
 #'   excitation by dividing the integrated emission from 435 to 480 nm by the
 #'   integrated emission from 300 to 346 nm.
 #'
-#' @references Kalbitz, K., Geyer, W., & Geyer, S. (1999). Spectroscopic
-#'   properties of dissolved humic substances - a reflection of land use history
-#'   in a fen area. Biogeochemistry, 47(2), 219-238.
+#' @references Ohno, T. (2002). Fluorescence Inner-Filtering Correction for
+#'   Determining the Humification Index of Dissolved Organic Matter.
+#'   Environmental Science & Technology, 36(4), 742–746.
 #'
-#'   \url{http://doi.org/10.1023/A:1006134214244}
+#'   \url{http://doi.org/10.1021/es0155276}
 #'
 #' @return A data frame containing the humification index (HIX) for each eem.
 #' @export
@@ -134,9 +136,10 @@ eem_coble_peaks <- function(eem){
 #'
 #' eem_humification_index(eem)
 #'
-eem_humification_index <- function(eem) {
+eem_humification_index <- function(eem, scale = FALSE) {
 
-  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"))
+  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"),
+            is.logical(scale))
 
   ## It is a list of eems, then call lapply
   if(any(lapply(eem, class) == "eem")){
@@ -150,21 +153,18 @@ eem_humification_index <- function(eem) {
   #---------------------------------------------------------------------
   # Get the data and calculate the humification index (HIX)
   #---------------------------------------------------------------------
-  index_ex <- which(eem$ex == 255)
-  index_em1 <- which(eem$em >= 435 & eem$em <= 480)
-  index_em2 <- which(eem$em >= 300 & eem$em <= 346)
+  index_ex <- which(eem$ex == 254)
+  index_em_435_480 <- which(eem$em >= 435 & eem$em <= 480)
+  index_em_300_345 <- which(eem$em >= 300 & eem$em <= 345)
 
-  ## First integral
-  x <- eem$em[index_em1]
-  y <- eem$x[index_em1, index_ex]
-  integral1 <- sum(diff(x) * (y[-length(y)] + y[-1]) / 2)
+  sum_em_435_480 <- sum(eem$x[index_em_435_480, index_ex])
+  sum_em_300_345 <- sum(eem$x[index_em_300_345, index_ex])
 
-  ## Second integral
-  x <- eem$em[index_em2]
-  y <- eem$x[index_em2, index_ex]
-  integral2 <- sum(diff(x) * (y[-length(y)] + y[-1]) / 2)
-
-  hix <- integral1 / integral2
+  if(scale){
+    hix <- sum_em_435_480 / (sum_em_300_345 + sum_em_435_480)
+  }else{
+    hix <- sum_em_435_480 / sum_em_300_345
+  }
 
   return(data.frame(sample = eem$sample, hix = hix))
 }

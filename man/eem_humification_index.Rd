@@ -4,10 +4,13 @@
 \alias{eem_humification_index}
 \title{Calculate the fluorescence humification index (HIX)}
 \usage{
-eem_humification_index(eem)
+eem_humification_index(eem, scale = FALSE)
 }
 \arguments{
 \item{eem}{An object of class \code{eem} or \code{eemlist}.}
+
+\item{scale}{Logical indicating if HIX should be scaled, default is FALSE.
+See details for more information.}
 }
 \value{
 A data frame containing the humification index (HIX) for each eem.
@@ -26,10 +29,10 @@ eem_humification_index(eem)
 
 }
 \references{
-Kalbitz, K., Geyer, W., & Geyer, S. (1999). Spectroscopic
-  properties of dissolved humic substances - a reflection of land use history
-  in a fen area. Biogeochemistry, 47(2), 219-238.
+Ohno, T. (2002). Fluorescence Inner-Filtering Correction for
+  Determining the Humification Index of Dissolved Organic Matter.
+  Environmental Science & Technology, 36(4), 742–746.
 
-  \url{http://doi.org/10.1023/A:1006134214244}
+  \url{http://doi.org/10.1021/es0155276}
 }
 
