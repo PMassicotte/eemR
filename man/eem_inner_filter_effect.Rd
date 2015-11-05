@@ -11,7 +11,7 @@ eem_inner_filter_effect(eem, absorbance, pathlength = 1)
 
 \item{absorbance}{A data frame with:
 
-  \describe{ \item{wavelenght}{A numeric vector containing wavelenghts.}
+  \describe{ \item{wavelength}{A numeric vector containing wavelenghts.}
   \item{...}{One or more numeric vectors containing absorbance spectra.}}}
 
 \item{pathlength}{A numeric value indicating the pathlength (in cm) of the

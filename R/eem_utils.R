@@ -39,7 +39,6 @@ plot.eemlist <- function(x, which = 1, ...) {
 
 }
 
-
 #' Display summary of an eem object
 #'
 #' @param object An object of class \code{eem}.
@@ -512,7 +511,7 @@ eem_export_matlab <- function(file, eem){
 #'
 #' @param absorbance A data frame with:
 #'
-#'   \describe{ \item{wavelenght}{A numeric vector containing wavelenghts.}
+#'   \describe{ \item{wavelength}{A numeric vector containing wavelenghts.}
 #'   \item{...}{One or more numeric vectors containing absorbance spectra.}}
 #'
 #' @details The names of \code{absorbance} variables are expected to match those
@@ -612,12 +611,11 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
     }
   }
 
-  ife_correction_factor <- 10^(-pathlength/2 * (total_absorbance))
+  ife_correction_factor <- 10 ^ (-pathlength / 2 * (total_absorbance))
 
   cat("Range of IFE correction factors:", range(ife_correction_factor), "\n")
 
   x <- eem$x / ife_correction_factor
-
 
   ## Construct an eem object.
   res <- eem(sample = eem$sample,
