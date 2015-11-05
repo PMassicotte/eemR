@@ -159,6 +159,20 @@ plot(res)
 
 ```
 
+## Inner-filter effect correction
+
+To account for reabsorption of the light emitted by fluorophores in the water, absorbance spectra are used for correction of both primary and secondary inner filtering effects in the EEMs [@Ohno2002].
+
+```{r, out.width='300cm', out.height='250cm', fig.show='hold'}
+data("absorbance")
+
+res <- eem_inner_filter_effect(res, absorbance, 1)
+
+plot(res)
+
+```
+
+
 ## Export to Matlab
 
 PARAFAC analysis was made easy with the fantastic Matlab [`drEEM`](http://www.models.life.ku.dk/drEEM) toolbox [@Murphy2013]. The function `eem_export_matlab()` can be  used to export the EEMs into a `m-file` directly usable in Matlab by the `drEEM` toolbox.
