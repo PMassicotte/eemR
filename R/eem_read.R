@@ -80,7 +80,7 @@ eem_read <- function(file) {
 
 eem <- function(sample, x, ex, em){
 
-  eem <- list(sample = basename(sample),
+  eem <- list(sample = strsplit(basename(sample), "\\.")[[1]][1],
               x = x,
               ex = ex,
               em = em)
