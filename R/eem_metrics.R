@@ -1,3 +1,14 @@
+#---------------------------------------------------------------------
+# Warning message when there is a mismatch between metrics wavelengths
+# and data wavelengths.
+#---------------------------------------------------------------------
+msg_warning_wavelength <- function(){
+  msg <- "This metric uses either excitation or emission wavelenghts that were not present in the data. Data has been interpolated to fit the requested wavelengths."
+
+  return(msg)
+}
+
+
 #' Calculate the fluorescence index (FI)
 #'
 #' @param eem An object of class \code{eem}
@@ -28,8 +39,9 @@ eem_fluorescence_index <- function(eem, verbose = TRUE){
   }
 
   if(!all(370 %in% eem$ex & c(450, 500) %in% eem$em) & verbose){
-    warning("Either ex = 370, em = 450 or em = 500 was not found in your data. The data has been interpolated.",
-            call. = FALSE)
+
+    warning(msg_warning_wavelength(), call. = FALSE)
+
   }
 
   fluo_450 <- pracma::interp2(eem$ex, eem$em, eem$x, 370, 450)
@@ -72,8 +84,8 @@ eem_coble_peaks <- function(eem, verbose = TRUE){
 
   if(!all(coble_ex_peak %in% eem$ex) & verbose){
 
-    warning("Some wavelengths in excitation were not found in your data. The data has been interpolated at 1 nm. resolution.",
-            call. = FALSE)
+    warning(msg_warning_wavelength(), call. = FALSE)
+
   }
 
 
@@ -150,21 +162,29 @@ eem_humification_index <- function(eem, scale = FALSE, verbose = TRUE) {
   #---------------------------------------------------------------------
 
   if(!254 %in% eem$ex & verbose){
-    warning("The HIX index is calculated at ex = 254 which was not found in your data. The data has been interpolated at 1 nm resolution.",
-            call. = FALSE)
+
+    warning(msg_warning_wavelength(), call. = FALSE)
+
   }
 
   em_435_480 <- seq(from = 435, to = 480, by = 1)
   em_300_345 <- seq(from = 300, to = 345, by = 1)
   ex_254 <- rep(254, length(em_300_345))
 
-  sum_em_435_480 <- sum(pracma::interp2(eem$ex, eem$em, eem$x, ex_254, em_435_480))
-  sum_em_300_345 <- sum(pracma::interp2(eem$ex, eem$em, eem$x, ex_254, em_300_345))
+  sum_em_435_480 <- sum(pracma::interp2(eem$ex, eem$em, eem$x,
+                                        ex_254, em_435_480))
+
+  sum_em_300_345 <- sum(pracma::interp2(eem$ex, eem$em, eem$x,
+                                        ex_254, em_300_345))
 
   if(scale){
+
     hix <- sum_em_435_480 / (sum_em_300_345 + sum_em_435_480)
+
   }else{
+
     hix <- sum_em_435_480 / sum_em_300_345
+
   }
 
   return(data.frame(sample = eem$sample, hix = hix))
@@ -213,8 +233,9 @@ eem_biological_index <- function(eem, verbose = TRUE) {
   #---------------------------------------------------------------------
 
   if(!all(310 %in% eem$ex & c(380, 430) %in% eem$em) & verbose){
-    warning("Either ex = 310, em = 380 or em = 430 was not found in your data. The data has been interpolated.",
-            call. = FALSE)
+
+    warning(msg_warning_wavelength(), call. = FALSE)
+
   }
 
   fluo_380 <- pracma::interp2(eem$ex, eem$em, eem$x, 310, 380)
