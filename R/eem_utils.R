@@ -73,6 +73,8 @@ summary.eem <- function(object, ...){
   cat("is_ife_corrected:", attr(object, "is_ife_corrected"), "\n")
 
   cat("is_raman_normalized:", attr(object, "is_raman_normalized"), "\n")
+
+  cat("manucafturer:", attr(object, "manucafturer"), "\n")
 }
 
 
