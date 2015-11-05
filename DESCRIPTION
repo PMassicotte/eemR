@@ -16,5 +16,8 @@ Imports:
     fields,
     dplyr,
     R.matlab,
-    pracma
+    pracma,
+    ggplot2,
+    tidyr
 RoxygenNote: 5.0.0
+Suggests: cdom

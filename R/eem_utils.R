@@ -500,3 +500,130 @@ eem_export_matlab <- function(file, eem){
   message("Sucesfully exported ", nSample, " EEMs to ", file, ".\n")
 
 }
+
+#' Inner-filter effect correction
+#'
+#' @template template_eem
+#'
+#' @param pathlength A numeric value indicating the pathlength (in cm) of the
+#'   cuvette used for fluorescence measurement. Default is 1 (1cm).
+#'
+#' @param absorbance A data frame with:
+#'
+#'   \describe{ \item{wavelenght}{A numeric vector containing wavelenghts.}
+#'   \item{...}{One or more numeric vectors containing absorbance spectra.}}
+#'
+#' @details The names of \code{absorbance} variables are expected to match those
+#'   of the eems. If the appropriate absorbance spectrum is not found, an
+#'   uncorrected eem will be returned and a warning message will be printed.
+#'
+#' @references Parker, C. a., & Barnes, W. J. (1957). Some experiments with
+#'   spectrofluorimeters and filter fluorimeters. The Analyst, 82(978), 606.
+#'
+#'   \url{http://doi.org/10.1039/an9578200606}
+#'
+#' @return An object of class \code{eem} containing: \itemize{ \item sample The
+#'   file name of the eem. \item x A matrix with fluorescence values. \item em
+#'   Emission vector of wavelengths. \item ex Excitation vector of wavelengths.
+#'   }
+#'
+#' @importFrom dplyr select
+#'
+#' @export
+#' @examples
+#' library(eemR)
+#' data("absorbance")
+
+eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
+
+  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"),
+
+            is.data.frame(absorbance),
+
+            is.numeric(pathlength))
+
+
+  ## It is a list of eems, then call lapply
+  if(any(lapply(eem, class) == "eem")){
+
+    res <- lapply(eem, eem_inner_filter_effect, absorbance = absorbance)
+
+    class(res) <- class(eem)
+
+    return(res)
+  }
+
+  #---------------------------------------------------------------------
+  # Some checks
+  #---------------------------------------------------------------------
+  names(absorbance) <- tolower(names(absorbance))
+
+  if(!any(names(absorbance) == "wavelength")){
+
+    stop("'wavelength' variable was not found in the data frame.",
+         call. = FALSE)
+  }
+
+  wl <- absorbance[, "wavelength"]
+
+  if(!all(is_between(range(eem$em), min(wl), max(wl)))){
+
+    stop("absorbance wavelenghts are not in the range of
+         emission wavelengths", call. = FALSE)
+
+  }
+
+  if(!all(is_between(range(eem$ex), min(wl), max(wl)))){
+
+    stop("absorbance wavelenghts are not in the range of
+         excitation wavelengths", call. = FALSE)
+
+  }
+
+  spectra <- dplyr::select(absorbance, matches(eem$sample))
+
+  ## absorbance spectra not found, we return the uncorected eem
+  if(ncol(spectra) != 1){
+    return(eem)
+  }
+
+  spectra <- spectra[, 1]
+
+  #---------------------------------------------------------------------
+  # Create the ife matrix
+  #---------------------------------------------------------------------
+
+  sf <- splinefun(wl, spectra)
+
+  ex <- sf(eem$ex)
+  em <- sf(eem$em)
+
+  total_absorbance <- mat.or.vec(nr = length(em), nc = length(ex))
+
+  for(i in 1:length(em)){
+    for(j in 1:length(ex)){
+      total_absorbance[i, j] <- em[i] + ex[j]
+    }
+  }
+
+  ife_correction_factor <- 10^(-pathlength/2 * (total_absorbance))
+
+  x <- eem$x / ife_correction_factor
+
+
+  ## Construct an eem object.
+  res <- eem(sample = eem$sample,
+             x = x,
+             ex = eem$ex,
+             em = eem$em)
+
+  attributes(res) <- attributes(eem)
+  attr(res, "is_ife_corrected") <- TRUE
+
+  return(res)
+
+}
+
+is_between <- function(x, a, b) {
+  x >= a & x <= b
+}
