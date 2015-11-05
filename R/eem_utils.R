@@ -584,6 +584,10 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
 
   ## absorbance spectra not found, we return the uncorected eem
   if(ncol(spectra) != 1){
+
+    warning("Absorbance spectrum for ", eem$sample, " was not found. Returning uncorrected EEM.",
+            call. = FALSE)
+
     return(eem)
   }
 
