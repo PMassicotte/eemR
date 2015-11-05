@@ -92,7 +92,7 @@ eem <- function(sample, x, ex, em){
 
 
 is_cary_eclipse <- function(x) {
-  any(grepl("Instrument\\s+(Cary Eclipse)", x)) ## Need to be more robust
+  any(grepl("EX_", x)) ## Need to be more robust
 }
 
 is_aqualog <- function(x) {
@@ -108,7 +108,8 @@ is_aqualog <- function(x) {
 
   data[lapply(data, length) != expected_col] <- NULL
 
-  ex <- as.numeric(na.omit(stringr::str_extract(data[[1]], "\\d{3}.\\d{2}")))
+  ex <- as.numeric(na.omit(stringr::str_match(data[[1]],
+                                              "EX_(\\d{3}.\\d{2})")[, 2]))
 
   data[1:2] <- NULL ## Remove the first 2 header lines
 
