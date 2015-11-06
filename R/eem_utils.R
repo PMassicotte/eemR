@@ -223,9 +223,14 @@ eem_remove_blank <- function(eem, blank) {
 eem_remove_scattering <- function(eem, type, order = 1, width = 10){
 
   stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"),
-            type %in% c("raman", "rayleigh"),
+            all(type %in% c("raman", "rayleigh")),
             is.numeric(order),
-            is.numeric(width))
+            is.numeric(width),
+            length(order) == 1,
+            length(type) == 1,
+            length(width) == 1,
+            is_between(order, 1, 2),
+            is_between(width, 0, 100))
 
   ## It is a list of eems, then call lapply
   if(any(lapply(eem, class) == "eem")){
