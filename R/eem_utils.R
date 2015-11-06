@@ -390,7 +390,7 @@ eem_raman_normalisation <- function(eem, blank){
 #' Export EEMs to Matlab
 #'
 #' @param file The .mat file name where to export the structure.
-#' @param eem Either an object of class \code{eem} or a list of \code{eem}.
+#' @param ... One or more object of class \code{eem} or \code{eemlist}.
 #'
 #' @details The function exports EEMs into PARAFAC-ready Matlab \code{.mat} file
 #'   usable by the \href{www.models.life.ku.dk/drEEM}{drEEM} toolbox. A
@@ -413,17 +413,18 @@ eem_raman_normalisation <- function(eem, blank){
 #' export_to <- paste(tempfile(), ".mat", sep = "")
 #' eem_export_matlab(export_to, eem)
 
-eem_export_matlab <- function(file, eem){
+eem_export_matlab <- function(file, ...){
 
-  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"),
+  eem <- list(...)
+
+  list_classes <- unlist(lapply(eem, function(x) {class(x)}))
+
+  stopifnot(all(list_classes %in% c("eem", "eemlist")),
             file.info(dirname(file))$isdir,
             grepl(".mat", basename(file)))
 
-
-  ## If only one eem is provided...
-  if(class(eem) == "eem"){
-    eem <- list(eem = eem)
-  }
+  eem <- lapply(eem, my_unlist)
+  eem <- unlist(eem, recursive = FALSE)
 
   ## Number of eem
   nSample <- length(eem)
@@ -632,4 +633,12 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
 
 is_between <- function(x, a, b) {
   x >= a & x <= b
+}
+
+my_unlist <- function(x){
+  if(class(x) == "eem"){
+    return(list(eem = x))
+  }else {
+    return(x)
+  }
 }

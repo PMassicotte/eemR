@@ -4,12 +4,12 @@
 \alias{eem_export_matlab}
 \title{Export EEMs to Matlab}
 \usage{
-eem_export_matlab(file, eem)
+eem_export_matlab(file, ...)
 }
 \arguments{
 \item{file}{The .mat file name where to export the structure.}
 
-\item{eem}{Either an object of class \code{eem} or a list of \code{eem}.}
+\item{...}{One or more object of class \code{eem} or \code{eemlist}.}
 }
 \description{
 Export EEMs to Matlab
