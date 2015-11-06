@@ -13,8 +13,8 @@
 #' @docType data
 #' @keywords datasets
 #' @name absorbance
-#' @usage data(absorbance)
-#' @format A data frame with 711 rows and 4s variables
+#' @usage data("absorbance")
+#' @format A data frame with 711 rows and 4 variables
 #' @examples
 #' library(ggplot2)
 #' library(tidyr)
