@@ -53,11 +53,11 @@ eem_read <- function(file) {
   data <- readLines(file)
 
   if(is_cary_eclipse(data)){
-    return(.eem_read_cary(data, file))
+    return(eem_read_cary(data, file))
   }
 
   if(is_aqualog(data)){
-    .eem_read_aqualog(data, file)
+    return(eem_read_aqualog(data, file))
   }
 
 
@@ -99,12 +99,17 @@ is_aqualog <- function(x) {
   any(grepl("Normalized by", x)) ## Need to be more robust
 }
 
-
-.eem_read_cary <- function(data, file){
+#---------------------------------------------------------------------
+# Function reading Cary Eclipse csv files.
+#---------------------------------------------------------------------
+eem_read_cary <- function(data, file){
 
   data <- stringr::str_split(data, ",")
 
-  expected_col <- unlist(lapply(data, length))[1]
+  ## Find the probable number of columns
+  expected_col <- unlist(lapply(data, length))
+  expected_col <- rle(expected_col)
+  expected_col <- expected_col$values[which.max(expected_col$lengths)]
 
   data[lapply(data, length) != expected_col] <- NULL
 
@@ -114,10 +119,12 @@ is_aqualog <- function(x) {
   data[1:2] <- NULL ## Remove the first 2 header lines
 
   data <- matrix(as.numeric(unlist(data)), ncol = expected_col, byrow = TRUE)
+  data <- data[,which(colMeans(is.na(data)) < 1)] ## remove na columns
+  data <- data[, !duplicated(data, MARGIN = 2)] ## duplicated cols
 
   em <- round(data[, 1])
 
-  eem <- data[, seq(2, ncol(data), by = 2)]
+  eem <- data[, 2:ncol(data)]
 
   ## Construct an eem object.
   res <- eem(sample = file,
@@ -134,7 +141,10 @@ is_aqualog <- function(x) {
   return(res)
 }
 
-.eem_read_aqualog <- function(data, file){
+#---------------------------------------------------------------------
+# Fonction reading Aqualog dat files.
+#---------------------------------------------------------------------
+eem_read_aqualog <- function(data, file){
 
   data <- stringr::str_split(data, "\t")
 
