@@ -4,9 +4,9 @@
 \name{absorbance}
 \alias{absorbance}
 \title{CDOM absorbance data.}
-\format{A data frame with 711 rows and 4s variables}
+\format{A data frame with 711 rows and 4 variables}
 \usage{
-data(absorbance)
+data("absorbance")
 }
 \description{
 Simple absorbance spectra used to test package's functions.
