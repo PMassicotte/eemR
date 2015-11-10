@@ -14,7 +14,7 @@ plot.eem <- function(x, ...){
   fields::image.plot(y = x$em,
              x = x$ex,
              z = t(x$x),
-             main = x$sample,
+             main = paste(x$sample, "\n", attr(x, "manucafturer"), sep = ""),
              xlab = "Excitation (nm.)",
              ylab = "Emission (nm.)")
 }
