@@ -8,15 +8,16 @@ Authors@R: person("Philippe", "Massicotte", email = "pm@bios.au.dk",
 Description: Provides various tools to (1) calculate EEM metrics and (2)
     preprocess EEM for PARAFAC analysis.
 License: GPL (>= 2)
-Depends:
+Depends: 
     R (>= 3.0)
 LazyData: TRUE
-Imports:
+Imports: 
     stringr,
     fields,
     dplyr,
     R.matlab,
     pracma,
     ggplot2,
-    tidyr
+    tidyr,
+    readr
 RoxygenNote: 5.0.0

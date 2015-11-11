@@ -44,6 +44,8 @@ eem_read <- function(file) {
 
     class(res) <- "eemlist"
 
+    res[unlist(lapply(res, is.null))] <- NULL
+
     return(res)
   }
 
@@ -60,6 +62,9 @@ eem_read <- function(file) {
     return(eem_read_aqualog(data, file))
   }
 
+  message("I do not know how to read *** ", basename(file), " ***\n")
+
+  return(NULL)
 
 }
 
@@ -96,7 +101,7 @@ is_cary_eclipse <- function(x) {
 }
 
 is_aqualog <- function(x) {
-  any(grepl("Normalized by", x)) ## Need to be more robust
+  any(grepl("Normalized by|^Sample - Blank|^Wavelength", x))
 }
 
 #---------------------------------------------------------------------
@@ -146,21 +151,13 @@ eem_read_cary <- function(data, file){
 #---------------------------------------------------------------------
 eem_read_aqualog <- function(data, file){
 
-  data <- stringr::str_split(data, "\t")
+  data <- readr::read_delim(file, delim = "\t")
+  data <- na.omit(data)
 
-  ex <- rev(as.numeric(na.omit(stringr::str_extract(data[[1]], "\\d+"))))
+  ex <- rev(as.numeric(grep("[0-9]", names(data), value = TRUE)))
+  em <- as.numeric(grep("[0-9]", t(data[, 1]), value = TRUE))
 
-  data[1:3] <- NULL ## Remove the first 3 header lines
-
-  data <- lapply(data, as.numeric)
-
-  eem <- do.call(rbind, data)
-
-  em <- eem[, 1]
-
-  eem <- eem[, 2:ncol(eem)]
-
-  eem <- eem[, c(ncol(eem):1)]
+  eem <- as.matrix(data[, ncol(data): 2])
 
   ## Construct an eem object.
   res <- eem(sample = file,
