@@ -139,7 +139,7 @@ plot(res)
 
 The `eem_remove_scattering()` function removes both Raman and Rayleigh scattering from EEMs.
 
-```{r, out.width = '300cm', out.height = '250cm', fig.show = 'hold'}
+```{r}
 
 res <- eem_remove_scattering(eem = eem, type = "raman", order = 1, width = 10)
 res <- eem_remove_scattering(eem = res, type = "rayleigh", order = 1, width = 10)
@@ -151,7 +151,7 @@ plot(res)
 
 The `eem_raman_normalisation()` function implement a simple calibration method for fluorescence intensity using only the integrated area of a water Raman peak. More details can be found in @Lawaetz2009.
 
-```{r, out.width='300cm', out.height='250cm', fig.show='hold'}
+```{r}
 
 res <- eem_raman_normalisation(res, blank)
 
@@ -163,7 +163,7 @@ plot(res)
 
 To account for reabsorption of the light emitted by fluorophores in the water, absorbance spectra are used for correction of both primary and secondary inner filtering effects in the EEMs [@Ohno2002; @Parker1957].
 
-```{r, out.width='300cm', out.height='250cm', fig.show='hold'}
+```{r}
 data("absorbance")
 
 res <- eem_inner_filter_effect(eem = res, 
