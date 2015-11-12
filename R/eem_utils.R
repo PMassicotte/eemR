@@ -27,6 +27,7 @@ plot.eem <- function(x, ...){
              main = paste(x$sample, "\n", attr(x, "manucafturer"), sep = ""),
              xlab = "Excitation (nm.)",
              ylab = "Emission (nm.)",
+             legend.lab = "Fluorescence intensity",
              col = jet.colors(255))
 }
 
