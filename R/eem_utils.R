@@ -11,12 +11,23 @@
 
 plot.eem <- function(x, ...){
 
+  jet.colors <- colorRampPalette(c("#00007F",
+                                   "blue",
+                                   "#007FFF",
+                                   "cyan",
+                                   "#7FFF7F",
+                                   "yellow",
+                                   "#FF7F00",
+                                   "red",
+                                   "#7F0000"))
+
   fields::image.plot(y = x$em,
              x = x$ex,
              z = t(x$x),
              main = paste(x$sample, "\n", attr(x, "manucafturer"), sep = ""),
              xlab = "Excitation (nm.)",
-             ylab = "Emission (nm.)")
+             ylab = "Emission (nm.)",
+             col = jet.colors(255))
 }
 
 #' Surface plot of eem
