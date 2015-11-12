@@ -123,13 +123,14 @@ eem_read_cary <- function(data, file){
 
   data[1:2] <- NULL ## Remove the first 2 header lines
 
-  data <- matrix(as.numeric(unlist(data)), ncol = expected_col, byrow = TRUE)
+  data <- matrix(as.numeric(unlist(data, use.names = FALSE)),
+                 ncol = expected_col, byrow = TRUE)
+
   data <- data[,which(colMeans(is.na(data)) < 1)] ## remove na columns
-  data <- data[, !duplicated(data, MARGIN = 2)] ## duplicated cols
+
+  eem <- data[, !data[1, ] %in% ex] ## Remove duplicated columns
 
   em <- round(data[, 1])
-
-  eem <- data[, 2:ncol(data)]
 
   ## Construct an eem object.
   res <- eem(sample = file,
