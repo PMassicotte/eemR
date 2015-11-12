@@ -130,7 +130,7 @@ eem_read_cary <- function(data, file){
 
   eem <- data[, !data[1, ] %in% ex] ## Remove duplicated columns
 
-  em <- round(data[, 1])
+  em <- data[, 1]
 
   ## Construct an eem object.
   res <- eem(sample = file,
