@@ -49,7 +49,7 @@ eem_fluorescence_index <- function(eem, verbose = TRUE){
 
   fi <- fluo_450 / fluo_500
 
-  return(data.frame(sample = eem$sample, fi = fi))
+  return(data.frame(sample = eem$sample, fi = fi, stringsAsFactors = FALSE))
 
 }
 
@@ -111,7 +111,8 @@ eem_coble_peaks <- function(eem, verbose = TRUE){
                     t = t,
                     a = a,
                     m = m,
-                    c = c))
+                    c = c,
+                    stringsAsFactors = FALSE))
 
 }
 
@@ -187,7 +188,7 @@ eem_humification_index <- function(eem, scale = FALSE, verbose = TRUE) {
 
   }
 
-  return(data.frame(sample = eem$sample, hix = hix))
+  return(data.frame(sample = eem$sample, hix = hix, stringsAsFactors = FALSE))
 }
 
 #' Calculate the biological fluorescence index (BIX)
@@ -243,5 +244,5 @@ eem_biological_index <- function(eem, verbose = TRUE) {
 
   bix <- fluo_380 / fluo_430
 
-  return(data.frame(sample = eem$sample, bix = bix))
+  return(data.frame(sample = eem$sample, bix = bix, stringsAsFactors = FALSE))
 }
