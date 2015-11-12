@@ -98,3 +98,64 @@ summary.eemlist <- function(object, ...){
   summary.eem(object[[1]])
 }
 
+
+#' Cut emission and/or excitation wavelengths from EEMs
+#'
+#' @template template_eem
+#' @param ex A numeric vector of excitation wavelengths to be removed.
+#' @param em A numeric vector of emission wavelengths to be removed.
+#'
+#' @export
+#' @examples
+#' # Open the fluorescence eem
+#' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
+#'
+#' eem <- eem_read(file)
+#' plot(eem)
+#'
+#' # Cut few excitation wavelengths
+#' eem <- eem_cut(eem, ex = c(220, 225, 230, 230))
+#' plot(eem)
+eem_cut <- function(eem, ex, em){
+
+  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"))
+
+  ## It is a list of eems, then call lapply
+  if(any(lapply(eem, class) == "eem")){
+
+    res <- lapply(eem, eem_cut, ex = ex, em = em)
+
+    class(res) <- class(eem)
+
+    return(res)
+
+  }
+
+  ## Maybe round em and ex wavelengths so it is
+
+  if(!missing(ex)){
+
+    stopifnot(all(ex %in% eem$ex))
+
+    index <- !eem$ex %in% ex
+
+    eem$ex <- eem$ex[index]
+
+    eem$x <- eem$x[, index]
+
+  }
+
+  if(!missing(em)){
+
+    stopifnot(all(em %in% eem$em))
+
+    index <- !eem$em %in% em
+
+    eem$em <- eem$em[index]
+
+    eem$x <- eem$x[index, ]
+  }
+
+  return(eem)
+
+}
