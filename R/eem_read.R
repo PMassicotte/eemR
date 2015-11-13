@@ -52,7 +52,9 @@ eem_read <- function(file) {
   #---------------------------------------------------------------------
   # Read the file and try to figure from which spectrofluo it belongs.
   #---------------------------------------------------------------------
-  data <- readLines(file)
+  #data <- readLines(file)
+
+  data <- read_lines(file)
 
   if(is_cary_eclipse(data)){
     return(eem_read_cary(data, file))
