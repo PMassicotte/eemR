@@ -18,6 +18,7 @@
 #' @examples
 #' library(ggplot2)
 #' library(tidyr)
+#'
 #' data("absorbance")
 #'
 #' absorbance <- gather(absorbance, sample, absorbance, -wavelength)

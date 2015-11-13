@@ -318,7 +318,7 @@ eem_raman_normalisation <- function(eem, blank){
 #'   Emission vector of wavelengths. \item ex Excitation vector of wavelengths.
 #'   }
 #'
-#' @importFrom dplyr select
+#' @import dplyr
 #'
 #' @export
 #' @examples
@@ -371,7 +371,7 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
 
   }
 
-  spectra <- dplyr::select(absorbance, matches(eem$sample))
+  spectra <- dplyr::select_(absorbance, "matches(eem$sample)")
 
   ## absorbance spectra not found, we return the uncorected eem
   if(ncol(spectra) != 1){
