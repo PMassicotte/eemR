@@ -171,3 +171,63 @@ eem_cut <- function(eem, ex, em){
   return(eem)
 
 }
+
+#' Set Excitation and/or Emission wavelengths
+#'
+#' This function allows to manully specify either excitation or emission vector
+#' of wavelengths in EEms. This function is mostly used with spectrophotometers
+#' such as Shimadzu that do not include excitation wavelengths in fluorescence
+#' files.
+#'
+#' @template template_eem
+#' @param ex A numeric vector of excitation wavelengths.
+#' @param em A numeric vector of emission wavelengths.
+#'
+#' @examples
+#' folder <- system.file("extdata/shimadzu", package = "eemR")
+#'
+#' eem <- eem_read(folder)
+#' eem <- eem_set_wavelengths(eem, ex = seq(230, 450, by = 5))
+#'
+#' plot(eem)
+#'
+#' @export
+
+eem_set_wavelengths <- function(eem, ex, em){
+
+  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"))
+
+  ## It is a list of eems, then call lapply
+  if(any(lapply(eem, class) == "eem")){
+
+    res <- lapply(eem, eem_set_wavelengths, ex = ex, em = em)
+
+    class(res) <- class(eem)
+
+    return(res)
+
+  }
+
+  if(!missing(ex)){
+
+    stopifnot(is.vector(ex),
+              is.numeric(ex),
+              identical(length(ex), ncol(eem$x)),
+              all(ex == cummax(ex))) ## Monotonously increasing
+
+    eem$ex <- ex
+  }
+
+  if(!missing(em)){
+
+    stopifnot(is.vector(em),
+              is.numeric(em),
+              identical(length(em), nrow(eem$x)),
+              all(em == cummax(em))) ## Monotonously increasing
+
+    eem$em <- em
+  }
+
+  return(eem)
+
+}

@@ -64,6 +64,10 @@ eem_read <- function(file) {
     return(eem_read_aqualog(data, file))
   }
 
+  if(is_shimadzu(data)){
+    return(eem_read_shimadzu(data, file))
+  }
+
   message("I do not know how to read *** ", basename(file), " ***\n")
 
   return(NULL)
@@ -104,6 +108,55 @@ is_cary_eclipse <- function(x) {
 
 is_aqualog <- function(x) {
   any(grepl("Normalized by|^Sample - Blank|^Wavelength", x))
+}
+
+is_shimadzu <- function(x){
+
+  x <- stringr::str_split(x, "\t")
+
+  # a bit weak, but works for now
+  all(unlist(lapply(x, length)) %in% 2)
+}
+
+#---------------------------------------------------------------------
+# Function reading Shimadzu .TXT files.
+#---------------------------------------------------------------------
+eem_read_shimadzu <- function(data, file){
+
+  data <- stringr::str_split(data, "\t")
+
+  data <- lapply(data, as.numeric)
+
+  data <- do.call(rbind, data)
+
+  min_em <- min(data[, 1])
+  max_em <- max(data[, 1])
+
+  interval <- data[2, 1] - data[1, 1]
+
+  em <- seq(min_em, max_em, by = interval)
+
+  data <- data[, 2]
+
+  eem <- matrix(data, nrow = length(em), byrow = FALSE)
+
+  ## Construct an eem object.
+  res <- eem(sample = file,
+             x = eem,
+             ex = NA,
+             em = em)
+
+  attr(res, "is_blank_corrected") <- FALSE
+  attr(res, "is_scatter_corrected") <- FALSE
+  attr(res, "is_ife_corrected") <- FALSE
+  attr(res, "is_raman_normalized") <- FALSE
+  attr(res, "manucafturer") <- "Shimadzu"
+
+  message("Shimadzu files do not contain excitation wavelengths.")
+  message("Please provide them using the eem_set_wavelengths() function.")
+
+  return(res)
+
 }
 
 #---------------------------------------------------------------------
