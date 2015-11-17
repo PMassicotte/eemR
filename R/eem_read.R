@@ -167,9 +167,7 @@ eem_read_cary <- function(data, file){
   data <- stringr::str_split(data, ",")
 
   ## Find the probable number of columns
-  expected_col <- unlist(lapply(data, length))
-  expected_col <- rle(expected_col)
-  expected_col <- expected_col$values[which.max(expected_col$lengths)]
+  expected_col <- length(data[[1]])
 
   data[lapply(data, length) != expected_col] <- NULL
 
