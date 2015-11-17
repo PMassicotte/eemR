@@ -175,7 +175,7 @@ eem_cut <- function(eem, ex, em){
 #' Set Excitation and/or Emission wavelengths
 #'
 #' This function allows to manully specify either excitation or emission vector
-#' of wavelengths in EEms. This function is mostly used with spectrophotometers
+#' of wavelengths in EEMs. This function is mostly used with spectrophotometers
 #' such as Shimadzu that do not include excitation wavelengths in fluorescence
 #' files.
 #'
