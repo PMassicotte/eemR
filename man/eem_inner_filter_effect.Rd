@@ -7,7 +7,7 @@
 eem_inner_filter_effect(eem, absorbance, pathlength = 1)
 }
 \arguments{
-\item{eem}{Either an object of class \code{eem} or a list of \code{eem}.}
+\item{eem}{Either an object of class \code{eem} or \code{eemlist}.}
 
 \item{absorbance}{A data frame with:
 
@@ -18,7 +18,7 @@ eem_inner_filter_effect(eem, absorbance, pathlength = 1)
 cuvette used for fluorescence measurement. Default is 1 (1cm).}
 }
 \value{
-Either an object of class \code{eem} or a list of \code{eem}.
+Either an object of class \code{eem} or \code{eemlist}.
 
 An object of class \code{eem} containing: \itemize{ \item sample The
   file name of the eem. \item x A matrix with fluorescence values. \item em

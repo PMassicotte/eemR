@@ -7,12 +7,12 @@
 eem_remove_blank(eem, blank)
 }
 \arguments{
-\item{eem}{Either an object of class \code{eem} or a list of \code{eem}.}
+\item{eem}{Either an object of class \code{eem} or \code{eemlist}.}
 
 \item{blank}{Either an object of class \code{eem} or a list of \code{eem}.}
 }
 \value{
-Either an object of class \code{eem} or a list of \code{eem}.
+Either an object of class \code{eem} or \code{eemlist}.
 }
 \description{
 Blank correction

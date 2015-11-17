@@ -7,14 +7,14 @@
 eem_cut(eem, ex, em)
 }
 \arguments{
-\item{eem}{Either an object of class \code{eem} or a list of \code{eem}.}
+\item{eem}{Either an object of class \code{eem} or \code{eemlist}.}
 
 \item{ex}{A numeric vector of excitation wavelengths to be removed.}
 
 \item{em}{A numeric vector of emission wavelengths to be removed.}
 }
 \value{
-Either an object of class \code{eem} or a list of \code{eem}.
+Either an object of class \code{eem} or \code{eemlist}.
 }
 \description{
 Cut emission and/or excitation wavelengths from EEMs
