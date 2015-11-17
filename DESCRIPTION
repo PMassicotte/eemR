@@ -8,6 +8,8 @@ Authors@R: person("Philippe", "Massicotte", email = "pm@bios.au.dk",
 Description: Provides various tools to (1) calculate EEM metrics and (2)
     preprocess EEM for PARAFAC analysis.
 License: GPL (>= 2)
+BugReports: https://github.com/PMassicotte/eemR/issues
+URL: https://github.com/PMassicotte/eemR
 Depends:
     R (>= 3.0)
 LazyData: TRUE
@@ -21,5 +23,5 @@ Imports:
     tidyr,
     readr,
     Rcpp
-RoxygenNote: 5.0.0
+RoxygenNote: 5.0.1
 LinkingTo: Rcpp

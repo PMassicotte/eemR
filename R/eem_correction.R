@@ -318,8 +318,6 @@ eem_raman_normalisation <- function(eem, blank){
 #'   Emission vector of wavelengths. \item ex Excitation vector of wavelengths.
 #'   }
 #'
-#' @import dplyr
-#'
 #' @export
 #' @examples
 #' library(eemR)
@@ -371,18 +369,16 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
 
   }
 
-  spectra <- dplyr::select_(absorbance, "matches(eem$sample)")
+  spectra <- absorbance[, which(names(absorbance) == eem$sample)]
 
   ## absorbance spectra not found, we return the uncorected eem
-  if(ncol(spectra) != 1){
+  if(length(spectra) == 0){
 
     warning("Absorbance spectrum for ", eem$sample, " was not found. Returning uncorrected EEM.",
             call. = FALSE)
 
     return(eem)
   }
-
-  spectra <- spectra[, 1]
 
   #---------------------------------------------------------------------
   # Create the ife matrix
