@@ -304,25 +304,50 @@ eem_raman_normalisation <- function(eem, blank){
 #'   \describe{ \item{wavelength}{A numeric vector containing wavelenghts.}
 #'   \item{...}{One or more numeric vectors containing absorbance spectra.}}
 #'
-#' @details The names of \code{absorbance} variables are expected to match those
-#'   of the eems. If the appropriate absorbance spectrum is not found, an
-#'   uncorrected eem will be returned and a warning message will be printed.
+#' @section Names matching:
+#'
+#'   The names of \code{absorbance} variables are expected to match those of the
+#'   eems. If the appropriate absorbance spectrum is not found, an uncorrected
+#'   eem will be returned and a warning message will be printed.
+#'
+#' @section Sample dilution:
+#'
+#'   Kothawala et al. 2013 have shown that a 2-fold dilution was requiered for
+#'   sample presenting total absorbance > 1.5. Accordingly, a message will warn
+#'   the user if total absorbance is greater than this threshold.
 #'
 #' @references Parker, C. a., & Barnes, W. J. (1957). Some experiments with
 #'   spectrofluorimeters and filter fluorimeters. The Analyst, 82(978), 606.
-#'
 #'   \url{http://doi.org/10.1039/an9578200606}
+#'
+#'   Kothawala, D. N., Murphy, K. R., Stedmon, C. A., Weyhenmeyer, G. A., &
+#'   Tranvik, L. J. (2013). Inner filter correction of dissolved organic matter
+#'   fluorescence. Limnology and Oceanography: Methods, 11(12), 616-630.
+#'   \url{http://doi.org/10.4319/lom.2013.11.616}
 #'
 #' @return An object of class \code{eem} containing: \itemize{ \item sample The
 #'   file name of the eem. \item x A matrix with fluorescence values. \item em
 #'   Emission vector of wavelengths. \item ex Excitation vector of wavelengths.
 #'   }
 #'
-#' @export
 #' @examples
 #' library(eemR)
 #' data("absorbance")
-
+#'
+#' folder <- system.file("extdata/cary/eem", package = "eemR")
+#' eems <- eem_read(folder)
+#'
+#' ## Remove scattering (1st order)
+#' eems <- eem_remove_scattering(eems, "rayleigh")
+#'
+#' eems_corrected <- eem_inner_filter_effect(eems, absorbance = absorbance, pathlength = 1)
+#'
+#' op <- par(mfrow = c(2, 1))
+#' plot(eems, which = 1)
+#' plot(eems_corrected, which = 1)
+#' par(op)
+#'
+#' @export
 eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
 
   stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"),
@@ -389,12 +414,12 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
   ex <- sf(eem$ex)
   em <- sf(eem$em)
 
-  total_absorbance <- mat.or.vec(nr = length(em), nc = length(ex))
+  total_absorbance <- sapply(ex, function(x){x + em})
 
-  for(i in 1:length(em)){
-    for(j in 1:length(ex)){
-      total_absorbance[i, j] <- em[i] + ex[j]
-    }
+  if(max(total_absorbance) > 1.5){
+    cat("Total absorbance is > 1.5 (Atotal = ", max(total_absorbance), ")\n",
+        "A 2-fold dilution is recommended. See ?eem_inner_filter_effect.",
+        sep = "")
   }
 
   ife_correction_factor <- 10 ^ (-pathlength / 2 * (total_absorbance))
