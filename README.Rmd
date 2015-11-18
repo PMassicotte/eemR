@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 # eemR [![Travis-CI Build Status](https://travis-ci.org/PMassicotte/gtrendsR.svg?branch=master)](https://travis-ci.org/PMassicotte/eemR) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/PMassicotte/eemR?branch=master&svg=true)](https://ci.appveyor.com/project/PMassicotte/eemR) [![Package-License](https://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
 
-The **eemR** package implements various functions used calculate metrics from excitation-emission matrix (EEM) as well as to preform pre-processing corrections before PARAFAC analysis [@Bro1997; @Stedmon2005; @Murphy2013]. All functions from this package start with the `eem_` prefix. 
+The **eemR** package implements various functions used calculate metrics from excitation-emission matrix (EEM) as well as to preform pre-processing corrections before PARAFAC analysis [@Bro1997; @Stedmon2005; @Murphy2013]. All functions from this package start with the `eem_` prefix.
 
 ```{r}
 library(eemR)
@@ -82,7 +82,7 @@ plot(eem) ## Plot the first eem
 # Shimadzu files
 
 Some spectrophotometers (such as Shimadzu) do not include excitation wavelengths in the fluorescence files. In these cases, we can use the `eem_set_wavelengths()` function to manually provide vectors of emission and/or excitation wavelengths.
- 
+
 ```{r}
 folder <- system.file("extdata/shimadzu", package = "eemR")
 eems <- eem_read(folder)
@@ -121,7 +121,6 @@ eem_biological_index(eem, verbose = FALSE)
 
 ```
 
-
 # PARAFAC pre-processing
 
 Three types of correction are currently supported:
@@ -130,7 +129,7 @@ Three types of correction are currently supported:
 
 2. `eem_remove_scattering()` which remove both *Raman* and *Rayleigh* scattering.
 
-3. `eem_raman_normalisation()` which normalize EEM fluoresence intensities [@Lawaetz2009].
+3. `eem_raman_normalisation()` which normalize EEM fluorescence intensities [@Lawaetz2009].
 
 4. `eem_inner_filter()` which correct for both primary and secondary inner-filter effect.
 
@@ -177,19 +176,27 @@ plot(res)
 
 ## Inner-filter effect correction
 
-To account for reabsorption of the light emitted by fluorophores in the water, absorbance spectra are used for correction of both primary and secondary inner filtering effects in the EEMs [@Ohno2002; @Parker1957].
+To account for reabsorption of the light emitted by fluorophores in the water, absorbance spectra are used for correction of both primary and secondary inner filtering effects in the EEMs [@Ohno2002; @Parker1957; @Kothawala2013].
 
 ```{r}
 data("absorbance")
 
-res <- eem_inner_filter_effect(eem = res, 
-                               absorbance = absorbance, 
+res <- eem_inner_filter_effect(eem = res,
+                               absorbance = absorbance,
                                pathlength = 1) ## 1 cm fluo pathlenght
 
 plot(res)
 
 ```
 
+
+### Names matching
+
+The names of `absorbance` variables are expected to match those of the eems. If the appropriate absorbance spectrum is not found, an uncorrected eem will be returned and a warning message will be printed.
+
+### Sample dilution
+
+@Kothawala2013 have shown that a 2-fold dilution was required for sample presenting total absorbance > 1.5. Accordingly, a message will warn the user if total absorbance is greater than this threshold.
 
 ## Export to Matlab
 
