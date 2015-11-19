@@ -26,11 +26,8 @@ If \code{file} is a single filename:
 Read excitation-emission fluorecence matrix (eem)
 }
 \details{
-At the moment,
-  \href{https://www.agilent.com/en-us/products/fluorescence/fluorescence-systems/cary-eclipse-fluorescence-spectrophotometer}{Cary
-   Eclipse} and
-  \href{http://www.horiba.com/us/en/scientific/products/fluorescence-spectroscopy/}{Aqualog}
-   EEMs are supported.
+At the moment, Cary Eclipse, Aqualog and Shimadzu EEMs are
+  supported.
 
   \code{eemR} will automatically try to determine from which
   spectrofluorometer the files originate and load the data accordingly. Note
