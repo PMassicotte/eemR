@@ -24,13 +24,17 @@ library(eemR)
 ls("package:eemR")
 ```
 
-The package can be installed using the following command.
+The lastest release of the package from CRAN can be installed with:
+
+```{r, eval = FALSE}
+install.packages("eemR")
+```
+
+The lastest development version of the package can be installed with:
 
 ```{r install, eval = FALSE}
 devtools::install_github("PMassicotte/eemR")
 ```
-
-Please note this is a very alpha version of the package for testing purpose only.
 
 # Reading EEMs
 
@@ -183,11 +187,9 @@ plot(res)
 The `eem_raman_normalisation()` function implement a simple calibration method for fluorescence intensity using only the integrated area of a water Raman peak. More details can be found in @Lawaetz2009.
 
 ```{r}
-
 res <- eem_raman_normalisation(res, blank)
 
 plot(res)
-
 ```
 
 ## Inner-filter effect correction
@@ -202,7 +204,6 @@ res <- eem_inner_filter_effect(eem = res,
                                pathlength = 1) ## 1 cm fluo pathlenght
 
 plot(res)
-
 ```
 
 ### Name matching
