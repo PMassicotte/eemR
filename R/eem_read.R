@@ -21,6 +21,7 @@
 #'   that EEMs are reshaped so X[1, 1] represents the fluoresence intensity at
 #'   X[min(ex), min(em)].
 #'
+#' @importFrom stats na.omit
 #' @export
 #' @examples
 #' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")

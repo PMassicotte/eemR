@@ -2,6 +2,7 @@
 #'
 #' @param x An object of class \code{eem}.
 #' @param ... Extra arguments for \code{image.plot}.
+#' @importFrom grDevices colorRampPalette
 #' @export
 #' @examples
 #' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
@@ -57,7 +58,7 @@ plot.eemlist <- function(x, which = 1, ...) {
 #' @param ... Extra arguments.
 #'
 #' @references \url{http://www.sciencedirect.com/science/article/pii/0304420395000623}
-#'
+#' @importFrom utils head tail
 #' @export
 #' @examples
 #' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
