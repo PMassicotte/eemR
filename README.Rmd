@@ -90,6 +90,24 @@ eems <- eem_read(folder)
 eems <- eem_set_wavelengths(eems, ex = seq(230, 450, by = 5))
 ```
 
+# Manipulating EEMs
+
+Extracting of removing EEMs can be useful when reading a bunch of files containing both measurements and blank fluorescence. For example, lets read a whole folder and then remove the blank water.
+
+```{r}
+folder <- system.file("extdata/cary", package = "eemR")
+
+eems <- eem_read(folder, recursive = TRUE)
+
+blank <- eem_extract(eems, "nano", remove = FALSE)
+eems <- eem_extract(eems, "nano", remove = TRUE)
+
+
+## Remove sample 1 to 3
+res <- eem_extract(eems, 1:3, remove = TRUE)
+```
+
+
 # Implemented metrics
 
 The current implemented metrics are:
@@ -196,7 +214,7 @@ The names of `absorbance` variables are expected to match those of the eems. If 
 
 ### Sample dilution
 
-@Kothawala2013 have shown that a 2-fold dilution was required for sample presenting total absorbance > 1.5. Accordingly, a message will warn the user if total absorbance is greater than this threshold.
+@Kothawala2013 have shown that a 2-fold dilution was required for samples presenting total absorbance > 1.5. Accordingly, a message will warn the user if total absorbance is greater than this threshold.
 
 ## Export to Matlab
 

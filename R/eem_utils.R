@@ -281,7 +281,7 @@ eem_extract <- function(eem, sample, remove = FALSE) {
 
     stopifnot(all(is_between(sample, 1, length(eem))))
 
-    eem[ifelse(remove, sample, -sample)] <- NULL
+    eem[ifelse(remove, -sample, sample)] <- NULL
 
     cat(ifelse(remove, "Removed", "Extracted"), sample_names[sample])
 
