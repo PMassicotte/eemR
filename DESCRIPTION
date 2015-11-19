@@ -2,17 +2,17 @@ Package: eemR
 Type: Package
 Title: Tools for Pre-Processing Emission-Excitation-Matrix (EEM)
 Version: 0.1.0
-Date: 19-11-2015
+Date: 2015-11-19
 Authors@R: person("Philippe", "Massicotte", email = "pm@bios.au.dk",
   role = c("aut", "cre"))
 Description: Provides various tools to calculate EEM metrics and preprocess EEM for PARAFAC analysis.
 License: GPL (>= 2)
 BugReports: https://github.com/PMassicotte/eemR/issues
 URL: https://github.com/PMassicotte/eemR
-Depends: 
+Depends:
     R (>= 3.0)
 LazyData: TRUE
-Imports: 
+Imports:
     stringr,
     fields,
     dplyr,
