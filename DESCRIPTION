@@ -5,8 +5,7 @@ Version: 0.1.0
 Date: 19-11-2015
 Authors@R: person("Philippe", "Massicotte", email = "pm@bios.au.dk",
   role = c("aut", "cre"))
-Description: Provides various tools to (1) calculate EEM metrics and (2)
-    preprocess EEM for PARAFAC analysis.
+Description: Provides various tools to calculate EEM metrics and preprocess EEM for PARAFAC analysis.
 License: GPL (>= 2)
 BugReports: https://github.com/PMassicotte/eemR/issues
 URL: https://github.com/PMassicotte/eemR
