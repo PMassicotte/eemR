@@ -4,10 +4,12 @@
 \alias{eem_read}
 \title{Read excitation-emission fluorecence matrix (eem)}
 \usage{
-eem_read(file)
+eem_read(file, recursive = FALSE)
 }
 \arguments{
 \item{file}{File name or folder containing fluorescence file(s).}
+
+\item{recursive}{logical. Should the listing recurse into directories?}
 }
 \value{
 If \code{file} is a single filename:

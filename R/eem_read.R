@@ -1,6 +1,7 @@
 #' Read excitation-emission fluorecence matrix (eem)
 #'
 #' @param file File name or folder containing fluorescence file(s).
+#' @param recursive logical. Should the listing recurse into directories?
 #'
 #' @return If \code{file} is a single filename:
 #'
@@ -28,9 +29,10 @@
 #' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
 #' eem <- eem_read(file)
 
-eem_read <- function(file) {
+eem_read <- function(file, recursive = FALSE) {
 
-  stopifnot(file.exists(file) | file.info(file)$isdir)
+  stopifnot(file.exists(file) | file.info(file)$isdir,
+            is.logical(recursive))
 
   #--------------------------------------------
   # Verify if user provided a dir or a file.
@@ -39,12 +41,19 @@ eem_read <- function(file) {
 
   if(isdir){
 
-    files <- list.files(file, full.names = TRUE)
+    files <- list.files(file, full.names = TRUE, recursive = recursive,
+                        no.. = TRUE, include.dirs = FALSE)
+
+    files <- files[!file.info(files)$isdir]
+
     res <- lapply(files, eem_read)
+
+    #res <- lapply(res, my_unlist)
+    #res <- unlist(res, recursive = FALSE)
 
     class(res) <- "eemlist"
 
-    res[unlist(lapply(res, is.null))] <- NULL
+    res[unlist(lapply(res, is.null))] <- NULL ## Remove unreadable EEMs
 
     return(res)
   }
