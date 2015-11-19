@@ -283,7 +283,8 @@ eem_extract <- function(eem, sample, remove = FALSE) {
 
     eem[ifelse(remove, -sample, sample)] <- NULL
 
-    cat(ifelse(remove, "Removed", "Extracted"), sample_names[sample])
+    cat(ifelse(remove, "Removed sample(s):", "Extracted sample(s):"),
+        sample_names[sample])
 
   }
 
@@ -298,7 +299,8 @@ eem_extract <- function(eem, sample, remove = FALSE) {
       cat("Nothing to remove.")
     }
     else{
-      cat(ifelse(remove, "Removed", "Extracted"), sample_names[index])
+      cat(ifelse(remove, "Removed sample(s):", "Extracted sample(s):"),
+          sample_names[index])
     }
   }
 
