@@ -63,7 +63,6 @@ eem <- eem_read(file)
 plot(eem)
 
 ## Reading a folder
-
 folder <- system.file("extdata/cary/eem", package = "eemR")
 eem <- eem_read(folder)
 
@@ -71,7 +70,6 @@ plot(eem) ## Plot the first eem
 plot(eem, which = 2) ## Plot the second eem
 
 ## Aqualog EEM
-
 folder <- system.file("extdata/aqualog", package = "eemR")
 eem <- eem_read(folder)
 
@@ -92,7 +90,7 @@ eems <- eem_set_wavelengths(eems, ex = seq(230, 450, by = 5))
 
 # Manipulating EEMs
 
-Extracting of removing EEMs can be useful when reading a bunch of files containing both measurements and blank fluorescence. For example, lets read a whole folder and then remove the blank water.
+Extracting of removing EEMs can be useful when reading a bunch of files containing both measurements and blank fluorescence. This can be done easily using `eem_extract()`. For example, lets read a whole folder and then remove the blank water.
 
 ```{r}
 folder <- system.file("extdata/cary", package = "eemR")
@@ -100,13 +98,13 @@ folder <- system.file("extdata/cary", package = "eemR")
 eems <- eem_read(folder, recursive = TRUE)
 
 blank <- eem_extract(eems, "nano", remove = FALSE)
+
 eems <- eem_extract(eems, "nano", remove = TRUE)
 
 
 ## Remove sample 1 to 3
 res <- eem_extract(eems, 1:3, remove = TRUE)
 ```
-
 
 # Implemented metrics
 
@@ -207,8 +205,7 @@ plot(res)
 
 ```
 
-
-### Names matching
+### Name matching
 
 The names of `absorbance` variables are expected to match those of the eems. If the appropriate absorbance spectrum is not found, an uncorrected eem will be returned and a warning message will be printed.
 
