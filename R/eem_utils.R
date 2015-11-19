@@ -232,11 +232,13 @@ eem_set_wavelengths <- function(eem, ex, em){
 
 }
 
-#' Remove EEM samples
+#' Extract EEM samples
 #'
 #' @template template_eem
 #' @param sample Either numeric of character vector. See \code{details} for more
 #'   information.
+#'
+#' @param remove logical. Should EEMs removed (TRUE) or extracted (FALSE).
 #'
 #' @details \code{sample} argument can be either numeric or character vector. If
 #'   it is numeric, samples at specified index will be removed.
@@ -251,20 +253,23 @@ eem_set_wavelengths <- function(eem, ex, em){
 #' folder <- system.file("extdata/cary/eem", package = "eemR")
 #' eems <- eem_read(folder)
 #'
-#' eem_remove(eems, c(1, 3)) ## Removes samples 1 and 3
-#' eem_remove(eems, 2:3) ## Removes samples 2 and 3
+#' eem_extract(eems, c(1, 3)) ## Removes samples 1 and 3
+#' eem_extract(eems, c(1, 3), remove = TRUE) ## extract samples 1 and 3
 #'
-#' ## Remove ALL samples containing "3" in their names.
-#' eem_remove(eems, "3")
+#' ## Remove all samples containing "3" in their names.
+#' eem_extract(eems, "3")
 #'
-#' ## Remove ALL samples containing either character "s" or character "2" in their names.
-#' eem_remove(eems, c("s", "2"))
+#' ## Remove all samples containing either character "s" or character "2" in their names.
+#' eem_extract(eems, c("s", "2"))
 #'
-#' ## Remove ALL samples containing "blank" or "nano"
-#' eem_remove(eems, c("blank", "nano"))
+#' ## Remove all samples containing "blank" or "nano"
+#' eem_extract(eems, c("blank", "nano"))
+#'
+#' ## Remove all samples starting with "no"
+#' eem_extract(eems, "^no")
 #'
 #' @export
-eem_remove <- function(eem, sample) {
+eem_extract <- function(eem, sample, remove = FALSE) {
 
   stopifnot(class(eem) == "eemlist",
             is.character(sample) | is.numeric(sample))
@@ -276,9 +281,9 @@ eem_remove <- function(eem, sample) {
 
     stopifnot(all(is_between(sample, 1, length(eem))))
 
-    eem[sample] <- NULL
+    eem[ifelse(remove, sample, -sample)] <- NULL
 
-    cat("Removed", sample_names[sample])
+    cat(ifelse(remove, "Removed", "Extracted"), sample_names[sample])
 
   }
 
@@ -287,13 +292,13 @@ eem_remove <- function(eem, sample) {
 
     index <- str_detect(sample_names, paste(sample, collapse = "|"))
 
-    eem[index] <- NULL
+    eem[xor(index, !remove)] <- NULL
 
     if(all(index == FALSE)){
       cat("Nothing to remove.")
     }
     else{
-      cat("Removed", sample_names[index])
+      cat(ifelse(remove, "Removed", "Extracted"), sample_names[index])
     }
   }
 
