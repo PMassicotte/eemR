@@ -1,7 +1,7 @@
 Package: eemR
 Type: Package
 Title: Tools for Pre-Processing Emission-Excitation-Matrix (EEM)
-Version: 0.0.0.9000
+Version: 0.1.0
 Date: 28-10-2015
 Authors@R: person("Philippe", "Massicotte", email = "pm@bios.au.dk",
   role = c("aut", "cre"))
