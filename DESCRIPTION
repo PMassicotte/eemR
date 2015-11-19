@@ -9,10 +9,10 @@ Description: Provides various tools to calculate EEM metrics and preprocess EEM 
 License: GPL (>= 2)
 BugReports: https://github.com/PMassicotte/eemR/issues
 URL: https://github.com/PMassicotte/eemR
-Depends:
+Depends: 
     R (>= 3.0)
 LazyData: TRUE
-Imports:
+Imports: 
     stringr,
     fields,
     dplyr,
@@ -21,6 +21,7 @@ Imports:
     ggplot2,
     tidyr,
     readr,
-    Rcpp
+    Rcpp,
+    stats
 RoxygenNote: 5.0.1
 LinkingTo: Rcpp

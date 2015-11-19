@@ -409,7 +409,7 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
   # Create the ife matrix
   #---------------------------------------------------------------------
 
-  sf <- splinefun(wl, spectra)
+  sf <- stats::splinefun(wl, spectra)
 
   ex <- sf(eem$ex)
   em <- sf(eem$em)
