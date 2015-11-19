@@ -231,3 +231,71 @@ eem_set_wavelengths <- function(eem, ex, em){
   return(eem)
 
 }
+
+#' Remove EEM samples
+#'
+#' @template template_eem
+#' @param sample Either numeric of character vector. See \code{details} for more
+#'   information.
+#'
+#' @details \code{sample} argument can be either numeric or character vector. If
+#'   it is numeric, samples at specified index will be removed.
+#'
+#'   If \code{sample} is character, regular expression will be used and all
+#'   sample names that have a partial or complete match with the expression will
+#'   be removed. See \code{examples} for more details.
+#'
+#' @importFrom stringr str_detect
+#'
+#' @examples
+#' folder <- system.file("extdata/cary/eem", package = "eemR")
+#' eems <- eem_read(folder)
+#'
+#' eem_remove(eems, c(1, 3)) ## Removes samples 1 and 3
+#' eem_remove(eems, 2:3) ## Removes samples 2 and 3
+#'
+#' ## Remove ALL samples containing "3" in their names.
+#' eem_remove(eems, "3")
+#'
+#' ## Remove ALL samples containing either character "s" or character "2" in their names.
+#' eem_remove(eems, c("s", "2"))
+#'
+#' ## Remove ALL samples containing "blank" or "nano"
+#' eem_remove(eems, c("blank", "nano"))
+#'
+#' @export
+eem_remove <- function(eem, sample) {
+
+  stopifnot(class(eem) == "eemlist",
+            is.character(sample) | is.numeric(sample))
+
+  sample_names <- unlist(lapply(eem, function(x){x$sample}))
+
+  ## Sample number
+  if(is.numeric(sample)){
+
+    stopifnot(all(is_between(sample, 1, length(eem))))
+
+    eem[sample] <- NULL
+
+    cat("Removed", sample_names[sample])
+
+  }
+
+  ## Regular expression
+  if(is.character(sample)){
+
+    index <- str_detect(sample_names, paste(sample, collapse = "|"))
+
+    eem[index] <- NULL
+
+    if(all(index == FALSE)){
+      cat("Nothing to remove.")
+    }
+    else{
+      cat("Removed", sample_names[index])
+    }
+  }
+
+  return(eem)
+}
