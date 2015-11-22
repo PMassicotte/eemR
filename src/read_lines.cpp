@@ -14,8 +14,6 @@ std::vector<Rcpp::CharacterVector> read_lines(std::string path) {
 
   std::ifstream input(path.c_str());
 
-  int pos = 0;
-
   for( std::string line; getline(input, line); )
   {
     res.push_back(line);
