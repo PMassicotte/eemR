@@ -187,13 +187,16 @@ eem_remove_scattering <- function(eem, type, order = 1, width = 10){
   # occurs at 311 nm. Source : Principles of Fluorescence Spectroscopy (2006) -
   # Third Edition.pdf
 
-  ## Convert to wavenumber
-  ex_wave_number = 1 / ex * 10000000
+  ## Convert wavenumber from nm to cm
+  ex_wave_number = 1 / ex
 
-  ## For water
-  raman_peaks = ex_wave_number - 3600 # I think Stedmon use 3400 TODO
+  ## For water. 3600 nm = 0.00036 cm
+  raman_peaks = ex_wave_number - 0.00036 # I think Stedmon use 3400 TODO
 
-  raman_peaks = 10000000 / raman_peaks
+  ## Bring back to nm
+  raman_peaks = 1 / raman_peaks
+
+  #raman_peaks <- -(ex / (0.00036 * ex - 1))
 
   return(raman_peaks)
 }
