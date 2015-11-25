@@ -39,8 +39,13 @@ eem_read <- function(file, recursive = FALSE) {
 
   if(isdir){
 
-    files <- list.files(file, full.names = TRUE, recursive = recursive,
-                        no.. = TRUE, include.dirs = FALSE)
+    files <- list.files(file,
+                        full.names = TRUE,
+                        recursive = recursive,
+                        no.. = TRUE,
+                        include.dirs = FALSE,
+                        pattern = "*.txt|*.dat|*.csv",
+                        ignore.case = TRUE)
 
     files <- files[!file.info(files)$isdir]
 
