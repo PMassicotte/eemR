@@ -236,10 +236,14 @@ eem_set_wavelengths <- function(eem, ex, em){
 #' Extract EEM samples
 #'
 #' @template template_eem
+#'
 #' @param sample Either numeric of character vector. See \code{details} for more
 #'   information.
 #'
 #' @param remove logical. Should EEMs removed (TRUE) or extracted (FALSE).
+#'
+#' @param ignore_case Logical, should sample name case should be ignored (TRUE)
+#'   or not (FALSE). Default is FALSE.
 #'
 #' @details \code{sample} argument can be either numeric or character vector. If
 #'   it is numeric, samples at specified index will be removed.
@@ -247,8 +251,6 @@ eem_set_wavelengths <- function(eem, ex, em){
 #'   If \code{sample} is character, regular expression will be used and all
 #'   sample names that have a partial or complete match with the expression will
 #'   be removed. See \code{examples} for more details.
-#'
-#' @importFrom stringr str_detect
 #'
 #' @examples
 #' folder <- system.file("extdata/cary/eem", package = "eemR")
@@ -270,7 +272,7 @@ eem_set_wavelengths <- function(eem, ex, em){
 #' eem_extract(eems, "^no")
 #'
 #' @export
-eem_extract <- function(eem, sample, remove = FALSE) {
+eem_extract <- function(eem, sample, remove = FALSE, ignore_case = FALSE) {
 
   stopifnot(class(eem) == "eemlist",
             is.character(sample) | is.numeric(sample))
@@ -292,7 +294,9 @@ eem_extract <- function(eem, sample, remove = FALSE) {
   ## Regular expression
   if(is.character(sample)){
 
-    index <- str_detect(sample_names, paste(sample, collapse = "|"))
+    index <- grepl(paste(sample, collapse = "|"),
+                   sample_names,
+                   ignore.case = ignore_case)
 
     eem[xor(index, !remove)] <- NULL
 
