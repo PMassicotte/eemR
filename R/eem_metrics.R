@@ -54,19 +54,43 @@ eem_fluorescence_index <- function(eem, verbose = TRUE){
 }
 
 
-#' Extrace fluorescence peaks
+#' Extract fluorescence peaks
 #'
 #' @param eem An object of class \code{eem}
 #'
 #' @template template_section_interp2
 #'
-#' @return A data frame containing peaks B, T, A, M and C for each eem.
-#' @export
+#' @return A data frame containing peaks B, T, A, M and C for each eem. See
+#'   details for more information.
+#'
+#' @details According to Coble, 1996, peaks are defined as follow:
+#'
+#'   Peak B: ex = 275 nm, em = 310 nm
+#'
+#'   Peak T: ex = 275 nm, em = 340 nm
+#'
+#'   Peak A: ex = 260 nm, em = 380:460 nm
+#'
+#'   Peak M: ex = 312 nm, em = 380:420 nm
+#'
+#'   peak C: ex = 350 nm, em = 420:480 nm
+#'
+#'   Given that peaks A, M and C are not defined at fix emission wavelength,
+#'   the maximum fluorescence value in the region is extracted.
+#'
+#' @references Coble, P. G. (1996). Characterization of marine and terrestrial
+#'   DOM in seawater using excitation-emission matrix spectroscopy. Marine
+#'   Chemistry, 51(4), 325-346.
+#'
+#'   \url{http://doi.org/10.1016/0304-4203(95)00062-3}
+#'
 #' @examples
 #' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
 #' eem <- eem_read(file)
 #'
 #' eem_coble_peaks(eem)
+#'
+#' @export
 eem_coble_peaks <- function(eem, verbose = TRUE){
 
   stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"))
