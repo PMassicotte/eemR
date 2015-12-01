@@ -427,7 +427,11 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
 
   ife_correction_factor <- 10 ^ (-pathlength / 2 * (total_absorbance))
 
-  cat("Range of IFE correction factors:", range(ife_correction_factor), "\n")
+  cat("Range of IFE correction factors:",
+      round(range(ife_correction_factor), digits = 4), "\n")
+
+  cat("Range of total absorbance (Atotal) :",
+      round(range(total_absorbance), digits = 4), "\n")
 
   x <- eem$x / ife_correction_factor
 
