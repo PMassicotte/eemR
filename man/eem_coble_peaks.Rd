@@ -19,7 +19,7 @@ A data frame containing peaks B, T, A, M and C for each eem. See
 Extract fluorescence peaks
 }
 \details{
-According to Coble, 1996, peaks are defined as follow:
+According to Coble (1996), peaks are defined as follow:
 
   Peak B: ex = 275 nm, em = 310 nm
 

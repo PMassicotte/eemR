@@ -63,7 +63,7 @@ eem_fluorescence_index <- function(eem, verbose = TRUE){
 #' @return A data frame containing peaks B, T, A, M and C for each eem. See
 #'   details for more information.
 #'
-#' @details According to Coble, 1996, peaks are defined as follow:
+#' @details According to Coble (1996), peaks are defined as follow:
 #'
 #'   Peak B: ex = 275 nm, em = 310 nm
 #'
