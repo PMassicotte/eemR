@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# eemR [![Travis-CI Build Status](https://travis-ci.org/PMassicotte/gtrendsR.svg?branch=master)](https://travis-ci.org/PMassicotte/eemR) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/PMassicotte/eemR?branch=master&svg=true)](https://ci.appveyor.com/project/PMassicotte/eemR) [![Package-License](https://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
+## eemR [![Travis-CI Build Status](https://api.travis-ci.org/PMassicotte/eemR.svg?branch=master)](https://travis-ci.org/PMassicotte/eemR) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/PMassicotte/eemR?branch=master&svg=true)](https://ci.appveyor.com/project/PMassicotte/eemR) [![Package-License](https://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html) [![CRAN](http://www.r-pkg.org/badges/version/eemR)](http://cran.rstudio.com/package=eemR) [![Downloads](http://cranlogs.r-pkg.org/badges/eemR?color=brightgreen)](http://www.r-pkg.org/pkg/eemR)
 
 The **eemR** package implements various functions used calculate metrics from excitation-emission matrix (EEM) as well as to preform pre-processing corrections before PARAFAC analysis [@Bro1997; @Stedmon2005; @Murphy2013]. All functions from this package start with the `eem_` prefix.
 
