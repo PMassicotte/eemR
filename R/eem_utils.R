@@ -311,3 +311,47 @@ eem_extract <- function(eem, sample, remove = FALSE, ignore_case = FALSE) {
 
   return(eem)
 }
+
+
+#' The Names of an eem Object
+#'
+#' @param x An object of class \code{eem}.
+#' @param ... Extra arguments.
+#'
+#' @return A character vector containing the name of the EEM.
+#'
+#' @examples
+#' file <- system.file("extdata/cary/eem", "sample1.csv", package = "eemR")
+#' eem <- eem_read(file)
+#'
+#' names(eem)
+#'
+#' @export
+names.eem <- function(x, ...){
+
+  stopifnot(class(x) == "eem")
+
+  x$sample
+}
+
+#' The Names of an eemlist Object
+#'
+#' @param x An object of class \code{eem}.
+#' @param ... Extra arguments.
+#'
+#' @return A character vector containing the names of the EEMs.
+#'
+#' @examples
+#' folder <- system.file("extdata/cary/eem", package = "eemR")
+#' eems <- eem_read(folder)
+#'
+#' names(eems)
+#'
+#' @export
+names.eemlist <- function(x, ...){
+
+  stopifnot(class(x) == "eemlist" & all(lapply(x, class) == "eem"))
+
+  unlist(lapply(x, names.eem))
+
+}
