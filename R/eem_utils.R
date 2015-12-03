@@ -328,9 +328,6 @@ eem_extract <- function(eem, sample, remove = FALSE, ignore_case = FALSE) {
 #'
 #' @export
 names.eem <- function(x, ...){
-
-  stopifnot(class(x) == "eem")
-
   x$sample
 }
 
@@ -350,7 +347,7 @@ names.eem <- function(x, ...){
 #' @export
 names.eemlist <- function(x, ...){
 
-  stopifnot(class(x) == "eemlist" & all(lapply(x, class) == "eem"))
+  stopifnot(all(lapply(x, class) == "eem"))
 
   unlist(lapply(x, names.eem))
 
