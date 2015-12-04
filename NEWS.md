@@ -1,6 +1,8 @@
 # eemR 0.1.2
 
-- Generic function `names()` implemented. This returns a vector containing the sample names of all EEMs.
+- Generic function `names()` implemented.
+    - `names(eem)` returns a vector containing the sample names of all EEMs.
+    - `names(eem) <- c(...)` sets the sample names of all EEMs.
 
 - `eem_extract()` has now an argument `ignore_case` (#10) to specify if the regular expression search should ignore sample name case (TRUE) or not (FALSE).
 

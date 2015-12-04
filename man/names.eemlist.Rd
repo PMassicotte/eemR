@@ -2,12 +2,12 @@
 % Please edit documentation in R/eem_utils.R
 \name{names.eemlist}
 \alias{names.eemlist}
-\title{The Names of an eemlist Object}
+\title{The names of an eemlist object}
 \usage{
 \method{names}{eemlist}(x, ...)
 }
 \arguments{
-\item{x}{An object of class \code{eem}.}
+\item{x}{An object of class \code{eemlist}.}
 
 \item{...}{Extra arguments.}
 }
@@ -15,7 +15,7 @@
 A character vector containing the names of the EEMs.
 }
 \description{
-The Names of an eemlist Object
+The names of an eemlist object
 }
 \examples{
 folder <- system.file("extdata/cary/eem", package = "eemR")

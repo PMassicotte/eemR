@@ -313,7 +313,7 @@ eem_extract <- function(eem, sample, remove = FALSE, ignore_case = FALSE) {
 }
 
 
-#' The Names of an eem Object
+#' The names of an eem object
 #'
 #' @param x An object of class \code{eem}.
 #' @param ... Extra arguments.
@@ -331,9 +331,9 @@ names.eem <- function(x, ...){
   x$sample
 }
 
-#' The Names of an eemlist Object
+#' The names of an eemlist object
 #'
-#' @param x An object of class \code{eem}.
+#' @param x An object of class \code{eemlist}.
 #' @param ... Extra arguments.
 #'
 #' @return A character vector containing the names of the EEMs.
@@ -350,5 +350,60 @@ names.eemlist <- function(x, ...){
   stopifnot(all(lapply(x, class) == "eem"))
 
   unlist(lapply(x, names.eem))
+
+}
+
+
+#' Set the sample names of an eem object
+#'
+#' @param x An object of class \code{eem}.
+#' @param value A character vector with new sample name.
+#'
+#' @return An \code{eem}.
+#'
+#' @examples
+#' file <- system.file("extdata/cary/eem", "sample1.csv", package = "eemR")
+#' eem <- eem_read(file)
+#'
+#' names(eem)
+#' names(eem) <- "a"
+#' names(eem)
+#'
+#' @export
+`names<-.eem` <- function(x, value){
+
+  x$sample <- value
+
+  return(x)
+}
+
+
+#' Set the sample names of an eemlist object
+#'
+#' @param x An object of class \code{eemlist}.
+#' @param value A character vector with new sample names. Must be equal in
+#'   length to the number of samples in the \code{eemlist}.
+#'
+#' @return An \code{eemlist}.
+#'
+#' @examples
+#' folder <- system.file("extdata/cary/eem", package = "eemR")
+#' eems <- eem_read(folder)
+#'
+#' names(eems)
+#' names(eems) <- c("a", "b", "c")
+#' names(eems)
+#'
+#' @export
+`names<-.eemlist` <- function(x, value){
+
+  stopifnot(all(lapply(x, class) == "eem"),
+            length(value) == length(x))
+
+  x <- mapply(`names<-.eem`, x = x, value = value, SIMPLIFY = FALSE)
+
+  class(x) <- "eemlist"
+
+  return(x)
 
 }
