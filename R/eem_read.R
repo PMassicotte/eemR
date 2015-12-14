@@ -22,6 +22,7 @@
 #'   X[min(ex), min(em)].
 #'
 #' @importFrom stats na.omit
+#' @importFrom readr read_lines
 #' @export
 #' @examples
 #' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
@@ -66,7 +67,7 @@ eem_read <- function(file, recursive = FALSE) {
   #---------------------------------------------------------------------
   #data <- readLines(file)
 
-  data <- eemR::read_lines(file)
+  data <- read_lines(file)
 
   if(is_cary_eclipse(data)){
     return(eem_read_cary(data, file))
