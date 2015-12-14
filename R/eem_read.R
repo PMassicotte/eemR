@@ -66,7 +66,7 @@ eem_read <- function(file, recursive = FALSE) {
   #---------------------------------------------------------------------
   #data <- readLines(file)
 
-  data <- read_lines(file)
+  data <- eemR::read_lines(file)
 
   if(is_cary_eclipse(data)){
     return(eem_read_cary(data, file))
