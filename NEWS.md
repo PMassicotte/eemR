@@ -1,5 +1,7 @@
 # eemR 0.1.2
 
+- Reading EEMs should be ~ 50% faster.
+
 - Generic function `names()` implemented.
     - `names(eem)` returns a vector containing the sample names of all EEMs.
     - `names(eem) <- c(...)` sets the sample names of all EEMs.
