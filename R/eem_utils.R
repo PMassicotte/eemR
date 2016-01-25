@@ -313,97 +313,73 @@ eem_extract <- function(eem, sample, remove = FALSE, ignore_case = FALSE) {
 }
 
 
-#' The names of an eem object
+#' The names of an eem or eemlist objects
 #'
-#' @param x An object of class \code{eem}.
-#' @param ... Extra arguments.
-#'
-#' @return A character vector containing the name of the EEM.
-#'
-#' @examples
-#' file <- system.file("extdata/cary/eem", "sample1.csv", package = "eemR")
-#' eem <- eem_read(file)
-#'
-#' names(eem)
-#'
-#' @export
-names.eem <- function(x, ...){
-  x$sample
-}
-
-#' The names of an eemlist object
-#'
-#' @param x An object of class \code{eemlist}.
-#' @param ... Extra arguments.
+#' @param eem An object of class \code{eem} or \code{eemlist}.
 #'
 #' @return A character vector containing the names of the EEMs.
 #'
 #' @examples
-#' folder <- system.file("extdata/cary/eem", package = "eemR")
-#' eems <- eem_read(folder)
-#'
-#' names(eems)
-#'
-#' @export
-names.eemlist <- function(x, ...){
-
-  stopifnot(all(lapply(x, class) == "eem"))
-
-  unlist(lapply(x, names.eem))
-
-}
-
-
-#' Set the sample names of an eem object
-#'
-#' @param x An object of class \code{eem}.
-#' @param value A character vector with new sample name.
-#'
-#' @return An \code{eem}.
-#'
-#' @examples
 #' file <- system.file("extdata/cary/eem", "sample1.csv", package = "eemR")
 #' eem <- eem_read(file)
 #'
-#' names(eem)
-#' names(eem) <- "a"
-#' names(eem)
+#' eem_sample_names(eem)
 #'
 #' @export
-`names<-.eem` <- function(x, value){
+eem_sample_names <- function(eem){
 
-  x$sample <- value
+  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"))
 
-  return(x)
+  ## It is a list of eems, then call lapply
+  if(any(lapply(eem, class) == "eem")){
+
+    res <- unlist(lapply(eem, eem_sample_names))
+
+    return(res)
+
+  }
+
+  return(eem$sample)
 }
 
 
-#' Set the sample names of an eemlist object
+#' Set the sample names of an eem or eemlist objects
 #'
-#' @param x An object of class \code{eemlist}.
-#' @param value A character vector with new sample names. Must be equal in
-#'   length to the number of samples in the \code{eemlist}.
+#' @param x An object of class \code{eem} or \code{eemlist}.
+#' @param value A character vector with new sample names. Must be equal
+#'   in length to the number of samples in the \code{eem} or \code{eemlist}.
 #'
-#' @return An \code{eemlist}.
+#' @return An \code{eem} or \code{eemlist}.
 #'
 #' @examples
 #' folder <- system.file("extdata/cary/eem", package = "eemR")
 #' eems <- eem_read(folder)
 #'
-#' names(eems)
-#' names(eems) <- c("a", "b", "c")
-#' names(eems)
+#' eem_sample_names(eems)
+#' eem_sample_names(eems) <- c("a", "b", "c")
+#' eem_sample_names(eems)
 #'
 #' @export
-`names<-.eemlist` <- function(x, value){
+`eem_sample_names<-` <- function(x, value){
 
-  stopifnot(all(lapply(x, class) == "eem"),
-            length(value) == length(x))
 
-  x <- mapply(`names<-.eem`, x = x, value = value, SIMPLIFY = FALSE)
+  stopifnot(all(lapply(x, class) == "eem") | class(x) != "eemlist")
 
-  class(x) <- "eemlist"
+  if(class(x) == "eemlist"){
 
+    stopifnot(length(x) == length(value))
+
+    res <- Map(`eem_sample_names<-`, x[], value)
+
+    class(res) <- "eemlist"
+    return(res)
+  }
+
+  stopifnot(length(value) == 1)
+
+  x$sample = value
+
+  class(x) <- "eem"
   return(x)
 
 }

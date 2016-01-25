@@ -1,10 +1,10 @@
-# eemR 0.1.2
+# eemR 0.1.2 (unreleased)
 
 - Reading EEMs should be ~ 50% faster.
 
-- Generic function `names()` implemented.
-    - `names(eem)` returns a vector containing the sample names of all EEMs.
-    - `names(eem) <- c(...)` sets the sample names of all EEMs.
+- New function `eem_sample_names()` implemented.
+    - `eem_sample_names(eem)` returns a vector containing the sample names of all EEMs.
+    - `eem_sample_names(eem) <- c(...)` sets the sample names of all EEMs.
 
 - `eem_extract()` has now an argument `ignore_case` (#10) to specify if the regular expression search should ignore sample name case (TRUE) or not (FALSE).
 
