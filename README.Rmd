@@ -70,6 +70,8 @@ plot(eem)
 folder <- system.file("extdata/cary/eem", package = "eemR")
 eem <- eem_read(folder)
 
+eem_sample_names(eem)
+
 plot(eem) ## Plot the first eem
 plot(eem, which = 2) ## Plot the second eem
 
