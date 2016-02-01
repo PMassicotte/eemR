@@ -1,5 +1,7 @@
 # eemR 0.1.2 (unreleased)
 
+- New function `eem_bind()` implemented to merge objects of class `eem` and `eemlist`.
+
 - Reading EEMs should be ~ 50% faster.
 
 - New function `eem_sample_names()` implemented.
