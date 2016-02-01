@@ -34,8 +34,7 @@ eem_export_matlab <- function(file, ...){
             file.info(dirname(file))$isdir,
             grepl(".mat", basename(file)))
 
-  eem <- lapply(eem, my_unlist)
-  eem <- unlist(eem, recursive = FALSE)
+  eem <- eem_bind(...)
 
   ## Number of eem
   nSample <- length(eem)
@@ -112,13 +111,5 @@ eem_export_matlab <- function(file, ...){
 
   message("Successfully exported ", nSample, " EEMs to ", file, ".\n")
 
-}
-
-my_unlist <- function(x){
-  if(class(x) == "eem"){
-    return(list(eem = x))
-  }else {
-    return(x)
-  }
 }
 

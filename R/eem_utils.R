@@ -383,3 +383,52 @@ eem_sample_names <- function(eem){
   return(x)
 
 }
+
+#' Bind eem or eemlist
+#'
+#' Function to bind EEMs that have been loaded from different folders or have
+#' been processed differently.
+#'
+#' @param ... One or more object of class \code{eem} or \code{eemlist}.
+#'
+#' @return An object of \code{eemlist}.
+#' @export
+#'
+#' @examples
+#' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
+#' eem <- eem_read(file)
+#'
+#' eem <- eem_bind(eem, eem)
+eem_bind <- function(...){
+
+  eem <- list(...)
+
+  list_classes <- unlist(lapply(eem, function(x) {class(x)}))
+
+  stopifnot(all(list_classes %in% c("eem", "eemlist")))
+
+  eem <- lapply(eem, my_unlist)
+  eem <- unlist(eem, recursive = FALSE)
+
+  class(eem) <- "eemlist"
+
+  return(eem)
+
+}
+
+my_unlist <- function(x){
+
+  if(class(x) == "eem"){
+
+    x <- list(x)
+
+    class(x) <- "eemlist"
+
+    return(x)
+
+  }else {
+
+    return(x)
+
+  }
+}
