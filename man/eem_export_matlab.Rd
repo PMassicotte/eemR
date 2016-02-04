@@ -11,22 +11,24 @@ eem_export_matlab(file, ...)
 
 \item{...}{One or more object of class \code{eem} or \code{eemlist}.}
 }
+\value{
+A structure named \code{OriginalData} is created and contains:
+
+  \describe{ \item{nSample}{The number of eems.} \item{nEx}{The number of
+  excitation wavelengths.} \item{nEm}{The number of emission wavelengths.}
+  \item{Ex}{A vector containing excitation wavelengths.} \item{Em}{A vector
+  containing emission wavelengths.} \item{X}{A 3D matrix (nSample X nEx X
+  nEm) containing EEMs.} }
+
+  \code{sample_name} The list of sample names (i.e. file names) of the
+  imported EEMs.
+}
 \description{
 Export EEMs to Matlab
 }
 \details{
 The function exports EEMs into PARAFAC-ready Matlab \code{.mat} file
-  usable by the \href{www.models.life.ku.dk/drEEM}{drEEM} toolbox. A
-  structure named \code{OriginalData} is created and contains:
-
-  \describe{
-   \item{nSample}{The number of eems.}
-   \item{nEx}{The number of excitation wavelengths.}
-   \item{nEm}{The number of emission wavelengths.}
-   \item{Ex}{A vector containing excitation wavelengths.}
-   \item{Em}{A vector containing emission wavelengths.}
-   \item{X}{A 3D matrix (nSample X nEx X nEm) containing EEMs.}
-  }
+  usable by the \href{www.models.life.ku.dk/drEEM}{drEEM} toolbox.
 }
 \examples{
 file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")

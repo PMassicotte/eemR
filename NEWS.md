@@ -1,5 +1,7 @@
 # eemR 0.1.2 (unreleased)
 
+- Sample names are now exported into Matlab when using the `eem_export_matlab()` function.
+
 - New function `eem_bind()` implemented to merge objects of class `eem` and `eemlist`.
 
 - Reading EEMs should be ~ 50% faster.
