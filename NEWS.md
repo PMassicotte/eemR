@@ -1,4 +1,4 @@
-# eemR 0.1.2 (unreleased)
+# eemR 0.1.2
 
 - Sample names are now exported when using the `eem_export_matlab()` function.
 
