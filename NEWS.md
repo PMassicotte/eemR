@@ -12,7 +12,7 @@
 
 - `eem_extract()` has now an argument `ignore_case` (#10) to specify if the regular expression search should ignore sample name case (TRUE) or not (FALSE).
 
-- Sample names (i.e. file names) are now verified with `make.names()`.
+- Sample names (i.e. file names) are now verified with `make.names()` (#15).
 
 - Various improvements in documentation.
 
