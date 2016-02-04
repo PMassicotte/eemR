@@ -120,11 +120,11 @@ res <- eem_extract(eems, 1:3, remove = TRUE)
 folder <- system.file("extdata/cary/eem", package = "eemR")
 eem <- eem_read(folder)
 
-names(eem)
+eem_sample_names(eem)
 
-names(eem) <- c("A", "B", "C")
+eem_sample_names(eem) <- c("A", "B", "C")
 
-names(eem)
+eem_sample_names(eem)
 ```
 
 
