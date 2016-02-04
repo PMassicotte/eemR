@@ -94,6 +94,8 @@ eem_read <- function(file, recursive = FALSE) {
 #' @param ex Vector of excitation wavelengths.
 #' @param em Vector of emission wavelengths.
 #'
+#' @importFrom tools file_path_sans_ext
+#'
 #' @return An object of class \code{eem} containing:
 #' \itemize{
 #'  \item sample The file name of the eem.
@@ -104,7 +106,7 @@ eem_read <- function(file, recursive = FALSE) {
 
 eem <- function(sample, x, ex, em){
 
-  eem <- list(sample = strsplit(basename(sample), "\\.")[[1]][1],
+  eem <- list(sample = make.names(file_path_sans_ext(basename(sample))),
               x = x,
               ex = ex,
               em = em)

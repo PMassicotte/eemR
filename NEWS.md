@@ -1,6 +1,6 @@
 # eemR 0.1.2 (unreleased)
 
-- Sample names are now exported into Matlab when using the `eem_export_matlab()` function.
+- Sample names are now exported when using the `eem_export_matlab()` function.
 
 - New function `eem_bind()` implemented to merge objects of class `eem` and `eemlist`.
 
@@ -12,7 +12,9 @@
 
 - `eem_extract()` has now an argument `ignore_case` (#10) to specify if the regular expression search should ignore sample name case (TRUE) or not (FALSE).
 
-- Various improvement in documentation.
+- Sample names (i.e. file names) are now verified with `make.names()`.
+
+- Various improvements in documentation.
 
 # eemR 0.1.1
 
