@@ -5,5 +5,4 @@
 ^\.travis\.yml$
 ^appveyor\.yml$
 man-roxygen
-^NEWS\.md$
 ^cran-comments\.md$
