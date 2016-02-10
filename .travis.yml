@@ -3,9 +3,6 @@
 language: r
 warnings_are_errors: true
 
-before_install:
-  - tlmgr install fullpage.sty
-
 sudo: required
 os:
   - linux
