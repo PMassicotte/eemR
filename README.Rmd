@@ -1,8 +1,8 @@
 ---
 bibliography: /home/persican/Documents/library.bib
 output:
-  md_document:
-    variant: markdown_github
+  github_document:
+    html_preview: true
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
