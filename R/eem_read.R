@@ -33,6 +33,29 @@ eem_read <- function(file, recursive = FALSE) {
   stopifnot(file.exists(file) | file.info(file)$isdir,
             is.logical(recursive))
 
+  f <- function(file) {
+
+    #---------------------------------------------------------------------
+    # Read the file and try to figure from which spectrofluo it belongs.
+    #---------------------------------------------------------------------
+
+    data <- read_lines(file)
+
+    if(is_cary_eclipse(data)){
+      return(eem_read_cary(data, file))
+    }
+
+    if(is_aqualog(data)){
+      return(eem_read_aqualog(data, file))
+    }
+
+    if(is_shimadzu(data)){
+      return(eem_read_shimadzu(data, file))
+    }
+
+    message("I do not know how to read *** ", basename(file), " ***\n")
+  }
+
   #--------------------------------------------
   # Verify if user provided a dir or a file.
   #--------------------------------------------
@@ -40,7 +63,7 @@ eem_read <- function(file, recursive = FALSE) {
 
   if(isdir){
 
-    files <- list.files(file,
+    file <- list.files(file,
                         full.names = TRUE,
                         recursive = recursive,
                         no.. = TRUE,
@@ -48,42 +71,17 @@ eem_read <- function(file, recursive = FALSE) {
                         pattern = "*.txt|*.dat|*.csv",
                         ignore.case = TRUE)
 
-    files <- files[!file.info(files)$isdir]
+    file <- file[!file.info(file)$isdir]
 
-    res <- lapply(files, eem_read)
-
-    #res <- lapply(res, my_unlist)
-    #res <- unlist(res, recursive = FALSE)
-
-    class(res) <- "eemlist"
-
-    res[unlist(lapply(res, is.null))] <- NULL ## Remove unreadable EEMs
-
-    return(res)
   }
 
-  #---------------------------------------------------------------------
-  # Read the file and try to figure from which spectrofluo it belongs.
-  #---------------------------------------------------------------------
-  #data <- readLines(file)
+  res <- lapply(file, f)
 
-  data <- read_lines(file)
+  class(res) <- "eemlist"
 
-  if(is_cary_eclipse(data)){
-    return(eem_read_cary(data, file))
-  }
+  res[unlist(lapply(res, is.null))] <- NULL ## Remove unreadable EEMs
 
-  if(is_aqualog(data)){
-    return(eem_read_aqualog(data, file))
-  }
-
-  if(is_shimadzu(data)){
-    return(eem_read_shimadzu(data, file))
-  }
-
-  message("I do not know how to read *** ", basename(file), " ***\n")
-
-  return(NULL)
+  return(res)
 
 }
 
