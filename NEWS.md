@@ -1,5 +1,14 @@
 # eemR 0.1.3 (unreleased)
 
+- `eem_remove_blank()` can now try to implicitly remove a blank eem from a `eemlist` object. If blank is omited, the function will try to extract the blank from the `eemlist` object. This is done by looking for sample names containing one of these complete or partial strings (ignoring case):
+      - nano
+      - miliq
+      - milliq
+      - mq
+      - blank
+      
+- `eem_extract()` has now an argument `verbose` (default = FALSE) that determine if the names of removed or extraced eems should be printed on screen.
+
 - Implemented the generic `print()` method which calls `summary()`.
 
 # eemR 0.1.2
