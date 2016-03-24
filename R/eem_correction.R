@@ -3,7 +3,14 @@
 #' @template template_eem
 #' @template template_blank
 #'
-#' @details Scatter bands can often be reduced by subtracting water blank.
+#' @details This function is used to remove blank from eems which can help to
+#'   reduce the effect of scatter bands. The function will first use the
+#'   provided \code{blank}. If blank is omited, the function will try to extract
+#'   the blank from the \code{eemlist} object. This is done by looking for
+#'   sample names containing one of these complete or partial strings (ignoring
+#'   case):
+#'
+#'   \enumerate{ \item nano \item miliq \item milliq \item mq \item blank }
 #'
 #' @references Murphy, K. R., Stedmon, C. a., Graeber, D., & Bro, R. (2013).
 #'   Fluorescence spectroscopy and multi-way techniques. PARAFAC. Analytical
@@ -64,8 +71,8 @@ eem_remove_blank <- function(eem, blank = NA) {
 
     # if blank is NA then try to split the eemlist into blank and eems
     if(is.na(blank)){
-      blank <- eem_extract(eem, blank_names, remove = FALSE)
-      eem <- eem_extract(eem, blank_names, remove = TRUE)
+      blank <- eem_extract(eem, blank_names, remove = FALSE, ignore_case = TRUE)
+      eem <- eem_extract(eem, blank_names, remove = TRUE, ignore_case = TRUE)
 
       if(length(blank) != 1 | length(eem) < 1){
         stop("Cannot find blank for automatic correction.", call. = FALSE)

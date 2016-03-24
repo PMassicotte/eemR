@@ -4,7 +4,7 @@
 \alias{eem_remove_blank}
 \title{Blank correction}
 \usage{
-eem_remove_blank(eem, blank)
+eem_remove_blank(eem, blank = NA)
 }
 \arguments{
 \item{eem}{An object of class \code{eemlist}.}
@@ -18,7 +18,14 @@ An object of class \code{eemlist}.
 Blank correction
 }
 \details{
-Scatter bands can often be reduced by subtracting water blank.
+This function is used to remove blank from eems which can help to
+  reduce the effect of scatter bands. The function will first use the
+  provided \code{blank}. If blank is omited, the function will try to extract
+  the blank from the \code{eemlist} object. This is done by looking for
+  sample names containing one of these complete or partial strings (ignoring
+  case):
+
+  \enumerate{ \item nano \item miliq \item milliq \item mq \item blank }
 }
 \examples{
 
