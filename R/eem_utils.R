@@ -371,9 +371,9 @@ eem_sample_names <- function(eem){
 `eem_sample_names<-` <- function(x, value){
 
 
-  stopifnot(.is_eemlist(eem) | .is_eem(eem))
+  stopifnot(.is_eemlist(x) | .is_eem(x))
 
-  if(.is_eemlist(eem)){
+  if(.is_eemlist(x)){
 
     stopifnot(length(x) == length(value))
 
