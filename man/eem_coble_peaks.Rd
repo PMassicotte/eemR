@@ -7,11 +7,13 @@
 eem_coble_peaks(eem, verbose = TRUE)
 }
 \arguments{
-\item{eem}{An object of class \code{eem}}
+\item{eem}{An object of class \code{eemlist}.}
 
 \item{verbose}{Logical determining if additional messages should be printed.}
 }
 \value{
+An object of class \code{eemlist}.
+
 A data frame containing peaks B, T, A, M and C for each eem. See
   details for more information.
 }

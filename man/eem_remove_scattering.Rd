@@ -7,7 +7,7 @@
 eem_remove_scattering(eem, type, order = 1, width = 10)
 }
 \arguments{
-\item{eem}{Either an object of class \code{eem} or \code{eemlist}.}
+\item{eem}{An object of class \code{eemlist}.}
 
 \item{type}{A string, either "raman" or "rayleigh".}
 
@@ -16,7 +16,7 @@ eem_remove_scattering(eem, type, order = 1, width = 10)
 \item{width}{Slit width in nm for the cut. Default is 10 nm.}
 }
 \value{
-Either an object of class \code{eem} or \code{eemlist}.
+An object of class \code{eemlist}.
 }
 \description{
 Remove Raman and Rayleigh scattering

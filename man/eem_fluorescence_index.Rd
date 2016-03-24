@@ -7,11 +7,13 @@
 eem_fluorescence_index(eem, verbose = TRUE)
 }
 \arguments{
-\item{eem}{An object of class \code{eem}}
+\item{eem}{An object of class \code{eemlist}.}
 
 \item{verbose}{Logical determining if additional messages should be printed.}
 }
 \value{
+An object of class \code{eemlist}.
+
 A data frame containing fluorescence index (FI) for each eem.
 }
 \description{

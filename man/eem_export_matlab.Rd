@@ -9,7 +9,7 @@ eem_export_matlab(file, ...)
 \arguments{
 \item{file}{The .mat file name where to export the structure.}
 
-\item{...}{One or more object of class \code{eem} or \code{eemlist}.}
+\item{...}{One or more object of class \code{eemlist}.}
 }
 \value{
 A structure named \code{OriginalData} is created and contains:

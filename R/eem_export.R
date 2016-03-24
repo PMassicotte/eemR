@@ -1,7 +1,7 @@
 #' Export EEMs to Matlab
 #'
 #' @param file The .mat file name where to export the structure.
-#' @param ... One or more object of class \code{eem} or \code{eemlist}.
+#' @param ... One or more object of class \code{eemlist}.
 #'
 #' @details The function exports EEMs into PARAFAC-ready Matlab \code{.mat} file
 #'   usable by the \href{www.models.life.ku.dk/drEEM}{drEEM} toolbox.

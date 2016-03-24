@@ -54,16 +54,23 @@
 
 eem_remove_blank <- function(eem, blank = NA) {
 
-  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"),
-            class(blank) == "eem" | is.na(blank))
+  stopifnot(.is_eemlist(eem) | .is_eem(eem),
+            .is_eemlist(blank) | is.na(blank))
 
   ## It is a list of eems, then call lapply
-  if(any(lapply(eem, class) == "eem")){
+  if(.is_eemlist(eem)){
 
     blank_names <- c("nano", "miliq", "milliq", "mq", "blank")
 
-    blank <- eem_extract(eem, blank_names, remove = FALSE)
-    eem <- eem_extract(eem, blank_names, remove = TRUE)
+    # if blank is NA then try to split the eemlist into blank and eems
+    if(is.na(blank)){
+      blank <- eem_extract(eem, blank_names, remove = FALSE)
+      eem <- eem_extract(eem, blank_names, remove = TRUE)
+
+      if(length(blank) != 1 | length(eem) < 1){
+        stop("Cannot find blank for automatic correction.", call. = FALSE)
+      }
+    }
 
     res <- lapply(eem,
                   eem_remove_blank,
@@ -76,7 +83,7 @@ eem_remove_blank <- function(eem, blank = NA) {
   #---------------------------------------------------------------------
   # Do the blank subtraction.
   #---------------------------------------------------------------------
-
+  blank <- unlist(blank, recursive = FALSE)
   x <- eem$x - blank$x
 
   ## Construct an eem object.
@@ -127,7 +134,7 @@ eem_remove_blank <- function(eem, blank = NA) {
 
 eem_remove_scattering <- function(eem, type, order = 1, width = 10){
 
-  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"),
+  stopifnot(.is_eemlist(eem) | .is_eem(eem),
             all(type %in% c("raman", "rayleigh")),
             is.numeric(order),
             is.numeric(width),
@@ -138,7 +145,7 @@ eem_remove_scattering <- function(eem, type, order = 1, width = 10){
             is_between(width, 0, 100))
 
   ## It is a list of eems, then call lapply
-  if(any(lapply(eem, class) == "eem")){
+  if(.is_eemlist(eem)){
 
     res <- lapply(eem,
                   eem_remove_scattering,
@@ -159,9 +166,7 @@ eem_remove_scattering <- function(eem, type, order = 1, width = 10){
   ex <- eem$ex
 
   if(type == "raman"){
-
     ex <- .find_raman_peaks(eem$ex)
-
   }
 
   ind1 <- mapply(function(x)em <= x, order * ex - width)
@@ -256,11 +261,11 @@ eem_remove_scattering <- function(eem, type, order = 1, width = 10){
 
 eem_raman_normalisation <- function(eem, blank){
 
-  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"),
-            class(blank) == "eem")
+  stopifnot(.is_eemlist(eem) | .is_eem(eem),
+            .is_eemlist(blank))
 
   ## It is a list of eems, then call lapply
-  if(any(lapply(eem, class) == "eem")){
+  if(.is_eemlist(eem)){
 
     res <- lapply(eem,
                   eem_raman_normalisation,
@@ -274,6 +279,7 @@ eem_raman_normalisation <- function(eem, blank){
   #---------------------------------------------------------------------
   # Do the normalisation.
   #---------------------------------------------------------------------
+  blank <- unlist(blank, recursive = FALSE)
   index_ex <- which(blank$ex == 350)
   index_em <- which(blank$em >= 371 & blank$em <= 428)
 
@@ -358,15 +364,12 @@ eem_raman_normalisation <- function(eem, blank){
 #' @export
 eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
 
-  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"),
-
+  stopifnot(.is_eemlist(eem) | .is_eem(eem),
             is.data.frame(absorbance),
-
             is.numeric(pathlength))
 
-
   ## It is a list of eems, then call lapply
-  if(any(lapply(eem, class) == "eem")){
+  if(.is_eemlist(eem)){
 
     res <- lapply(eem, eem_inner_filter_effect, absorbance = absorbance)
 
@@ -399,7 +402,6 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
 
     stop("absorbance wavelenghts are not in the range of
          excitation wavelengths", call. = FALSE)
-
   }
 
   spectra <- absorbance[, which(names(absorbance) == eem$sample)]

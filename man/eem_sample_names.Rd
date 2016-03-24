@@ -7,9 +7,11 @@
 eem_sample_names(eem)
 }
 \arguments{
-\item{eem}{An object of class \code{eem} or \code{eemlist}.}
+\item{eem}{An object of class \code{eemlist}.}
 }
 \value{
+An object of class \code{eemlist}.
+
 A character vector containing the names of the EEMs.
 }
 \description{

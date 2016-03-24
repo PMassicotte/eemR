@@ -7,7 +7,7 @@
 eem_bind(...)
 }
 \arguments{
-\item{...}{One or more object of class \code{eem} or \code{eemlist}.}
+\item{...}{One or more object of class \code{eemlist}.}
 }
 \value{
 An object of \code{eemlist}.

@@ -1,3 +1,3 @@
-#' @param eem Either an object of class \code{eem} or \code{eemlist}.
+#' @param eem An object of class \code{eemlist}.
 #'
-#' @return Either an object of class \code{eem} or \code{eemlist}.
+#' @return An object of class \code{eemlist}.

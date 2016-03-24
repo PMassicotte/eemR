@@ -7,12 +7,12 @@
 eem_raman_normalisation(eem, blank)
 }
 \arguments{
-\item{eem}{Either an object of class \code{eem} or \code{eemlist}.}
+\item{eem}{An object of class \code{eemlist}.}
 
-\item{blank}{Either an object of class \code{eem} or a list of \code{eem}.}
+\item{blank}{An object of class \code{eemlist}.}
 }
 \value{
-Either an object of class \code{eem} or \code{eemlist}.
+An object of class \code{eemlist}.
 
 An object of class \code{eem} containing: \itemize{ \item sample The
   file name of the eem. \item x A matrix with fluorescence values. \item em

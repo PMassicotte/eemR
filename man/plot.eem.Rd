@@ -7,7 +7,7 @@
 \method{plot}{eem}(x, ...)
 }
 \arguments{
-\item{x}{An object of class \code{eem}.}
+\item{x}{An object of class \code{eemlist}.}
 
 \item{...}{Extra arguments for \code{image.plot}.}
 }
