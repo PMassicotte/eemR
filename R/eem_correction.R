@@ -54,8 +54,8 @@
 
 eem_remove_blank <- function(eem, blank) {
 
-  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"),
-            class(blank) == "eem")
+  stopifnot(class(eem) == "eemlist" | any(lapply(eem, class) == "eem"),
+            class(blank) == "eemlist")
 
   ## It is a list of eems, then call lapply
   if(any(lapply(eem, class) == "eem")){
@@ -122,7 +122,7 @@ eem_remove_blank <- function(eem, blank) {
 
 eem_remove_scattering <- function(eem, type, order = 1, width = 10){
 
-  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"),
+  stopifnot(.is_eemlist(eem) | .is_eem(eem),
             all(type %in% c("raman", "rayleigh")),
             is.numeric(order),
             is.numeric(width),
@@ -133,7 +133,7 @@ eem_remove_scattering <- function(eem, type, order = 1, width = 10){
             is_between(width, 0, 100))
 
   ## It is a list of eems, then call lapply
-  if(any(lapply(eem, class) == "eem")){
+  if(.is_eemlist(eem)){
 
     res <- lapply(eem,
                   eem_remove_scattering,
@@ -154,9 +154,7 @@ eem_remove_scattering <- function(eem, type, order = 1, width = 10){
   ex <- eem$ex
 
   if(type == "raman"){
-
     ex <- .find_raman_peaks(eem$ex)
-
   }
 
   ind1 <- mapply(function(x)em <= x, order * ex - width)
@@ -251,11 +249,11 @@ eem_remove_scattering <- function(eem, type, order = 1, width = 10){
 
 eem_raman_normalisation <- function(eem, blank){
 
-  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"),
-            class(blank) == "eem")
+  stopifnot(.is_eemlist(eem) | .is_eem(eem),
+            .is_eemlist(blank))
 
   ## It is a list of eems, then call lapply
-  if(any(lapply(eem, class) == "eem")){
+  if(.is_eemlist(eem)){
 
     res <- lapply(eem,
                   eem_raman_normalisation,
@@ -269,6 +267,7 @@ eem_raman_normalisation <- function(eem, blank){
   #---------------------------------------------------------------------
   # Do the normalisation.
   #---------------------------------------------------------------------
+  blank <- unlist(blank, recursive = FALSE)
   index_ex <- which(blank$ex == 350)
   index_em <- which(blank$em >= 371 & blank$em <= 428)
 
@@ -353,15 +352,12 @@ eem_raman_normalisation <- function(eem, blank){
 #' @export
 eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
 
-  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"),
-
+  stopifnot(.is_eemlist(eem) | .is_eem(eem),
             is.data.frame(absorbance),
-
             is.numeric(pathlength))
 
-
   ## It is a list of eems, then call lapply
-  if(any(lapply(eem, class) == "eem")){
+  if(.is_eemlist(eem)){
 
     res <- lapply(eem, eem_inner_filter_effect, absorbance = absorbance)
 
@@ -394,7 +390,6 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
 
     stop("absorbance wavelenghts are not in the range of
          excitation wavelengths", call. = FALSE)
-
   }
 
   spectra <- absorbance[, which(names(absorbance) == eem$sample)]

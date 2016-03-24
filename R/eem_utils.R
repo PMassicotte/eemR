@@ -1,6 +1,6 @@
 #' Surface plot of eem
 #'
-#' @param x An object of class \code{eem}.
+#' @param x An object of class \code{eemlist}.
 #' @param ... Extra arguments for \code{image.plot}.
 #' @importFrom grDevices colorRampPalette
 #' @export
@@ -131,10 +131,10 @@ summary.eemlist <- function(object, ...){
 #' plot(eem)
 eem_cut <- function(eem, ex, em){
 
-  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"))
+  stopifnot(.is_eemlist(eem) | .is_eem(eem))
 
   ## It is a list of eems, then call lapply
-  if(any(lapply(eem, class) == "eem")){
+  if(.is_eemlist(eem)){
 
     res <- lapply(eem, eem_cut, ex = ex, em = em)
 
@@ -144,7 +144,7 @@ eem_cut <- function(eem, ex, em){
 
   }
 
-  ## Maybe round em and ex wavelengths so it is
+  ## Maybe round em and ex wavelengths
 
   if(!missing(ex)){
 
@@ -196,7 +196,7 @@ eem_cut <- function(eem, ex, em){
 
 eem_set_wavelengths <- function(eem, ex, em){
 
-  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"))
+  stopifnot(class(eem) == "eemlist" | any(lapply(eem, class) == "eem"))
 
   ## It is a list of eems, then call lapply
   if(any(lapply(eem, class) == "eem")){
@@ -315,7 +315,7 @@ eem_extract <- function(eem, sample, remove = FALSE, ignore_case = FALSE) {
 
 #' The names of an eem or eemlist objects
 #'
-#' @param eem An object of class \code{eem} or \code{eemlist}.
+#' @template template_eem
 #'
 #' @return A character vector containing the names of the EEMs.
 #'
@@ -328,10 +328,10 @@ eem_extract <- function(eem, sample, remove = FALSE, ignore_case = FALSE) {
 #' @export
 eem_sample_names <- function(eem){
 
-  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"))
+  stopifnot(.is_eemlist(eem) | .is_eem(eem))
 
   ## It is a list of eems, then call lapply
-  if(any(lapply(eem, class) == "eem")){
+  if(.is_eemlist(eem)){
 
     res <- unlist(lapply(eem, eem_sample_names))
 
@@ -363,9 +363,9 @@ eem_sample_names <- function(eem){
 `eem_sample_names<-` <- function(x, value){
 
 
-  stopifnot(all(lapply(x, class) == "eem") | class(x) != "eemlist")
+  stopifnot(.is_eemlist(eem) | .is_eem(eem))
 
-  if(class(x) == "eemlist"){
+  if(.is_eemlist(eem)){
 
     stopifnot(length(x) == length(value))
 
@@ -389,7 +389,7 @@ eem_sample_names <- function(eem){
 #' Function to bind EEMs that have been loaded from different folders or have
 #' been processed differently.
 #'
-#' @param ... One or more object of class \code{eem} or \code{eemlist}.
+#' @param ... One or more object of class \code{eemlist}.
 #'
 #' @return An object of \code{eemlist}.
 #' @export
@@ -431,4 +431,12 @@ my_unlist <- function(x){
     return(x)
 
   }
+}
+
+.is_eemlist <- function(eem) {
+  ifelse(class(eem) == "eemlist", TRUE, FALSE)
+}
+
+.is_eem <- function(eem) {
+  ifelse(class(eem) == "eem", TRUE, FALSE)
 }

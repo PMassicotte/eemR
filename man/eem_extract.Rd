@@ -7,7 +7,7 @@
 eem_extract(eem, sample, remove = FALSE, ignore_case = FALSE)
 }
 \arguments{
-\item{eem}{Either an object of class \code{eem} or \code{eemlist}.}
+\item{eem}{An object of class \code{eemlist}.}
 
 \item{sample}{Either numeric of character vector. See \code{details} for more
 information.}
@@ -18,7 +18,7 @@ information.}
 or not (FALSE). Default is FALSE.}
 }
 \value{
-Either an object of class \code{eem} or \code{eemlist}.
+An object of class \code{eemlist}.
 }
 \description{
 Extract EEM samples

@@ -7,11 +7,13 @@
 eem_biological_index(eem, verbose = TRUE)
 }
 \arguments{
-\item{eem}{An object of class \code{eem} or \code{eemlist}.}
+\item{eem}{An object of class \code{eemlist}.}
 
 \item{verbose}{Logical determining if additional messages should be printed.}
 }
 \value{
+An object of class \code{eemlist}.
+
 A data frame containing the biological index (BIX) for each eem.
 }
 \description{

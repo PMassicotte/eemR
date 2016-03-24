@@ -4,14 +4,12 @@
 #---------------------------------------------------------------------
 msg_warning_wavelength <- function(){
   msg <- "This metric uses either excitation or emission wavelenghts that were not present in the data. Data has been interpolated to fit the requested wavelengths."
-
   return(msg)
 }
 
-
 #' Calculate the fluorescence index (FI)
 #'
-#' @param eem An object of class \code{eem}
+#' @template template_eem
 #'
 #' @template template_section_interp2
 #'
@@ -27,10 +25,10 @@ msg_warning_wavelength <- function(){
 
 eem_fluorescence_index <- function(eem, verbose = TRUE){
 
-  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"))
+  stopifnot(.is_eemlist(eem) | .is_eem(eem))
 
   ## It is a list of eems, then call lapply
-  if(any(lapply(eem, class) == "eem")){
+  if(.is_eemlist(eem)){
 
     res <- lapply(eem, eem_fluorescence_index, verbose = verbose)
     res <- dplyr::bind_rows(res)
@@ -53,10 +51,9 @@ eem_fluorescence_index <- function(eem, verbose = TRUE){
 
 }
 
-
 #' Extract fluorescence peaks
 #'
-#' @param eem An object of class \code{eem}
+#' @template template_eem
 #'
 #' @template template_section_interp2
 #'
@@ -93,10 +90,10 @@ eem_fluorescence_index <- function(eem, verbose = TRUE){
 #' @export
 eem_coble_peaks <- function(eem, verbose = TRUE){
 
-  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"))
+  stopifnot(.is_eemlist(eem) | .is_eem(eem))
 
   ## It is a list of eems, then call lapply
-  if(any(lapply(eem, class) == "eem")){
+  if(.is_eemlist(eem)){
 
     res <- lapply(eem, eem_coble_peaks, verbose = verbose)
     res <- dplyr::bind_rows(res)
@@ -111,7 +108,6 @@ eem_coble_peaks <- function(eem, verbose = TRUE){
     warning(msg_warning_wavelength(), call. = FALSE)
 
   }
-
 
   ## Get the peaks
   b <- pracma::interp2(eem$ex, eem$em, eem$x, 275, 310)
@@ -137,12 +133,11 @@ eem_coble_peaks <- function(eem, verbose = TRUE){
                     m = m,
                     c = c,
                     stringsAsFactors = FALSE))
-
 }
 
 #' Calculate the fluorescence humification index (HIX)
 #'
-#' @param eem An object of class \code{eem} or \code{eemlist}.
+#' @template template_eem
 #' @param scale Logical indicating if HIX should be scaled, default is FALSE.
 #'   See details for more information.
 #'
@@ -170,11 +165,11 @@ eem_coble_peaks <- function(eem, verbose = TRUE){
 #'
 eem_humification_index <- function(eem, scale = FALSE, verbose = TRUE) {
 
-  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"),
+  stopifnot(.is_eemlist(eem) | .is_eem(eem),
             is.logical(scale))
 
   ## It is a list of eems, then call lapply
-  if(any(lapply(eem, class) == "eem")){
+  if(.is_eemlist(eem)){
 
     res <- lapply(eem, eem_humification_index, verbose = verbose, scale = scale)
     res <- dplyr::bind_rows(res)
@@ -217,7 +212,7 @@ eem_humification_index <- function(eem, scale = FALSE, verbose = TRUE) {
 
 #' Calculate the biological fluorescence index (BIX)
 #'
-#' @param eem An object of class \code{eem} or \code{eemlist}.
+#' @template template_eem
 #'
 #' @template template_section_interp2
 #'
@@ -242,10 +237,10 @@ eem_humification_index <- function(eem, scale = FALSE, verbose = TRUE) {
 #'
 eem_biological_index <- function(eem, verbose = TRUE) {
 
-  stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"))
+  stopifnot(.is_eemlist(eem) | .is_eem(eem))
 
   ## It is a list of eems, then call lapply
-  if(any(lapply(eem, class) == "eem")){
+  if(.is_eemlist(eem)){
 
     res <- lapply(eem, eem_biological_index, verbose = verbose)
     res <- dplyr::bind_rows(res)
@@ -258,9 +253,7 @@ eem_biological_index <- function(eem, verbose = TRUE) {
   #---------------------------------------------------------------------
 
   if(!all(310 %in% eem$ex & c(380, 430) %in% eem$em) & verbose){
-
     warning(msg_warning_wavelength(), call. = FALSE)
-
   }
 
   fluo_380 <- pracma::interp2(eem$ex, eem$em, eem$x, 310, 380)

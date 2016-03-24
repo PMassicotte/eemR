@@ -7,14 +7,14 @@
 eem_set_wavelengths(eem, ex, em)
 }
 \arguments{
-\item{eem}{Either an object of class \code{eem} or \code{eemlist}.}
+\item{eem}{An object of class \code{eemlist}.}
 
 \item{ex}{A numeric vector of excitation wavelengths.}
 
 \item{em}{A numeric vector of emission wavelengths.}
 }
 \value{
-Either an object of class \code{eem} or \code{eemlist}.
+An object of class \code{eemlist}.
 }
 \description{
 This function allows to manully specify either excitation or emission vector
