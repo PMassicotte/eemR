@@ -89,6 +89,14 @@ summary.eem <- function(object, ...){
   cat("manucafturer:", attr(object, "manucafturer"), "\n")
 }
 
+print.eem <- function(object, ...){
+  summary(object)
+}
+
+print.eemlist <- function(object, ...){
+  summary(object)
+}
+
 
 #' Display summary of an eemlist object
 #'
