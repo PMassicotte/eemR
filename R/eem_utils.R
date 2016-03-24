@@ -204,10 +204,10 @@ eem_cut <- function(eem, ex, em){
 
 eem_set_wavelengths <- function(eem, ex, em){
 
-  stopifnot(class(eem) == "eemlist" | any(lapply(eem, class) == "eem"))
+  stopifnot(.is_eemlist(eem) | .is_eem(eem))
 
   ## It is a list of eems, then call lapply
-  if(any(lapply(eem, class) == "eem")){
+  if(.is_eemlist(eem)){
 
     res <- lapply(eem, eem_set_wavelengths, ex = ex, em = em)
 
