@@ -4,7 +4,8 @@
 \alias{eem_extract}
 \title{Extract EEM samples}
 \usage{
-eem_extract(eem, sample, remove = FALSE, ignore_case = FALSE)
+eem_extract(eem, sample, remove = FALSE, ignore_case = FALSE,
+  verbose = TRUE)
 }
 \arguments{
 \item{eem}{An object of class \code{eemlist}.}
@@ -16,6 +17,9 @@ information.}
 
 \item{ignore_case}{Logical, should sample name case should be ignored (TRUE)
 or not (FALSE). Default is FALSE.}
+
+\item{verbose}{Logical determining if removed/extraced eems should be printed
+on screen.}
 }
 \value{
 An object of class \code{eemlist}.

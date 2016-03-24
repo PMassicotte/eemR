@@ -71,8 +71,10 @@ eem_remove_blank <- function(eem, blank = NA) {
 
     # if blank is NA then try to split the eemlist into blank and eems
     if(is.na(blank)){
-      blank <- eem_extract(eem, blank_names, remove = FALSE, ignore_case = TRUE)
-      eem <- eem_extract(eem, blank_names, remove = TRUE, ignore_case = TRUE)
+      blank <- eem_extract(eem, blank_names, remove = FALSE, ignore_case = TRUE,
+                           verbose = FALSE)
+      eem <- eem_extract(eem, blank_names, remove = TRUE, ignore_case = TRUE,
+                         verbose = FALSE)
 
       if(length(blank) != 1 | length(eem) < 1){
         stop("Cannot find blank for automatic correction.", call. = FALSE)

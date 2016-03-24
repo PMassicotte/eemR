@@ -253,6 +253,9 @@ eem_set_wavelengths <- function(eem, ex, em){
 #' @param ignore_case Logical, should sample name case should be ignored (TRUE)
 #'   or not (FALSE). Default is FALSE.
 #'
+#' @param verbose Logical determining if removed/extraced eems should be printed
+#'   on screen.
+#'
 #' @details \code{sample} argument can be either numeric or character vector. If
 #'   it is numeric, samples at specified index will be removed.
 #'
@@ -280,7 +283,8 @@ eem_set_wavelengths <- function(eem, ex, em){
 #' eem_extract(eems, "^no")
 #'
 #' @export
-eem_extract <- function(eem, sample, remove = FALSE, ignore_case = FALSE) {
+eem_extract <- function(eem, sample, remove = FALSE, ignore_case = FALSE,
+                        verbose = TRUE) {
 
   stopifnot(class(eem) == "eemlist",
             is.character(sample) | is.numeric(sample))
@@ -294,9 +298,10 @@ eem_extract <- function(eem, sample, remove = FALSE, ignore_case = FALSE) {
 
     eem[ifelse(remove, -sample, sample)] <- NULL
 
-    cat(ifelse(remove, "Removed sample(s):", "Extracted sample(s):"),
-        sample_names[sample], "\n")
-
+    if(verbose){
+      cat(ifelse(remove, "Removed sample(s):", "Extracted sample(s):"),
+          sample_names[sample], "\n")
+    }
   }
 
   ## Regular expression
@@ -308,12 +313,14 @@ eem_extract <- function(eem, sample, remove = FALSE, ignore_case = FALSE) {
 
     eem[xor(index, !remove)] <- NULL
 
-    if(all(index == FALSE)){
-      cat("Nothing to remove.")
-    }
-    else{
-      cat(ifelse(remove, "Removed sample(s):", "Extracted sample(s):"),
-          sample_names[index], "\n")
+    if(verbose){
+      if(all(index == FALSE)){
+        cat("Nothing to remove.")
+      }
+      else{
+        cat(ifelse(remove, "Removed sample(s):", "Extracted sample(s):"),
+            sample_names[index], "\n")
+      }
     }
   }
 
