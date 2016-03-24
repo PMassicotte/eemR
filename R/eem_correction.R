@@ -52,13 +52,18 @@
 #'
 #' plot(eem, which = 3)
 
-eem_remove_blank <- function(eem, blank) {
+eem_remove_blank <- function(eem, blank = NA) {
 
   stopifnot(class(eem) == "eem" | any(lapply(eem, class) == "eem"),
-            class(blank) == "eem")
+            class(blank) == "eem" | is.na(blank))
 
   ## It is a list of eems, then call lapply
   if(any(lapply(eem, class) == "eem")){
+
+    blank_names <- c("nano", "miliq", "milliq", "mq", "blank")
+
+    blank <- eem_extract(eem, blank_names, remove = FALSE)
+    eem <- eem_extract(eem, blank_names, remove = TRUE)
 
     res <- lapply(eem,
                   eem_remove_blank,
