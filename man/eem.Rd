@@ -4,10 +4,10 @@
 \alias{eem}
 \title{eem constructor}
 \usage{
-eem(sample, x, ex, em)
+eem(file, x, ex, em)
 }
 \arguments{
-\item{sample}{A string containing the file name of the eem.}
+\item{file}{A string containing the file name of the eem.}
 
 \item{x}{A matrix with fluorescence values.}
 

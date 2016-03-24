@@ -75,7 +75,7 @@ eem_remove_blank <- function(eem, blank) {
   x <- eem$x - blank$x
 
   ## Construct an eem object.
-  res <- eem(sample = eem$sample,
+  res <- eem(file = eem$sample,
              x = x,
              ex = eem$ex,
              em = eem$em)
@@ -167,7 +167,7 @@ eem_remove_scattering <- function(eem, type, order = 1, width = 10){
   x <- x * ind3
 
   ## Construct an eem object.
-  res <- eem(sample = eem$sample,
+  res <- eem(file = eem$sample,
              x = x,
              ex = eem$ex,
              em = eem$em)
@@ -282,7 +282,7 @@ eem_raman_normalisation <- function(eem, blank){
   x <- eem$x / area
 
   ## Construct an eem object.
-  res <- eem(sample = eem$sample,
+  res <- eem(file = eem$sample,
              x = x,
              ex = eem$ex,
              em = eem$em)
@@ -436,7 +436,7 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
   x <- eem$x / ife_correction_factor
 
   ## Construct an eem object.
-  res <- eem(sample = eem$sample,
+  res <- eem(file = eem$sample,
              x = x,
              ex = eem$ex,
              em = eem$em)

@@ -89,7 +89,7 @@ eem_read <- function(file, recursive = FALSE) {
 
 #' eem constructor
 #'
-#' @param sample A string containing the file name of the eem.
+#' @param file A string containing the file name of the eem.
 #' @param x A matrix with fluorescence values.
 #' @param ex Vector of excitation wavelengths.
 #' @param em Vector of emission wavelengths.
@@ -104,12 +104,13 @@ eem_read <- function(file, recursive = FALSE) {
 #'  \item ex Excitation vector of wavelengths.
 #' }
 
-eem <- function(sample, x, ex, em){
+eem <- function(file, x, ex, em){
 
-  eem <- list(sample = make.names(file_path_sans_ext(basename(sample))),
+  eem <- list(sample = make.names(file_path_sans_ext(basename(file))),
               x = x,
               ex = ex,
-              em = em)
+              em = em,
+              location =  dirname(file))
 
   class(eem) <- "eem"
 
@@ -156,7 +157,7 @@ eem_read_shimadzu <- function(data, file){
   eem <- matrix(data, nrow = length(em), byrow = FALSE)
 
   ## Construct an eem object.
-  res <- eem(sample = file,
+  res <- eem(file = file,
              x = eem,
              ex = NA,
              em = em)
@@ -201,7 +202,7 @@ eem_read_cary <- function(data, file){
   em <- data[, 1]
 
   ## Construct an eem object.
-  res <- eem(sample = file,
+  res <- eem(file = file,
              x = eem,
              ex = ex,
              em = em)
@@ -229,7 +230,7 @@ eem_read_aqualog <- function(data, file){
   eem <- as.matrix(data[, ncol(data): 2])
 
   ## Construct an eem object.
-  res <- eem(sample = file,
+  res <- eem(file = file,
              x = eem,
              ex = ex,
              em = em)
