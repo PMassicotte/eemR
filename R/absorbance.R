@@ -6,23 +6,18 @@
 #'   \item wavelength.  Wavelengths used for measurements (190-900 nm.)
 #'   \item absorbance
 #' }
-#'
-#' @import ggplot2
-#' @importFrom tidyr gather
-#'
 #' @docType data
 #' @keywords datasets
 #' @name absorbance
 #' @usage data("absorbance")
 #' @format A data frame with 711 rows and 4 variables
 #' @examples
-#' library(ggplot2)
-#' library(tidyr)
 #'
 #' data("absorbance")
 #'
-#' absorbance <- gather(absorbance, sample, absorbance, -wavelength)
-#'
-#' ggplot(absorbance, aes(x = wavelength, y = absorbance, group = sample)) +
-#'  geom_line(aes(color = sample), size = 0.1)
+#' plot(absorbance$wavelength, absorbance$sample1, type = "l",
+#' xlab = "Wavelengths", ylab = "Absorbance per meter")
+#' lines(absorbance$wavelength, absorbance$sample2, col = "blue")
+#' lines(absorbance$wavelength, absorbance$sample3, col = "red")
+
 NULL

@@ -18,15 +18,13 @@ Simple absorbance spectra used to test package's functions.
 }
 }
 \examples{
-library(ggplot2)
-library(tidyr)
 
 data("absorbance")
 
-absorbance <- gather(absorbance, sample, absorbance, -wavelength)
-
-ggplot(absorbance, aes(x = wavelength, y = absorbance, group = sample)) +
- geom_line(aes(color = sample), size = 0.1)
+plot(absorbance$wavelength, absorbance$sample1, type = "l",
+xlab = "Wavelengths", ylab = "Absorbance per meter")
+lines(absorbance$wavelength, absorbance$sample2, col = "blue")
+lines(absorbance$wavelength, absorbance$sample3, col = "red")
 }
 \keyword{datasets}
 
