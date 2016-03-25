@@ -30,3 +30,17 @@ test_that("Test fluorescence index (FI)", {
   expect_equal(fi, metrics$fi)
 
 })
+
+test_that("Test biological fluorescence index (BIX)", {
+
+  metrics <- eem_biological_index(eems, verbose = FALSE)
+
+  bix <- 1.735240459 / 2.456928968
+
+  expect_equal(bix, metrics$bix)
+
+})
+
+
+
+

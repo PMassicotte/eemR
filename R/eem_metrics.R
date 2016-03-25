@@ -218,8 +218,8 @@ eem_humification_index <- function(eem, scale = FALSE, verbose = TRUE) {
 #'
 #' @description The biological fluorescence index (BIX) is calculated by
 #'   dividing the fluorescence at excitation 310 nm and emission at 380 nm (ex =
-#'   310, em = 430) by that at excitation 310 nm and emission at 430 nm (ex =
-#'   310, em = 380).
+#'   310, em = 380) by that at excitation 310 nm and emission at 430 nm (ex =
+#'   310, em = 430).
 #'
 #' @references Huguet, A., Vacher, L., Relexans, S., Saubusse, S., Froidefond,
 #'   J. M., & Parlanti, E. (2009). Properties of fluorescent dissolved organic

@@ -19,8 +19,8 @@ A data frame containing the biological index (BIX) for each eem.
 \description{
 The biological fluorescence index (BIX) is calculated by
   dividing the fluorescence at excitation 310 nm and emission at 380 nm (ex =
-  310, em = 430) by that at excitation 310 nm and emission at 430 nm (ex =
-  310, em = 380).
+  310, em = 380) by that at excitation 310 nm and emission at 430 nm (ex =
+  310, em = 430).
 }
 \section{Interpolation}{
 
