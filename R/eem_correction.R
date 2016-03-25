@@ -64,6 +64,24 @@ eem_remove_blank <- function(eem, blank = NA) {
   stopifnot(.is_eemlist(eem) | .is_eem(eem),
             .is_eemlist(blank) | is.na(blank))
 
+  if(is.na(blank)){
+    t <- list.group(eems, location)
+    class(t[[1]]) <- "eemlist"
+
+    res <- list.apply(t, .eem_remove_blank)
+    res <- list.ungroup(res)
+    class(res) <- "eemlist"
+    return(res)
+  } else {
+    .eem_remove_blank(eem, blank)
+  }
+}
+
+.eem_remove_blank <- function(eem, blank = NA) {
+
+  stopifnot(.is_eemlist(eem) | .is_eem(eem),
+            .is_eemlist(blank) | is.na(blank))
+
   ## It is a list of eems, then call lapply
   if(.is_eemlist(eem)){
 
