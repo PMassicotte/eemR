@@ -29,7 +29,8 @@ This function is used to remove blank from eems which can help to
 
   It is also possible to do the blank correction "automatically" assuming
   that there is a blank sample in each folder. In that context, the blank
-  will be used on each sample in the same folder.
+  will be used on each sample in the same folder. Note that the blanks eem
+  are not returned by the function.
 }
 \examples{
 

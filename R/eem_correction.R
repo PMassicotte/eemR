@@ -14,7 +14,8 @@
 #'
 #'   It is also possible to do the blank correction "automatically" assuming
 #'   that there is a blank sample in each folder. In that context, the blank
-#'   will be used on each sample in the same folder.
+#'   will be used on each sample in the same folder. Note that the blanks eem
+#'   are not returned by the function.
 #'
 #' @references Murphy, K. R., Stedmon, C. a., Graeber, D., & Bro, R. (2013).
 #'   Fluorescence spectroscopy and multi-way techniques. PARAFAC. Analytical
