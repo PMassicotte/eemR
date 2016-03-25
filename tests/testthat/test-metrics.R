@@ -3,7 +3,7 @@ context("metrics")
 file <- system.file("extdata/cary/scans_day_1/sample1.csv", package = "eemR")
 eems <- eem_read(file)
 
-test_that("Cobble's peaks", {
+test_that("Test Cobble's peaks", {
 
   metrics <- eem_coble_peaks(eems, verbose = FALSE)
 
@@ -18,5 +18,15 @@ test_that("Cobble's peaks", {
   expect_equal(a, metrics$a)
   expect_equal(m, metrics$m, tolerance = 0.01)
   expect_equal(c, metrics$c, tolerance = 0.001)
+
+})
+
+test_that("Test fluorescence index (FI)", {
+
+  metrics <- eem_fluorescence_index(eems, verbose = FALSE)
+
+  fi <- 1.124091625 / 0.888762951
+
+  expect_equal(fi, metrics$fi)
 
 })
