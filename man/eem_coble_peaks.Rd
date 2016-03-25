@@ -47,7 +47,7 @@ According to Coble (1996), peaks are defined as follow:
   if data interpolation is performed.
 }
 \examples{
-file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
+file <- system.file("extdata/cary/scans_day_1/", "sample1.csv", package = "eemR")
 eem <- eem_read(file)
 
 eem_coble_peaks(eem)

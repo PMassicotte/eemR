@@ -35,7 +35,7 @@ At the moment, Cary Eclipse, Aqualog and Shimadzu EEMs are
   X[min(ex), min(em)].
 }
 \examples{
-file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
-eem <- eem_read(file)
+file <- system.file("extdata/cary/scans_day_1/", package = "eemR")
+eems <- eem_read(file, recursive = TRUE)
 }
 

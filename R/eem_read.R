@@ -25,8 +25,8 @@
 #' @importFrom readr read_lines
 #' @export
 #' @examples
-#' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
-#' eem <- eem_read(file)
+#' file <- system.file("extdata/cary/scans_day_1/", package = "eemR")
+#' eems <- eem_read(file, recursive = TRUE)
 
 eem_read <- function(file, recursive = FALSE) {
 

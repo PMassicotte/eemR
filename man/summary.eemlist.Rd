@@ -15,8 +15,8 @@
 Display summary of an eemlist object
 }
 \examples{
-folder <- system.file("extdata/cary/eem/", package = "eemR")
-eem <- eem_read(folder)
+folder <- system.file("extdata/cary", package = "eemR")
+eem <- eem_read(folder, recursive = TRUE)
 
 summary(eem)
 }

@@ -47,8 +47,9 @@ Inner-filter effect correction
 library(eemR)
 data("absorbance")
 
-folder <- system.file("extdata/cary/eem", package = "eemR")
+folder <- system.file("extdata/cary/scans_day_1", package = "eemR")
 eems <- eem_read(folder)
+eems <- eem_extract(eems, "nano", remove = TRUE) # Remove the blank sample
 
 ## Remove scattering (1st order)
 eems <- eem_remove_scattering(eems, "rayleigh")

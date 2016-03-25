@@ -26,19 +26,23 @@ This function is used to remove blank from eems which can help to
   case):
 
   \enumerate{ \item nano \item miliq \item milliq \item mq \item blank }
+
+  It is also possible to do the blank correction "automatically" assuming
+  that there is a blank sample in each folder. In that context, the blank
+  will be used on each sample in the same folder.
 }
 \examples{
 
 ## Example 1
 
 # Open the fluorescence eem
-file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
+file <- system.file("extdata/cary/scans_day_1", "sample1.csv", package = "eemR")
 eem <- eem_read(file)
 
 plot(eem)
 
 # Open the blank eem
-file <- system.file("extdata/cary/", "nano.csv", package = "eemR")
+file <- system.file("extdata/cary/scans_day_1", "nano.csv", package = "eemR")
 blank <- eem_read(file)
 
 plot(blank)
@@ -51,21 +55,30 @@ plot(eem)
 ## Example 2
 
 # Open the fluorescence eem
-folder <- system.file("extdata/cary/eem/", package = "eemR")
-eem <- eem_read(folder)
+folder <- system.file("extdata/cary/scans_day_1", package = "eemR")
+eems <- eem_read(folder)
 
-plot(eem, which = 3)
+plot(eems, which = 3)
 
 # Open the blank eem
-file <- system.file("extdata/cary/", "nano.csv", package = "eemR")
+file <- system.file("extdata/cary/scans_day_1", "nano.csv", package = "eemR")
 blank <- eem_read(file)
 
 plot(blank)
 
 # Remove the blank
-eem <- eem_remove_blank(eem, blank)
+eem <- eem_remove_blank(eems, blank)
 
-plot(eem, which = 3)
+plot(eems, which = 3)
+
+# Automatic correction
+folder <- system.file("extdata/cary/", package = "eemR")
+
+# Look at the folder structure
+list.files(folder, "*.csv", recursive = TRUE)
+
+eems <- eem_read(folder, recursive = TRUE)
+res <- eem_remove_blank(eems)
 }
 \references{
 Murphy, K. R., Stedmon, C. a., Graeber, D., & Bro, R. (2013).

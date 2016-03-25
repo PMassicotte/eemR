@@ -18,8 +18,8 @@ A character vector containing the names of the EEMs.
 The names of an eem or eemlist objects
 }
 \examples{
-file <- system.file("extdata/cary/eem", "sample1.csv", package = "eemR")
-eem <- eem_read(file)
+file <- system.file("extdata/cary/", package = "eemR")
+eem <- eem_read(file, recursive = TRUE)
 
 eem_sample_names(eem)
 

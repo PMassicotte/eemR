@@ -19,11 +19,11 @@ An \code{eem} or \code{eemlist}.
 Set the sample names of an eem or eemlist objects
 }
 \examples{
-folder <- system.file("extdata/cary/eem", package = "eemR")
+folder <- system.file("extdata/cary/scans_day_1", package = "eemR")
 eems <- eem_read(folder)
 
 eem_sample_names(eems)
-eem_sample_names(eems) <- c("a", "b", "c")
+eem_sample_names(eems) <- c("a", "b", "c", "d")
 eem_sample_names(eems)
 
 }

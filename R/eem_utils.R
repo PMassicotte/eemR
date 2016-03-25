@@ -5,7 +5,7 @@
 #' @importFrom grDevices colorRampPalette
 #' @export
 #' @examples
-#' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
+#' file <- system.file("extdata/cary/scans_day_1", "sample1.csv", package = "eemR")
 #' eem <- eem_read(file)
 #'
 #' plot(eem)
@@ -40,10 +40,10 @@ plot.eem <- function(x, ...){
 #'
 #' @export
 #' @examples
-#' folder <- system.file("extdata/cary/eem/", package = "eemR")
+#' folder <- system.file("extdata/cary/scans_day_1/", package = "eemR")
 #' eem <- eem_read(folder)
 #'
-#' plot(eem, which = 2)
+#' plot(eem, which = 3)
 plot.eemlist <- function(x, which = 1, ...) {
 
   stopifnot(which <= length(x))
@@ -61,7 +61,7 @@ plot.eemlist <- function(x, which = 1, ...) {
 #' @importFrom utils head tail
 #' @export
 #' @examples
-#' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
+#' file <- system.file("extdata/cary/scans_day_1/", "sample1.csv", package = "eemR")
 #' eem <- eem_read(file)
 #'
 #' summary(eem)
@@ -105,8 +105,8 @@ print.eemlist <- function(object, ...){
 #'
 #' @export
 #' @examples
-#' folder <- system.file("extdata/cary/eem/", package = "eemR")
-#' eem <- eem_read(folder)
+#' folder <- system.file("extdata/cary", package = "eemR")
+#' eem <- eem_read(folder, recursive = TRUE)
 #'
 #' summary(eem)
 summary.eemlist <- function(object, ...){
@@ -129,7 +129,7 @@ summary.eemlist <- function(object, ...){
 #' @export
 #' @examples
 #' # Open the fluorescence eem
-#' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
+#' file <- system.file("extdata/cary/scans_day_1/", "sample1.csv", package = "eemR")
 #'
 #' eem <- eem_read(file)
 #' plot(eem)
@@ -264,23 +264,23 @@ eem_set_wavelengths <- function(eem, ex, em){
 #'   be removed. See \code{examples} for more details.
 #'
 #' @examples
-#' folder <- system.file("extdata/cary/eem", package = "eemR")
+#' folder <- system.file("extdata/cary/scans_day_1", package = "eemR")
 #' eems <- eem_read(folder)
 #'
 #' eem_extract(eems, c(1, 3)) ## Removes samples 1 and 3
 #' eem_extract(eems, c(1, 3), remove = TRUE) ## extract samples 1 and 3
 #'
-#' ## Remove all samples containing "3" in their names.
+#' # Remove all samples containing "3" in their names.
 #' eem_extract(eems, "3")
 #'
-#' ## Remove all samples containing either character "s" or character "2" in their names.
+#' # Remove all samples containing either character "s" or character "2" in their names.
 #' eem_extract(eems, c("s", "2"))
 #'
-#' ## Remove all samples containing "blank" or "nano"
+#' # Remove all samples containing "blank" or "nano"
 #' eem_extract(eems, c("blank", "nano"))
 #'
-#' ## Remove all samples starting with "no"
-#' eem_extract(eems, "^no")
+#' # Remove all samples starting with "no"
+#' eem_extract(eems, "^s")
 #'
 #' @export
 eem_extract <- function(eem, sample, remove = FALSE, ignore_case = FALSE,
@@ -327,7 +327,6 @@ eem_extract <- function(eem, sample, remove = FALSE, ignore_case = FALSE,
   return(eem)
 }
 
-
 #' The names of an eem or eemlist objects
 #'
 #' @template template_eem
@@ -335,8 +334,8 @@ eem_extract <- function(eem, sample, remove = FALSE, ignore_case = FALSE,
 #' @return A character vector containing the names of the EEMs.
 #'
 #' @examples
-#' file <- system.file("extdata/cary/eem", "sample1.csv", package = "eemR")
-#' eem <- eem_read(file)
+#' file <- system.file("extdata/cary/", package = "eemR")
+#' eem <- eem_read(file, recursive = TRUE)
 #'
 #' eem_sample_names(eem)
 #'
@@ -367,11 +366,11 @@ eem_sample_names <- function(eem){
 #' @return An \code{eem} or \code{eemlist}.
 #'
 #' @examples
-#' folder <- system.file("extdata/cary/eem", package = "eemR")
+#' folder <- system.file("extdata/cary/scans_day_1", package = "eemR")
 #' eems <- eem_read(folder)
 #'
 #' eem_sample_names(eems)
-#' eem_sample_names(eems) <- c("a", "b", "c")
+#' eem_sample_names(eems) <- c("a", "b", "c", "d")
 #' eem_sample_names(eems)
 #'
 #' @export
@@ -410,7 +409,7 @@ eem_sample_names <- function(eem){
 #' @export
 #'
 #' @examples
-#' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
+#' file <- system.file("extdata/cary/scans_day_1/", "sample1.csv", package = "eemR")
 #' eem <- eem_read(file)
 #'
 #' eem <- eem_bind(eem, eem)

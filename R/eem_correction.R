@@ -12,25 +12,30 @@
 #'
 #'   \enumerate{ \item nano \item miliq \item milliq \item mq \item blank }
 #'
+#'   It is also possible to do the blank correction "automatically" assuming
+#'   that there is a blank sample in each folder. In that context, the blank
+#'   will be used on each sample in the same folder.
+#'
 #' @references Murphy, K. R., Stedmon, C. a., Graeber, D., & Bro, R. (2013).
 #'   Fluorescence spectroscopy and multi-way techniques. PARAFAC. Analytical
 #'   Methods, 5(23), 6557. http://doi.org/10.1039/c3ay41160e
 #'
 #'   \url{http://xlink.rsc.org/?DOI=c3ay41160e}
 #'
+#' @importFrom rlist list.apply list.group list.ungroup
 #' @export
 #' @examples
 #'
 #' ## Example 1
 #'
 #' # Open the fluorescence eem
-#' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
+#' file <- system.file("extdata/cary/scans_day_1", "sample1.csv", package = "eemR")
 #' eem <- eem_read(file)
 #'
 #' plot(eem)
 #'
 #' # Open the blank eem
-#' file <- system.file("extdata/cary/", "nano.csv", package = "eemR")
+#' file <- system.file("extdata/cary/scans_day_1", "nano.csv", package = "eemR")
 #' blank <- eem_read(file)
 #'
 #' plot(blank)
@@ -43,21 +48,30 @@
 #' ## Example 2
 #'
 #' # Open the fluorescence eem
-#' folder <- system.file("extdata/cary/eem/", package = "eemR")
-#' eem <- eem_read(folder)
+#' folder <- system.file("extdata/cary/scans_day_1", package = "eemR")
+#' eems <- eem_read(folder)
 #'
-#' plot(eem, which = 3)
+#' plot(eems, which = 3)
 #'
 #' # Open the blank eem
-#' file <- system.file("extdata/cary/", "nano.csv", package = "eemR")
+#' file <- system.file("extdata/cary/scans_day_1", "nano.csv", package = "eemR")
 #' blank <- eem_read(file)
 #'
 #' plot(blank)
 #'
 #' # Remove the blank
-#' eem <- eem_remove_blank(eem, blank)
+#' eem <- eem_remove_blank(eems, blank)
 #'
-#' plot(eem, which = 3)
+#' plot(eems, which = 3)
+#'
+#' # Automatic correction
+#' folder <- system.file("extdata/cary/", package = "eemR")
+#'
+#' # Look at the folder structure
+#' list.files(folder, "*.csv", recursive = TRUE)
+#'
+#' eems <- eem_read(folder, recursive = TRUE)
+#' res <- eem_remove_blank(eems)
 
 eem_remove_blank <- function(eem, blank = NA) {
 
@@ -65,8 +79,9 @@ eem_remove_blank <- function(eem, blank = NA) {
             .is_eemlist(blank) | is.na(blank))
 
   if(is.na(blank)){
-    t <- list.group(eems, location)
-    class(t[[1]]) <- "eemlist"
+
+    t <- list.group(eem, location)
+    t <- lapply(t, function(x){class(x) <- "eemlist"; return(x)})
 
     res <- list.apply(t, .eem_remove_blank)
     res <- list.ungroup(res)
@@ -149,7 +164,7 @@ eem_remove_blank <- function(eem, blank = NA) {
 #' @export
 #' @examples
 #' # Open the fluorescence eem
-#' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
+#' file <- system.file("extdata/cary/scans_day_1", "sample1.csv", package = "eemR")
 #' eem <- eem_read(file)
 #'
 #' plot(eem)
@@ -272,13 +287,13 @@ eem_remove_scattering <- function(eem, type, order = 1, width = 10){
 #' @export
 #' @examples
 #' # Open the fluorescence eem
-#' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
+#' file <- system.file("extdata/cary/scans_day_1", "sample1.csv", package = "eemR")
 #' eem <- eem_read(file)
 #'
 #' plot(eem)
 #'
 #' # Open the blank eem
-#' file <- system.file("extdata/cary/", "nano.csv", package = "eemR")
+#' file <- system.file("extdata/cary/scans_day_1", "nano.csv", package = "eemR")
 #' blank <- eem_read(file)
 #'
 #' # Do the normalisation
@@ -375,8 +390,9 @@ eem_raman_normalisation <- function(eem, blank){
 #' library(eemR)
 #' data("absorbance")
 #'
-#' folder <- system.file("extdata/cary/eem", package = "eemR")
+#' folder <- system.file("extdata/cary/scans_day_1", package = "eemR")
 #' eems <- eem_read(folder)
+#' eems <- eem_extract(eems, "nano", remove = TRUE) # Remove the blank sample
 #'
 #' ## Remove scattering (1st order)
 #' eems <- eem_remove_scattering(eems, "rayleigh")

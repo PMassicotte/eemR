@@ -21,6 +21,8 @@ Imports:
     ggplot2,
     tidyr,
     readr,
-    stats
+    stats,
+    rlist
 RoxygenNote: 5.0.1
-Suggests: cdom
+Suggests: cdom,
+    magrittr

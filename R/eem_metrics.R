@@ -18,7 +18,7 @@ msg_warning_wavelength <- function(){
 #' @return A data frame containing fluorescence index (FI) for each eem.
 #' @export
 #' @examples
-#' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
+#' file <- system.file("extdata/cary/scans_day_1/", "sample1.csv", package = "eemR")
 #' eem <- eem_read(file)
 #'
 #' eem_fluorescence_index(eem)
@@ -82,7 +82,7 @@ eem_fluorescence_index <- function(eem, verbose = TRUE){
 #'   \url{http://doi.org/10.1016/0304-4203(95)00062-3}
 #'
 #' @examples
-#' file <- system.file("extdata/cary/eem/", "sample1.csv", package = "eemR")
+#' file <- system.file("extdata/cary/scans_day_1/", "sample1.csv", package = "eemR")
 #' eem <- eem_read(file)
 #'
 #' eem_coble_peaks(eem)
@@ -158,7 +158,7 @@ eem_coble_peaks <- function(eem, verbose = TRUE){
 #' @return A data frame containing the humification index (HIX) for each eem.
 #' @export
 #' @examples
-#' file <- system.file("extdata/cary/eem/", package = "eemR")
+#' file <- system.file("extdata/cary/scans_day_1/", package = "eemR")
 #' eem <- eem_read(file)
 #'
 #' eem_humification_index(eem)
@@ -230,7 +230,7 @@ eem_humification_index <- function(eem, scale = FALSE, verbose = TRUE) {
 #' @return A data frame containing the biological index (BIX) for each eem.
 #' @export
 #' @examples
-#' file <- system.file("extdata/cary/eem/", package = "eemR")
+#' file <- system.file("extdata/cary/scans_day_1/", package = "eemR")
 #' eem <- eem_read(file)
 #'
 #' eem_biological_index(eem)
