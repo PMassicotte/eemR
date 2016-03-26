@@ -4,12 +4,15 @@
 \alias{plot.eemlist}
 \title{Surface plot of eem}
 \usage{
-\method{plot}{eemlist}(x, which = 1, ...)
+\method{plot}{eemlist}(x, which = 1, show_peaks = FALSE, ...)
 }
 \arguments{
 \item{x}{An object of class \code{eemlist}.}
 
 \item{which}{An integer representing the index of eem to be plotted.}
+
+\item{show_peaks}{Boolean indicating if Cobble's peaks should be displayed on
+the surface plot. Default is FALSE.}
 
 \item{...}{Extra arguments for \code{image.plot}.}
 }

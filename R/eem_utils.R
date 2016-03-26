@@ -2,6 +2,8 @@
 #'
 #' @param x An object of class \code{eemlist}.
 #' @param ... Extra arguments for \code{image.plot}.
+#' @param show_peaks Boolean indicating if Cobble's peaks should be displayed on
+#'   the surface plot. Default is FALSE.
 #' @importFrom grDevices colorRampPalette
 #' @export
 #' @examples
@@ -10,7 +12,7 @@
 #'
 #' plot(eem)
 
-plot.eem <- function(x, ...){
+plot.eem <- function(x, show_peaks, ...){
 
   jet.colors <- colorRampPalette(c("#00007F",
                                    "blue",
@@ -29,7 +31,21 @@ plot.eem <- function(x, ...){
              xlab = "Excitation (nm.)",
              ylab = "Emission (nm.)",
              legend.lab = "Fluorescence intensity",
-             col = jet.colors(255))
+             col = jet.colors(255),
+             ...)
+
+  if(show_peaks){
+
+    coble_ex_peak <- list(b = 275, t = 275, a = 260, m = 312, c = 350)
+    coble_em_peak <- list(b = 310, t = 340, a = 420, m = 400, c = 450)
+
+    text(coble_ex_peak$b, coble_em_peak$b, "B", font = 2, cex = 1)
+    text(coble_ex_peak$t, coble_em_peak$t, "T", font = 2, cex = 1)
+    text(coble_ex_peak$a, coble_em_peak$a, "A", font = 2, cex = 1)
+    text(coble_ex_peak$m, coble_em_peak$m, "M", font = 2, cex = 1)
+    text(coble_ex_peak$c, coble_em_peak$c, "C", font = 2, cex = 1)
+  }
+
 }
 
 #' Surface plot of eem
@@ -37,6 +53,8 @@ plot.eem <- function(x, ...){
 #' @param x An object of class \code{eemlist}.
 #' @param which An integer representing the index of eem to be plotted.
 #' @param ... Extra arguments for \code{image.plot}.
+#' @param show_peaks Boolean indicating if Cobble's peaks should be displayed on
+#'   the surface plot. Default is FALSE.
 #'
 #' @export
 #' @examples
@@ -44,11 +62,11 @@ plot.eem <- function(x, ...){
 #' eem <- eem_read(folder)
 #'
 #' plot(eem, which = 3)
-plot.eemlist <- function(x, which = 1, ...) {
+plot.eemlist <- function(x, which = 1, show_peaks = FALSE, ...) {
 
   stopifnot(which <= length(x))
 
-  plot.eem(x[[which]])
+  plot.eem(x[[which]], show_peaks)
 
 }
 

@@ -1,5 +1,7 @@
 # eemR 0.1.3 (unreleased)
 
+- `plot()` gains an argument `show_peaks = TRUE/FALSE` which can be used to display most common fluorescence peaks used in the literature. 
+
 - `eem_remove_blank()` can now try to implicitly remove a blank eem from a `eemlist` object (#20). If blank is omitted (`blank = NA`), the function will try to extract the blank from the `eemlist` object. This is done by looking for sample names containing one of these complete or partial strings (ignoring case):
       - "nano"
       - "miliq"
