@@ -219,13 +219,21 @@ eem_read_cary <- function(data, file){
 #---------------------------------------------------------------------
 eem_read_aqualog <- function(data, file){
 
-  data <- readr::read_delim(file, delim = "\t")
-  data <- na.omit(data)
+  eem <- stringr::str_extract_all(data, "-?\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d+)?")
 
-  ex <- rev(as.numeric(grep("[0-9]", names(data), value = TRUE)))
-  em <- as.numeric(grep("[0-9]", t(data[, 1]), value = TRUE))
+  ex <- rev(as.numeric(eem[[1]]))
 
-  eem <- as.matrix(data[, ncol(data): 2])
+  n_col <- lapply(eem, length)
+  n_col <- unlist(n_col)
+  expected_col <- as.numeric(names(sort(-table(n_col)))[1])
+
+  eem[n_col != expected_col] <- NULL
+  eem <- lapply(eem, as.numeric)
+  eem <- do.call(rbind, eem)
+
+  em <- eem[, 1]
+  eem <- eem[, -1]
+  eem <- as.matrix(eem[, ncol(eem): 1])
 
   ## Construct an eem object.
   res <- eem(file = file,
