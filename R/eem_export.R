@@ -109,7 +109,7 @@ eem_export_matlab <- function(file, ...){
                        Em = Em)
 
   R.matlab::writeMat(file, OriginalData = OriginalData,
-                     sample_names = eem_sample_names(eem))
+                     sample_names = eem_names(eem))
 
   message("Successfully exported ", nSample, " EEMs to ", file, ".\n")
 

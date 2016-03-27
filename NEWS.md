@@ -1,5 +1,7 @@
 # eemR 0.1.3 (unreleased)
 
+- `eem_sample_names()` has been replaced by `eem_names()`.
+
 - Reading Aqualog files is now ~20% faster (#26).
 
 - `plot()` gains an argument `show_peaks = TRUE/FALSE` which can be used to display most common fluorescence peaks used in the literature. 

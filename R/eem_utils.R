@@ -355,17 +355,17 @@ eem_extract <- function(eem, sample, remove = FALSE, ignore_case = FALSE,
 #' file <- system.file("extdata/cary/", package = "eemR")
 #' eem <- eem_read(file, recursive = TRUE)
 #'
-#' eem_sample_names(eem)
+#' eem_names(eem)
 #'
 #' @export
-eem_sample_names <- function(eem){
+eem_names <- function(eem){
 
   stopifnot(.is_eemlist(eem) | .is_eem(eem))
 
   ## It is a list of eems, then call lapply
   if(.is_eemlist(eem)){
 
-    res <- unlist(lapply(eem, eem_sample_names))
+    res <- unlist(lapply(eem, eem_names))
 
     return(res)
 
@@ -387,12 +387,12 @@ eem_sample_names <- function(eem){
 #' folder <- system.file("extdata/cary/scans_day_1", package = "eemR")
 #' eems <- eem_read(folder)
 #'
-#' eem_sample_names(eems)
-#' eem_sample_names(eems) <- c("a", "b", "c", "d")
-#' eem_sample_names(eems)
+#' eem_names(eems)
+#' eem_names(eems) <- c("a", "b", "c", "d")
+#' eem_names(eems)
 #'
 #' @export
-`eem_sample_names<-` <- function(x, value){
+`eem_names<-` <- function(x, value){
 
 
   stopifnot(.is_eemlist(x) | .is_eem(x))
@@ -401,7 +401,7 @@ eem_sample_names <- function(eem){
 
     stopifnot(length(x) == length(value))
 
-    res <- Map(`eem_sample_names<-`, x[], value)
+    res <- Map(`eem_names<-`, x[], value)
 
     class(res) <- "eemlist"
     return(res)
