@@ -88,6 +88,7 @@ eem_remove_blank <- function(eem, blank = NA) {
     res <- list.ungroup(res)
     class(res) <- "eemlist"
     return(res)
+
   } else {
     .eem_remove_blank(eem, blank)
   }
@@ -302,20 +303,55 @@ eem_remove_scattering <- function(eem, type, order = 1, width = 10){
 #'
 #' plot(eem)
 
-eem_raman_normalisation <- function(eem, blank){
+eem_raman_normalisation <- function(eem, blank = NA) {
 
   stopifnot(.is_eemlist(eem) | .is_eem(eem),
-            .is_eemlist(blank))
+            .is_eemlist(blank) | is.na(blank))
+
+  if(is.na(blank)){
+
+    t <- list.group(eem, location)
+    t <- lapply(t, function(x){class(x) <- "eemlist"; return(x)})
+
+    res <- list.apply(t, .eem_raman_normalisation)
+    res <- list.ungroup(res)
+    class(res) <- "eemlist"
+    return(res)
+
+  } else {
+    .eem_raman_normalisation(eem, blank)
+  }
+
+}
+
+.eem_raman_normalisation <- function(eem, blank = NA){
+
+  stopifnot(.is_eemlist(eem) | .is_eem(eem),
+            .is_eemlist(blank) | is.na(blank))
 
   ## It is a list of eems, then call lapply
   if(.is_eemlist(eem)){
 
+    blank_names <- c("nano", "miliq", "milliq", "mq", "blank")
+
+    # if blank is NA then try to split the eemlist into blank and eems
+    if(is.na(blank)){
+
+      blank <- eem_extract(eem, blank_names, remove = FALSE, ignore_case = TRUE,
+                           verbose = FALSE)
+      eem <- eem_extract(eem, blank_names, remove = TRUE, ignore_case = TRUE,
+                         verbose = FALSE)
+
+      if(length(blank) != 1 | length(eem) < 1){
+        stop("Cannot find blank for automatic correction.", call. = FALSE)
+      }
+    }
+
     res <- lapply(eem,
-                  eem_raman_normalisation,
+                  .eem_raman_normalisation,
                   blank = blank)
 
     class(res) <- class(eem)
-
     return(res)
   }
 
