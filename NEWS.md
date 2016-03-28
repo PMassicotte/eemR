@@ -6,29 +6,25 @@
 
 - `plot()` gains an argument `show_peaks = TRUE/FALSE` which can be used to display most common fluorescence peaks used in the literature. 
 
-- `eem_remove_blank()` can now try to implicitly remove a blank eem from a `eemlist` object (#20). If blank is omitted (`blank = NA`), the function will try to extract the blank from the `eemlist` object. This is done by looking for sample names containing one of these complete or partial strings (ignoring case):
+- `eem_remove_blank()` and `eem_raman_normalisation()` can now try to implicitly use a blank eem from a `eemlist` object (#20). If blank is omitted (`blank = NA`), the functions will try to extract the blank from the `eemlist` object. This is done by looking for sample names containing one of these complete or partial strings (ignoring case):
       - "nano"
       - "miliq"
       - "milliq"
       - "mq"
       - "blank"
 
-Consider the following example where there are two folders that could represent scans performed on two different days `scans_day_1` and `scans_day_2`. In each folder there are three samples and one blank files. In that context, `eem_remove_blank()` will remove the blank `nano.csv` from `sample1.csv`, `sample2.csv` and `sample3.csv`. The same strategy will be used for files in folder `scans_day_2`.
+Consider the following example where there are two folders that could represent scans performed on two different days `scans_day_1` and `scans_day_2`. In each folder there are three samples and one blank files. In that context, `eem_remove_blank()` will use the blank `nano.csv` from `sample1.csv`, `sample2.csv` and `sample3.csv`. The same strategy will be used for files in folder `scans_day_2` but with blank named `blank.csv`.
 
 ```
-C:.
-└───eems
-    ├───scans_day_1
-    │       nano.csv
-    │       sample1.csv
-    │       sample2.csv
-    │       sample3.csv
-    │
-    └───scans_day_2
-            mq.csv
-            s1.csv
-            s2.csv
-            s3.csv
+inst/extdata/cary/
+├── scans_day_1
+│   ├── nano.csv
+│   ├── sample1.csv
+│   ├── sample2.csv
+│   └── sample3.csv
+└── scans_day_2
+    ├── blank.csv
+    └── s1.csv
 ```
 
 - `eem_extract()` has now an argument `verbose` (default = FALSE) that determine if the names of removed or extracted eems should be printed on screen.

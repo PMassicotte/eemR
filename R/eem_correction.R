@@ -1,21 +1,11 @@
 #' Blank correction
 #'
+#' @description This function is used to remove blank from eems which can help to reduce the
+#' effect of scatter bands.
+#'
 #' @template template_eem
 #' @template template_blank
-#'
-#' @details This function is used to remove blank from eems which can help to
-#'   reduce the effect of scatter bands. The function will first use the
-#'   provided \code{blank}. If blank is omited, the function will try to extract
-#'   the blank from the \code{eemlist} object. This is done by looking for
-#'   sample names containing one of these complete or partial strings (ignoring
-#'   case):
-#'
-#'   \enumerate{ \item nano \item miliq \item milliq \item mq \item blank }
-#'
-#'   It is also possible to do the blank correction "automatically" assuming
-#'   that there is a blank sample in each folder. In that context, the blank
-#'   will be used on each sample in the same folder. Note that the blanks eem
-#'   are not returned by the function.
+#' @template template_details_automatic_blank
 #'
 #' @references Murphy, K. R., Stedmon, C. a., Graeber, D., & Bro, R. (2013).
 #'   Fluorescence spectroscopy and multi-way techniques. PARAFAC. Analytical
@@ -259,6 +249,7 @@ eem_remove_scattering <- function(eem, type, order = 1, width = 10){
 #'
 #' @template template_eem
 #' @template template_blank
+#' @template template_details_automatic_blank
 #'
 #' @description Normalize fluorescence intensities to the standard scale of
 #'   Raman Units (R.U).
