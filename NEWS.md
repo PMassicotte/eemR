@@ -1,5 +1,7 @@
 # eemR 0.1.3 (unreleased)
 
+- An error will occur if one try to do raman normalization on a blank where scattering bands have been removed.
+
 - `eem_sample_names()` has been replaced by `eem_names()`.
 
 - Reading Aqualog files is now ~20% faster (#26).

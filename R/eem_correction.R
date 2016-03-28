@@ -71,7 +71,7 @@ eem_remove_blank <- function(eem, blank = NA) {
 
   if(is.na(blank)){
 
-    t <- list.group(eem, location)
+    t <- list.group(eem, ~location)
     t <- lapply(t, function(x){class(x) <- "eemlist"; return(x)})
 
     res <- list.apply(t, .eem_remove_blank)
@@ -211,10 +211,8 @@ eem_remove_scattering <- function(eem, type, order = 1, width = 10){
   x <- x * ind3
 
   ## Construct an eem object.
-  res <- eem(file = eem$sample,
-             x = x,
-             ex = eem$ex,
-             em = eem$em)
+  res <- eem
+  res$x <- x
 
   attributes(res) <- attributes(eem)
   attr(res, "is_scatter_corrected") <- TRUE
@@ -301,7 +299,7 @@ eem_raman_normalisation <- function(eem, blank = NA) {
 
   if(is.na(blank)){
 
-    t <- list.group(eem, location)
+    t <- list.group(eem, ~location)
     t <- lapply(t, function(x){class(x) <- "eemlist"; return(x)})
 
     res <- list.apply(t, .eem_raman_normalisation)
@@ -355,6 +353,10 @@ eem_raman_normalisation <- function(eem, blank = NA) {
 
   x <- blank$em[index_em]
   y <- blank$x[index_em, index_ex]
+
+  if(any(is.na(x)) | any(is.na(y))){
+    stop("NA values found in the blank sample. Maybe you removed scattering too soon?", call. = FALSE)
+  }
 
   area <- sum(diff(x) * (y[-length(y)] + y[-1]) / 2)
 
