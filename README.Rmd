@@ -197,20 +197,6 @@ res <- eem_remove_scattering(eem = res, type = "rayleigh", order = 1, width = 10
 plot(res)
 ```
 
-Note that it is also possible to use thr [magrittr](https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html) pipe line with all functions from `eemR`.
-
-```{r}
-library(magrittr)
-
-file <- system.file("extdata/cary/scans_day_1", "sample1.csv", package = "eemR")
-file %>% 
-  eem_read() %>% 
-  eem_remove_scattering(type = "raman", order = 1, width = 10) %>% 
-  eem_remove_scattering(type = "rayleigh", order = 1, width = 10) %>% 
-  plot()
-```
-
-
 ## Raman normalization
 
 The `eem_raman_normalisation()` function implement a simple calibration method for fluorescence intensity using only the integrated area of a water Raman peak. More details can be found in @Lawaetz2009.
@@ -270,6 +256,22 @@ OriginalData.X = reshape(OriginalData.X, ...
     OriginalData.nEx);
 
 % Start PARAFAC analysis here...
+```
+
+# Using R pipeline
+
+Note that it is also possible to use thr [magrittr](https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html) pipe line with most functions from `eemR`.
+
+```{r}
+library(magrittr)
+
+file <- system.file("extdata/cary/", package = "eemR")
+file %>% 
+  eem_read(recursive = TRUE) %>% 
+  eem_raman_normalisation() %>% 
+  eem_remove_scattering(type = "raman", order = 1, width = 10) %>% 
+  eem_remove_scattering(type = "rayleigh", order = 1, width = 10) %>% 
+  plot(2)
 ```
 
 # References
