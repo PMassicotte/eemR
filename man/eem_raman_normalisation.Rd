@@ -4,7 +4,7 @@
 \alias{eem_raman_normalisation}
 \title{Fluorescence Intensity Calibration Using the Raman Scatter Peak of Water}
 \usage{
-eem_raman_normalisation(eem, blank)
+eem_raman_normalisation(eem, blank = NA)
 }
 \arguments{
 \item{eem}{An object of class \code{eemlist}.}
