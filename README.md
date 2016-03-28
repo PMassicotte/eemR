@@ -15,9 +15,9 @@ ls("package:eemR")
     ##  [5] "eem_cut"                 "eem_export_matlab"      
     ##  [7] "eem_extract"             "eem_fluorescence_index" 
     ##  [9] "eem_humification_index"  "eem_inner_filter_effect"
-    ## [11] "eem_raman_normalisation" "eem_read"               
-    ## [13] "eem_remove_blank"        "eem_remove_scattering"  
-    ## [15] "eem_sample_names"        "eem_sample_names<-"     
+    ## [11] "eem_names"               "eem_names<-"            
+    ## [13] "eem_raman_normalisation" "eem_read"               
+    ## [15] "eem_remove_blank"        "eem_remove_scattering"  
     ## [17] "eem_set_wavelengths"
 
 The lastest release of the package from CRAN can be installed with:
@@ -57,41 +57,45 @@ At the moment I need files from:
 library(eemR)
 
 # Reading a single eem
-file <- system.file("extdata/cary/eem", "sample1.csv", package = "eemR")
+file <- system.file("extdata/cary/scans_day_1", "sample1.csv", package = "eemR")
 eem <- eem_read(file)
 
 plot(eem)
-
-# Reading a folder
-folder <- system.file("extdata/cary/eem", package = "eemR")
-eem <- eem_read(folder)
-
-eem_sample_names(eem)
-```
-
-    ## [1] "sample1" "sample2" "sample3"
-
-``` r
-plot(eem) # Plot the first eem
 ```
 
 ![](inst/images/README-unnamed-chunk-4-1.png)<!-- -->
 
 ``` r
-plot(eem, which = 2) # Plot the second eem
+# Reading a folder
+folder <- system.file("extdata/cary/scans_day_1", package = "eemR")
+eem <- eem_read(folder)
+
+eem_names(eem)
+```
+
+    ## [1] "nano"    "sample1" "sample2" "sample3"
+
+``` r
+plot(eem) # Plot the first eem
 ```
 
 ![](inst/images/README-unnamed-chunk-4-2.png)<!-- -->
+
+``` r
+plot(eem, which = 2) # Plot the second eem
+```
+
+![](inst/images/README-unnamed-chunk-4-3.png)<!-- -->
 
 ``` r
 # Aqualog EEM
 folder <- system.file("extdata/aqualog", package = "eemR")
 eem <- eem_read(folder)
 
-plot(eem) # Plot the first eem
+plot(eem, show_peaks = TRUE) # Plot the first eem
 ```
 
-![](inst/images/README-unnamed-chunk-4-3.png)<!-- -->
+![](inst/images/README-unnamed-chunk-4-4.png)<!-- -->
 
 Shimadzu files
 ==============
@@ -146,21 +150,21 @@ Changing sample names
 ---------------------
 
 ``` r
-folder <- system.file("extdata/cary/eem", package = "eemR")
+folder <- system.file("extdata/cary/scans_day_1", package = "eemR")
 eem <- eem_read(folder)
 
-eem_sample_names(eem)
+eem_names(eem)
 ```
 
-    ## [1] "sample1" "sample2" "sample3"
+    ## [1] "nano"    "sample1" "sample2" "sample3"
 
 ``` r
-eem_sample_names(eem) <- c("A", "B", "C")
+eem_names(eem) <- c("A", "B", "C", "D")
 
-eem_sample_names(eem)
+eem_names(eem)
 ```
 
-    ## [1] "A" "B" "C"
+    ## [1] "A" "B" "C" "D"
 
 Implemented metrics
 ===================
@@ -178,67 +182,72 @@ The current implemented metrics are:
 ``` r
 library(eemR)
 
-folder <- system.file("extdata/cary/eem", package = "eemR")
+folder <- system.file("extdata/cary/scans_day_1", package = "eemR")
 eem <- eem_read(folder)
 
 eem_fluorescence_index(eem, verbose = FALSE)
 ```
 
-    ## Source: local data frame [3 x 2]
+    ## Source: local data frame [4 x 2]
     ## 
-    ##    sample       fi
-    ##     (chr)    (dbl)
-    ## 1 sample1 1.264782
-    ## 2 sample2 1.455333
-    ## 3 sample3 1.329413
+    ##    sample         fi
+    ##     (chr)      (dbl)
+    ## 1    nano -0.5932057
+    ## 2 sample1  1.2647823
+    ## 3 sample2  1.4553330
+    ## 4 sample3  1.3294132
 
 ``` r
 eem_coble_peaks(eem, verbose = FALSE)
 ```
 
-    ## Source: local data frame [3 x 6]
+    ## Source: local data frame [4 x 6]
     ## 
-    ##    sample        b         t        a        m         c
-    ##     (chr)    (dbl)     (dbl)    (dbl)    (dbl)     (dbl)
-    ## 1 sample1 1.545298 1.0603312 3.731836 2.424096 1.8149415
-    ## 2 sample2 1.262997 0.6647042 1.583489 1.023593 0.7709074
-    ## 3 sample3 1.474086 1.3162812 8.416034 6.063355 6.3179129
+    ##    sample         b         t        a          m         c
+    ##     (chr)     (dbl)     (dbl)    (dbl)      (dbl)     (dbl)
+    ## 1    nano 0.8745673 0.1401188 0.140175 0.09653326 0.1255788
+    ## 2 sample1 1.5452981 1.0603312 3.731836 2.42409567 1.8149415
+    ## 3 sample2 1.2629968 0.6647042 1.583489 1.02359302 0.7709074
+    ## 4 sample3 1.4740862 1.3162812 8.416034 6.06335506 6.3179129
 
 ``` r
 eem_humification_index(eem, verbose = FALSE)
 ```
 
-    ## Source: local data frame [3 x 2]
+    ## Source: local data frame [4 x 2]
     ## 
-    ##    sample       hix
-    ##     (chr)     (dbl)
-    ## 1 sample1  6.379562
-    ## 2 sample2  4.254848
-    ## 3 sample3 13.024623
+    ##    sample        hix
+    ##     (chr)      (dbl)
+    ## 1    nano  0.5568136
+    ## 2 sample1  6.3795618
+    ## 3 sample2  4.2548483
+    ## 4 sample3 13.0246234
 
 ``` r
 eem_humification_index(eem, verbose = FALSE, scale = TRUE)
 ```
 
-    ## Source: local data frame [3 x 2]
+    ## Source: local data frame [4 x 2]
     ## 
     ##    sample       hix
     ##     (chr)     (dbl)
-    ## 1 sample1 0.8644906
-    ## 2 sample2 0.8096995
-    ## 3 sample3 0.9286968
+    ## 1    nano 0.3576623
+    ## 2 sample1 0.8644906
+    ## 3 sample2 0.8096995
+    ## 4 sample3 0.9286968
 
 ``` r
 eem_biological_index(eem, verbose = FALSE)
 ```
 
-    ## Source: local data frame [3 x 2]
+    ## Source: local data frame [4 x 2]
     ## 
     ##    sample       bix
     ##     (chr)     (dbl)
-    ## 1 sample1 0.7062640
-    ## 2 sample2 0.8535423
-    ## 3 sample3 0.4867927
+    ## 1    nano 2.6812045
+    ## 2 sample1 0.7062640
+    ## 3 sample2 0.8535423
+    ## 4 sample3 0.4867927
 
 PARAFAC pre-processing
 ======================
@@ -259,10 +268,10 @@ Blank removal
 The `eem_remove_blank()` function subtract blank (miliq) water from eem. Scatter bands can often be reduced by subtracting water blank (Murphy et al. 2013).
 
 ``` r
-file <- system.file("extdata/cary/eem", "sample1.csv", package = "eemR")
+file <- system.file("extdata/cary/scans_day_1", "sample1.csv", package = "eemR")
 eem <- eem_read(file)
 
-file <- system.file("extdata/cary", "nano.csv", package = "eemR")
+file <- system.file("extdata/cary/scans_day_1", "nano.csv", package = "eemR")
 blank <- eem_read(file)
 
 res <- eem_remove_blank(eem, blank)
@@ -292,7 +301,7 @@ Note that it is also possible to use thr [magrittr](https://cran.r-project.org/w
 ``` r
 library(magrittr)
 
-file <- system.file("extdata/cary/eem", "sample1.csv", package = "eemR")
+file <- system.file("extdata/cary/scans_day_1", "sample1.csv", package = "eemR")
 file %>% 
   eem_read() %>% 
   eem_remove_scattering(type = "raman", order = 1, width = 10) %>% 
@@ -355,7 +364,7 @@ Export to Matlab
 PARAFAC analysis was made easy with the fantastic Matlab [`drEEM`](http://www.models.life.ku.dk/drEEM) toolbox (Murphy et al. 2013). The function `eem_export_matlab()` can be used to export the EEMs into a `m-file` directly usable in Matlab by the `drEEM` toolbox.
 
 ``` r
-folder <- system.file("extdata/cary/eem", package = "eemR")
+folder <- system.file("extdata/cary/scans_day_1", package = "eemR")
 eem <- eem_read(folder)
 
 filename <- paste(tempfile(), ".mat", sep = "")
@@ -363,14 +372,14 @@ filename <- paste(tempfile(), ".mat", sep = "")
 eem_export_matlab(filename, eem)
 ```
 
-    ## Successfully exported 3 EEMs to /tmp/RtmpCpATy7/file20bb3170eac8.mat.
+    ## Successfully exported 4 EEMs to /tmp/RtmpTd4UyM/file17df535fe429.mat.
 
 ``` r
 # It is also possible to export more than one object at time
 eem_export_matlab(filename, eem, eem)
 ```
 
-    ## Successfully exported 6 EEMs to /tmp/RtmpCpATy7/file20bb3170eac8.mat.
+    ## Successfully exported 8 EEMs to /tmp/RtmpTd4UyM/file17df535fe429.mat.
 
 Note that the name of the structure generated by the function will be `OriginalData` to *complement* with PARAFAC standard. Then, the importation into Matlab is made easy using the `load()` function. Please note that there is a bug preventing to keep matrix dimension. Simply use the `reshape()` function after you exported data.
 
