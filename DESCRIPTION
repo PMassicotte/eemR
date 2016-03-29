@@ -20,7 +20,8 @@ Imports:
     pracma,
     readr,
     stats,
-    rlist
+    rlist,
+    shiny
 RoxygenNote: 5.0.1
 Suggests: cdom,
     magrittr,
