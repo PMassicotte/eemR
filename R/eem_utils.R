@@ -12,7 +12,8 @@
 #'
 #' plot(eem)
 
-plot.eem <- function(x, show_peaks, ...){
+.plot_eem <- function(x, show_peaks, ...){
+
 
   jet.colors <- colorRampPalette(c("#00007F",
                                    "blue",
@@ -55,6 +56,7 @@ plot.eem <- function(x, show_peaks, ...){
 #' @param ... Extra arguments for \code{image.plot}.
 #' @param show_peaks Boolean indicating if Cobble's peaks should be displayed on
 #'   the surface plot. Default is FALSE.
+#' @param interactive If \code{TRUE} a Shiny app will start to visualize EEMS.
 #'
 #' @export
 #' @examples
@@ -62,11 +64,16 @@ plot.eem <- function(x, show_peaks, ...){
 #' eem <- eem_read(folder)
 #'
 #' plot(eem, which = 3)
-plot.eemlist <- function(x, which = 1, show_peaks = FALSE, ...) {
+plot.eemlist <- function(x, which = 1,
+                         interactive = FALSE, show_peaks = FALSE, ...) {
 
   stopifnot(which <= length(x))
 
-  plot.eem(x[[which]], show_peaks)
+  if(interactive){
+    .plot_shiny(x)
+  }else{
+    .plot_eem(x[[which]], show_peaks, ...)
+  }
 
 }
 
@@ -174,9 +181,12 @@ eem_cut <- function(eem, ex, em){
 
   if(!missing(ex)){
 
-    stopifnot(all(ex %in% eem$ex))
+    stopifnot(length(ex) == 2,
+              all(ex <= max(eem$ex) & ex >= min(eem$ex)),
+              ex[1] < ex[2])
 
-    index <- !eem$ex %in% ex
+    index <- which(eem$ex >= ex[1] & eem$ex <= ex[2])
+
 
     eem$ex <- eem$ex[index]
 
@@ -186,13 +196,16 @@ eem_cut <- function(eem, ex, em){
 
   if(!missing(em)){
 
-    stopifnot(all(em %in% eem$em))
+    stopifnot(length(em) == 2,
+              all(em <= max(eem$em) & em >= min(eem$em)),
+              em[1] < em[2])
 
-    index <- !eem$em %in% em
+    index <- which(eem$em >= em[1] & eem$em <= em[2])
 
     eem$em <- eem$em[index]
 
     eem$x <- eem$x[index, ]
+
   }
 
   return(eem)
@@ -471,4 +484,99 @@ my_unlist <- function(x){
 
 .is_eem <- function(eem) {
   ifelse(class(eem) == "eem", TRUE, FALSE)
+}
+
+.plot_shiny <- function(eem){
+
+  metrics <- dplyr::left_join(eem_coble_peaks(eem, verbose = FALSE),
+                              eem_biological_index(eem, verbose = FALSE),
+                              by = "sample")
+
+  metrics <- dplyr::left_join(metrics,
+                              eem_fluorescence_index(eem, verbose = FALSE),
+                              by = "sample")
+
+  metrics <- dplyr::left_join(metrics,
+                              eem_humification_index(eem, verbose = FALSE),
+                              by = "sample")
+
+  metrics[,-1] <-round(metrics[,-1], digits = 2)
+
+  # nl <- vector(mode = "list", length = length(eem_names(eem)))
+  # names(nl) <- eem_names(eem)
+  # nl[1:length(nl)] <- 1:length(nl)
+
+  ui <- shiny::fluidPage(
+
+    sidebarLayout(
+      sidebarPanel
+      (
+        shiny::radioButtons("scale", label = h3("Keep z-axis fixed?"),
+                            choices = list("Yes", "No")),
+        shiny::hr(),
+        shiny::radioButtons("by", "Plot layout", choices = c("1 x 1", "2 x 2")),
+        shiny::hr(),
+        shiny::sliderInput("ex_cut", "Select excitation range",
+                           min = min(eem[[1]]$ex),
+                           max = max(eem[[1]]$ex),
+                           value = c(min(eem[[1]]$ex), max(eem[[1]]$ex)),
+                           step = 1),
+        shiny::hr(),
+        shiny::sliderInput("em_cut", "Select emission range",
+                           min = min(eem[[1]]$em),
+                           max = max(eem[[1]]$em),
+                           value = c(min(eem[[1]]$em), max(eem[[1]]$em)),
+                           step = 1)
+      ),
+
+
+      mainPanel(shiny::plotOutput(outputId = "myeem", width = "550px", height = "550px"))
+    ),
+
+    shiny::br(),
+
+    DT::dataTableOutput("eem_list"),
+
+    shiny::br()
+
+)
+
+  server <- function(input, output) {
+
+    output$myeem <- shiny::renderPlot({
+
+      if(input$scale == "Yes"){
+        zlim <- range(unlist(lapply(eems, function(x) x$x)), na.rm = TRUE)
+      } else {
+        zlim <- range(eem[[input$eem_list_rows_selected]]$x, na.rm = TRUE)
+      }
+
+      if(!is.null(input$eem_list_rows_selected)){
+
+        n <- ifelse(input$by == "1 x 1", 1, 2)
+
+        par(mfrow = c(n, n))
+
+        plot(eem,
+             which = input$eem_list_rows_selected,
+             xlim = c(input$ex_cut[1], input$ex_cut[2]),
+             ylim = c(input$em_cut[1], input$em_cut[2]),
+             zlim = zlim)
+
+      }
+    })
+
+    output$eem_list = DT::renderDataTable(
+      metrics,
+      server = FALSE,
+      selection = list(mode = 'single', selected = c(1)),
+      options = list(
+        autoWidth = TRUE,
+        columnDefs = list(list(width = '10px', targets = "_all"))
+      )
+
+    )
+  }
+
+  shiny::shinyApp(ui, server)
 }

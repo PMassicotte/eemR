@@ -4,7 +4,8 @@
 \alias{plot.eemlist}
 \title{Surface plot of eem}
 \usage{
-\method{plot}{eemlist}(x, which = 1, show_peaks = FALSE, ...)
+\method{plot}{eemlist}(x, which = 1, show_peaks = FALSE,
+  interactive = FALSE, ...)
 }
 \arguments{
 \item{x}{An object of class \code{eemlist}.}
@@ -13,6 +14,8 @@
 
 \item{show_peaks}{Boolean indicating if Cobble's peaks should be displayed on
 the surface plot. Default is FALSE.}
+
+\item{interactive}{If \code{TRUE} a Shiny app will start to visualize EEMS.}
 
 \item{...}{Extra arguments for \code{image.plot}.}
 }
