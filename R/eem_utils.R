@@ -66,7 +66,7 @@ plot.eemlist <- function(x, which = 1, show_peaks = FALSE, ...) {
 
   stopifnot(which <= length(x))
 
-  plot.eem(x[[which]], show_peaks)
+  plot.eem(x[[which]], show_peaks, ...)
 
 }
 
@@ -143,6 +143,9 @@ summary.eemlist <- function(object, ...){
 #' @template template_eem
 #' @param ex A numeric vector of excitation wavelengths to be removed.
 #' @param em A numeric vector of emission wavelengths to be removed.
+#' @param fill_with_na Logical. If TRUE, fluorescence values at specified
+#'   wavelengths will be replaced with NA. If FALSE, these values will be
+#'   removed.
 #'
 #' @export
 #' @examples
@@ -155,14 +158,15 @@ summary.eemlist <- function(object, ...){
 #' # Cut few excitation wavelengths
 #' eem <- eem_cut(eem, ex = c(220, 225, 230, 230))
 #' plot(eem)
-eem_cut <- function(eem, ex, em){
+eem_cut <- function(eem, ex, em, fill_with_na = FALSE){
 
-  stopifnot(.is_eemlist(eem) | .is_eem(eem))
+  stopifnot(
+    .is_eemlist(eem) | .is_eem(eem))
 
   ## It is a list of eems, then call lapply
   if(.is_eemlist(eem)){
 
-    res <- lapply(eem, eem_cut, ex = ex, em = em)
+    res <- lapply(eem, eem_cut, ex = ex, em = em, fill_with_na = fill_with_na)
 
     class(res) <- class(eem)
 
@@ -174,25 +178,48 @@ eem_cut <- function(eem, ex, em){
 
   if(!missing(ex)){
 
-    stopifnot(all(ex %in% eem$ex))
+    stopifnot(
+      is.numeric(ex),
+      all(ex >= 0)
+    )
 
-    index <- !eem$ex %in% ex
+    index <- which(eem$ex %in% ex)
 
-    eem$ex <- eem$ex[index]
+    if (length(index != 0)) {
 
-    eem$x <- eem$x[, index]
+      if (fill_with_na) {
+        # eem$ex[index] <- NA
+        eem$x[, index] <- NA
+      }
+      else {
+        eem$ex <- eem$ex[-index]
+        eem$x <- eem$x[, -index]
+      }
+    }
 
   }
 
   if(!missing(em)){
 
-    stopifnot(all(em %in% eem$em))
+    stopifnot(
+      is.numeric(em),
+      all(em >= 0)
+    )
 
-    index <- !eem$em %in% em
+    index <- which(eem$em %in% em)
 
-    eem$em <- eem$em[index]
+    if (length(index != 0)) {
 
-    eem$x <- eem$x[index, ]
+      if (fill_with_na) {
+        # eem$em[index] <- NA
+        eem$x[index, ] <- NA
+      }
+      else {
+        eem$em <- eem$em[-index]
+        eem$x <- eem$x[-index, ]
+      }
+    }
+
   }
 
   return(eem)

@@ -4,7 +4,7 @@
 \alias{eem_cut}
 \title{Cut emission and/or excitation wavelengths from EEMs}
 \usage{
-eem_cut(eem, ex, em)
+eem_cut(eem, ex, em, fill_with_na = FALSE)
 }
 \arguments{
 \item{eem}{An object of class \code{eemlist}.}
@@ -12,6 +12,10 @@ eem_cut(eem, ex, em)
 \item{ex}{A numeric vector of excitation wavelengths to be removed.}
 
 \item{em}{A numeric vector of emission wavelengths to be removed.}
+
+\item{fill_with_na}{Logical. If TRUE, fluorescence values at specified
+wavelengths will be replaced with NA. If FALSE, these values will be
+removed.}
 }
 \value{
 An object of class \code{eemlist}.
