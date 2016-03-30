@@ -9,9 +9,9 @@ eem_cut(eem, ex, em)
 \arguments{
 \item{eem}{An object of class \code{eemlist}.}
 
-\item{ex}{A numeric vector of excitation wavelengths to be removed.}
+\item{ex}{A numeric vector with range of excitation wavelengths to be kept.}
 
-\item{em}{A numeric vector of emission wavelengths to be removed.}
+\item{em}{A numeric vector with range of emission wavelengths to be kept.}
 }
 \value{
 An object of class \code{eemlist}.
@@ -27,7 +27,7 @@ eem <- eem_read(file)
 plot(eem)
 
 # Cut few excitation wavelengths
-eem <- eem_cut(eem, ex = c(220, 225, 230, 230))
+eem <- eem_cut(eem, ex = c(220, 300), em = c(325, 500))
 plot(eem)
 }
 

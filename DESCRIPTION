@@ -21,7 +21,8 @@ Imports:
     readr,
     stats,
     rlist,
-    shiny
+    shiny,
+    DT
 RoxygenNote: 5.0.1
 Suggests: cdom,
     magrittr,

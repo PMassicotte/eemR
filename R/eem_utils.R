@@ -1,17 +1,3 @@
-#' Surface plot of eem
-#'
-#' @param x An object of class \code{eemlist}.
-#' @param ... Extra arguments for \code{image.plot}.
-#' @param show_peaks Boolean indicating if Cobble's peaks should be displayed on
-#'   the surface plot. Default is FALSE.
-#' @importFrom grDevices colorRampPalette
-#' @export
-#' @examples
-#' file <- system.file("extdata/cary/scans_day_1", "sample1.csv", package = "eemR")
-#' eem <- eem_read(file)
-#'
-#' plot(eem)
-
 .plot_eem <- function(x, show_peaks, ...){
 
 
@@ -148,8 +134,8 @@ summary.eemlist <- function(object, ...){
 #' Cut emission and/or excitation wavelengths from EEMs
 #'
 #' @template template_eem
-#' @param ex A numeric vector of excitation wavelengths to be removed.
-#' @param em A numeric vector of emission wavelengths to be removed.
+#' @param ex A numeric vector with range of excitation wavelengths to be kept.
+#' @param em A numeric vector with range of emission wavelengths to be kept.
 #'
 #' @export
 #' @examples
@@ -160,7 +146,7 @@ summary.eemlist <- function(object, ...){
 #' plot(eem)
 #'
 #' # Cut few excitation wavelengths
-#' eem <- eem_cut(eem, ex = c(220, 225, 230, 230))
+#' eem <- eem_cut(eem, ex = c(220, 300), em = c(325, 500))
 #' plot(eem)
 eem_cut <- function(eem, ex, em){
 
@@ -508,10 +494,10 @@ my_unlist <- function(x){
 
   ui <- shiny::fluidPage(
 
-    sidebarLayout(
-      sidebarPanel
+    shiny::sidebarLayout(
+      shiny::sidebarPanel
       (
-        shiny::radioButtons("scale", label = h3("Keep z-axis fixed?"),
+        shiny::radioButtons("scale", label = shiny::h3("Keep z-axis fixed?"),
                             choices = list("Yes", "No")),
         shiny::hr(),
         shiny::radioButtons("by", "Plot layout", choices = c("1 x 1", "2 x 2")),
@@ -530,7 +516,7 @@ my_unlist <- function(x){
       ),
 
 
-      mainPanel(shiny::plotOutput(outputId = "myeem", width = "550px", height = "550px"))
+      shiny::mainPanel(shiny::plotOutput(outputId = "myeem", width = "550px", height = "550px"))
     ),
 
     shiny::br(),
@@ -546,7 +532,7 @@ my_unlist <- function(x){
     output$myeem <- shiny::renderPlot({
 
       if(input$scale == "Yes"){
-        zlim <- range(unlist(lapply(eems, function(x) x$x)), na.rm = TRUE)
+        zlim <- range(unlist(lapply(eem, function(x) x$x)), na.rm = TRUE)
       } else {
         zlim <- range(eem[[input$eem_list_rows_selected]]$x, na.rm = TRUE)
       }
