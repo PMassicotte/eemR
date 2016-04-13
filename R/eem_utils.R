@@ -494,13 +494,14 @@ my_unlist <- function(x){
 
   ui <- shiny::fluidPage(
 
+    titlePanel("EEM interactive visualization"),
+
     shiny::sidebarLayout(
       shiny::sidebarPanel
       (
-        shiny::radioButtons("scale", label = shiny::h3("Keep z-axis fixed?"),
-                            choices = list("Yes", "No")),
+        shiny::checkboxInput("scale", label = "Keep z-axis fixed?", FALSE),
         shiny::hr(),
-        shiny::radioButtons("by", "Plot layout", choices = c("1 x 1", "2 x 2")),
+        shiny::checkboxInput("by", "Combined 2x2 plots", FALSE),
         shiny::hr(),
         shiny::sliderInput("ex_cut", "Select excitation range",
                            min = min(eem[[1]]$ex),
@@ -531,7 +532,7 @@ my_unlist <- function(x){
 
     output$myeem <- shiny::renderPlot({
 
-      if(input$scale == "Yes"){
+      if(input$scale){
         zlim <- range(unlist(lapply(eem, function(x) x$x)), na.rm = TRUE)
       } else {
         zlim <- range(eem[[input$eem_list_rows_selected]]$x, na.rm = TRUE)
@@ -539,7 +540,7 @@ my_unlist <- function(x){
 
       if(!is.null(input$eem_list_rows_selected)){
 
-        n <- ifelse(input$by == "1 x 1", 1, 2)
+        n <- ifelse(input$by, 2, 1)
 
         par(mfrow = c(n, n))
 
