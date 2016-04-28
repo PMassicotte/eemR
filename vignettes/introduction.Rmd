@@ -11,9 +11,6 @@ vignette: >
 ---
 
 ```{r setup, warning=FALSE, message=FALSE, echo=FALSE}
-library(extrafont)
-loadfonts()
-
 library(ggplot2)
 library(dplyr)
 library(tidyr)
@@ -102,9 +99,12 @@ df$em_rayleigh <- df$em_raw
 df$em_rayleigh[df$em > 375] <- NA
 
 ggplot(df, aes(x = em)) +
-  geom_line(aes(y = em_rayleigh, color = "Rayleigh scattering"), size = 0.75) +
-  geom_line(aes(y = em_raman, color = "Raman scattering"), size = 0.75) +
-  geom_line(aes(y = em_cor, color = "Fluorescence signal"), size = 0.75) +
+  geom_line(aes(y = em_rayleigh, color = "Rayleigh scattering"), 
+            size = 0.75, na.rm=TRUE) +
+  geom_line(aes(y = em_raman, color = "Raman scattering"), 
+            size = 0.75, na.rm=TRUE) +
+  geom_line(aes(y = em_cor, color = "Fluorescence signal"), 
+            size = 0.75, na.rm=TRUE) +
   labs(color = "") +
   xlab("Emission (nm)") +
   ylab("Fluorescence (A.U)") +
@@ -247,17 +247,17 @@ df <- data.frame(em = eem[[1]]$em, raman)
 shade <- rbind(c(371,0), subset(df, em >= 371 & em <= 428), c(df[nrow(df), "X"], 0))
 
 ggplot(df, aes(x = em, y = raman)) +
-  geom_line(size = 0.2) +
+  geom_line(size = 0.2, na.rm = TRUE) +
   xlab("Emission (nm)") +
   ylab("Fluorescence (A.U)") +
   geom_polygon(data = shade, aes(em, raman)) +
   xlim(300, 450) +
-  annotate("text", x = 400, y = 1, label = "A[rp]", size = 2, parse = TRUE) +
+  annotate("text", x = 400, y = 1, label = "A[rp]", size = 3, parse = TRUE) +
   annotate("text",
            x = 390,
            y = 7.5,
            label = "First order Rayleigh scattering",
-           size = 2)
+           size = 3)
 ```
 
 
