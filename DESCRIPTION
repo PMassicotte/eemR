@@ -24,4 +24,11 @@ Imports:
 RoxygenNote: 5.0.1
 Suggests: cdom,
     magrittr,
-    testthat
+    testthat,
+    knitr,
+    rmarkdown,
+    ggplot2,
+    plot3D,
+    extrafont,
+    tidyr
+VignetteBuilder: knitr
