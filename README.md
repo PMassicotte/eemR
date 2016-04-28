@@ -20,7 +20,11 @@ devtools::install_github("PMassicotte/eemR")
 Vignette
 --------
 
-A detailed vignette presenting the package is available here.
+A detailed vignette presenting the package which can be viewed using:
+
+``` r
+vignette(topic = "introduction", package = "eemR")
+```
 
 Supported spectrophotometers
 ----------------------------

@@ -2,7 +2,7 @@
 
 - Interactive plot using a simple shiny app. Using `plot(eems, interactive = TRUE)` will lunch a shiny app that allows to interactively browse EEMs contained in `eems`.
 
-- A vignette has been added to the package whic can be viewed using `vignette(topic = "eemR_intro", package = "eemR")`.
+- A vignette has been added to the package whic can be viewed using `vignette(topic = "introduction", package = "eemR")`.
 
 - An error will occur if one try to do raman normalization on a blank where scattering bands have been removed.
 

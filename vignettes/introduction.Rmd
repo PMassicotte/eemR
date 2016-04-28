@@ -20,7 +20,7 @@ library(tidyr)
 library(eemR)
 library(plot3D)
 
-theme_set(theme_bw(base_size = 8, base_family = "Open Sans"))
+theme_set(theme_bw(base_size = 8))
 ```
 
 
@@ -339,6 +339,12 @@ A surface plot of EEMs is made using the `plot(x, which = 1)` function where `wh
 
 ```{r, eval = FALSE}
 plot(eems, which = 3)
+```
+
+Interactive plots using a simple shiny app can be lunched to interactively browse EEMs.
+
+```{r, eval = FALSE}
+plot(eems, interactive = TRUE)
 ```
 
 ### Blank subtraction
