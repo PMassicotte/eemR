@@ -22,7 +22,8 @@ Imports:
     stats,
     rlist
 RoxygenNote: 5.0.1
-Suggests: cdom,
+Suggests:
+    cdom,
     magrittr,
     testthat,
     knitr,
@@ -30,5 +31,8 @@ Suggests: cdom,
     ggplot2,
     plot3D,
     extrafont,
-    tidyr
+    tidyr,
+    shiny,
+    DT
 VignetteBuilder: knitr
+RoxygenNote: 5.0.1
