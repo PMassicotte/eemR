@@ -494,7 +494,7 @@ my_unlist <- function(x){
 
   ui <- shiny::fluidPage(
 
-    titlePanel("EEM interactive visualization"),
+    shiny::titlePanel("EEM interactive visualization"),
 
     shiny::sidebarLayout(
       shiny::sidebarPanel
