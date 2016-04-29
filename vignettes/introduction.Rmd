@@ -236,13 +236,11 @@ The same DOM sample measured on different spectrofluorometers (or even the same 
 
 ```{r fig4, echo = FALSE, warning=FALSE, dev="png", fig.width = 7, fig.align="center", fig.cap = "IFE correction process. Panel (A) shows an uncorrected EEM (the color bar is the florescence intensity in A.U.). Panel (B) is the corresponding absorbance spectra measured on the same sample. Panel (C) shows the IFE correction factors corresponding to the values of the denominator in Equation (@ife) with values close to 1 indicating less pronounced correction. Panel (D) shows the corrected sample (the color bar is the fluorescence intensity in A.U.)."}
 
-folder <- "/media/persican/Philippe Massicotte/Phil/Doctorat/PARAFAC/PARAFAC Files/Raw Data/Daniel/CDOM/3D/BlancNano5.csv"
+load("blank.rda")
 
-eem <- eem_read(folder)
+raman <- blank[[1]]$x[, which(blank[[1]]$ex == 350)]
 
-raman <- eem[[1]]$x[, which(eem[[1]]$ex == 350)]
-
-df <- data.frame(em = eem[[1]]$em, raman)
+df <- data.frame(em = blank[[1]]$em, raman)
 
 shade <- rbind(c(371,0), subset(df, em >= 371 & em <= 428), c(df[nrow(df), "X"], 0))
 
