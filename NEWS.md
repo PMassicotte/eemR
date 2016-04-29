@@ -1,4 +1,4 @@
-# eemR 0.1.3 (unreleased)
+# eemR 0.1.3
 
 - Interactive plot using a simple shiny app. Using `plot(eems, interactive = TRUE)` will lunch a shiny app that allows to interactively browse EEMs contained in `eems`.
 
@@ -39,7 +39,7 @@ inst/extdata/cary/
 
 - Added tests to the packages to verify metrics.
 
-- Now better estimate the number of columns to read in Cary Eclipse files (#27). This also makes reader much faster.
+- Now better estimate the number of columns to read in Cary Eclipse files (#27). This also makes reading much faster.
 
 # eemR 0.1.2
 
