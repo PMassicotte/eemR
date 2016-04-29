@@ -39,6 +39,8 @@ inst/extdata/cary/
 
 - Added tests to the packages to verify metrics.
 
+- Now better estimate the number of columns to read in Cary Eclipse files (#27). This also makes reader much faster.
+
 # eemR 0.1.2
 
 - Sample names are now exported when using the `eem_export_matlab()` function.
