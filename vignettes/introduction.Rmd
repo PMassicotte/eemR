@@ -1,7 +1,7 @@
 ---
 title: "Introduction to eemR"
 author: "Philippe Massicotte"
-bibliography: /home/persican/Documents/library.bib
+bibliography: biblio.bib
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
