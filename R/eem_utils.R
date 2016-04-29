@@ -1,3 +1,5 @@
+#' @importFrom grDevices colorRampPalette
+#' @importFrom graphics par plot text
 .plot_eem <- function(x, show_peaks, ...){
 
 

@@ -11,5 +11,5 @@
 
 ## Win builder
 
-* There were no errors reported for R-release and R-devel.
+* There were no errors or notes reported for R-release and R-devel.
 
