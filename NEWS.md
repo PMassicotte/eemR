@@ -1,3 +1,5 @@
+# eemR 0.1.4 (unreleased)
+
 # eemR 0.1.3
 
 - Interactive plot using a simple shiny app. Using `plot(eems, interactive = TRUE)` will lunch a shiny app that allows to interactively browse EEMs contained in `eems`.
