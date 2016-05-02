@@ -1,3 +1,16 @@
+## Resubmission
+
+This is a resubmission. 
+
+The following URL in README.md:
+
+http://cran.rstudio.com/package=eemR
+
+has been changed to:
+
+https://cran.r-project.org/package=eemR
+
+
 ## Test environments
 
 * Tested on Linux (R 3.2.5) using Travis CI
