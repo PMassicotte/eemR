@@ -1,11 +1,15 @@
 #' Blank correction
 #'
-#' @description This function is used to remove blank from eems which can help to reduce the
-#' effect of scatter bands.
+#' @description This function is used to remove blank from eems which can help
+#'   to reduce the effect of scatter bands.
 #'
 #' @template template_eem
 #' @template template_blank
 #' @template template_details_automatic_blank
+#'
+#' @details Note that blank correction should be performed before Raman
+#'   normalization (\code{eem_raman_normalisation()}). An error will occur
+#'   if trying to perform blank correction after Raman normalization.
 #'
 #' @references Murphy, K. R., Stedmon, C. a., Graeber, D., & Bro, R. (2013).
 #'   Fluorescence spectroscopy and multi-way techniques. PARAFAC. Analytical
@@ -69,7 +73,17 @@ eem_remove_blank <- function(eem, blank = NA) {
   stopifnot(.is_eemlist(eem) | .is_eem(eem),
             .is_eemlist(blank) | is.na(blank))
 
-  if(is.na(blank)){
+  is_raman_normalized <- lapply(eem,
+                               function(x){attributes(x)$is_raman_normalized})
+  is_raman_normalized <- unlist(is_raman_normalized)
+
+  if (any(is_raman_normalized)) {
+    stop("Samples have been Raman normalized. Please perform blank removal
+         before Raman normalization.", call. = FALSE)
+  }
+
+
+  if (is.na(blank)) {
 
     t <- list.group(eem, ~location)
     t <- lapply(t, function(x){class(x) <- "eemlist"; return(x)})
@@ -90,18 +104,16 @@ eem_remove_blank <- function(eem, blank = NA) {
             .is_eemlist(blank) | is.na(blank))
 
   ## It is a list of eems, then call lapply
-  if(.is_eemlist(eem)){
+  if (.is_eemlist(eem)) {
 
     blank_names <- c("nano", "miliq", "milliq", "mq", "blank")
 
     # if blank is NA then try to split the eemlist into blank and eems
-    if(is.na(blank)){
+    if (is.na(blank)) {
       blank <- eem_extract(eem, blank_names, remove = FALSE, ignore_case = TRUE,
                            verbose = FALSE)
-      eem <- eem_extract(eem, blank_names, remove = TRUE, ignore_case = TRUE,
-                         verbose = FALSE)
 
-      if(length(blank) != 1 | length(eem) < 1){
+      if (length(blank) != 1 | length(eem) < 1) {
         stop("Cannot find blank for automatic correction.", call. = FALSE)
       }
     }
@@ -117,14 +129,19 @@ eem_remove_blank <- function(eem, blank = NA) {
   #---------------------------------------------------------------------
   # Do the blank subtraction.
   #---------------------------------------------------------------------
+
+  if (is_blank(eem)) {return(eem)} # do not modify blank samples
+
   blank <- unlist(blank, recursive = FALSE)
+
   x <- eem$x - blank$x
 
   ## Construct an eem object.
   res <- eem(file = eem$sample,
              x = x,
              ex = eem$ex,
-             em = eem$em)
+             em = eem$em,
+             location = eem$location)
 
   attributes(res) <- attributes(eem)
   attr(res, "is_blank_corrected") <- TRUE
@@ -328,11 +345,10 @@ eem_raman_normalisation <- function(eem, blank = NA) {
 
       blank <- eem_extract(eem, blank_names, remove = FALSE, ignore_case = TRUE,
                            verbose = FALSE)
-      eem <- eem_extract(eem, blank_names, remove = TRUE, ignore_case = TRUE,
-                         verbose = FALSE)
 
       if(length(blank) != 1 | length(eem) < 1){
         stop("Cannot find blank for automatic correction.", call. = FALSE)
+
       }
     }
 
@@ -347,7 +363,11 @@ eem_raman_normalisation <- function(eem, blank = NA) {
   #---------------------------------------------------------------------
   # Do the normalisation.
   #---------------------------------------------------------------------
+
+  if(is_blank(eem)) {return(eem)} # do not modify blank samples
+
   blank <- unlist(blank, recursive = FALSE)
+
   index_ex <- which(blank$ex == 350)
   index_em <- which(blank$em >= 371 & blank$em <= 428)
 
@@ -368,7 +388,8 @@ eem_raman_normalisation <- function(eem, blank = NA) {
   res <- eem(file = eem$sample,
              x = x,
              ex = eem$ex,
-             em = eem$em)
+             em = eem$em,
+             location = eem$location)
 
   attributes(res) <- attributes(eem)
   attr(res, "is_raman_normalized") <- TRUE
@@ -532,3 +553,12 @@ is_between <- function(x, a, b) {
   x >= a & x <= b
 }
 
+# Return TRUE if eem is a blank sample
+
+is_blank <- function(eem) {
+
+  blank_names <- c("nano", "miliq", "milliq", "mq", "blank")
+
+  any(blank_names %in% eem$sample)
+
+}

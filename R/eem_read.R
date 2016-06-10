@@ -91,6 +91,7 @@ eem_read <- function(file, recursive = FALSE) {
 #' @param x A matrix with fluorescence values.
 #' @param ex Vector of excitation wavelengths.
 #' @param em Vector of emission wavelengths.
+#' @param location Location of the eem file.
 #'
 #' @importFrom tools file_path_sans_ext
 #'
@@ -102,13 +103,19 @@ eem_read <- function(file, recursive = FALSE) {
 #'  \item ex Excitation vector of wavelengths.
 #' }
 
-eem <- function(file, x, ex, em){
+eem <- function(file, x, ex, em, location = NA){
+
+  # Use dirname if location if not provided
+  if (is.na(location)) {
+    location <- dirname(file)
+  }
+
 
   eem <- list(sample = make.names(file_path_sans_ext(basename(file))),
               x = x,
               ex = ex,
               em = em,
-              location =  dirname(file))
+              location =  location)
 
   class(eem) <- "eem"
 

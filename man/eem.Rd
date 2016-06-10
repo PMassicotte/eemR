@@ -4,7 +4,7 @@
 \alias{eem}
 \title{eem constructor}
 \usage{
-eem(file, x, ex, em)
+eem(file, x, ex, em, location = NA)
 }
 \arguments{
 \item{file}{A string containing the file name of the eem.}
@@ -14,6 +14,8 @@ eem(file, x, ex, em)
 \item{ex}{Vector of excitation wavelengths.}
 
 \item{em}{Vector of emission wavelengths.}
+
+\item{location}{Location of the eem file.}
 }
 \value{
 An object of class \code{eem} containing:

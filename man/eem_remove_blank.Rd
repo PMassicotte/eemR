@@ -15,8 +15,8 @@ eem_remove_blank(eem, blank = NA)
 An object of class \code{eemlist}.
 }
 \description{
-This function is used to remove blank from eems which can help to reduce the
-effect of scatter bands.
+This function is used to remove blank from eems which can help
+  to reduce the effect of scatter bands.
 }
 \details{
 The function will first try to use the provided \code{blank}. If the
@@ -54,6 +54,10 @@ The function will first try to use the provided \code{blank}. If the
   used for files in folder `scans_day_2` but with blank named `blank.csv`.
 
   Note that the blanks eem are not returned by the function.
+
+Note that blank correction should be performed before Raman
+  normalization (\code{eem_raman_normalisation()}). An error will occur
+  if trying to perform blank correction after Raman normalization.
 }
 \examples{
 

@@ -1,5 +1,10 @@
 # eemR 0.1.4 (unreleased)
 
+- `eem_remove_blank()` and `eem_raman_normalisation()` will now keep blank samples when automatic correction is used. When automatic correction is used, the *untransformed* blank sample will be keep in the list.
+
+- An error will now occur if trying to perform blank correction after Raman normalization. 
+ 
+
 # eemR 0.1.3
 
 - Interactive plot using a simple shiny app. Using `plot(eems, interactive = TRUE)` will lunch a shiny app that allows to interactively browse EEMs contained in `eems`.
