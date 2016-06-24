@@ -63,7 +63,8 @@ The function will first try to use the provided \code{blank}. If the
 The normalization procedure consists in dividing all fluorescence
   intensities by the area (integral) of the Raman peak. The peak is located
   at excitation of 350 nm. (ex = 370) betwen 371 nm. and 428 nm in emission
-  (371 <= em <= 428).
+  (371 <= em <= 428). Note that the data is interpolated to make sure that
+  fluorescence at em 350 exist.
 }
 \examples{
 # Open the fluorescence eem

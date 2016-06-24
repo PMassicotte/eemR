@@ -272,7 +272,8 @@ eem_remove_scattering <- function(eem, type, order = 1, width = 10){
 #' @details The normalization procedure consists in dividing all fluorescence
 #'   intensities by the area (integral) of the Raman peak. The peak is located
 #'   at excitation of 350 nm. (ex = 370) betwen 371 nm. and 428 nm in emission
-#'   (371 <= em <= 428).
+#'   (371 <= em <= 428). Note that the data is interpolated to make sure that
+#'   fluorescence at em 350 exist.
 #'
 #' @references
 #'
@@ -368,17 +369,21 @@ eem_raman_normalisation <- function(eem, blank = NA) {
 
   blank <- unlist(blank, recursive = FALSE)
 
-  index_ex <- which(blank$ex == 350)
-  index_em <- which(blank$em >= 371 & blank$em <= 428)
+  em <- seq(371, 428, by = 2)
+  ex <- rep(350, length(em))
+  fluo <- pracma::interp2(blank$ex, blank$em, blank$x, ex, em)
 
-  x <- blank$em[index_em]
-  y <- blank$x[index_em, index_ex]
+  # index_ex <- which(blank$ex == 350)
+  # index_em <- which(blank$em >= 371 & blank$em <= 428)
+  #
+  # x <- blank$em[index_em]
+  # y <- blank$x[index_em, index_ex]
 
-  if(any(is.na(x)) | any(is.na(y))){
+  if(any(is.na(em)) | any(is.na(fluo))){
     stop("NA values found in the blank sample. Maybe you removed scattering too soon?", call. = FALSE)
   }
 
-  area <- sum(diff(x) * (y[-length(y)] + y[-1]) / 2)
+  area <- sum(diff(em) * (fluo[-length(fluo)] + fluo[-1]) / 2)
 
   cat("Raman area:", area, "\n")
 
