@@ -1,5 +1,7 @@
 # eemR 0.1.4 (unreleased)
 
+- `eem_raman_normalisation()` and `eem_remove_blank()` will average blank EEMs if more than one are provided or found in the folder (#23).
+
 - `eem_raman_normalisation()`, `eem_remove_blank()` and `eem_inner_filter_effect()` will now verify if the correction has been already performed. If so, an unmodified EEM will be returned.
 
 - `eem_raman_normalisation()` now interpolates blank EEM to ensure that em at 350 and excitation between 371 and 428 exist (#31).

@@ -569,3 +569,37 @@ my_unlist <- function(x){
 
   shiny::shinyApp(ui, server)
 }
+
+
+#' Extract blank EEM
+#'
+#' @template template_eem
+#' @param average Logical. If TRUE blank EEMs will be averaged
+eem_extract_blank <- function(eem, average = TRUE) {
+
+  blank_names <- c("nano", "miliq", "milliq", "mq", "blank")
+
+  blank <- eem_extract(eem, blank_names,
+                       remove = FALSE,
+                       ignore_case = TRUE,
+                       verbose = FALSE)
+
+  # Average all the blank EEMs
+  if(average) {
+
+    n <- length(blank)
+
+    message("A total of ", n, " blank EEMs will be averaged.")
+
+    X <- Reduce("+", lapply(blank, function(x) x$x))
+    X <- X / n
+
+    blank <- blank[1]
+    blank[[1]]$x <- X
+
+    class(blank) <- "eemlist"
+
+  }
+
+  return(blank)
+}

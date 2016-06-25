@@ -82,7 +82,6 @@ eem_remove_blank <- function(eem, blank = NA) {
          before Raman normalization.", call. = FALSE)
   }
 
-
   if (is.na(blank)) {
 
     t <- list.group(eem, ~location)
@@ -106,21 +105,17 @@ eem_remove_blank <- function(eem, blank = NA) {
   ## It is a list of eems, then call lapply
   if (.is_eemlist(eem)) {
 
-    blank_names <- c("nano", "miliq", "milliq", "mq", "blank")
-
     # if blank is NA then try to split the eemlist into blank and eems
     if (is.na(blank)) {
-      blank <- eem_extract(eem, blank_names, remove = FALSE, ignore_case = TRUE,
-                           verbose = FALSE)
+
+      blank <- eem_extract_blank(eem)
 
       if (length(blank) != 1 | length(eem) < 1) {
         stop("Cannot find blank for automatic correction.", call. = FALSE)
       }
     }
 
-    res <- lapply(eem,
-                  eem_remove_blank,
-                  blank = blank)
+    res <- lapply(eem, eem_remove_blank, blank = blank)
 
     class(res) <- class(eem)
     return(res)
@@ -342,13 +337,10 @@ eem_raman_normalisation <- function(eem, blank = NA) {
   ## It is a list of eems, then call lapply
   if(.is_eemlist(eem)){
 
-    blank_names <- c("nano", "miliq", "milliq", "mq", "blank")
-
     # if blank is NA then try to split the eemlist into blank and eems
     if(is.na(blank)){
 
-      blank <- eem_extract(eem, blank_names, remove = FALSE, ignore_case = TRUE,
-                           verbose = FALSE)
+      blank <- eem_extract_blank(eem)
 
       if(length(blank) != 1 | length(eem) < 1){
         stop("Cannot find blank for automatic correction.", call. = FALSE)
