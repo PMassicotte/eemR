@@ -130,7 +130,10 @@ eem_remove_blank <- function(eem, blank = NA) {
   # Do the blank subtraction.
   #---------------------------------------------------------------------
 
-  if (is_blank(eem)) {return(eem)} # do not modify blank samples
+  # Do not correct if it was already done
+  if(attributes(eem)$is_blank_corrected) { return(eem) }
+
+  if (is_blank(eem)) { return(eem) } # do not modify blank samples
 
   blank <- unlist(blank, recursive = FALSE)
 
@@ -353,9 +356,7 @@ eem_raman_normalisation <- function(eem, blank = NA) {
       }
     }
 
-    res <- lapply(eem,
-                  .eem_raman_normalisation,
-                  blank = blank)
+    res <- lapply(eem, .eem_raman_normalisation, blank = blank)
 
     class(res) <- class(eem)
     return(res)
@@ -365,7 +366,11 @@ eem_raman_normalisation <- function(eem, blank = NA) {
   # Do the normalisation.
   #---------------------------------------------------------------------
 
-  if(is_blank(eem)) {return(eem)} # do not modify blank samples
+  # Do not correct if it was already done
+  if(attributes(eem)$is_raman_normalized) { return(eem) }
+
+  # Do not modify blank samples
+  if(is_blank(eem)) {return(eem)}
 
   blank <- unlist(blank, recursive = FALSE)
 
@@ -517,6 +522,9 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
   #---------------------------------------------------------------------
   # Create the ife matrix
   #---------------------------------------------------------------------
+
+  # Do not correct if it was already done
+  if(attributes(eem)$is_ife_corrected) { return(eem) }
 
   sf <- stats::splinefun(wl, spectra)
 
