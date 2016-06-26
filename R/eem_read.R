@@ -171,7 +171,7 @@ eem_read_shimadzu <- function(data, file){
   attr(res, "is_scatter_corrected") <- FALSE
   attr(res, "is_ife_corrected") <- FALSE
   attr(res, "is_raman_normalized") <- FALSE
-  attr(res, "manucafturer") <- "Shimadzu"
+  attr(res, "manufacturer") <- "Shimadzu"
 
   message("Shimadzu files do not contain excitation wavelengths.")
   message("Please provide them using the eem_set_wavelengths() function.")
@@ -220,7 +220,7 @@ eem_read_cary <- function(data, file){
   attr(res, "is_scatter_corrected") <- FALSE
   attr(res, "is_ife_corrected") <- FALSE
   attr(res, "is_raman_normalized") <- FALSE
-  attr(res, "manucafturer") <- "Cary Eclipse"
+  attr(res, "manufacturer") <- "Cary Eclipse"
 
   return(res)
 }
@@ -256,7 +256,7 @@ eem_read_aqualog <- function(data, file){
   attr(res, "is_scatter_corrected") <- FALSE
   attr(res, "is_ife_corrected") <- FALSE
   attr(res, "is_raman_normalized") <- FALSE
-  attr(res, "manucafturer") <- "Aqualog"
+  attr(res, "manufacturer") <- "Aqualog"
 
   return(res)
 }
