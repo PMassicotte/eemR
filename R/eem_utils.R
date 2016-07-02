@@ -572,7 +572,8 @@ my_unlist <- function(x){
     output$eem_list = DT::renderDataTable(
       metrics,
       server = FALSE,
-      selection = list(mode = 'single', selected = c(1)),
+      selection = 'single',
+      # selection = list(mode = 'single', target = "row", selected = c(1)),
       options = list(
         autoWidth = TRUE,
         columnDefs = list(list(width = '10px', targets = "_all"))

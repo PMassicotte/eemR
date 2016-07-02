@@ -1,5 +1,7 @@
 # eemR 0.1.4 (unreleased)
 
+- Fixing a bug that prevented the interactive plot to work properly. 
+
 - `summary(x)` and `print(x)` now return a data frame containing summarized information on EEMs contained in `x`. See `?summary.eemlist`.
 
 - `eem_raman_normalisation()` and `eem_remove_blank()` will average blank EEMs if more than one are provided or found in the folder (#23).
