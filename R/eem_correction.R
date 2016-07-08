@@ -477,7 +477,8 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
   #---------------------------------------------------------------------
   # Some checks
   #---------------------------------------------------------------------
-  names(absorbance) <- tolower(names(absorbance))
+
+  # names(absorbance) <- tolower(names(absorbance))
 
   if(!any(names(absorbance) == "wavelength")){
 

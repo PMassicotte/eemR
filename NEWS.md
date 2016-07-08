@@ -1,5 +1,7 @@
 # eemR 0.1.4 (unreleased)
 
+- `eem_remove_scattering()` no longer `tolower` absorbance names and will assume that the provided absorbance spectra match exactly EEM's names.
+
 - Fixing a bug that prevented the interactive plot to work properly. 
 
 - `summary(x)` and `print(x)` now return a data frame containing summarized information on EEMs contained in `x`. See `?summary.eemlist`.
