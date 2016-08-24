@@ -20,8 +20,9 @@ Imports:
     pracma,
     readr,
     stats,
-    rlist
-RoxygenNote: 5.0.1
+    rlist,
+    viridis
+RoxygenNote: RoxygenNote: 5.0.1
 Suggests:
     cdom,
     magrittr,
@@ -35,4 +36,3 @@ Suggests:
     shiny,
     DT
 VignetteBuilder: knitr
-RoxygenNote: 5.0.1

@@ -1,5 +1,7 @@
 # eemR 0.1.4 (unreleased)
 
+- Now using [viridis](https://cran.r-project.org/web/packages/viridis/index.html) space colors for plotting EEMs instead of color jet.
+
 - `eem_remove_scattering()` no longer `tolower` absorbance names and will assume that the provided absorbance spectra match exactly EEM's names.
 
 - Fixing a bug that prevented the interactive plot to work properly. 
