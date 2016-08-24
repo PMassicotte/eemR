@@ -563,8 +563,8 @@ is_between <- function(x, a, b) {
 
 is_blank <- function(eem) {
 
-  blank_names <- c("nano", "miliq", "milliq", "mq", "blank")
+  blank_names <- paste("nano", "miliq", "milliq", "mq", "blank", sep = "|")
 
-  any(blank_names %in% eem$sample)
+  grepl(blank_names, eem$sample, ignore.case = TRUE)
 
 }
