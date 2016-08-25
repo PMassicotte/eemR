@@ -1,5 +1,9 @@
 # eemR 0.1.4 (unreleased)
 
+- `eem_cut()` now remove specified wavelenghts instead of keeping them.
+
+- `eem_cut()` gains an argument `fill_with_na`. If `TRUE` fluorescence at specified wavelengths will be replaced with `NA` instead of being removed.
+
 - File structure is now kept when performing inner-filter effect correction (#35).
 
 - Now using [viridis](https://cran.r-project.org/web/packages/viridis/index.html) space colors for plotting EEMs instead of color jet.
