@@ -543,10 +543,13 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
   x <- eem$x / ife_correction_factor
 
   ## Construct an eem object.
-  res <- eem(file = eem$sample,
-             x = x,
-             ex = eem$ex,
-             em = eem$em)
+  res <- eem(
+    file = eem$sample,
+    x = x,
+    ex = eem$ex,
+    em = eem$em,
+    location = eem$location
+  )
 
   attributes(res) <- attributes(eem)
   attr(res, "is_ife_corrected") <- TRUE
