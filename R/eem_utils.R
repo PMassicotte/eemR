@@ -112,7 +112,9 @@ print.eemlist <- function(x, ...){
   df <- lapply(x, summary)
   df <- do.call(rbind, df)
 
-  return(df)
+  print(df)
+
+  invisible(df)
 }
 
 #' Display summary of an eemlist object
