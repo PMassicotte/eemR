@@ -35,9 +35,9 @@ eem_read <- function(file, recursive = FALSE) {
 
   f <- function(file) {
 
-    #---------------------------------------------------------------------
+    # *************************************************************************
     # Read the file and try to figure from which spectrofluo it belongs.
-    #---------------------------------------------------------------------
+    # *************************************************************************
 
     data <- read_lines(file)
 
@@ -56,9 +56,9 @@ eem_read <- function(file, recursive = FALSE) {
     message("I do not know how to read *** ", basename(file), " ***\n")
   }
 
-  #--------------------------------------------
+  # *************************************************************************
   # Verify if user provided a dir or a file.
-  #--------------------------------------------
+  # *************************************************************************
   isdir <- file.info(file)$isdir
 
   if(isdir){
@@ -91,6 +91,7 @@ eem_read <- function(file, recursive = FALSE) {
 #' @param x A matrix with fluorescence values.
 #' @param ex Vector of excitation wavelengths.
 #' @param em Vector of emission wavelengths.
+#' @param location Location of the eem file.
 #'
 #' @importFrom tools file_path_sans_ext
 #'
@@ -102,13 +103,19 @@ eem_read <- function(file, recursive = FALSE) {
 #'  \item ex Excitation vector of wavelengths.
 #' }
 
-eem <- function(file, x, ex, em){
+eem <- function(file, x, ex, em, location = NA){
+
+  # Use dirname if location if not provided
+  if (is.na(location)) {
+    location <- dirname(file)
+  }
+
 
   eem <- list(sample = make.names(file_path_sans_ext(basename(file))),
               x = x,
               ex = ex,
               em = em,
-              location =  dirname(file))
+              location =  location)
 
   class(eem) <- "eem"
 
@@ -132,9 +139,9 @@ is_shimadzu <- function(x){
   all(unlist(lapply(x, length)) %in% 2)
 }
 
-#---------------------------------------------------------------------
+# *************************************************************************
 # Function reading Shimadzu .TXT files.
-#---------------------------------------------------------------------
+# *************************************************************************
 eem_read_shimadzu <- function(data, file){
 
   data <- stringr::str_split(data, "\t")
@@ -164,7 +171,7 @@ eem_read_shimadzu <- function(data, file){
   attr(res, "is_scatter_corrected") <- FALSE
   attr(res, "is_ife_corrected") <- FALSE
   attr(res, "is_raman_normalized") <- FALSE
-  attr(res, "manucafturer") <- "Shimadzu"
+  attr(res, "manufacturer") <- "Shimadzu"
 
   message("Shimadzu files do not contain excitation wavelengths.")
   message("Please provide them using the eem_set_wavelengths() function.")
@@ -173,15 +180,19 @@ eem_read_shimadzu <- function(data, file){
 
 }
 
-#---------------------------------------------------------------------
+# *************************************************************************
 # Function reading Cary Eclipse csv files.
-#---------------------------------------------------------------------
+# *************************************************************************
 eem_read_cary <- function(data, file){
 
+  min_col <- 3 # Do not expect fluorescence data when there is less than 3 cols.
+
   data <- stringr::str_split(data, ",")
+  data[unlist(lapply(data, length)) < 3] <- NULL
 
   ## Find the probable number of columns
-  expected_col <- length(data[[1]])
+  n_col <- unlist(lapply(data, length))
+  expected_col <- as.numeric(names(sort(-table(n_col)))[1])
 
   data[lapply(data, length) != expected_col] <- NULL
 
@@ -209,14 +220,14 @@ eem_read_cary <- function(data, file){
   attr(res, "is_scatter_corrected") <- FALSE
   attr(res, "is_ife_corrected") <- FALSE
   attr(res, "is_raman_normalized") <- FALSE
-  attr(res, "manucafturer") <- "Cary Eclipse"
+  attr(res, "manufacturer") <- "Cary Eclipse"
 
   return(res)
 }
 
-#---------------------------------------------------------------------
+# *************************************************************************
 # Fonction reading Aqualog dat files.
-#---------------------------------------------------------------------
+# *************************************************************************
 eem_read_aqualog <- function(data, file){
 
   eem <- stringr::str_extract_all(data, "-?\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d+)?")
@@ -245,7 +256,7 @@ eem_read_aqualog <- function(data, file){
   attr(res, "is_scatter_corrected") <- FALSE
   attr(res, "is_ife_corrected") <- FALSE
   attr(res, "is_raman_normalized") <- FALSE
-  attr(res, "manucafturer") <- "Aqualog"
+  attr(res, "manufacturer") <- "Aqualog"
 
   return(res)
 }

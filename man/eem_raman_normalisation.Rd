@@ -34,24 +34,16 @@ The function will first try to use the provided \code{blank}. If the
   Note that if \code{blank} is omited, the function will group the
   \code{eemlist} based on file location and will assumes that there is a
   blank sample in each folder. In that context, the blank will be used on
-  each sample in the same folder.
+  each sample in the same folder. If more than one blank is found they will
+  be averaged (a message will be printed if this appends).
 
   Consider the following example where there are two folders that could
   represent scans performed on two different days `scans_day_1` and
   `scans_day_2`.
 
-  \tabular{ll}{
-  scans_day_1\tab\cr
-  \tab nano.csv\cr
-  \tab sample1.csv\cr
-  \tab sample2.csv\cr
-  \tab sample3.csv\cr
-  scans_day_2 \tab\cr
-  \tab blank.csv\cr
-  \tab s1.csv\cr
-  \tab s2.csv\cr
-  \tab s3.csv\cr
-  }
+  \tabular{ll}{ scans_day_1\tab\cr \tab nano.csv\cr \tab sample1.csv\cr \tab
+  sample2.csv\cr \tab sample3.csv\cr scans_day_2 \tab\cr \tab blank.csv\cr
+  \tab s1.csv\cr \tab s2.csv\cr \tab s3.csv\cr }
 
   In each folder there are three samples and one blank files. In that
   context, `eem_remove_blank()` will use the blank `nano.csv` from
@@ -63,7 +55,8 @@ The function will first try to use the provided \code{blank}. If the
 The normalization procedure consists in dividing all fluorescence
   intensities by the area (integral) of the Raman peak. The peak is located
   at excitation of 350 nm. (ex = 370) betwen 371 nm. and 428 nm in emission
-  (371 <= em <= 428).
+  (371 <= em <= 428). Note that the data is interpolated to make sure that
+  fluorescence at em 350 exist.
 }
 \examples{
 # Open the fluorescence eem

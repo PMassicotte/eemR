@@ -3,3 +3,4 @@
 .RData
 /.project
 .*.Rnb.cached
+inst/doc

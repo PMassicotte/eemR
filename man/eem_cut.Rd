@@ -33,5 +33,9 @@ plot(eem)
 # Cut few excitation wavelengths
 eem <- eem_cut(eem, ex = c(220, 225, 230, 230))
 plot(eem)
+
+eem <- eem_read(file)
+eem <- eem_cut(eem, em = 350:400, fill_with_na = TRUE)
+plot(eem)
 }
 

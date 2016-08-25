@@ -1,4 +1,30 @@
-# eemR 0.1.3 (unreleased)
+# eemR 0.1.4 (unreleased)
+
+- File structure is now kept when performing inner-filter effect correction (#35).
+
+- Now using [viridis](https://cran.r-project.org/web/packages/viridis/index.html) space colors for plotting EEMs instead of color jet.
+
+- `eem_remove_scattering()` no longer `tolower` absorbance names and will assume that the provided absorbance spectra match exactly EEM's names.
+
+- Fixing a bug that prevented the interactive plot to work properly. 
+
+- `summary(x)` and `print(x)` now return a data frame containing summarized information on EEMs contained in `x`. See `?summary.eemlist`.
+
+- `eem_raman_normalisation()` and `eem_remove_blank()` will average blank EEMs if more than one are provided or found in the folder (#23).
+
+- `eem_raman_normalisation()`, `eem_remove_blank()` and `eem_inner_filter_effect()` will now verify if the correction has been already performed. If so, an unmodified EEM will be returned.
+
+- `eem_raman_normalisation()` now interpolates blank EEM to ensure that em at 350 and excitation between 371 and 428 exist (#31).
+
+- `eem_remove_blank()` and `eem_raman_normalisation()` will now keep blank samples when automatic correction is used. When automatic correction is used, the *untransformed* blank sample will be keep in the list.
+
+- An error will now occur if trying to perform blank correction after Raman normalization. 
+
+# eemR 0.1.3
+
+- Interactive plot using a simple shiny app. Using `plot(eems, interactive = TRUE)` will lunch a shiny app that allows to interactively browse EEMs contained in `eems`.
+
+- A vignette has been added to the package whic can be viewed using `vignette(topic = "introduction", package = "eemR")`.
 
 - An error will occur if one try to do raman normalization on a blank where scattering bands have been removed.
 
@@ -34,6 +60,8 @@ inst/extdata/cary/
 - Implemented the generic `print()` method which calls `summary()`.
 
 - Added tests to the packages to verify metrics.
+
+- Now better estimate the number of columns to read in Cary Eclipse files (#27). This also makes reading much faster.
 
 # eemR 0.1.2
 
