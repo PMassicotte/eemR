@@ -49,9 +49,9 @@ data("absorbance")
 
 folder <- system.file("extdata/cary/scans_day_1", package = "eemR")
 eems <- eem_read(folder)
-eems <- eem_extract(eems, "nano", remove = TRUE) # Remove the blank sample
+eems <- eem_extract(eems, "nano") # Remove the blank sample
 
-## Remove scattering (1st order)
+# Remove scattering (1st order)
 eems <- eem_remove_scattering(eems, "rayleigh")
 
 eems_corrected <- eem_inner_filter_effect(eems, absorbance = absorbance, pathlength = 1)

@@ -1,5 +1,7 @@
 # eemR 0.1.4 (unreleased)
 
+- `eem_extract()` is now more intuitive to use. `remove` argument has been replace by `keep`. If `TRUE`, the specified samples will be returned. If `FALSE`, they will be removed (#37).
+
 - `eem_cut()` now remove specified wavelenghts instead of keeping them.
 
 - `eem_cut()` gains an argument `fill_with_na`. If `TRUE` fluorescence at specified wavelengths will be replaced with `NA` instead of being removed.

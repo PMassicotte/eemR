@@ -7,8 +7,8 @@ test_that("grouped blank correction works", {
 
   eems <- eem_remove_blank(eems)
 
-  mysum <- sum(eem_extract(eems, "sample1")[[1]]$x)
-  mymean <- mean(eem_extract(eems, "sample1")[[1]]$x)
+  mysum <- sum(eem_extract(eems, "sample1", keep = TRUE)[[1]]$x)
+  mymean <- mean(eem_extract(eems, "sample1", keep = TRUE)[[1]]$x)
 
   # These values have been calculated by "hand" in Excel.
   expect_equal(mysum, 14020.78844, tolerance = 0.00001)
@@ -27,8 +27,8 @@ test_that("single blank correction works", {
 
   eems <- eem_remove_blank(eems, blank)
 
-  mysum <- sum(eem_extract(eems, "sample1")[[1]]$x)
-  mymean <- mean(eem_extract(eems, "sample1")[[1]]$x)
+  mysum <- sum(eem_extract(eems, "sample1", keep = TRUE)[[1]]$x)
+  mymean <- mean(eem_extract(eems, "sample1", keep = TRUE)[[1]]$x)
 
   # These values have been calculated by "hand" in Excel.
   expect_equal(mysum, 14020.78844, tolerance = 0.00001)

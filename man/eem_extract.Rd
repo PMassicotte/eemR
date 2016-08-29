@@ -4,7 +4,7 @@
 \alias{eem_extract}
 \title{Extract EEM samples}
 \usage{
-eem_extract(eem, sample, remove = FALSE, ignore_case = FALSE,
+eem_extract(eem, sample, keep = FALSE, ignore_case = FALSE,
   verbose = TRUE)
 }
 \arguments{
@@ -13,7 +13,8 @@ eem_extract(eem, sample, remove = FALSE, ignore_case = FALSE,
 \item{sample}{Either numeric of character vector. See \code{details} for more
 information.}
 
-\item{remove}{logical. Should EEMs removed (TRUE) or extracted (FALSE).}
+\item{keep}{logical. If TRUE, the specified \code{sample} will be returned.
+If FALSE, they will be removed.}
 
 \item{ignore_case}{Logical, should sample name case should be ignored (TRUE)
 or not (FALSE). Default is FALSE.}
@@ -39,8 +40,13 @@ Extract EEM samples
 folder <- system.file("extdata/cary/scans_day_1", package = "eemR")
 eems <- eem_read(folder)
 
-eem_extract(eems, c(1, 3)) ## Removes samples 1 and 3
-eem_extract(eems, c(1, 3), remove = TRUE) ## extract samples 1 and 3
+eems
+
+# Remove first and third samples
+eem_extract(eems, c(1, 3))
+
+# Remove everything except first and third samples
+eem_extract(eems, c(1, 3), keep = TRUE)
 
 # Remove all samples containing "3" in their names.
 eem_extract(eems, "3")
@@ -50,9 +56,6 @@ eem_extract(eems, c("s", "2"))
 
 # Remove all samples containing "blank" or "nano"
 eem_extract(eems, c("blank", "nano"))
-
-# Remove all samples starting with "no"
-eem_extract(eems, "^s")
 
 }
 
