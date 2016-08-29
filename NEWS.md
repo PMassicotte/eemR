@@ -8,7 +8,7 @@
 
 - File structure is now kept when performing inner-filter effect correction (#35).
 
-- Now using [viridis](https://cran.r-project.org/web/packages/viridis/index.html) space colors for plotting EEMs instead of color jet.
+- Now using [viridis](https://cran.r-project.org/package=viridis) space colors for plotting EEMs instead of color jet.
 
 - `eem_remove_scattering()` no longer `tolower` absorbance names and will assume that the provided absorbance spectra match exactly EEM's names.
 
