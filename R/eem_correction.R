@@ -422,8 +422,9 @@ eem_raman_normalisation <- function(eem, blank = NA) {
 #' @section Sample dilution:
 #'
 #'   Kothawala et al. 2013 have shown that a 2-fold dilution was requiered for
-#'   sample presenting total absorbance > 1.5. Accordingly, a message will warn
-#'   the user if total absorbance is greater than this threshold.
+#'   sample presenting total absorbance > 1.5 in a 1 cm cuvette. Accordingly, a
+#'   message will warn the user if total absorbance is greater than this
+#'   threshold.
 #'
 #' @references Parker, C. a., & Barnes, W. J. (1957). Some experiments with
 #'   spectrofluorimeters and filter fluorimeters. The Analyst, 82(978), 606.
@@ -526,8 +527,10 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
 
   total_absorbance <- sapply(ex, function(x){x + em})
 
-  if(max(total_absorbance) > 1.5){
-    cat("Total absorbance is > 1.5 (Atotal = ", max(total_absorbance), ")\n",
+  max_abs_1cm <- max(total_absorbance) / pathlength
+
+  if (max_abs_1cm > 1.5) {
+    cat("Total absorbance is > 1.5 (Atotal = ", max_abs_1cm, ")\n",
         "A 2-fold dilution is recommended. See ?eem_inner_filter_effect.",
         sep = "")
   }

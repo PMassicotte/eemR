@@ -40,8 +40,9 @@ Inner-filter effect correction
 
 
   Kothawala et al. 2013 have shown that a 2-fold dilution was requiered for
-  sample presenting total absorbance > 1.5. Accordingly, a message will warn
-  the user if total absorbance is greater than this threshold.
+  sample presenting total absorbance > 1.5 in a 1 cm cuvette. Accordingly, a
+  message will warn the user if total absorbance is greater than this
+  threshold.
 }
 \examples{
 library(eemR)
