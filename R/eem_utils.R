@@ -173,7 +173,15 @@ eem_cut <- function(eem, ex, em, exact = TRUE, fill_with_na = FALSE){
   ## It is a list of eems, then call lapply
   if(.is_eemlist(eem)){
 
-    res <- lapply(eem, eem_cut, ex = ex, em = em, fill_with_na = fill_with_na)
+    res <-
+      lapply(
+        eem,
+        eem_cut,
+        ex = ex,
+        em = em,
+        exact = exact,
+        fill_with_na = fill_with_na
+      )
 
     class(res) <- class(eem)
 
