@@ -486,7 +486,7 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
          call. = FALSE)
   }
 
-  wl <- absorbance[, "wavelength"]
+  wl <- absorbance[["wavelength"]]
 
   if(!all(is_between(range(eem$em), min(wl), max(wl)))){
 
@@ -501,7 +501,7 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
          excitation wavelengths", call. = FALSE)
   }
 
-  spectra <- absorbance[, which(names(absorbance) == eem$sample)]
+  spectra <- absorbance[[which(names(absorbance) == eem$sample)]]
 
   ## absorbance spectra not found, we return the uncorected eem
   if(length(spectra) == 0){
