@@ -144,6 +144,9 @@ summary.eemlist <- function(object, ...){
 #' @template template_eem
 #' @param ex A numeric vector of excitation wavelengths to be removed.
 #' @param em A numeric vector of emission wavelengths to be removed.
+#' @param exact Logical. If TRUE, only wavelengths matching \code{em} and/or
+#'   \code{ex} will be removed. If FALSE, all wavelengths in the range of
+#'   \code{em} and/or \code{ex} will be removed.
 #' @param fill_with_na Logical. If TRUE, fluorescence values at specified
 #'   wavelengths will be replaced with NA. If FALSE, these values will be
 #'   removed.
@@ -162,7 +165,7 @@ summary.eemlist <- function(object, ...){
 #' eem <- eem_read(file)
 #' eem <- eem_cut(eem, em = 350:400, fill_with_na = TRUE)
 #' plot(eem)
-eem_cut <- function(eem, ex, em, fill_with_na = FALSE){
+eem_cut <- function(eem, ex, em, exact = TRUE, fill_with_na = FALSE){
 
   stopifnot(
     .is_eemlist(eem) | .is_eem(eem))
@@ -187,7 +190,13 @@ eem_cut <- function(eem, ex, em, fill_with_na = FALSE){
       all(ex >= 0)
     )
 
-    index <- which(eem$ex %in% ex)
+    if (exact) {
+      index <- which(eem$ex %in% ex)
+    } else {
+      index <- which(is_between(eem$ex,
+                                min(ex, na.rm = TRUE),
+                                max(ex, na.rm = TRUE)))
+    }
 
     if (length(index != 0)) {
 
@@ -209,7 +218,13 @@ eem_cut <- function(eem, ex, em, fill_with_na = FALSE){
       all(em >= 0)
     )
 
-    index <- which(eem$em %in% em)
+    if (exact) {
+      index <- which(eem$em %in% em)
+    } else {
+      index <- which(is_between(eem$em,
+                                min(em, na.rm = TRUE),
+                                max(em, na.rm = TRUE)))
+    }
 
     if (length(index != 0)) {
 

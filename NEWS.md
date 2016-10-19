@@ -1,5 +1,7 @@
 # eemR 0.1.5 (unreleased)
 
+- `eem_cut()` gains a logical argument `exact`. If `TRUE`, only wavelengths matching `em` and/or `ex` will be removed. If `FALSE`, all wavelengths in the range of `em` and/or `ex` will be removed.
+
 # eemR 0.1.4
 
 - `eem_extract()` is now more intuitive to use. `remove` argument has been replace by `keep`. If `TRUE`, the specified samples will be returned. If `FALSE`, they will be removed (#37).
