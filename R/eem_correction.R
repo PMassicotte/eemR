@@ -505,16 +505,18 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
          excitation wavelengths", call. = FALSE)
   }
 
-  spectra <- absorbance[[which(names(absorbance) == eem$sample)]]
+  index <- which(names(absorbance) == eem$sample)
 
   ## absorbance spectra not found, we return the uncorected eem
-  if(length(spectra) == 0){
+  if (length(index) == 0) {
 
     warning("Absorbance spectrum for ", eem$sample, " was not found. Returning uncorrected EEM.",
             call. = FALSE)
 
     return(eem)
   }
+
+  spectra <- absorbance[[index]]
 
   #---------------------------------------------------------------------
   # Create the ife matrix
