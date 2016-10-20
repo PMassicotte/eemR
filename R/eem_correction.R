@@ -466,9 +466,12 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
             is.numeric(pathlength))
 
   ## It is a list of eems, then call lapply
-  if(.is_eemlist(eem)){
+  if (.is_eemlist(eem)) {
 
-    res <- lapply(eem, eem_inner_filter_effect, absorbance = absorbance)
+    res <- lapply(eem,
+                  eem_inner_filter_effect,
+                  absorbance = absorbance,
+                  pathlength = pathlength)
 
     class(res) <- class(eem)
 
@@ -541,7 +544,7 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
       round(range(ife_correction_factor), digits = 4), "\n")
 
   cat("Range of total absorbance (Atotal) :",
-      round(range(total_absorbance), digits = 4), "\n")
+      round(range(total_absorbance / pathlength), digits = 4), "\n")
 
   x <- eem$x / ife_correction_factor
 
