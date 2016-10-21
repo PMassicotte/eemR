@@ -413,6 +413,10 @@ eem_raman_normalisation <- function(eem, blank = NA) {
 #'   \describe{ \item{wavelength}{A numeric vector containing wavelenghts.}
 #'   \item{...}{One or more numeric vectors containing absorbance spectra.}}
 #'
+#' @details The inner-filter effect correction procedure is assuming that
+#'   fluorescence has been measured in 1 cm cuvette. Hence, absorbance will be
+#'   converted per cm.
+#'
 #' @section Names matching:
 #'
 #'   The names of \code{absorbance} variables are expected to match those of the
@@ -522,6 +526,8 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
   # Create the ife matrix
   #---------------------------------------------------------------------
 
+  cat(eem$sample, "\n")
+
   # Do not correct if it was already done
   if(attributes(eem)$is_ife_corrected) { return(eem) }
 
@@ -530,25 +536,27 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
   ex <- sf(eem$ex)
   em <- sf(eem$em)
 
-  total_absorbance <- sapply(ex, function(x){x + em})
+  # Calculate total absorbance in 1 cm cuvette.
+  # This also assume that the fluorescence has been measured in 1 cm cuvette.
+  total_absorbance <- sapply(ex, function(x){x + em}) / pathlength
 
-  max_abs_1cm <- max(total_absorbance) / pathlength
+  max_abs <- max(total_absorbance)
 
-  if (max_abs_1cm > 1.5) {
-    cat("Total absorbance is > 1.5 (Atotal = ", max_abs_1cm, ")\n",
-        "A 2-fold dilution is recommended. See ?eem_inner_filter_effect.",
+  if (max_abs > 1.5) {
+    cat("Total absorbance is > 1.5 (Atotal = ", max_abs, ")\n",
+        "A 2-fold dilution is recommended. See ?eem_inner_filter_effect.\n",
         sep = "")
   }
 
-  ife_correction_factor <- 10 ^ (-pathlength / 2 * (total_absorbance))
+  ife_correction_factor <- 10 ^ (0.5 * total_absorbance)
 
   cat("Range of IFE correction factors:",
       round(range(ife_correction_factor), digits = 4), "\n")
 
   cat("Range of total absorbance (Atotal) :",
-      round(range(total_absorbance / pathlength), digits = 4), "\n")
+      round(range(total_absorbance / pathlength), digits = 4), "\n\n")
 
-  x <- eem$x / ife_correction_factor
+  x <- eem$x * ife_correction_factor
 
   ## Construct an eem object.
   res <- eem(

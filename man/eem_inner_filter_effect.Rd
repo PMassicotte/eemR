@@ -28,6 +28,11 @@ An object of class \code{eem} containing: \itemize{ \item sample The
 \description{
 Inner-filter effect correction
 }
+\details{
+The inner-filter effect correction procedure is assuming that
+  fluorescence has been measured in 1 cm cuvette. Hence, absorbance will be
+  converted per cm.
+}
 \section{Names matching}{
 
 
