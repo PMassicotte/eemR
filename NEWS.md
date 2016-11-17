@@ -6,6 +6,8 @@
 
 - Inner-filter effect correction factors are now corrected correctly. Because fluorescence is assumed to be measured in 1 cm cuvette, absorbance is now expressed per centimeter.
 
+- Better guessing the number of columns of the fluorescence matrix produced by Cary Eclipse software.
+
 # eemR 0.1.4
 
 - `eem_extract()` is now more intuitive to use. `remove` argument has been replace by `keep`. If `TRUE`, the specified samples will be returned. If `FALSE`, they will be removed (#37).
