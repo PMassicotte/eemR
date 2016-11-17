@@ -185,10 +185,10 @@ eem_read_shimadzu <- function(data, file){
 # *************************************************************************
 eem_read_cary <- function(data, file){
 
-  min_col <- 3 # Do not expect fluorescence data when there is less than 3 cols.
+  min_col <- 15 # Do not expect fluorescence data when there is less than 3 cols.
 
   data <- stringr::str_split(data, ",")
-  data[unlist(lapply(data, length)) < 3] <- NULL
+  data[unlist(lapply(data, length)) < min_col] <- NULL
 
   ## Find the probable number of columns
   n_col <- unlist(lapply(data, length))
