@@ -37,6 +37,8 @@ At the moment, the following EEM types are supported:
 
 -   Shimadzu `.TXT` files
 
+-   Fluoromax-4 `.dat` files
+
 EEM can be read using the `eem_read()` function. *Please fill an [issue](https://github.com/PMassicotte/eemR/issues) if you have other file formats you would like to add to the package*.
 
 At the moment I need files from:

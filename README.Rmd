@@ -1,5 +1,5 @@
 ---
-bibliography: /home/persican/Documents/library.bib
+bibliography: /home/pmassicotte/Documents/library.bib
 output:
   github_document:
     html_preview: true
@@ -48,6 +48,8 @@ At the moment, the following EEM types are supported:
 - Aqualog `.dat` files
 
 - Shimadzu `.TXT` files
+
+- Fluoromax-4 `.dat` files
 
 EEM can be read using the `eem_read()` function. *Please fill an [issue](https://github.com/PMassicotte/eemR/issues) if you have other file formats you would like to add to the package*.
 

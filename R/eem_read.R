@@ -53,6 +53,10 @@ eem_read <- function(file, recursive = FALSE) {
       return(eem_read_shimadzu(data, file))
     }
 
+    if(is_fluoromax4(data)){
+      return(eem_read_fluoromax4(data, file))
+    }
+
     message("I do not know how to read *** ", basename(file), " ***\n")
   }
 
@@ -138,6 +142,11 @@ is_shimadzu <- function(x){
   # a bit weak, but works for now
   all(unlist(lapply(x, length)) %in% 2)
 }
+
+is_fluoromax4 <- function(x) {
+  any(grepl("F1", x))
+}
+
 
 # *************************************************************************
 # Function reading Shimadzu .TXT files.
@@ -259,4 +268,37 @@ eem_read_aqualog <- function(data, file){
   attr(res, "manufacturer") <- "Aqualog"
 
   return(res)
+}
+
+# *************************************************************************
+# Fonction reading Fluoromax-4 dat files.
+# *************************************************************************
+eem_read_fluoromax4 <- function(data, file) {
+
+  data <- stringr::str_split(data, "\t")
+
+  ## Find the probable number of columns
+  n_col <- unlist(lapply(data, length))
+  expected_col <- as.numeric(names(sort(-table(n_col)))[1])
+  data[lapply(data, length) != expected_col] <- NULL
+
+  data <- suppressWarnings(matrix(as.numeric(unlist(data, use.names = FALSE)), ncol = expected_col, byrow = TRUE))
+
+  ex <- as.vector(na.omit(data[1, ]))
+  em <- as.vector(na.omit(data[, 1]))
+  eem <- data[2:nrow(data), 2:ncol(data)]
+
+  res <- eem(file = file,
+             x = eem,
+             ex = ex,
+             em = em)
+
+  attr(res, "is_blank_corrected") <- FALSE
+  attr(res, "is_scatter_corrected") <- FALSE
+  attr(res, "is_ife_corrected") <- FALSE
+  attr(res, "is_raman_normalized") <- FALSE
+  attr(res, "manufacturer") <- "fluoromax4"
+
+  return(res)
+
 }
