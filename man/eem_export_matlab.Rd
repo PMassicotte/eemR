@@ -30,6 +30,14 @@ Export EEMs to Matlab
 The function exports EEMs into PARAFAC-ready Matlab \code{.mat} file
   usable by the \href{www.models.life.ku.dk/drEEM}{drEEM} toolbox.
 }
+\section{Known bug in export}{
+ \code{eemR} uses \code{R.Matlab} to export the
+  the fluorescence data into a matfile. However, there is currently a bug in
+  the latter package that require the user to reshape the exported data once
+  in Matlab. This can be done using the following command:
+  \code{load('OriginalData.mat'); OriginalData.X = reshape(OriginalData.X,
+  OriginalData.nSample, OriginalData.nEm, OriginalData.nEx)}
+}
 \examples{
 file <- system.file("extdata/cary/", package = "eemR")
 eem <- eem_read(file, recursive = TRUE)

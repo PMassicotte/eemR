@@ -17,6 +17,13 @@
 #'   \code{sample_name} The list of sample names (i.e. file names) of the
 #'   imported EEMs.
 #'
+#' @section Known bug in export: \code{eemR} uses \code{R.Matlab} to export the
+#'   the fluorescence data into a matfile. However, there is currently a bug in
+#'   the latter package that require the user to reshape the exported data once
+#'   in Matlab. This can be done using the following command:
+#'   \code{load('OriginalData.mat'); OriginalData.X = reshape(OriginalData.X,
+#'   OriginalData.nSample, OriginalData.nEm, OriginalData.nEx)}
+#'
 #' @export
 #' @examples
 #' file <- system.file("extdata/cary/", package = "eemR")
@@ -112,6 +119,8 @@ eem_export_matlab <- function(file, ...){
                      sample_names = eem_names(eem))
 
   message("Successfully exported ", nSample, " EEMs to ", file, ".\n")
+
+  invisible(OriginalData)
 
 }
 
