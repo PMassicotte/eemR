@@ -128,7 +128,7 @@ eem <- function(file, x, ex, em, location = NA){
 
 
 is_cary_eclipse <- function(x) {
-  any(grepl("EX_", x)) ## Need to be more robust
+  any(grepl("EX_", x, ignore.case = TRUE)) ## Need to be more robust
 }
 
 is_aqualog <- function(x) {
@@ -205,8 +205,7 @@ eem_read_cary <- function(data, file){
 
   data[lapply(data, length) != expected_col] <- NULL
 
-  ex <- as.numeric(na.omit(stringr::str_match(data[[1]],
-                                              "EX_(\\d{3}.\\d{2})")[, 2]))
+  ex <- as.numeric(na.omit(stringr::str_match(data[[1]], stringr::regex("Ex_(\\d+\\.?\\d*)", ignore_case = TRUE))[, 2]))
 
   data[1:2] <- NULL ## Remove the first 2 header lines
 

@@ -1,5 +1,7 @@
 # eemR 0.1.5 (unreleased)
 
+- Reading Cary Eclipse files is more robust at detecting correct excitation wavelengths.
+
 - `eemR` can now read Fluoromax-4 files (#40).
 
 - `eem_cut()` gains a logical argument `exact`. If `TRUE`, only wavelengths matching `em` and/or `ex` will be removed. If `FALSE`, all wavelengths in the range of `em` and/or `ex` will be removed.
