@@ -12,6 +12,8 @@
 
 - Better guessing the number of columns of the fluorescence matrix produced by Cary Eclipse software.
 
+- Fixed many typos.
+
 # eemR 0.1.4
 
 - `eem_extract()` is now more intuitive to use. `remove` argument has been replace by `keep`. If `TRUE`, the specified samples will be returned. If `FALSE`, they will be removed (#37).
