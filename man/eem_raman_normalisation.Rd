@@ -31,7 +31,7 @@ The function will first try to use the provided \code{blank}. If the
 
   \enumerate{ \item nano \item miliq \item milliq \item mq \item blank }
 
-  Note that if \code{blank} is omited, the function will group the
+  Note that if \code{blank} is omitted, the function will group the
   \code{eemlist} based on file location and will assumes that there is a
   blank sample in each folder. In that context, the blank will be used on
   each sample in the same folder. If more than one blank is found they will
@@ -54,7 +54,7 @@ The function will first try to use the provided \code{blank}. If the
 
 The normalization procedure consists in dividing all fluorescence
   intensities by the area (integral) of the Raman peak. The peak is located
-  at excitation of 350 nm. (ex = 370) betwen 371 nm. and 428 nm in emission
+  at excitation of 350 nm. (ex = 370) between 371 nm. and 428 nm in emission
   (371 <= em <= 428). Note that the data is interpolated to make sure that
   fluorescence at em 350 exist.
 }

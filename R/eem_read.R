@@ -1,4 +1,4 @@
-#' Read excitation-emission fluorecence matrix (eem)
+#' Read excitation-emission fluorescence matrix (eem)
 #'
 #' @param file File name or folder containing fluorescence file(s).
 #' @param recursive logical. Should the listing recurse into directories?
@@ -18,7 +18,7 @@
 #'
 #'   \code{eemR} will automatically try to determine from which
 #'   spectrofluorometer the files originate and load the data accordingly. Note
-#'   that EEMs are reshaped so X[1, 1] represents the fluoresence intensity at
+#'   that EEMs are reshaped so X[1, 1] represents the fluorescence intensity at
 #'   X[min(ex), min(em)].
 #'
 #' @importFrom stats na.omit

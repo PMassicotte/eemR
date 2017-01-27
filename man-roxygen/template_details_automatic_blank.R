@@ -5,7 +5,7 @@
 #'
 #'   \enumerate{ \item nano \item miliq \item milliq \item mq \item blank }
 #'
-#'   Note that if \code{blank} is omited, the function will group the
+#'   Note that if \code{blank} is omitted, the function will group the
 #'   \code{eemlist} based on file location and will assumes that there is a
 #'   blank sample in each folder. In that context, the blank will be used on
 #'   each sample in the same folder. If more than one blank is found they will

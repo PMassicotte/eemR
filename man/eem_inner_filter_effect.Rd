@@ -44,7 +44,7 @@ The inner-filter effect correction procedure is assuming that
 \section{Sample dilution}{
 
 
-  Kothawala et al. 2013 have shown that a 2-fold dilution was requiered for
+  Kothawala et al. 2013 have shown that a 2-fold dilution was required for
   sample presenting total absorbance > 1.5 in a 1 cm cuvette. Accordingly, a
   message will warn the user if total absorbance is greater than this
   threshold.

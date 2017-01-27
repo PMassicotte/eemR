@@ -17,7 +17,7 @@ eem_set_wavelengths(eem, ex, em)
 An object of class \code{eemlist}.
 }
 \description{
-This function allows to manully specify either excitation or emission vector
+This function allows to manually specify either excitation or emission vector
 of wavelengths in EEMs. This function is mostly used with spectrophotometers
 such as Shimadzu that do not include excitation wavelengths in fluorescence
 files.

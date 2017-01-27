@@ -19,8 +19,8 @@ If FALSE, they will be removed.}
 \item{ignore_case}{Logical, should sample name case should be ignored (TRUE)
 or not (FALSE). Default is FALSE.}
 
-\item{verbose}{Logical determining if removed/extraced eems should be printed
-on screen.}
+\item{verbose}{Logical determining if removed/extracted eems should be
+printed on screen.}
 }
 \value{
 An object of class \code{eemlist}.

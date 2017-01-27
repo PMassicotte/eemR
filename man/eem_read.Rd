@@ -2,7 +2,7 @@
 % Please edit documentation in R/eem_read.R
 \name{eem_read}
 \alias{eem_read}
-\title{Read excitation-emission fluorecence matrix (eem)}
+\title{Read excitation-emission fluorescence matrix (eem)}
 \usage{
 eem_read(file, recursive = FALSE)
 }
@@ -23,7 +23,7 @@ If \code{file} is a single filename:
   \code{eemlist} which is simply a list of \code{eem}.
 }
 \description{
-Read excitation-emission fluorecence matrix (eem)
+Read excitation-emission fluorescence matrix (eem)
 }
 \details{
 At the moment, Cary Eclipse, Aqualog and Shimadzu EEMs are
@@ -31,7 +31,7 @@ At the moment, Cary Eclipse, Aqualog and Shimadzu EEMs are
 
   \code{eemR} will automatically try to determine from which
   spectrofluorometer the files originate and load the data accordingly. Note
-  that EEMs are reshaped so X[1, 1] represents the fluoresence intensity at
+  that EEMs are reshaped so X[1, 1] represents the fluorescence intensity at
   X[min(ex), min(em)].
 }
 \examples{

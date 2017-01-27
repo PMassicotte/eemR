@@ -254,7 +254,7 @@ eem_cut <- function(eem, ex, em, exact = TRUE, fill_with_na = FALSE){
 
 #' Set Excitation and/or Emission wavelengths
 #'
-#' This function allows to manully specify either excitation or emission vector
+#' This function allows to manually specify either excitation or emission vector
 #' of wavelengths in EEMs. This function is mostly used with spectrophotometers
 #' such as Shimadzu that do not include excitation wavelengths in fluorescence
 #' files.
@@ -325,8 +325,8 @@ eem_set_wavelengths <- function(eem, ex, em){
 #' @param ignore_case Logical, should sample name case should be ignored (TRUE)
 #'   or not (FALSE). Default is FALSE.
 #'
-#' @param verbose Logical determining if removed/extraced eems should be printed
-#'   on screen.
+#' @param verbose Logical determining if removed/extracted eems should be
+#'   printed on screen.
 #'
 #' @details \code{sample} argument can be either numeric or character vector. If
 #'   it is numeric, samples at specified index will be removed.

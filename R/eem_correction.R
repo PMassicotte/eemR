@@ -269,7 +269,7 @@ eem_remove_scattering <- function(eem, type, order = 1, width = 10){
 #'
 #' @details The normalization procedure consists in dividing all fluorescence
 #'   intensities by the area (integral) of the Raman peak. The peak is located
-#'   at excitation of 350 nm. (ex = 370) betwen 371 nm. and 428 nm in emission
+#'   at excitation of 350 nm. (ex = 370) between 371 nm. and 428 nm in emission
 #'   (371 <= em <= 428). Note that the data is interpolated to make sure that
 #'   fluorescence at em 350 exist.
 #'
@@ -425,7 +425,7 @@ eem_raman_normalisation <- function(eem, blank = NA) {
 #'
 #' @section Sample dilution:
 #'
-#'   Kothawala et al. 2013 have shown that a 2-fold dilution was requiered for
+#'   Kothawala et al. 2013 have shown that a 2-fold dilution was required for
 #'   sample presenting total absorbance > 1.5 in a 1 cm cuvette. Accordingly, a
 #'   message will warn the user if total absorbance is greater than this
 #'   threshold.
@@ -498,14 +498,14 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
 
   if(!all(is_between(range(eem$em), min(wl), max(wl)))){
 
-    stop("absorbance wavelenghts are not in the range of
+    stop("absorbance wavelengths are not in the range of
          emission wavelengths", call. = FALSE)
 
   }
 
   if(!all(is_between(range(eem$ex), min(wl), max(wl)))){
 
-    stop("absorbance wavelenghts are not in the range of
+    stop("absorbance wavelengths are not in the range of
          excitation wavelengths", call. = FALSE)
   }
 
