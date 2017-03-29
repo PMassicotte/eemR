@@ -28,4 +28,3 @@ eem <- eem_read(folder)
 
 plot(eem, which = 3)
 }
-

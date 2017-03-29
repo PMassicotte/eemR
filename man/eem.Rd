@@ -29,4 +29,3 @@ An object of class \code{eem} containing:
 \description{
 eem constructor
 }
-

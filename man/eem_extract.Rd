@@ -58,4 +58,3 @@ eem_extract(eems, c("s", "2"))
 eem_extract(eems, c("blank", "nano"))
 
 }
-

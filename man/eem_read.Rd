@@ -38,4 +38,3 @@ At the moment, Cary Eclipse, Aqualog and Shimadzu EEMs are
 file <- system.file("extdata/cary/scans_day_1/", package = "eemR")
 eems <- eem_read(file, recursive = TRUE)
 }
-

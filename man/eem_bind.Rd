@@ -22,4 +22,3 @@ eem <- eem_read(file)
 
 eem <- eem_bind(eem, eem)
 }
-

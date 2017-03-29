@@ -34,4 +34,3 @@ eem <- eem_read(file)
 
 summary(eem)
 }
-

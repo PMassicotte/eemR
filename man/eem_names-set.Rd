@@ -27,4 +27,3 @@ eem_names(eems) <- c("a", "b", "c", "d")
 eem_names(eems)
 
 }
-

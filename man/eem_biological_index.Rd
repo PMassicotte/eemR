@@ -32,6 +32,7 @@ The biological fluorescence index (BIX) is calculated by
   \code{parcma} library. A message warning the user will be prompted if data
   interpolation is performed.
 }
+
 \examples{
 file <- system.file("extdata/cary/scans_day_1/", package = "eemR")
 eem <- eem_read(file)
@@ -49,4 +50,3 @@ Huguet, A., Vacher, L., Relexans, S., Saubusse, S., Froidefond,
 \seealso{
 \link[pracma]{interp2}
 }
-

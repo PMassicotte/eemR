@@ -24,7 +24,7 @@ Imports:
     stats,
     rlist,
     viridis
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 Suggests:
     cdom,
     magrittr,

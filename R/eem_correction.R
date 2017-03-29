@@ -406,7 +406,7 @@ eem_raman_normalisation <- function(eem, blank = NA) {
 #' @template template_eem
 #'
 #' @param pathlength A numeric value indicating the pathlength (in cm) of the
-#'   cuvette used for fluorescence measurement. Default is 1 (1cm).
+#'   cuvette used for absorbance measurement. Default is 1 (1cm).
 #'
 #' @param absorbance A data frame with:
 #'
@@ -415,7 +415,8 @@ eem_raman_normalisation <- function(eem, blank = NA) {
 #'
 #' @details The inner-filter effect correction procedure is assuming that
 #'   fluorescence has been measured in 1 cm cuvette. Hence, absorbance will be
-#'   converted per cm.
+#'   converted per cm. Note that raw absorbance should be provided (i.e. not
+#'   expressed by meter).
 #'
 #' @section Names matching:
 #'

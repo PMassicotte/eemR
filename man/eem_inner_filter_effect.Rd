@@ -15,7 +15,7 @@ eem_inner_filter_effect(eem, absorbance, pathlength = 1)
   \item{...}{One or more numeric vectors containing absorbance spectra.}}}
 
 \item{pathlength}{A numeric value indicating the pathlength (in cm) of the
-cuvette used for fluorescence measurement. Default is 1 (1cm).}
+cuvette used for absorbance measurement. Default is 1 (1cm).}
 }
 \value{
 An object of class \code{eemlist}.
@@ -31,7 +31,8 @@ Inner-filter effect correction
 \details{
 The inner-filter effect correction procedure is assuming that
   fluorescence has been measured in 1 cm cuvette. Hence, absorbance will be
-  converted per cm.
+  converted per cm. Note that raw absorbance should be provided (i.e. not
+  expressed by meter).
 }
 \section{Names matching}{
 
@@ -49,6 +50,7 @@ The inner-filter effect correction procedure is assuming that
   message will warn the user if total absorbance is greater than this
   threshold.
 }
+
 \examples{
 library(eemR)
 data("absorbance")
@@ -78,4 +80,3 @@ Parker, C. a., & Barnes, W. J. (1957). Some experiments with
   fluorescence. Limnology and Oceanography: Methods, 11(12), 616-630.
   \url{http://doi.org/10.4319/lom.2013.11.616}
 }
-

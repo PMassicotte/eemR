@@ -24,4 +24,3 @@ eem <- eem_read(file, recursive = TRUE)
 eem_names(eem)
 
 }
-

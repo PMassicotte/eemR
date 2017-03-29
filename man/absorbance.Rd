@@ -27,4 +27,3 @@ lines(absorbance$wavelength, absorbance$sample2, col = "blue")
 lines(absorbance$wavelength, absorbance$sample3, col = "red")
 }
 \keyword{datasets}
-

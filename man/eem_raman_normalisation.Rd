@@ -86,4 +86,3 @@ spectroscopy and multi-way techniques. PARAFAC. Analytical Methods, 5(23),
 
 \url{http://xlink.rsc.org/?DOI=c3ay41160e}
 }
-

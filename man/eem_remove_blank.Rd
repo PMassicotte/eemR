@@ -107,4 +107,3 @@ Murphy, K. R., Stedmon, C. a., Graeber, D., & Bro, R. (2013).
 
   \url{http://xlink.rsc.org/?DOI=c3ay41160e}
 }
-

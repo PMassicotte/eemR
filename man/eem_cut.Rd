@@ -42,4 +42,3 @@ eem <- eem_read(file)
 eem <- eem_cut(eem, em = 350:400, fill_with_na = TRUE)
 plot(eem)
 }
-

@@ -31,4 +31,3 @@ eem <- eem_set_wavelengths(eem, ex = seq(230, 450, by = 5))
 plot(eem)
 
 }
-

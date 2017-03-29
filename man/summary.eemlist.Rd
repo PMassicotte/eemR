@@ -34,4 +34,3 @@ eem <- eem_read(folder, recursive = TRUE)
 
 summary(eem)
 }
-

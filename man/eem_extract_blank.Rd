@@ -17,4 +17,3 @@ An object of class \code{eemlist}.
 \description{
 Extract blank EEM
 }
-
