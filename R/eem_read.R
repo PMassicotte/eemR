@@ -115,7 +115,7 @@ eem <- function(file, x, ex, em, location = NA){
   }
 
 
-  eem <- list(sample = make.names(file_path_sans_ext(basename(file))),
+  eem <- list(sample = file_path_sans_ext(basename(file)),
               x = x,
               ex = ex,
               em = em,

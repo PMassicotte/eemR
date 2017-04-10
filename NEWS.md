@@ -1,5 +1,7 @@
 # eemR 0.1.5 (unreleased)
 
+- Use file name as is for the name of the eem. 
+
 - Reading Cary Eclipse files is more robust at detecting correct excitation wavelengths.
 
 - `eemR` can now read Fluoromax-4 files (#40).
