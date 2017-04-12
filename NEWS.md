@@ -1,5 +1,7 @@
 # eemR 0.1.5 (unreleased)
 
+- Improuved plot visualisation to th esame look and feel as those produced in Matlab with DrEEM.
+
 - Use file name as is for the name of the eem. 
 
 - Reading Cary Eclipse files is more robust at detecting correct excitation wavelengths.

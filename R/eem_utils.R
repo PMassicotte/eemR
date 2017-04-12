@@ -1,20 +1,36 @@
-#' @importFrom grDevices colorRampPalette
-#' @importFrom graphics par plot text
+#' @importFrom graphics par plot text filled.contour title
 #' @importFrom viridis viridis
 .plot_eem <- function(x, show_peaks, ...){
 
 
-fields::image.plot(y = x$em,
-             x = x$ex,
-             z = t(x$x),
-             main = paste(x$sample, "\n", attr(x, "manucafturer"), sep = ""),
-             xlab = "Excitation (nm.)",
-             ylab = "Emission (nm.)",
-             legend.lab = "Fluorescence intensity",
-             col = viridis::viridis(256),
-             ...)
+  filled.contour(
+    y = x$em,
+    x = x$ex,
+    z = t(x$x),
+    plot.title = title(
+      main = paste(x$sample, "\n", attr(x, "manucafturer"), sep = ""),
+      xlab = "Excitation (nm.)",
+      ylab = "Emission (nm.)"
+    ),
+    key.title = title("Fluorescence\nintensity"),
+    color.palette = viridis::viridis,
+    nlevels = 7,
+    ...
+  )
+#
+# fields::image.plot(y = x$em,
+#              x = x$ex,
+#              z = t(x$x),
+#              main = paste(x$sample, "\n", attr(x, "manucafturer"), sep = ""),
+#              xlab = "Excitation (nm.)",
+#              ylab = "Emission (nm.)",
+#              legend.lab = "Fluorescence intensity",
+#              col = viridis::viridis(256),
+#              nlevel = 7,
+#
+#              ...)
 
-  if(show_peaks){
+  if (show_peaks) {
 
     coble_ex_peak <- list(b = 275, t = 275, a = 260, m = 312, c = 350)
     coble_em_peak <- list(b = 310, t = 340, a = 420, m = 400, c = 450)
@@ -547,7 +563,7 @@ my_unlist <- function(x){
                               eem_humification_index(eem, verbose = FALSE),
                               by = "sample")
 
-  metrics[,-1] <-round(metrics[,-1], digits = 2)
+  metrics[,-1] <- round(metrics[,-1], digits = 2)
 
   # nl <- vector(mode = "list", length = length(eem_names(eem)))
   # names(nl) <- eem_names(eem)

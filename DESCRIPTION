@@ -16,7 +16,6 @@ Depends:
 LazyData: TRUE
 Imports:
     stringr,
-    fields,
     dplyr,
     R.matlab,
     pracma,
