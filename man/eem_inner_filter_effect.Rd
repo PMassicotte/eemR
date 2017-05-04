@@ -11,7 +11,7 @@ eem_inner_filter_effect(eem, absorbance, pathlength = 1)
 
 \item{absorbance}{A data frame with:
 
-  \describe{ \item{wavelength}{A numeric vector containing wavelenghts.}
+  \describe{ \item{wavelength}{A numeric vector containing wavelengths.}
   \item{...}{One or more numeric vectors containing absorbance spectra.}}}
 
 \item{pathlength}{A numeric value indicating the pathlength (in cm) of the
@@ -72,7 +72,7 @@ par(op)
 }
 \references{
 Parker, C. a., & Barnes, W. J. (1957). Some experiments with
-  spectrofluorimeters and filter fluorimeters. The Analyst, 82(978), 606.
+  spectrofluorometers and filter fluorimeters. The Analyst, 82(978), 606.
   \url{http://doi.org/10.1039/an9578200606}
 
   Kothawala, D. N., Murphy, K. R., Stedmon, C. A., Weyhenmeyer, G. A., &

@@ -3,7 +3,7 @@
 # and data wavelengths.
 #---------------------------------------------------------------------
 msg_warning_wavelength <- function(){
-  msg <- "This metric uses either excitation or emission wavelenghts that were not present in the data. Data has been interpolated to fit the requested wavelengths."
+  msg <- "This metric uses either excitation or emission wavelengths that were not present in the data. Data has been interpolated to fit the requested wavelengths."
   return(msg)
 }
 
