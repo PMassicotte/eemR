@@ -1,4 +1,4 @@
-# eemR 0.1.5 (unreleased)
+# eemR 0.1.5
 
 - Improuved plot visualisation to th esame look and feel as those produced in Matlab with DrEEM.
 
