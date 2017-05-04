@@ -1,9 +1,9 @@
 ## Test environments
 
-* Tested on Linux (R 3.3.1) using Travis CI
-* Tested on Mac OS X 10.9 or higher (R 3.3.1) using Travis CI
-* Tested on Windows (R 3.2.5) using AppVeyor
-* Tested on Windows (R 3.3.1) Windows 10 (personal computer)
+* Tested on Linux (R 3.4.0) using Travis CI
+* Tested on Mac OS X 10.9 or higher (R 3.4.0) using Travis CI
+* Tested on Windows (R 3.4.0) using AppVeyor
+* Tested on Windows (R 3.4.0) Windows 10 (personal computer)
 * Win-builder (devel and release)
 
 ## R CMD check results
