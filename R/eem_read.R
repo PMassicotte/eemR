@@ -194,7 +194,7 @@ eem_read_shimadzu <- function(data, file){
 # *************************************************************************
 eem_read_cary <- function(data, file){
 
-  min_col <- 15 # Do not expect fluorescence data when there is less than 3 cols.
+  min_col <- 15 # Do not expect fluorescence data when there is less than 15 cols.
 
   data <- stringr::str_split(data, ",")
   data[unlist(lapply(data, length)) < min_col] <- NULL
