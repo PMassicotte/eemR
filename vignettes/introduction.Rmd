@@ -446,7 +446,7 @@ It should be noted that different excitation and emission wavelengths are often 
 
 ## Using R pipeline
 
-Note that it is also possible to use the [magrittr](https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html) pipe line with most functions from `eemR`.
+Note that it is also possible to use the [magrittr](https://CRAN.R-project.org/package=magrittr) pipe line with most functions from `eemR`.
 
 ```{r, eval=FALSE}
 library(magrittr)

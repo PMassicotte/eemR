@@ -3,11 +3,11 @@ Type: Package
 Title: Tools for Pre-Processing Emission-Excitation-Matrix (EEM) Fluorescence
     Data
 Version: 0.1.5
-Date: 2017-05-04
+Date: 2017-05-05
 Authors@R: person("Philippe", "Massicotte", email = "pmassicotte@hotmail.com",
   role = c("aut", "cre"))
-Description: Provides various tools to calculate EEM fluorescence metrics and
-    preprocess EEM for PARAFAC analysis.
+Description: Provides various tools for preprocessing Emission-Excitation-Matrix (EEM) for Parallel Factor Analysis (PARAFAC). Different
+  methods are also provided to calculate common metrics such as humification index and fluorescence index.
 License: GPL (>= 2)
 BugReports: https://github.com/PMassicotte/eemR/issues
 URL: https://github.com/PMassicotte/eemR
