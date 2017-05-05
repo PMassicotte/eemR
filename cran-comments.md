@@ -15,3 +15,6 @@
 * There were no errors reported for R-release and R-devel.
 * There was 1 note concerning a change in my email address because I changed university.
 
+## Comment
+
+This is a re-submission from yesterday. CRAN URL and a better Description Field has been provited.
