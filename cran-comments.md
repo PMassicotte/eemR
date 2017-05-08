@@ -17,4 +17,5 @@
 
 ## Comment
 
-This is a re-submission from yesterday. CRAN URL and a better Description Field has been provited.
+ - This is a re-submission from yesterday. CRAN URL and a better Description Field has been provited.
+ - There was 1 note regarding changing email address. The issue is that I can't use my old email anymore (pm@bios.au.dk). This was my Aarhus University email when I did my postdoc. When I left after the postdoc, the email as been canceled. I will now use  my generic hotmail addresse (pmassicotte@hotmail.com). I have two other CRAN packages (cdom and gtrendsR) With Dirk Eddelbuettel. He can confirm my identity if needed. Thank you.
