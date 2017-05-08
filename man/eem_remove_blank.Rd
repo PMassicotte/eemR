@@ -20,7 +20,7 @@ This function is used to remove blank from eems which can help
 }
 \details{
 The function will first try to use the provided \code{blank}. If the
-  blank is ommitted, the function will then try to extract the blank from the
+  blank is omitted, the function will then try to extract the blank from the
   \code{eemlist} object. This is done by looking for sample names containing
   one of these complete or partial strings (ignoring case):
 
