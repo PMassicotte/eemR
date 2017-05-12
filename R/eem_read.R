@@ -55,6 +55,8 @@ eem_read <- function(file, recursive = FALSE) {
 
     if(is_fluoromax4(data)){
       return(eem_read_fluoromax4(data, file))
+    } else {
+      return(eem_read_generic(file)) # If nothing else works, try read generic.
     }
 
     message("I do not know how to read *** ", basename(file), " ***\n")
@@ -297,6 +299,55 @@ eem_read_fluoromax4 <- function(data, file) {
   attr(res, "is_ife_corrected") <- FALSE
   attr(res, "is_raman_normalized") <- FALSE
   attr(res, "manufacturer") <- "fluoromax4"
+
+  return(res)
+
+}
+
+# ****************************************************************************
+# Try to read a generic file. Need better verification.
+# ****************************************************************************
+eem_read_generic <- function(file) {
+
+  dat <- readr::read_lines(file)
+  dat <- stringr::str_split(dat, "\t|,")
+
+  n_col <- unlist(lapply(dat, length))
+  expected_col <- as.numeric(names(sort(-table(n_col)))[1])
+  dat[lapply(dat, length) != expected_col] <- NULL
+
+  dat <- simplify2array(dat)
+
+  M <- apply(dat, 1, as.numeric)
+
+  wl1 <- as.vector(na.omit(M[1, ]))
+  wl2 <- as.vector(na.omit(M[, 1]))
+
+  M <- M[-1, ]
+  M <- M[, -1]
+
+  if (max(wl1) > max(wl2)) {
+    ex <- wl2
+    em <- wl1
+  } else {
+    ex <- wl1
+    em <- wl2
+  }
+
+  # monotonically increasing vectors?
+  stopifnot(all(ex == cummax(ex)) & all(em == cummax(em)))
+
+
+  res <- eem(file = file,
+             x = M,
+             ex = ex,
+             em = em)
+
+  attr(res, "is_blank_corrected") <- FALSE
+  attr(res, "is_scatter_corrected") <- FALSE
+  attr(res, "is_ife_corrected") <- FALSE
+  attr(res, "is_raman_normalized") <- FALSE
+  attr(res, "manufacturer") <- "Unknown"
 
   return(res)
 
