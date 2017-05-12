@@ -337,7 +337,6 @@ eem_read_generic <- function(file) {
   # monotonically increasing vectors?
   stopifnot(all(ex == cummax(ex)) & all(em == cummax(em)))
 
-
   res <- eem(file = file,
              x = M,
              ex = ex,
