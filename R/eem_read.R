@@ -242,7 +242,7 @@ eem_read_aqualog <- function(data, file){
 
   eem <- stringr::str_extract_all(data, "-?\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d+)?")
 
-  ex <- rev(as.numeric(eem[[1]]))
+  ex <- sort(as.numeric(eem[[1]]))
 
   n_col <- lapply(eem, length)
   n_col <- unlist(n_col)
