@@ -1,5 +1,7 @@
 # eemR 0.1.6 (Unreleased)
  
+ - New function `eem_peaks()` to extract user-defined fluorescence peaks (#42).
+ 
  - `eem_read()` will try to import unknown file format if it fails to determine it. At the moment the heuristic is not perfect, so the file must be "easy" to read (i.e. contain a square matrix of data).
  
 # eemR 0.1.5

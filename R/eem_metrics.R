@@ -135,6 +135,63 @@ eem_coble_peaks <- function(eem, verbose = TRUE){
                     stringsAsFactors = FALSE))
 }
 
+#' Extract fluorescence peaks
+#'
+#' @param ex A numeric vector with excitation wavelengths.
+#' @param em A numeric vector with emission wavelengths.
+#'
+#' @template template_eem
+#'
+#' @template template_section_interp2
+#'
+#' @return A data frame containing excitation and emission peak values. See
+#'   details for more information.
+#'
+#' @importFrom purrr map2
+#' @import assertthat
+#'
+#' @examples
+#' file <- system.file("extdata/cary/scans_day_1/", "sample1.csv", package = "eemR")
+#' eem <- eem_read(file)
+#'
+#' eem_peaks(eem, ex = c(250, 350), em = c(300, 400))
+#'
+#' @export
+eem_peaks <- function(eem, ex, em, verbose = TRUE) {
+  stopifnot(.is_eemlist(eem) | .is_eem(eem))
+  stopifnot(
+    is.numeric(ex),
+    is.numeric(em),
+    length(ex) == length(em),
+    all(ex > 0),
+    all(em > 0)
+  )
+
+  ## It is a list of eems, then call lapply
+  if (.is_eemlist(eem)) {
+    res <- lapply(eem, eem_peaks, ex, em, verbose = verbose)
+    res <- dplyr::bind_rows(res)
+
+    return(res)
+  }
+
+  assertthat::assert_that(all(dplyr::between(ex, range(eem$ex)[1], range(eem$ex)[2])), msg = "Excitation values are not within the range of excitation values of the EEM.")
+  assertthat::assert_that(all(dplyr::between(em, range(eem$em)[1], range(eem$em)[2])), msg = "Emission values are not within the range of emission values of the EEM.")
+
+  peak_intensity <- purrr::map2(ex, em, function(ex, em) {
+    pracma::interp2(eem$ex, eem$em, eem$x, ex, em)
+  })
+
+  peak_intensity <- unlist(peak_intensity)
+
+  return(data.frame(
+    sample = eem$sample,
+    ex = ex,
+    em = em,
+    peak_intensity = peak_intensity
+  ))
+}
+
 #' Calculate the fluorescence humification index (HIX)
 #'
 #' @template template_eem
