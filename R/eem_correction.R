@@ -69,12 +69,17 @@
 #' res <- eem_remove_blank(eems)
 
 eem_remove_blank <- function(eem, blank = NA) {
+  stopifnot(
+    .is_eemlist(eem) | .is_eem(eem),
+    .is_eemlist(blank) | is.na(blank)
+  )
 
-  stopifnot(.is_eemlist(eem) | .is_eem(eem),
-            .is_eemlist(blank) | is.na(blank))
-
-  is_raman_normalized <- lapply(eem,
-                               function(x){attributes(x)$is_raman_normalized})
+  is_raman_normalized <- lapply(
+    eem,
+    function(x) {
+      attributes(x)$is_raman_normalized
+    }
+  )
   is_raman_normalized <- unlist(is_raman_normalized)
 
   if (any(is_raman_normalized)) {
@@ -83,31 +88,32 @@ eem_remove_blank <- function(eem, blank = NA) {
   }
 
   if (is.na(blank)) {
-
-    t <- list.group(eem, ~location)
-    t <- lapply(t, function(x){class(x) <- "eemlist"; return(x)})
+    t <- list.group(eem, ~ location)
+    t <- lapply(t, function(x) {
+      class(x) <- "eemlist"
+      return(x)
+    })
 
     res <- list.apply(t, .eem_remove_blank)
     res <- list.ungroup(res)
     class(res) <- "eemlist"
     return(res)
-
   } else {
     .eem_remove_blank(eem, blank)
   }
 }
 
 .eem_remove_blank <- function(eem, blank = NA) {
-
-  stopifnot(.is_eemlist(eem) | .is_eem(eem),
-            .is_eemlist(blank) | is.na(blank))
+  stopifnot(
+    .is_eemlist(eem) | .is_eem(eem),
+    .is_eemlist(blank) | is.na(blank)
+  )
 
   ## It is a list of eems, then call lapply
   if (.is_eemlist(eem)) {
 
     # if blank is NA then try to split the eemlist into blank and eems
     if (is.na(blank)) {
-
       blank <- eem_extract_blank(eem)
 
       if (length(blank) != 1 | length(eem) < 1) {
@@ -126,20 +132,26 @@ eem_remove_blank <- function(eem, blank = NA) {
   #---------------------------------------------------------------------
 
   # Do not correct if it was already done
-  if(attributes(eem)$is_blank_corrected) { return(eem) }
+  if (attributes(eem)$is_blank_corrected) {
+    return(eem)
+  }
 
-  if (is_blank(eem)) { return(eem) } # do not modify blank samples
+  if (is_blank(eem)) {
+    return(eem)
+  } # do not modify blank samples
 
   blank <- unlist(blank, recursive = FALSE)
 
   x <- eem$x - blank$x
 
   ## Construct an eem object.
-  res <- eem(file = eem$sample,
-             x = x,
-             ex = eem$ex,
-             em = eem$em,
-             location = eem$location)
+  res <- eem(
+    file = eem$sample,
+    x = x,
+    ex = eem$ex,
+    em = eem$em,
+    location = eem$location
+  )
 
   attributes(res) <- attributes(eem)
   attr(res, "is_blank_corrected") <- TRUE
@@ -182,26 +194,27 @@ eem_remove_blank <- function(eem, blank = NA) {
 #'
 #' plot(eem)
 
-eem_remove_scattering <- function(eem, type, order = 1, width = 10){
-
-  stopifnot(.is_eemlist(eem) | .is_eem(eem),
-            all(type %in% c("raman", "rayleigh")),
-            is.numeric(order),
-            is.numeric(width),
-            length(order) == 1,
-            length(type) == 1,
-            length(width) == 1,
-            is_between(order, 1, 2),
-            is_between(width, 0, 100))
+eem_remove_scattering <- function(eem, type, order = 1, width = 10) {
+  stopifnot(
+    .is_eemlist(eem) | .is_eem(eem),
+    all(type %in% c("raman", "rayleigh")),
+    is.numeric(order),
+    is.numeric(width),
+    length(order) == 1,
+    length(type) == 1,
+    length(width) == 1,
+    is_between(order, 1, 2),
+    is_between(width, 0, 100)
+  )
 
   ## It is a list of eems, then call lapply
-  if(.is_eemlist(eem)){
-
+  if (.is_eemlist(eem)) {
     res <- lapply(eem,
-                  eem_remove_scattering,
-                  type = type,
-                  order = order,
-                  width = width)
+      eem_remove_scattering,
+      type = type,
+      order = order,
+      width = width
+    )
 
     class(res) <- class(eem)
     return(res)
@@ -215,12 +228,12 @@ eem_remove_scattering <- function(eem, type, order = 1, width = 10){
   em <- eem$em
   ex <- eem$ex
 
-  if(type == "raman"){
+  if (type == "raman") {
     ex <- .find_raman_peaks(eem$ex)
   }
 
-  ind1 <- mapply(function(x)em <= x, order * ex - width)
-  ind2 <- mapply(function(x)em <= x, order * ex + width)
+  ind1 <- mapply(function(x) em <= x, order * ex - width)
+  ind2 <- mapply(function(x) em <= x, order * ex + width)
 
   ind3 <- ifelse(ind1 + ind2 == 1, NA, 1)
 
@@ -238,7 +251,7 @@ eem_remove_scattering <- function(eem, type, order = 1, width = 10){
   return(res)
 }
 
-.find_raman_peaks <- function(ex){
+.find_raman_peaks <- function(ex) {
 
   # For water, the Raman peak appears at a wavenumber 3600 cm lower than the
   # incident wavenumber. For excitation at 280 nm, the Raman peak from water
@@ -246,15 +259,15 @@ eem_remove_scattering <- function(eem, type, order = 1, width = 10){
   # Third Edition.pdf
 
   ## Convert wavenumber from nm to cm
-  ex_wave_number = 1 / ex
+  ex_wave_number <- 1 / ex
 
   ## For water. 3600 nm = 0.00036 cm
-  raman_peaks = ex_wave_number - 0.00036 # I think Stedmon use 3400 TODO
+  raman_peaks <- ex_wave_number - 0.00036 # I think Stedmon use 3400 TODO
 
   ## Bring back to nm
-  raman_peaks = 1 / raman_peaks
+  raman_peaks <- 1 / raman_peaks
 
-  #raman_peaks <- -(ex / (0.00036 * ex - 1))
+  # raman_peaks <- -(ex / (0.00036 * ex - 1))
 
   return(raman_peaks)
 }
@@ -310,42 +323,42 @@ eem_remove_scattering <- function(eem, type, order = 1, width = 10){
 #' plot(eem)
 
 eem_raman_normalisation <- function(eem, blank = NA) {
+  stopifnot(
+    .is_eemlist(eem) | .is_eem(eem),
+    .is_eemlist(blank) | is.na(blank)
+  )
 
-  stopifnot(.is_eemlist(eem) | .is_eem(eem),
-            .is_eemlist(blank) | is.na(blank))
-
-  if(is.na(blank)){
-
-    t <- list.group(eem, ~location)
-    t <- lapply(t, function(x){class(x) <- "eemlist"; return(x)})
+  if (is.na(blank)) {
+    t <- list.group(eem, ~ location)
+    t <- lapply(t, function(x) {
+      class(x) <- "eemlist"
+      return(x)
+    })
 
     res <- list.apply(t, .eem_raman_normalisation)
     res <- list.ungroup(res)
     class(res) <- "eemlist"
     return(res)
-
   } else {
     .eem_raman_normalisation(eem, blank)
   }
-
 }
 
-.eem_raman_normalisation <- function(eem, blank = NA){
-
-  stopifnot(.is_eemlist(eem) | .is_eem(eem),
-            .is_eemlist(blank) | is.na(blank))
+.eem_raman_normalisation <- function(eem, blank = NA) {
+  stopifnot(
+    .is_eemlist(eem) | .is_eem(eem),
+    .is_eemlist(blank) | is.na(blank)
+  )
 
   ## It is a list of eems, then call lapply
-  if(.is_eemlist(eem)){
+  if (.is_eemlist(eem)) {
 
     # if blank is NA then try to split the eemlist into blank and eems
-    if(is.na(blank)){
-
+    if (is.na(blank)) {
       blank <- eem_extract_blank(eem)
 
-      if(length(blank) != 1 | length(eem) < 1){
+      if (length(blank) != 1 | length(eem) < 1) {
         stop("Cannot find blank for automatic correction.", call. = FALSE)
-
       }
     }
 
@@ -360,10 +373,14 @@ eem_raman_normalisation <- function(eem, blank = NA) {
   #---------------------------------------------------------------------
 
   # Do not correct if it was already done
-  if(attributes(eem)$is_raman_normalized) { return(eem) }
+  if (attributes(eem)$is_raman_normalized) {
+    return(eem)
+  }
 
   # Do not modify blank samples
-  if(is_blank(eem)) {return(eem)}
+  if (is_blank(eem)) {
+    return(eem)
+  }
 
   blank <- unlist(blank, recursive = FALSE)
 
@@ -377,7 +394,7 @@ eem_raman_normalisation <- function(eem, blank = NA) {
   # x <- blank$em[index_em]
   # y <- blank$x[index_em, index_ex]
 
-  if(any(is.na(em)) | any(is.na(fluo))){
+  if (any(is.na(em)) | any(is.na(fluo))) {
     stop("NA values found in the blank sample. Maybe you removed scattering too soon?", call. = FALSE)
   }
 
@@ -388,11 +405,13 @@ eem_raman_normalisation <- function(eem, blank = NA) {
   x <- eem$x / area
 
   ## Construct an eem object.
-  res <- eem(file = eem$sample,
-             x = x,
-             ex = eem$ex,
-             em = eem$em,
-             location = eem$location)
+  res <- eem(
+    file = eem$sample,
+    x = x,
+    ex = eem$ex,
+    em = eem$em,
+    location = eem$location
+  )
 
   attributes(res) <- attributes(eem)
   attr(res, "is_raman_normalized") <- TRUE
@@ -466,18 +485,19 @@ eem_raman_normalisation <- function(eem, blank = NA) {
 #'
 #' @export
 eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
-
-  stopifnot(.is_eemlist(eem) | .is_eem(eem),
-            is.data.frame(absorbance),
-            is.numeric(pathlength))
+  stopifnot(
+    .is_eemlist(eem) | .is_eem(eem),
+    is.data.frame(absorbance),
+    is.numeric(pathlength)
+  )
 
   ## It is a list of eems, then call lapply
   if (.is_eemlist(eem)) {
-
     res <- lapply(eem,
-                  eem_inner_filter_effect,
-                  absorbance = absorbance,
-                  pathlength = pathlength)
+      eem_inner_filter_effect,
+      absorbance = absorbance,
+      pathlength = pathlength
+    )
 
     class(res) <- class(eem)
 
@@ -490,23 +510,20 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
 
   # names(absorbance) <- tolower(names(absorbance))
 
-  if(!any(names(absorbance) == "wavelength")){
-
+  if (!any(names(absorbance) == "wavelength")) {
     stop("'wavelength' variable was not found in the data frame.",
-         call. = FALSE)
+      call. = FALSE
+    )
   }
 
   wl <- absorbance[["wavelength"]]
 
-  if(!all(is_between(range(eem$em), min(wl), max(wl)))){
-
+  if (!all(is_between(range(eem$em), min(wl), max(wl)))) {
     stop("absorbance wavelengths are not in the range of
          emission wavelengths", call. = FALSE)
-
   }
 
-  if(!all(is_between(range(eem$ex), min(wl), max(wl)))){
-
+  if (!all(is_between(range(eem$ex), min(wl), max(wl)))) {
     stop("absorbance wavelengths are not in the range of
          excitation wavelengths", call. = FALSE)
   }
@@ -515,9 +532,9 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
 
   ## absorbance spectra not found, we return the uncorected eem
   if (length(index) == 0) {
-
     warning("Absorbance spectrum for ", eem$sample, " was not found. Returning uncorrected EEM.",
-            call. = FALSE)
+      call. = FALSE
+    )
 
     return(eem)
   }
@@ -531,7 +548,9 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
   cat(eem$sample, "\n")
 
   # Do not correct if it was already done
-  if(attributes(eem)$is_ife_corrected) { return(eem) }
+  if (attributes(eem)$is_ife_corrected) {
+    return(eem)
+  }
 
   sf <- stats::splinefun(wl, spectra)
 
@@ -540,23 +559,30 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
 
   # Calculate total absorbance in 1 cm cuvette.
   # This also assume that the fluorescence has been measured in 1 cm cuvette.
-  total_absorbance <- sapply(ex, function(x){x + em}) / pathlength
+  total_absorbance <- sapply(ex, function(x) {
+    x + em
+  }) / pathlength
 
   max_abs <- max(total_absorbance)
 
   if (max_abs > 1.5) {
     cat("Total absorbance is > 1.5 (Atotal = ", max_abs, ")\n",
-        "A 2-fold dilution is recommended. See ?eem_inner_filter_effect.\n",
-        sep = "")
+      "A 2-fold dilution is recommended. See ?eem_inner_filter_effect.\n",
+      sep = ""
+    )
   }
 
-  ife_correction_factor <- 10 ^ (0.5 * total_absorbance)
+  ife_correction_factor <- 10^(0.5 * total_absorbance)
 
-  cat("Range of IFE correction factors:",
-      round(range(ife_correction_factor), digits = 4), "\n")
+  cat(
+    "Range of IFE correction factors:",
+    round(range(ife_correction_factor), digits = 4), "\n"
+  )
 
-  cat("Range of total absorbance (Atotal) :",
-      round(range(total_absorbance / pathlength), digits = 4), "\n\n")
+  cat(
+    "Range of total absorbance (Atotal) :",
+    round(range(total_absorbance / pathlength), digits = 4), "\n\n"
+  )
 
   x <- eem$x * ife_correction_factor
 
@@ -573,7 +599,6 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
   attr(res, "is_ife_corrected") <- TRUE
 
   return(res)
-
 }
 
 is_between <- function(x, a, b) {
@@ -583,9 +608,7 @@ is_between <- function(x, a, b) {
 # Return TRUE if eem is a blank sample
 
 is_blank <- function(eem) {
-
   blank_names <- paste("nano", "miliq", "milliq", "mq", "blank", sep = "|")
 
   grepl(blank_names, eem$sample, ignore.case = TRUE)
-
 }

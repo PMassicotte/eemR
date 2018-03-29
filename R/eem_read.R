@@ -29,9 +29,10 @@
 #' eems <- eem_read(file, recursive = TRUE)
 
 eem_read <- function(file, recursive = FALSE) {
-
-  stopifnot(file.exists(file) | file.info(file)$isdir,
-            is.logical(recursive))
+  stopifnot(
+    file.exists(file) | file.info(file)$isdir,
+    is.logical(recursive)
+  )
 
   f <- function(file) {
 
@@ -41,19 +42,19 @@ eem_read <- function(file, recursive = FALSE) {
 
     data <- read_lines(file)
 
-    if(is_cary_eclipse(data)){
+    if (is_cary_eclipse(data)) {
       return(eem_read_cary(data, file))
     }
 
-    if(is_aqualog(data)){
+    if (is_aqualog(data)) {
       return(eem_read_aqualog(data, file))
     }
 
-    if(is_shimadzu(data)){
+    if (is_shimadzu(data)) {
       return(eem_read_shimadzu(data, file))
     }
 
-    if(is_fluoromax4(data)){
+    if (is_fluoromax4(data)) {
       return(eem_read_fluoromax4(data, file))
     } else {
       return(eem_read_generic(file)) # If nothing else works, try read generic.
@@ -67,18 +68,17 @@ eem_read <- function(file, recursive = FALSE) {
   # *************************************************************************
   isdir <- file.info(file)$isdir
 
-  if(isdir){
-
+  if (isdir) {
     file <- list.files(file,
-                        full.names = TRUE,
-                        recursive = recursive,
-                        no.. = TRUE,
-                        include.dirs = FALSE,
-                        pattern = "*.txt|*.dat|*.csv",
-                        ignore.case = TRUE)
+      full.names = TRUE,
+      recursive = recursive,
+      no.. = TRUE,
+      include.dirs = FALSE,
+      pattern = "*.txt|*.dat|*.csv",
+      ignore.case = TRUE
+    )
 
     file <- file[!file.info(file)$isdir]
-
   }
 
   res <- lapply(file, f)
@@ -88,7 +88,6 @@ eem_read <- function(file, recursive = FALSE) {
   res[unlist(lapply(res, is.null))] <- NULL ## Remove unreadable EEMs
 
   return(res)
-
 }
 
 #' eem constructor
@@ -109,7 +108,7 @@ eem_read <- function(file, recursive = FALSE) {
 #'  \item ex Excitation vector of wavelengths.
 #' }
 
-eem <- function(file, x, ex, em, location = NA){
+eem <- function(file, x, ex, em, location = NA) {
 
   # Use dirname if location if not provided
   if (is.na(location)) {
@@ -117,11 +116,13 @@ eem <- function(file, x, ex, em, location = NA){
   }
 
 
-  eem <- list(sample = file_path_sans_ext(basename(file)),
-              x = x,
-              ex = ex,
-              em = em,
-              location =  location)
+  eem <- list(
+    sample = file_path_sans_ext(basename(file)),
+    x = x,
+    ex = ex,
+    em = em,
+    location = location
+  )
 
   class(eem) <- "eem"
 
@@ -137,8 +138,7 @@ is_aqualog <- function(x) {
   any(grepl("Normalized by|^Sample - Blank|^Wavelength", x))
 }
 
-is_shimadzu <- function(x){
-
+is_shimadzu <- function(x) {
   x <- stringr::str_split(x, "\t")
 
   # a bit weak, but works for now
@@ -153,8 +153,7 @@ is_fluoromax4 <- function(x) {
 # *************************************************************************
 # Function reading Shimadzu .TXT files.
 # *************************************************************************
-eem_read_shimadzu <- function(data, file){
-
+eem_read_shimadzu <- function(data, file) {
   data <- stringr::str_split(data, "\t")
 
   data <- lapply(data, as.numeric)
@@ -173,10 +172,12 @@ eem_read_shimadzu <- function(data, file){
   eem <- matrix(data, nrow = length(em), byrow = FALSE)
 
   ## Construct an eem object.
-  res <- eem(file = file,
-             x = eem,
-             ex = NA,
-             em = em)
+  res <- eem(
+    file = file,
+    x = eem,
+    ex = NA,
+    em = em
+  )
 
   attr(res, "is_blank_corrected") <- FALSE
   attr(res, "is_scatter_corrected") <- FALSE
@@ -188,14 +189,12 @@ eem_read_shimadzu <- function(data, file){
   message("Please provide them using the eem_set_wavelengths() function.")
 
   return(res)
-
 }
 
 # *************************************************************************
 # Function reading Cary Eclipse csv files.
 # *************************************************************************
-eem_read_cary <- function(data, file){
-
+eem_read_cary <- function(data, file) {
   min_col <- 15 # Do not expect fluorescence data when there is less than 15 cols.
 
   data <- stringr::str_split(data, ",")
@@ -212,19 +211,22 @@ eem_read_cary <- function(data, file){
   data[1:2] <- NULL ## Remove the first 2 header lines
 
   data <- matrix(as.numeric(unlist(data, use.names = FALSE)),
-                 ncol = expected_col, byrow = TRUE)
+    ncol = expected_col, byrow = TRUE
+  )
 
-  data <- data[,which(colMeans(is.na(data)) < 1)] ## remove na columns
+  data <- data[, which(colMeans(is.na(data)) < 1)] ## remove na columns
 
   eem <- data[, !data[1, ] %in% ex] ## Remove duplicated columns
 
   em <- data[, 1]
 
   ## Construct an eem object.
-  res <- eem(file = file,
-             x = eem,
-             ex = ex,
-             em = em)
+  res <- eem(
+    file = file,
+    x = eem,
+    ex = ex,
+    em = em
+  )
 
   attr(res, "is_blank_corrected") <- FALSE
   attr(res, "is_scatter_corrected") <- FALSE
@@ -238,8 +240,7 @@ eem_read_cary <- function(data, file){
 # *************************************************************************
 # Fonction reading Aqualog dat files.
 # *************************************************************************
-eem_read_aqualog <- function(data, file){
-
+eem_read_aqualog <- function(data, file) {
   eem <- stringr::str_extract_all(data, "-?\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d+)?")
 
   ex <- sort(as.numeric(eem[[1]]))
@@ -254,13 +255,15 @@ eem_read_aqualog <- function(data, file){
 
   em <- eem[, 1]
   eem <- eem[, -1]
-  eem <- as.matrix(eem[, ncol(eem): 1])
+  eem <- as.matrix(eem[, ncol(eem):1])
 
   ## Construct an eem object.
-  res <- eem(file = file,
-             x = eem,
-             ex = ex,
-             em = em)
+  res <- eem(
+    file = file,
+    x = eem,
+    ex = ex,
+    em = em
+  )
 
   attr(res, "is_blank_corrected") <- FALSE
   attr(res, "is_scatter_corrected") <- FALSE
@@ -275,7 +278,6 @@ eem_read_aqualog <- function(data, file){
 # Fonction reading Fluoromax-4 dat files.
 # *************************************************************************
 eem_read_fluoromax4 <- function(data, file) {
-
   data <- stringr::str_split(data, "\t")
 
   ## Find the probable number of columns
@@ -289,10 +291,12 @@ eem_read_fluoromax4 <- function(data, file) {
   em <- as.vector(na.omit(data[, 1]))
   eem <- data[2:nrow(data), 2:ncol(data)]
 
-  res <- eem(file = file,
-             x = eem,
-             ex = ex,
-             em = em)
+  res <- eem(
+    file = file,
+    x = eem,
+    ex = ex,
+    em = em
+  )
 
   attr(res, "is_blank_corrected") <- FALSE
   attr(res, "is_scatter_corrected") <- FALSE
@@ -301,14 +305,12 @@ eem_read_fluoromax4 <- function(data, file) {
   attr(res, "manufacturer") <- "fluoromax4"
 
   return(res)
-
 }
 
 # ****************************************************************************
 # Try to read a generic file. Need better verification.
 # ****************************************************************************
 eem_read_generic <- function(file) {
-
   dat <- readr::read_lines(file)
   dat <- stringr::str_split(dat, "\t|,")
 
@@ -337,10 +339,12 @@ eem_read_generic <- function(file) {
   # monotonically increasing vectors?
   stopifnot(all(ex == cummax(ex)) & all(em == cummax(em)))
 
-  res <- eem(file = file,
-             x = M,
-             ex = ex,
-             em = em)
+  res <- eem(
+    file = file,
+    x = M,
+    ex = ex,
+    em = em
+  )
 
   attr(res, "is_blank_corrected") <- FALSE
   attr(res, "is_scatter_corrected") <- FALSE
@@ -349,5 +353,4 @@ eem_read_generic <- function(file) {
   attr(res, "manufacturer") <- "Unknown"
 
   return(res)
-
 }

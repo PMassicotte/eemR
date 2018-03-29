@@ -2,7 +2,7 @@
 # Warning message when there is a mismatch between metrics wavelengths
 # and data wavelengths.
 #---------------------------------------------------------------------
-msg_warning_wavelength <- function(){
+msg_warning_wavelength <- function() {
   msg <- "This metric uses either excitation or emission wavelengths that were not present in the data. Data has been interpolated to fit the requested wavelengths."
   return(msg)
 }
@@ -23,23 +23,19 @@ msg_warning_wavelength <- function(){
 #'
 #' eem_fluorescence_index(eem)
 
-eem_fluorescence_index <- function(eem, verbose = TRUE){
-
+eem_fluorescence_index <- function(eem, verbose = TRUE) {
   stopifnot(.is_eemlist(eem) | .is_eem(eem))
 
   ## It is a list of eems, then call lapply
-  if(.is_eemlist(eem)){
-
+  if (.is_eemlist(eem)) {
     res <- lapply(eem, eem_fluorescence_index, verbose = verbose)
     res <- dplyr::bind_rows(res)
 
     return(res)
   }
 
-  if(!all(370 %in% eem$ex & c(450, 500) %in% eem$em) & verbose){
-
+  if (!all(370 %in% eem$ex & c(450, 500) %in% eem$em) & verbose) {
     warning(msg_warning_wavelength(), call. = FALSE)
-
   }
 
   fluo_450 <- pracma::interp2(eem$ex, eem$em, eem$x, 370, 450)
@@ -48,7 +44,6 @@ eem_fluorescence_index <- function(eem, verbose = TRUE){
   fi <- fluo_450 / fluo_500
 
   return(data.frame(sample = eem$sample, fi = fi, stringsAsFactors = FALSE))
-
 }
 
 #' Extract fluorescence peaks
@@ -88,13 +83,11 @@ eem_fluorescence_index <- function(eem, verbose = TRUE){
 #' eem_coble_peaks(eem)
 #'
 #' @export
-eem_coble_peaks <- function(eem, verbose = TRUE){
-
+eem_coble_peaks <- function(eem, verbose = TRUE) {
   stopifnot(.is_eemlist(eem) | .is_eem(eem))
 
   ## It is a list of eems, then call lapply
-  if(.is_eemlist(eem)){
-
+  if (.is_eemlist(eem)) {
     res <- lapply(eem, eem_coble_peaks, verbose = verbose)
     res <- dplyr::bind_rows(res)
 
@@ -103,10 +96,8 @@ eem_coble_peaks <- function(eem, verbose = TRUE){
 
   coble_ex_peak <- list(b = 275, t = 275, a = 260, m = 312, c = 350)
 
-  if(!all(coble_ex_peak %in% eem$ex) & verbose){
-
+  if (!all(coble_ex_peak %in% eem$ex) & verbose) {
     warning(msg_warning_wavelength(), call. = FALSE)
-
   }
 
   ## Get the peaks
@@ -114,25 +105,33 @@ eem_coble_peaks <- function(eem, verbose = TRUE){
 
   t <- pracma::interp2(eem$ex, eem$em, eem$x, 275, 340)
 
-  a <- max(pracma::interp2(eem$ex, eem$em, eem$x,
-                           rep(260, length(380:460)), 380:460))
+  a <- max(pracma::interp2(
+    eem$ex, eem$em, eem$x,
+    rep(260, length(380:460)), 380:460
+  ))
 
-  m <- max(pracma::interp2(eem$ex, eem$em, eem$x,
-                           rep(312, length(380:420)), 380:420))
+  m <- max(pracma::interp2(
+    eem$ex, eem$em, eem$x,
+    rep(312, length(380:420)), 380:420
+  ))
 
-  c <- max(pracma::interp2(eem$ex, eem$em, eem$x,
-                           rep(350, length(420:480)), 420:480))
+  c <- max(pracma::interp2(
+    eem$ex, eem$em, eem$x,
+    rep(350, length(420:480)), 420:480
+  ))
 
   #--------------------------------------------
   # Return the data
   #--------------------------------------------
-  return(data.frame(sample = eem$sample,
-                    b = b,
-                    t = t,
-                    a = a,
-                    m = m,
-                    c = c,
-                    stringsAsFactors = FALSE))
+  return(data.frame(
+    sample = eem$sample,
+    b = b,
+    t = t,
+    a = a,
+    m = m,
+    c = c,
+    stringsAsFactors = FALSE
+  ))
 }
 
 #' Extract fluorescence peaks
@@ -221,13 +220,13 @@ eem_peaks <- function(eem, ex, em, verbose = TRUE) {
 #' eem_humification_index(eem)
 #'
 eem_humification_index <- function(eem, scale = FALSE, verbose = TRUE) {
-
-  stopifnot(.is_eemlist(eem) | .is_eem(eem),
-            is.logical(scale))
+  stopifnot(
+    .is_eemlist(eem) | .is_eem(eem),
+    is.logical(scale)
+  )
 
   ## It is a list of eems, then call lapply
-  if(.is_eemlist(eem)){
-
+  if (.is_eemlist(eem)) {
     res <- lapply(eem, eem_humification_index, verbose = verbose, scale = scale)
     res <- dplyr::bind_rows(res)
 
@@ -238,30 +237,28 @@ eem_humification_index <- function(eem, scale = FALSE, verbose = TRUE) {
   # Get the data and calculate the humification index (HIX)
   #---------------------------------------------------------------------
 
-  if(!254 %in% eem$ex & verbose){
-
+  if (!254 %in% eem$ex & verbose) {
     warning(msg_warning_wavelength(), call. = FALSE)
-
   }
 
   em_435_480 <- seq(from = 435, to = 480, by = 1)
   em_300_345 <- seq(from = 300, to = 345, by = 1)
   ex_254 <- rep(254, length(em_300_345))
 
-  sum_em_435_480 <- sum(pracma::interp2(eem$ex, eem$em, eem$x,
-                                        ex_254, em_435_480))
+  sum_em_435_480 <- sum(pracma::interp2(
+    eem$ex, eem$em, eem$x,
+    ex_254, em_435_480
+  ))
 
-  sum_em_300_345 <- sum(pracma::interp2(eem$ex, eem$em, eem$x,
-                                        ex_254, em_300_345))
+  sum_em_300_345 <- sum(pracma::interp2(
+    eem$ex, eem$em, eem$x,
+    ex_254, em_300_345
+  ))
 
-  if(scale){
-
+  if (scale) {
     hix <- sum_em_435_480 / (sum_em_300_345 + sum_em_435_480)
-
-  }else{
-
+  } else {
     hix <- sum_em_435_480 / sum_em_300_345
-
   }
 
   return(data.frame(sample = eem$sample, hix = hix, stringsAsFactors = FALSE))
@@ -293,12 +290,10 @@ eem_humification_index <- function(eem, scale = FALSE, verbose = TRUE) {
 #' eem_biological_index(eem)
 #'
 eem_biological_index <- function(eem, verbose = TRUE) {
-
   stopifnot(.is_eemlist(eem) | .is_eem(eem))
 
   ## It is a list of eems, then call lapply
-  if(.is_eemlist(eem)){
-
+  if (.is_eemlist(eem)) {
     res <- lapply(eem, eem_biological_index, verbose = verbose)
     res <- dplyr::bind_rows(res)
 
@@ -309,7 +304,7 @@ eem_biological_index <- function(eem, verbose = TRUE) {
   # Get the data and calculate the biological index (BIX)
   #---------------------------------------------------------------------
 
-  if(!all(310 %in% eem$ex & c(380, 430) %in% eem$em) & verbose){
+  if (!all(310 %in% eem$ex & c(380, 430) %in% eem$em) & verbose) {
     warning(msg_warning_wavelength(), call. = FALSE)
   }
 
