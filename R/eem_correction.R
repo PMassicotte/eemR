@@ -435,8 +435,8 @@ eem_raman_normalisation <- function(eem, blank = NA) {
 #'
 #' @details The inner-filter effect correction procedure is assuming that
 #'   fluorescence has been measured in 1 cm cuvette. Hence, absorbance will be
-#'   converted per cm. Note that raw absorbance should be provided (i.e. not
-#'   expressed by meter).
+#'   converted per cm. Note that absorbance spectra should be provided (i.e. not
+#'   absorption).
 #'
 #' @section Names matching:
 #'
