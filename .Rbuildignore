@@ -8,3 +8,6 @@ man-roxygen
 ^cran-comments\.md$
 inst/images
 revdep/
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
