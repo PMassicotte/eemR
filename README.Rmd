@@ -1,5 +1,4 @@
 ---
-bibliography: /home/pmassicotte/Documents/library.bib
 output:
   github_document:
     html_preview: true
