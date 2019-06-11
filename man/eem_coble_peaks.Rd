@@ -49,7 +49,7 @@ According to Coble (1996), peaks are defined as follow:
 
 \examples{
 file <- system.file("extdata/cary/scans_day_1/", "sample1.csv", package = "eemR")
-eem <- eem_read(file)
+eem <- eem_read(file, import_function = "cary")
 
 eem_coble_peaks(eem)
 

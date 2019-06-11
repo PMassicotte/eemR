@@ -24,7 +24,7 @@ Surface plot of eem
 }
 \examples{
 folder <- system.file("extdata/cary/scans_day_1/", package = "eemR")
-eem <- eem_read(folder)
+eem <- eem_read(folder, import_function = "cary")
 
 plot(eem, which = 3)
 }

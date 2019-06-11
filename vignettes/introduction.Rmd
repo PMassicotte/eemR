@@ -31,7 +31,7 @@ The seminal paper of [@Stedmon2003a] put at the forefront the use of parallel fa
 ```{r fig1, echo = FALSE, fig.width=5, fig.height=5, dev='png', fig.align='center', fig.cap = "Example of an excitation-emission fluorescence matrix (EEM). The diagonal structure with high fluorescence corresponds to the first order of Rayleigh scattering."}
 file <- system.file("extdata/cary/scans_day_1", "sample3.csv", package = "eemR")
 
-eem <- eem_read(file)
+eem <- eem_read(file, import_function = "cary")
 
 persp3D(x = eem[[1]]$ex,
         y = eem[[1]]$em,
@@ -81,7 +81,7 @@ Rayleigh and Raman scattering are optical processes by which some of the inciden
 
 file <- system.file("extdata/cary/scans_day_1", "sample3.csv", package = "eemR")
 
-x_raw <- eem_read(file, recursive = TRUE)
+x_raw <- eem_read(file, recursive = TRUE, import_function = "cary")
 
 x_cor <- eem_remove_scattering(x_raw, "rayleigh", 1, 12)
 x_cor <- eem_remove_scattering(x_cor, "raman", 1, 5)
@@ -142,7 +142,7 @@ where $X_0$ is the fluorescence in the absence of IFE, $X$ is the measured fluor
 file <- system.file("extdata/cary/scans_day_1/", "sample3.csv", 
                     package = "eemR")
 
-eem <- eem_read(file, recursive = FALSE)
+eem <- eem_read(file, recursive = FALSE, import_function = "cary")
 
 eem <- eem_remove_scattering(eem, "rayleigh", 1, 10)
 eem <- eem_remove_scattering(eem, "raman", 1, 10)
@@ -324,7 +324,7 @@ Importation of EEMs into \proglang{R} is done using the `eem_read()` function. G
 
 ```{r}
 file <- system.file("extdata/cary/scans_day_1", package = "eemR")
-eems <- eem_read(file)
+eems <- eem_read(file, import_function = "cary")
 ```
 
 The generic `summary()` function displays useful information such as: (1) the wavelength ranges used in both emission and excitation modes, (2) the manufacturer from which the file was read and (3) the state of the EEM which indicate which corrections have been applied.
@@ -351,7 +351,7 @@ Subtraction of a water blank from the measured samples may help to reduce scatte
 
 ```{r}
 file <- system.file("extdata/cary/scans_day_1", "nano.csv", package = "eemR")
-blank <- eem_read(file)
+blank <- eem_read(file, import_function = "cary")
 
 eems <- eem_remove_blank(eems, blank)
 ```
@@ -427,7 +427,7 @@ Coble's peaks can be extracted using the `eem_coble_peaks(eem)` function. Note t
 
 ```{r}
 file <- system.file("extdata/cary/scans_day_1", package = "eemR")
-eems <- eem_read(file)
+eems <- eem_read(file, import_function = "cary")
 
 eem_coble_peaks(eems, verbose = FALSE)
 ```
@@ -453,7 +453,7 @@ library(magrittr)
 
 file <- system.file("extdata/cary/scans_day_1/", package = "eemR")
 file %>% 
-  eem_read(recursive = TRUE) %>% 
+  eem_read(recursive = TRUE, import_function = "cary") %>% 
   eem_raman_normalisation() %>% 
   eem_remove_scattering(type = "raman", order = 1, width = 10) %>% 
   eem_remove_scattering(type = "rayleigh", order = 1, width = 10) %>% 

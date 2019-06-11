@@ -57,13 +57,13 @@ Note that blank correction should be performed before Raman
 
 # Open the fluorescence eem
 file <- system.file("extdata/cary/scans_day_1", "sample1.csv", package = "eemR")
-eem <- eem_read(file)
+eem <- eem_read(file, import_function = "cary")
 
 plot(eem)
 
 # Open the blank eem
 file <- system.file("extdata/cary/scans_day_1", "nano.csv", package = "eemR")
-blank <- eem_read(file)
+blank <- eem_read(file, import_function = "cary")
 
 plot(blank)
 
@@ -76,13 +76,13 @@ plot(eem)
 
 # Open the fluorescence eem
 folder <- system.file("extdata/cary/scans_day_1", package = "eemR")
-eems <- eem_read(folder)
+eems <- eem_read(folder, import_function = "cary")
 
 plot(eems, which = 3)
 
 # Open the blank eem
 file <- system.file("extdata/cary/scans_day_1", "nano.csv", package = "eemR")
-blank <- eem_read(file)
+blank <- eem_read(file, import_function = "cary")
 
 plot(blank)
 
@@ -97,7 +97,7 @@ folder <- system.file("extdata/cary/", package = "eemR")
 # Look at the folder structure
 list.files(folder, "*.csv", recursive = TRUE)
 
-eems <- eem_read(folder, recursive = TRUE)
+eems <- eem_read(folder, recursive = TRUE, import_function = "cary")
 res <- eem_remove_blank(eems)
 }
 \references{

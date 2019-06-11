@@ -56,7 +56,7 @@ library(eemR)
 data("absorbance")
 
 folder <- system.file("extdata/cary/scans_day_1", package = "eemR")
-eems <- eem_read(folder)
+eems <- eem_read(folder, import_function = "cary")
 eems <- eem_extract(eems, "nano") # Remove the blank sample
 
 # Remove scattering (1st order)

@@ -1,0 +1,19 @@
+---
+title: "Creating your custom import function"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Creating your custom import function}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(eemR)
+```

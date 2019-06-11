@@ -25,13 +25,13 @@
 #'
 #' # Open the fluorescence eem
 #' file <- system.file("extdata/cary/scans_day_1", "sample1.csv", package = "eemR")
-#' eem <- eem_read(file)
+#' eem <- eem_read(file, import_function = "cary")
 #'
 #' plot(eem)
 #'
 #' # Open the blank eem
 #' file <- system.file("extdata/cary/scans_day_1", "nano.csv", package = "eemR")
-#' blank <- eem_read(file)
+#' blank <- eem_read(file, import_function = "cary")
 #'
 #' plot(blank)
 #'
@@ -44,13 +44,13 @@
 #'
 #' # Open the fluorescence eem
 #' folder <- system.file("extdata/cary/scans_day_1", package = "eemR")
-#' eems <- eem_read(folder)
+#' eems <- eem_read(folder, import_function = "cary")
 #'
 #' plot(eems, which = 3)
 #'
 #' # Open the blank eem
 #' file <- system.file("extdata/cary/scans_day_1", "nano.csv", package = "eemR")
-#' blank <- eem_read(file)
+#' blank <- eem_read(file, import_function = "cary")
 #'
 #' plot(blank)
 #'
@@ -65,7 +65,7 @@
 #' # Look at the folder structure
 #' list.files(folder, "*.csv", recursive = TRUE)
 #'
-#' eems <- eem_read(folder, recursive = TRUE)
+#' eems <- eem_read(folder, recursive = TRUE, import_function = "cary")
 #' res <- eem_remove_blank(eems)
 
 eem_remove_blank <- function(eem, blank = NA) {
@@ -145,13 +145,15 @@ eem_remove_blank <- function(eem, blank = NA) {
   x <- eem$x - blank$x
 
   ## Construct an eem object.
-  res <- eem(
+  res <- list(
     file = eem$sample,
     x = x,
     ex = eem$ex,
     em = eem$em,
     location = eem$location
   )
+
+  res <- eem(res)
 
   attributes(res) <- attributes(eem)
   attr(res, "is_blank_corrected") <- TRUE
@@ -184,7 +186,7 @@ eem_remove_blank <- function(eem, blank = NA) {
 #' @examples
 #' # Open the fluorescence eem
 #' file <- system.file("extdata/cary/scans_day_1", "sample1.csv", package = "eemR")
-#' eem <- eem_read(file)
+#' eem <- eem_read(file, import_function = "cary")
 #'
 #' plot(eem)
 #'
@@ -309,13 +311,13 @@ eem_remove_scattering <- function(eem, type, order = 1, width = 10) {
 #' @examples
 #' # Open the fluorescence eem
 #' file <- system.file("extdata/cary/scans_day_1", "sample1.csv", package = "eemR")
-#' eem <- eem_read(file)
+#' eem <- eem_read(file, import_function = "cary")
 #'
 #' plot(eem)
 #'
 #' # Open the blank eem
 #' file <- system.file("extdata/cary/scans_day_1", "nano.csv", package = "eemR")
-#' blank <- eem_read(file)
+#' blank <- eem_read(file, import_function = "cary")
 #'
 #' # Do the normalisation
 #' eem <- eem_raman_normalisation(eem, blank)
@@ -405,13 +407,15 @@ eem_raman_normalisation <- function(eem, blank = NA) {
   x <- eem$x / area
 
   ## Construct an eem object.
-  res <- eem(
+  res <- list(
     file = eem$sample,
     x = x,
     ex = eem$ex,
     em = eem$em,
     location = eem$location
   )
+
+  res <- eem(res)
 
   attributes(res) <- attributes(eem)
   attr(res, "is_raman_normalized") <- TRUE
@@ -470,7 +474,7 @@ eem_raman_normalisation <- function(eem, blank = NA) {
 #' data("absorbance")
 #'
 #' folder <- system.file("extdata/cary/scans_day_1", package = "eemR")
-#' eems <- eem_read(folder)
+#' eems <- eem_read(folder, import_function = "cary")
 #' eems <- eem_extract(eems, "nano") # Remove the blank sample
 #'
 #' # Remove scattering (1st order)
@@ -587,13 +591,15 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
   x <- eem$x * ife_correction_factor
 
   ## Construct an eem object.
-  res <- eem(
+  res <- list(
     file = eem$sample,
     x = x,
     ex = eem$ex,
     em = eem$em,
     location = eem$location
   )
+
+  res <- eem(res)
 
   attributes(res) <- attributes(eem)
   attr(res, "is_ife_corrected") <- TRUE

@@ -37,7 +37,7 @@ Extract fluorescence peaks
 
 \examples{
 file <- system.file("extdata/cary/scans_day_1/", "sample1.csv", package = "eemR")
-eem <- eem_read(file)
+eem <- eem_read(file, import_function = "cary")
 
 eem_peaks(eem, ex = c(250, 350), em = c(300, 400))
 

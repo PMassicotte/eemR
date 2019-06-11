@@ -38,7 +38,7 @@ Extract EEM samples
 }
 \examples{
 folder <- system.file("extdata/cary/scans_day_1", package = "eemR")
-eems <- eem_read(folder)
+eems <- eem_read(folder, import_function = "cary")
 
 eems
 

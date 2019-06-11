@@ -2,7 +2,7 @@ context("blank-correction")
 
 test_that("grouped blank correction works", {
   file <- system.file("extdata/cary/scans_day_1/", package = "eemR")
-  eems <- eem_read(file)
+  eems <- eem_read(file, import_function = "cary")
 
   eems <- eem_remove_blank(eems)
 
@@ -17,10 +17,10 @@ test_that("grouped blank correction works", {
 
 test_that("single blank correction works", {
   file <- system.file("extdata/cary/scans_day_1/sample1.csv", package = "eemR")
-  eems <- eem_read(file)
+  eems <- eem_read(file, import_function = "cary")
 
   file <- system.file("extdata/cary/scans_day_1/nano.csv", package = "eemR")
-  blank <- eem_read(file)
+  blank <- eem_read(file, import_function = "cary")
 
   eems <- eem_remove_blank(eems, blank)
 

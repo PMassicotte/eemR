@@ -20,7 +20,7 @@ Set the sample names of an eem or eemlist objects
 }
 \examples{
 folder <- system.file("extdata/cary/scans_day_1", package = "eemR")
-eems <- eem_read(folder)
+eems <- eem_read(folder, import_function = "cary")
 
 eem_names(eems)
 eem_names(eems) <- c("a", "b", "c", "d")

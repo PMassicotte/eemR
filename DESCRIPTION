@@ -2,8 +2,8 @@ Package: eemR
 Type: Package
 Title: Tools for Pre-Processing Emission-Excitation-Matrix (EEM) Fluorescence
     Data
-Version: 0.1.5.9000
-Date: 2018-03-29
+Version: 0.2.9000
+Date: 2019-05-11
 Authors@R: person("Philippe", "Massicotte", email = "pmassicotte@hotmail.com",
   role = c("aut", "cre"))
 Description: Provides various tools for preprocessing Emission-Excitation-Matrix (EEM) for Parallel Factor Analysis (PARAFAC). Different
@@ -19,7 +19,6 @@ Imports:
     dplyr,
     R.matlab,
     pracma,
-    readr,
     stats,
     rlist,
     viridis,
@@ -39,3 +38,4 @@ Suggests:
     shiny,
     DT
 VignetteBuilder: knitr
+Encoding: UTF-8

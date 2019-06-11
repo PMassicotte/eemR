@@ -1,7 +1,7 @@
 context("metrics")
 
 file <- system.file("extdata/cary/scans_day_1/sample1.csv", package = "eemR")
-eems <- eem_read(file)
+eems <- eem_read(file, import_function = "cary")
 
 test_that("Test Cobble's peaks", {
   metrics <- eem_coble_peaks(eems, verbose = FALSE)

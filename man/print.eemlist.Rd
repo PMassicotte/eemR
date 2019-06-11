@@ -30,7 +30,7 @@ Display summary of an eemlist object
 }
 \examples{
 folder <- system.file("extdata/cary", package = "eemR")
-eem <- eem_read(folder, recursive = TRUE)
+eem <- eem_read(folder, recursive = TRUE, import_function = "cary")
 
 print(eem)
 }

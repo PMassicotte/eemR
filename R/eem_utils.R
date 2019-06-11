@@ -52,7 +52,7 @@
 #' @export
 #' @examples
 #' folder <- system.file("extdata/cary/scans_day_1/", package = "eemR")
-#' eem <- eem_read(folder)
+#' eem <- eem_read(folder, import_function = "cary")
 #'
 #' plot(eem, which = 3)
 plot.eemlist <- function(x, which = 1,
@@ -66,21 +66,7 @@ plot.eemlist <- function(x, which = 1,
   }
 }
 
-#' Display summary of an eem object
-#'
-#' @param object An object of class \code{eem}.
-#' @param ... Extra arguments.
-#' @template template_summary
-#' @export
-#' @examples
-#' file <- system.file("extdata/cary/scans_day_1/", "sample1.csv", package = "eemR")
-#' eem <- eem_read(file)
-#'
-#' summary(eem)
-
-summary.eem <- function(object, ...) {
-  stopifnot(class(object) == "eem")
-
+eem_as_summary <- function(object) {
   df <- data.frame(
     sample = object$sample,
     ex_min = min(object$ex),
@@ -90,15 +76,10 @@ summary.eem <- function(object, ...) {
     is_blank_corrected = attr(object, "is_blank_corrected"),
     is_scatter_corrected = attr(object, "is_scatter_corrected"),
     is_ife_corrected = attr(object, "is_ife_corrected"),
-    is_raman_normalized = attr(object, "is_raman_normalized"),
-    manufacturer = attr(object, "manufacturer")
+    is_raman_normalized = attr(object, "is_raman_normalized")
   )
 
   return(df)
-}
-
-print.eem <- function(x, ...) {
-  summary(x)
 }
 
 #' Display summary of an eemlist object
@@ -110,13 +91,13 @@ print.eem <- function(x, ...) {
 #' @export
 #' @examples
 #' folder <- system.file("extdata/cary", package = "eemR")
-#' eem <- eem_read(folder, recursive = TRUE)
+#' eem <- eem_read(folder, recursive = TRUE, import_function = "cary")
 #'
 #' print(eem)
 print.eemlist <- function(x, ...) {
   stopifnot(class(x) == "eemlist")
 
-  df <- lapply(x, summary)
+  df <- lapply(x, eem_as_summary)
   df <- do.call(rbind, df)
 
   print(df)
@@ -132,16 +113,18 @@ print.eemlist <- function(x, ...) {
 #' @export
 #' @examples
 #' folder <- system.file("extdata/cary", package = "eemR")
-#' eem <- eem_read(folder, recursive = TRUE)
+#' eem <- eem_read(folder, recursive = TRUE, import_function = "cary")
 #'
 #' summary(eem)
 summary.eemlist <- function(object, ...) {
   stopifnot(class(object) == "eemlist")
 
-  df <- lapply(object, summary)
+  df <- lapply(object, eem_as_summary)
   df <- do.call(rbind, df)
 
-  return(df)
+  print(df)
+
+  invisible(df)
 }
 
 
@@ -161,14 +144,14 @@ summary.eemlist <- function(object, ...) {
 #' # Open the fluorescence eem
 #' file <- system.file("extdata/cary/scans_day_1/", "sample1.csv", package = "eemR")
 #'
-#' eem <- eem_read(file)
+#' eem <- eem_read(file, import_function = "cary")
 #' plot(eem)
 #'
 #' # Cut few excitation wavelengths
 #' eem <- eem_cut(eem, ex = c(220, 225, 230, 230))
 #' plot(eem)
 #'
-#' eem <- eem_read(file)
+#' eem <- eem_read(file, import_function = "cary")
 #' eem <- eem_cut(eem, em = 350:400, fill_with_na = TRUE)
 #' plot(eem)
 eem_cut <- function(eem, ex, em, exact = TRUE, fill_with_na = FALSE) {
@@ -268,7 +251,7 @@ eem_cut <- function(eem, ex, em, exact = TRUE, fill_with_na = FALSE) {
 #' @examples
 #' folder <- system.file("extdata/shimadzu", package = "eemR")
 #'
-#' eem <- eem_read(folder)
+#' eem <- eem_read(folder, import_function = "shimadzu")
 #' eem <- eem_set_wavelengths(eem, ex = seq(230, 450, by = 5))
 #'
 #' plot(eem)
@@ -337,7 +320,7 @@ eem_set_wavelengths <- function(eem, ex, em) {
 #'
 #' @examples
 #' folder <- system.file("extdata/cary/scans_day_1", package = "eemR")
-#' eems <- eem_read(folder)
+#' eems <- eem_read(folder, import_function = "cary")
 #'
 #' eems
 #'
@@ -420,7 +403,7 @@ eem_extract <- function(eem, sample, keep = FALSE, ignore_case = FALSE,
 #'
 #' @examples
 #' file <- system.file("extdata/cary/", package = "eemR")
-#' eem <- eem_read(file, recursive = TRUE)
+#' eem <- eem_read(file, recursive = TRUE, import_function = "cary")
 #'
 #' eem_names(eem)
 #'
@@ -449,7 +432,7 @@ eem_names <- function(eem) {
 #'
 #' @examples
 #' folder <- system.file("extdata/cary/scans_day_1", package = "eemR")
-#' eems <- eem_read(folder)
+#' eems <- eem_read(folder, import_function = "cary")
 #'
 #' eem_names(eems)
 #' eem_names(eems) <- c("a", "b", "c", "d")
@@ -488,7 +471,7 @@ eem_names <- function(eem) {
 #'
 #' @examples
 #' file <- system.file("extdata/cary/scans_day_1/", "sample1.csv", package = "eemR")
-#' eem <- eem_read(file)
+#' eem <- eem_read(file, import_function = "cary")
 #'
 #' eem <- eem_bind(eem, eem)
 eem_bind <- function(...) {

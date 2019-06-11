@@ -19,7 +19,7 @@ msg_warning_wavelength <- function() {
 #' @export
 #' @examples
 #' file <- system.file("extdata/cary/scans_day_1/", "sample1.csv", package = "eemR")
-#' eem <- eem_read(file)
+#' eem <- eem_read(file, import_function = "cary")
 #'
 #' eem_fluorescence_index(eem)
 
@@ -78,7 +78,7 @@ eem_fluorescence_index <- function(eem, verbose = TRUE) {
 #'
 #' @examples
 #' file <- system.file("extdata/cary/scans_day_1/", "sample1.csv", package = "eemR")
-#' eem <- eem_read(file)
+#' eem <- eem_read(file, import_function = "cary")
 #'
 #' eem_coble_peaks(eem)
 #'
@@ -151,7 +151,7 @@ eem_coble_peaks <- function(eem, verbose = TRUE) {
 #'
 #' @examples
 #' file <- system.file("extdata/cary/scans_day_1/", "sample1.csv", package = "eemR")
-#' eem <- eem_read(file)
+#' eem <- eem_read(file, import_function = "cary")
 #'
 #' eem_peaks(eem, ex = c(250, 350), em = c(300, 400))
 #'
@@ -215,7 +215,7 @@ eem_peaks <- function(eem, ex, em, verbose = TRUE) {
 #' @export
 #' @examples
 #' file <- system.file("extdata/cary/scans_day_1/", package = "eemR")
-#' eem <- eem_read(file)
+#' eem <- eem_read(file, import_function = "cary")
 #'
 #' eem_humification_index(eem)
 #'
@@ -285,7 +285,7 @@ eem_humification_index <- function(eem, scale = FALSE, verbose = TRUE) {
 #' @export
 #' @examples
 #' file <- system.file("extdata/cary/scans_day_1/", package = "eemR")
-#' eem <- eem_read(file)
+#' eem <- eem_read(file, import_function = "cary")
 #'
 #' eem_biological_index(eem)
 #'

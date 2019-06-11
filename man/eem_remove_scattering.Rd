@@ -24,7 +24,7 @@ Remove Raman and Rayleigh scattering
 \examples{
 # Open the fluorescence eem
 file <- system.file("extdata/cary/scans_day_1", "sample1.csv", package = "eemR")
-eem <- eem_read(file)
+eem <- eem_read(file, import_function = "cary")
 
 plot(eem)
 

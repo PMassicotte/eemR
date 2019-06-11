@@ -61,13 +61,13 @@ The normalization procedure consists in dividing all fluorescence
 \examples{
 # Open the fluorescence eem
 file <- system.file("extdata/cary/scans_day_1", "sample1.csv", package = "eemR")
-eem <- eem_read(file)
+eem <- eem_read(file, import_function = "cary")
 
 plot(eem)
 
 # Open the blank eem
 file <- system.file("extdata/cary/scans_day_1", "nano.csv", package = "eemR")
-blank <- eem_read(file)
+blank <- eem_read(file, import_function = "cary")
 
 # Do the normalisation
 eem <- eem_raman_normalisation(eem, blank)
