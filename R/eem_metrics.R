@@ -22,7 +22,6 @@ msg_warning_wavelength <- function() {
 #' eem <- eem_read(file, import_function = "cary")
 #'
 #' eem_fluorescence_index(eem)
-
 eem_fluorescence_index <- function(eem, verbose = TRUE) {
   stopifnot(.is_eemlist(eem) | .is_eem(eem))
 
@@ -81,7 +80,6 @@ eem_fluorescence_index <- function(eem, verbose = TRUE) {
 #' eem <- eem_read(file, import_function = "cary")
 #'
 #' eem_coble_peaks(eem)
-#'
 #' @export
 eem_coble_peaks <- function(eem, verbose = TRUE) {
   stopifnot(.is_eemlist(eem) | .is_eem(eem))
@@ -154,7 +152,6 @@ eem_coble_peaks <- function(eem, verbose = TRUE) {
 #' eem <- eem_read(file, import_function = "cary")
 #'
 #' eem_peaks(eem, ex = c(250, 350), em = c(300, 400))
-#'
 #' @export
 eem_peaks <- function(eem, ex, em, verbose = TRUE) {
   stopifnot(.is_eemlist(eem) | .is_eem(eem))
@@ -218,7 +215,6 @@ eem_peaks <- function(eem, ex, em, verbose = TRUE) {
 #' eem <- eem_read(file, import_function = "cary")
 #'
 #' eem_humification_index(eem)
-#'
 eem_humification_index <- function(eem, scale = FALSE, verbose = TRUE) {
   stopifnot(
     .is_eemlist(eem) | .is_eem(eem),
@@ -288,7 +284,6 @@ eem_humification_index <- function(eem, scale = FALSE, verbose = TRUE) {
 #' eem <- eem_read(file, import_function = "cary")
 #'
 #' eem_biological_index(eem)
-#'
 eem_biological_index <- function(eem, verbose = TRUE) {
   stopifnot(.is_eemlist(eem) | .is_eem(eem))
 

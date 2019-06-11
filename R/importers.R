@@ -2,7 +2,6 @@
 # Function reading Shimadzu .TXT files.
 # *************************************************************************
 eem_read_shimadzu <- function(file) {
-
   data <- readLines(file)
 
   data <- stringr::str_split(data, "\t")
@@ -36,7 +35,6 @@ eem_read_shimadzu <- function(file) {
 # Function reading Cary Eclipse csv files.
 # *************************************************************************
 eem_read_cary <- function(file) {
-
   data <- readLines(file)
 
   min_col <- 15 # Do not expect fluorescence data when there is less than 15 cols.
@@ -55,7 +53,7 @@ eem_read_cary <- function(file) {
   data[1:2] <- NULL ## Remove the first 2 header lines
 
   data <- matrix(as.numeric(unlist(data, use.names = FALSE)),
-                 ncol = expected_col, byrow = TRUE
+    ncol = expected_col, byrow = TRUE
   )
 
   data <- data[, which(colMeans(is.na(data)) < 1)] ## remove na columns
@@ -78,7 +76,6 @@ eem_read_cary <- function(file) {
 # Fonction reading Aqualog dat files.
 # *************************************************************************
 eem_read_aqualog <- function(file) {
-
   data <- readLines(file)
 
   eem <- stringr::str_extract_all(data, "-?\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d+)?")
@@ -111,7 +108,6 @@ eem_read_aqualog <- function(file) {
 # Fonction reading Fluoromax-4 dat files.
 # *************************************************************************
 eem_read_fluoromax4 <- function(file) {
-
   data <- readLines(file)
 
   data <- stringr::str_split(data, "\t")

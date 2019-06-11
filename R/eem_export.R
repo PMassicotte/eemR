@@ -31,7 +31,6 @@
 #'
 #' export_to <- paste(tempfile(), ".mat", sep = "")
 #' eem_export_matlab(export_to, eem)
-
 eem_export_matlab <- function(file, ...) {
   eem <- list(...)
 

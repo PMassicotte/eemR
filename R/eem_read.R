@@ -29,8 +29,7 @@
 #' @export
 #' @examples
 #' file <- system.file("extdata/cary/scans_day_1/", package = "eemR")
-#' eems <- eem_read(file, recursive = TRUE, import_function = "cary)
-
+#' eems <- eem_read(file, recursive = TRUE, import_function = "cary")
 eem_read <- function(file, recursive = FALSE, import_function) {
   stopifnot(
     file.exists(file) | file.info(file)$isdir,

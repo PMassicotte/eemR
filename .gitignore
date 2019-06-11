@@ -5,3 +5,5 @@
 .*.Rnb.cached
 inst/doc
 docs/
+doc
+Meta

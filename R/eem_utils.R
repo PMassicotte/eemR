@@ -255,7 +255,6 @@ eem_cut <- function(eem, ex, em, exact = TRUE, fill_with_na = FALSE) {
 #' eem <- eem_set_wavelengths(eem, ex = seq(230, 450, by = 5))
 #'
 #' plot(eem)
-#'
 #' @export
 
 eem_set_wavelengths <- function(eem, ex, em) {
@@ -338,7 +337,6 @@ eem_set_wavelengths <- function(eem, ex, em) {
 #'
 #' # Remove all samples containing "blank" or "nano"
 #' eem_extract(eems, c("blank", "nano"))
-#'
 #' @export
 eem_extract <- function(eem, sample, keep = FALSE, ignore_case = FALSE,
                         verbose = TRUE) {
@@ -406,7 +404,6 @@ eem_extract <- function(eem, sample, keep = FALSE, ignore_case = FALSE,
 #' eem <- eem_read(file, recursive = TRUE, import_function = "cary")
 #'
 #' eem_names(eem)
-#'
 #' @export
 eem_names <- function(eem) {
   stopifnot(.is_eemlist(eem) | .is_eem(eem))
@@ -437,7 +434,6 @@ eem_names <- function(eem) {
 #' eem_names(eems)
 #' eem_names(eems) <- c("a", "b", "c", "d")
 #' eem_names(eems)
-#'
 #' @export
 `eem_names<-` <- function(x, value) {
   stopifnot(.is_eemlist(x) | .is_eem(x))

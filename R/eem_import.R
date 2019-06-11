@@ -1,16 +1,18 @@
 
 
 eem_import_function_factory <- function(import_function) {
+  if (is.function(import_function)) {
+    return(import_function)
+  }
 
-  switch (import_function,
+  switch(import_function,
     "cary" = eem_read_cary,
     "aqualog" = eem_read_aqualog,
     "shimadzu" = eem_read_shimadzu,
     "fluoromax4" = eem_read_fluoromax4,
-    is.function = import_function,
+    # is.function = return(import_function),
     stop("I do not know how to read a file from ", import_function, ". You may want to create your own import function. See vignette ...")
   )
-
 }
 
 #' eem constructor
@@ -35,8 +37,9 @@ eem <- function(data, location = NA) {
     location <- dirname(data$file)
   }
 
-  if(!all(c("file", "x", "em", "ex") %in% names(data)))
+  if (!all(c("file", "x", "em", "ex") %in% names(data))) {
     stop("Your custom function should return a named list with four components: file, x, ex, em")
+  }
 
   res <- list(
     sample = file_path_sans_ext(basename(data$file)),
@@ -58,12 +61,11 @@ eem <- function(data, location = NA) {
 }
 
 eem_check_import_function <- function(f) {
-
   arguments <- formals(f)
 
-  if(!all(names(arguments) %in% c("file", "data")))
+  if (!all(names(arguments) %in% c("file", "data"))) {
     stop("Your custom function use only two arguments: file, data")
+  }
 
   grepl("eem\\(.*\\)", body(f))
-
 }

@@ -67,7 +67,6 @@
 #'
 #' eems <- eem_read(folder, recursive = TRUE, import_function = "cary")
 #' res <- eem_remove_blank(eems)
-
 eem_remove_blank <- function(eem, blank = NA) {
   stopifnot(
     .is_eemlist(eem) | .is_eem(eem),
@@ -88,7 +87,7 @@ eem_remove_blank <- function(eem, blank = NA) {
   }
 
   if (is.na(blank)) {
-    t <- list.group(eem, ~ location)
+    t <- list.group(eem, ~location)
     t <- lapply(t, function(x) {
       class(x) <- "eemlist"
       return(x)
@@ -195,7 +194,6 @@ eem_remove_blank <- function(eem, blank = NA) {
 #' eem <- eem_remove_scattering(eem = eem, type = "rayleigh", order = 1, width = 10)
 #'
 #' plot(eem)
-
 eem_remove_scattering <- function(eem, type, order = 1, width = 10) {
   stopifnot(
     .is_eemlist(eem) | .is_eem(eem),
@@ -323,7 +321,6 @@ eem_remove_scattering <- function(eem, type, order = 1, width = 10) {
 #' eem <- eem_raman_normalisation(eem, blank)
 #'
 #' plot(eem)
-
 eem_raman_normalisation <- function(eem, blank = NA) {
   stopifnot(
     .is_eemlist(eem) | .is_eem(eem),
@@ -331,7 +328,7 @@ eem_raman_normalisation <- function(eem, blank = NA) {
   )
 
   if (is.na(blank)) {
-    t <- list.group(eem, ~ location)
+    t <- list.group(eem, ~location)
     t <- lapply(t, function(x) {
       class(x) <- "eemlist"
       return(x)
@@ -486,7 +483,6 @@ eem_raman_normalisation <- function(eem, blank = NA) {
 #' plot(eems, which = 1)
 #' plot(eems_corrected, which = 1)
 #' par(op)
-#'
 #' @export
 eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
   stopifnot(
