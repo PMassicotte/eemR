@@ -13,3 +13,4 @@ revdep/
 ^pkgdown$
 ^doc$
 ^Meta$
+^\.github$
