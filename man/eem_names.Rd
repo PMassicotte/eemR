@@ -22,5 +22,4 @@ file <- system.file("extdata/cary/", package = "eemR")
 eem <- eem_read(file, recursive = TRUE, import_function = "cary")
 
 eem_names(eem)
-
 }

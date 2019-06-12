@@ -1,8 +1,21 @@
-# eemR 0.1.6 (Unreleased)
+# eemR 0.2.0 (Unreleased)
+
+## Major changes
+
+`eemR` can use user-defined function to import eems data. A new argument `import_function` in the `eem_read()` function can be used to provide a custom functio to read a speficic eem file format.
+ 
+ ## Bracking changes
+ 
+ Because of the major change of `eem_read()`, existing code will brake. The user still can uses the old importing functions by specifying the spectrofluorometer to use as follows:
+ 
+ - `eem_read(file, import_function = "cary"`
+ - `eem_read(file, import_function = "aqualog"`
+ - `eem_read(file, import_function = "shimadzu"`
+ - `eem_read(file, import_function = "fluoromax4"`
+
+## New functions
  
  - New function `eem_peaks()` to extract user-defined fluorescence peaks (#42).
- 
- - `eem_read()` will try to import unknown file format if it fails to determine it. At the moment the heuristic is not perfect, so the file must be "easy" to read (i.e. contain a square matrix of data).
  
 # eemR 0.1.5
 

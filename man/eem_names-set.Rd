@@ -25,5 +25,4 @@ eems <- eem_read(folder, import_function = "cary")
 eem_names(eems)
 eem_names(eems) <- c("a", "b", "c", "d")
 eem_names(eems)
-
 }

@@ -38,7 +38,6 @@ file <- system.file("extdata/cary/scans_day_1/", package = "eemR")
 eem <- eem_read(file, import_function = "cary")
 
 eem_biological_index(eem)
-
 }
 \references{
 Huguet, A., Vacher, L., Relexans, S., Saubusse, S., Froidefond,

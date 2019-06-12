@@ -4,7 +4,7 @@
 #' @param recursive logical. Should the listing recurse into directories?
 #' @param import_function Either a character or a user-defined function to
 #'   import a single eem. If a character, it should be one of "cary", "aqualog",
-#'   "shimadzu", "fluoromax4". See vignette () to learn how to create your own
+#'   "shimadzu", "fluoromax4". See \code{browseVignettes("eemR")} to learn how to create your own
 #'   import function.
 #'
 #' @return If \code{file} is a single filename:

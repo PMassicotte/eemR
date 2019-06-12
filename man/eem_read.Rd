@@ -13,7 +13,7 @@ eem_read(file, recursive = FALSE, import_function)
 
 \item{import_function}{Either a character or a user-defined function to
 import a single eem. If a character, it should be one of "cary", "aqualog",
-"shimadzu", "fluoromax4". See vignette () to learn how to create your own
+"shimadzu", "fluoromax4". See \code{browseVignettes("eemR")} to learn how to create your own
 import function.}
 }
 \value{
@@ -38,4 +38,8 @@ At the moment, Cary Eclipse, Aqualog and Shimadzu EEMs are
   spectrofluorometer the files originate and load the data accordingly. Note
   that EEMs are reshaped so X[1, 1] represents the fluorescence intensity at
   X[min(ex), min(em)].
+}
+\examples{
+file <- system.file("extdata/cary/scans_day_1/", package = "eemR")
+eems <- eem_read(file, recursive = TRUE, import_function = "cary")
 }

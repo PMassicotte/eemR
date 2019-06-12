@@ -52,7 +52,6 @@ file <- system.file("extdata/cary/scans_day_1/", "sample1.csv", package = "eemR"
 eem <- eem_read(file, import_function = "cary")
 
 eem_coble_peaks(eem)
-
 }
 \references{
 Coble, P. G. (1996). Characterization of marine and terrestrial

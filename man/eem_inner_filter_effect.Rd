@@ -68,7 +68,6 @@ op <- par(mfrow = c(2, 1))
 plot(eems, which = 1)
 plot(eems_corrected, which = 1)
 par(op)
-
 }
 \references{
 Parker, C. a., & Barnes, W. J. (1957). Some experiments with

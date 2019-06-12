@@ -56,5 +56,4 @@ eem_extract(eems, c("s", "2"))
 
 # Remove all samples containing "blank" or "nano"
 eem_extract(eems, c("blank", "nano"))
-
 }
