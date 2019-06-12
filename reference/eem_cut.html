@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">eemR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9000</span>
       </span>
     </div>
 
@@ -85,6 +85,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/custom-import-function.html">Creating custom import functions</a>
+    </li>
     <li>
       <a href="../articles/introduction.html">Introduction to eemR</a>
     </li>
@@ -165,12 +168,12 @@ removed.</p></td>
     <pre class="examples"><div class='input'><span class='co'># Open the fluorescence eem</span>
 <span class='no'>file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata/cary/scans_day_1/"</span>, <span class='st'>"sample1.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"eemR"</span>)
 
-<span class='no'>eem</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='eem_read.html'>eem_read</a></span>(<span class='no'>file</span>)
+<span class='no'>eem</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='eem_read.html'>eem_read</a></span>(<span class='no'>file</span>, <span class='kw'>import_function</span> <span class='kw'>=</span> <span class='st'>"cary"</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>eem</span>)</div><div class='img'><img src='eem_cut-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Cut few excitation wavelengths</span>
 <span class='no'>eem</span> <span class='kw'>&lt;-</span> <span class='fu'>eem_cut</span>(<span class='no'>eem</span>, <span class='kw'>ex</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>220</span>, <span class='fl'>225</span>, <span class='fl'>230</span>, <span class='fl'>230</span>))
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>eem</span>)</div><div class='img'><img src='eem_cut-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>eem</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='eem_read.html'>eem_read</a></span>(<span class='no'>file</span>)
+<span class='no'>eem</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='eem_read.html'>eem_read</a></span>(<span class='no'>file</span>, <span class='kw'>import_function</span> <span class='kw'>=</span> <span class='st'>"cary"</span>)
 <span class='no'>eem</span> <span class='kw'>&lt;-</span> <span class='fu'>eem_cut</span>(<span class='no'>eem</span>, <span class='kw'>em</span> <span class='kw'>=</span> <span class='fl'>350</span>:<span class='fl'>400</span>, <span class='kw'>fill_with_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>eem</span>)</div><div class='img'><img src='eem_cut-3.png' alt='' width='700' height='433' /></div></pre>
   </div>

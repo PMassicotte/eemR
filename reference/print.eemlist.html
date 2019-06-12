@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">eemR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9000</span>
       </span>
     </div>
 
@@ -85,6 +85,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/custom-import-function.html">Creating custom import functions</a>
+    </li>
     <li>
       <a href="../articles/introduction.html">Introduction to eemR</a>
     </li>
@@ -160,7 +163,7 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>folder</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata/cary"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"eemR"</span>)
-<span class='no'>eem</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='eem_read.html'>eem_read</a></span>(<span class='no'>folder</span>, <span class='kw'>recursive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>eem</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='eem_read.html'>eem_read</a></span>(<span class='no'>folder</span>, <span class='kw'>recursive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>import_function</span> <span class='kw'>=</span> <span class='st'>"cary"</span>)
 
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>eem</span>)</div><div class='output co'>#&gt;    sample ex_min ex_max em_min em_max is_blank_corrected is_scatter_corrected
 #&gt; 1    nano    220    450    230    600              FALSE                FALSE
@@ -169,13 +172,13 @@
 #&gt; 4 sample3    220    450    230    600              FALSE                FALSE
 #&gt; 5   blank    220    450    230    600              FALSE                FALSE
 #&gt; 6      s1    220    450    230    600              FALSE                FALSE
-#&gt;   is_ife_corrected is_raman_normalized manufacturer
-#&gt; 1            FALSE               FALSE Cary Eclipse
-#&gt; 2            FALSE               FALSE Cary Eclipse
-#&gt; 3            FALSE               FALSE Cary Eclipse
-#&gt; 4            FALSE               FALSE Cary Eclipse
-#&gt; 5            FALSE               FALSE Cary Eclipse
-#&gt; 6            FALSE               FALSE Cary Eclipse</div></pre>
+#&gt;   is_ife_corrected is_raman_normalized
+#&gt; 1            FALSE               FALSE
+#&gt; 2            FALSE               FALSE
+#&gt; 3            FALSE               FALSE
+#&gt; 4            FALSE               FALSE
+#&gt; 5            FALSE               FALSE
+#&gt; 6            FALSE               FALSE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

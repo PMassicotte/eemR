@@ -64,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">eemR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9000</span>
       </span>
     </div>
 
@@ -86,6 +86,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/custom-import-function.html">Creating custom import functions</a>
+    </li>
     <li>
       <a href="../articles/introduction.html">Introduction to eemR</a>
     </li>
@@ -215,12 +218,12 @@ spectroscopy and multi-way techniques. PARAFAC. Analytical Methods, 5(23),
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Open the fluorescence eem</span>
 <span class='no'>file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata/cary/scans_day_1"</span>, <span class='st'>"sample1.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"eemR"</span>)
-<span class='no'>eem</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='eem_read.html'>eem_read</a></span>(<span class='no'>file</span>)
+<span class='no'>eem</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='eem_read.html'>eem_read</a></span>(<span class='no'>file</span>, <span class='kw'>import_function</span> <span class='kw'>=</span> <span class='st'>"cary"</span>)
 
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>eem</span>)</div><div class='img'><img src='eem_raman_normalisation-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Open the blank eem</span>
 <span class='no'>file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata/cary/scans_day_1"</span>, <span class='st'>"nano.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"eemR"</span>)
-<span class='no'>blank</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='eem_read.html'>eem_read</a></span>(<span class='no'>file</span>)
+<span class='no'>blank</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='eem_read.html'>eem_read</a></span>(<span class='no'>file</span>, <span class='kw'>import_function</span> <span class='kw'>=</span> <span class='st'>"cary"</span>)
 
 <span class='co'># Do the normalisation</span>
 <span class='no'>eem</span> <span class='kw'>&lt;-</span> <span class='fu'>eem_raman_normalisation</span>(<span class='no'>eem</span>, <span class='no'>blank</span>)</div><div class='output co'>#&gt; Raman area: 9.540904 </div><div class='input'>

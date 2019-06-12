@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">eemR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9000</span>
       </span>
     </div>
 
@@ -85,6 +85,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/custom-import-function.html">Creating custom import functions</a>
+    </li>
     <li>
       <a href="../articles/introduction.html">Introduction to eemR</a>
     </li>
@@ -115,7 +118,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>eem constructor</h1>
-    <small class="dont-index">Source: <a href='https://github.com/PMassicotte/eemR/blob/master/R/eem_read.R'><code>R/eem_read.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/PMassicotte/eemR/blob/master/R/eem_import.R'><code>R/eem_import.R</code></a></small>
     <div class="hidden name"><code>eem.Rd</code></div>
     </div>
 
@@ -125,26 +128,14 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>eem</span>(<span class='no'>file</span>, <span class='no'>x</span>, <span class='no'>ex</span>, <span class='no'>em</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
+    <pre class="usage"><span class='fu'>eem</span>(<span class='no'>data</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>file</th>
-      <td><p>A string containing the file name of the eem.</p></td>
-    </tr>
-    <tr>
-      <th>x</th>
-      <td><p>A matrix with fluorescence values.</p></td>
-    </tr>
-    <tr>
-      <th>ex</th>
-      <td><p>Vector of excitation wavelengths.</p></td>
-    </tr>
-    <tr>
-      <th>em</th>
-      <td><p>Vector of emission wavelengths.</p></td>
+      <th>data</th>
+      <td><p>A list containing "file", "x", "em", "ex".</p></td>
     </tr>
     <tr>
       <th>location</th>

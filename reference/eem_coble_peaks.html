@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">eemR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9000</span>
       </span>
     </div>
 
@@ -85,6 +85,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/custom-import-function.html">Creating custom import functions</a>
+    </li>
     <li>
       <a href="../articles/introduction.html">Introduction to eemR</a>
     </li>
@@ -181,7 +184,7 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata/cary/scans_day_1/"</span>, <span class='st'>"sample1.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"eemR"</span>)
-<span class='no'>eem</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='eem_read.html'>eem_read</a></span>(<span class='no'>file</span>)
+<span class='no'>eem</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='eem_read.html'>eem_read</a></span>(<span class='no'>file</span>, <span class='kw'>import_function</span> <span class='kw'>=</span> <span class='st'>"cary"</span>)
 
 <span class='fu'>eem_coble_peaks</span>(<span class='no'>eem</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: This metric uses either excitation or emission wavelengths that were not present in the data. Data has been interpolated to fit the requested wavelengths.</span></div><div class='output co'>#&gt;    sample        b        t        a        m        c
 #&gt; 1 sample1 1.545298 1.060331 3.731836 2.424096 1.814941</div><div class='input'>

@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">eemR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9000</span>
       </span>
     </div>
 
@@ -85,6 +85,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/custom-import-function.html">Creating custom import functions</a>
+    </li>
     <li>
       <a href="../articles/introduction.html">Introduction to eemR</a>
     </li>
@@ -125,7 +128,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>eem_read</span>(<span class='no'>file</span>, <span class='kw'>recursive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>eem_read</span>(<span class='no'>file</span>, <span class='kw'>recursive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>import_function</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -137,6 +140,13 @@
     <tr>
       <th>recursive</th>
       <td><p>logical. Should the listing recurse into directories?</p></td>
+    </tr>
+    <tr>
+      <th>import_function</th>
+      <td><p>Either a character or a user-defined function to
+import a single eem. If a character, it should be one of "cary", "aqualog",
+"shimadzu", "fluoromax4". See vignette () to learn how to create your own
+import function.</p></td>
     </tr>
     </table>
     
@@ -165,9 +175,6 @@
   X[min(ex), min(em)].</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata/cary/scans_day_1/"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"eemR"</span>)
-<span class='no'>eems</span> <span class='kw'>&lt;-</span> <span class='fu'>eem_read</span>(<span class='no'>file</span>, <span class='kw'>recursive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -177,9 +184,7 @@
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>

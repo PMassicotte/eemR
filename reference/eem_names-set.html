@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">eemR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9000</span>
       </span>
     </div>
 
@@ -85,6 +85,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/custom-import-function.html">Creating custom import functions</a>
+    </li>
     <li>
       <a href="../articles/introduction.html">Introduction to eemR</a>
     </li>
@@ -148,7 +151,7 @@ in length to the number of samples in the <code>eem</code> or <code>eemlist</cod
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>folder</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata/cary/scans_day_1"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"eemR"</span>)
-<span class='no'>eems</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='eem_read.html'>eem_read</a></span>(<span class='no'>folder</span>)
+<span class='no'>eems</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='eem_read.html'>eem_read</a></span>(<span class='no'>folder</span>, <span class='kw'>import_function</span> <span class='kw'>=</span> <span class='st'>"cary"</span>)
 
 <span class='fu'><a href='eem_names.html'>eem_names</a></span>(<span class='no'>eems</span>)</div><div class='output co'>#&gt; [1] "nano"    "sample1" "sample2" "sample3"</div><div class='input'><span class='fu'><a href='eem_names.html'>eem_names</a></span>(<span class='no'>eems</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span>, <span class='st'>"d"</span>)
 <span class='fu'><a href='eem_names.html'>eem_names</a></span>(<span class='no'>eems</span>)</div><div class='output co'>#&gt; [1] "a" "b" "c" "d"</div><div class='input'>

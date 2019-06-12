@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">eemR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9000</span>
       </span>
     </div>
 
@@ -85,6 +85,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/custom-import-function.html">Creating custom import functions</a>
+    </li>
     <li>
       <a href="../articles/introduction.html">Introduction to eemR</a>
     </li>
@@ -172,55 +175,55 @@ printed on screen.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>folder</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata/cary/scans_day_1"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"eemR"</span>)
-<span class='no'>eems</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='eem_read.html'>eem_read</a></span>(<span class='no'>folder</span>)
+<span class='no'>eems</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='eem_read.html'>eem_read</a></span>(<span class='no'>folder</span>, <span class='kw'>import_function</span> <span class='kw'>=</span> <span class='st'>"cary"</span>)
 
 <span class='no'>eems</span></div><div class='output co'>#&gt;    sample ex_min ex_max em_min em_max is_blank_corrected is_scatter_corrected
 #&gt; 1    nano    220    450    230    600              FALSE                FALSE
 #&gt; 2 sample1    220    450    230    600              FALSE                FALSE
 #&gt; 3 sample2    220    450    230    600              FALSE                FALSE
 #&gt; 4 sample3    220    450    230    600              FALSE                FALSE
-#&gt;   is_ife_corrected is_raman_normalized manufacturer
-#&gt; 1            FALSE               FALSE Cary Eclipse
-#&gt; 2            FALSE               FALSE Cary Eclipse
-#&gt; 3            FALSE               FALSE Cary Eclipse
-#&gt; 4            FALSE               FALSE Cary Eclipse</div><div class='input'>
+#&gt;   is_ife_corrected is_raman_normalized
+#&gt; 1            FALSE               FALSE
+#&gt; 2            FALSE               FALSE
+#&gt; 3            FALSE               FALSE
+#&gt; 4            FALSE               FALSE</div><div class='input'>
 <span class='co'># Remove first and third samples</span>
 <span class='fu'>eem_extract</span>(<span class='no'>eems</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>))</div><div class='output co'>#&gt; Removed sample(s): nano sample2 </div><div class='output co'>#&gt;    sample ex_min ex_max em_min em_max is_blank_corrected is_scatter_corrected
 #&gt; 1 sample1    220    450    230    600              FALSE                FALSE
 #&gt; 2 sample3    220    450    230    600              FALSE                FALSE
-#&gt;   is_ife_corrected is_raman_normalized manufacturer
-#&gt; 1            FALSE               FALSE Cary Eclipse
-#&gt; 2            FALSE               FALSE Cary Eclipse</div><div class='input'>
+#&gt;   is_ife_corrected is_raman_normalized
+#&gt; 1            FALSE               FALSE
+#&gt; 2            FALSE               FALSE</div><div class='input'>
 <span class='co'># Remove everything except first and third samples</span>
 <span class='fu'>eem_extract</span>(<span class='no'>eems</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>), <span class='kw'>keep</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Extracted sample(s): nano sample2 </div><div class='output co'>#&gt;    sample ex_min ex_max em_min em_max is_blank_corrected is_scatter_corrected
 #&gt; 1    nano    220    450    230    600              FALSE                FALSE
 #&gt; 2 sample2    220    450    230    600              FALSE                FALSE
-#&gt;   is_ife_corrected is_raman_normalized manufacturer
-#&gt; 1            FALSE               FALSE Cary Eclipse
-#&gt; 2            FALSE               FALSE Cary Eclipse</div><div class='input'>
+#&gt;   is_ife_corrected is_raman_normalized
+#&gt; 1            FALSE               FALSE
+#&gt; 2            FALSE               FALSE</div><div class='input'>
 <span class='co'># Remove all samples containing "3" in their names.</span>
 <span class='fu'>eem_extract</span>(<span class='no'>eems</span>, <span class='st'>"3"</span>)</div><div class='output co'>#&gt; Removed sample(s): sample3 </div><div class='output co'>#&gt;    sample ex_min ex_max em_min em_max is_blank_corrected is_scatter_corrected
 #&gt; 1    nano    220    450    230    600              FALSE                FALSE
 #&gt; 2 sample1    220    450    230    600              FALSE                FALSE
 #&gt; 3 sample2    220    450    230    600              FALSE                FALSE
-#&gt;   is_ife_corrected is_raman_normalized manufacturer
-#&gt; 1            FALSE               FALSE Cary Eclipse
-#&gt; 2            FALSE               FALSE Cary Eclipse
-#&gt; 3            FALSE               FALSE Cary Eclipse</div><div class='input'>
+#&gt;   is_ife_corrected is_raman_normalized
+#&gt; 1            FALSE               FALSE
+#&gt; 2            FALSE               FALSE
+#&gt; 3            FALSE               FALSE</div><div class='input'>
 <span class='co'># Remove all samples containing either character "s" or character "2" in their names.</span>
 <span class='fu'>eem_extract</span>(<span class='no'>eems</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"s"</span>, <span class='st'>"2"</span>))</div><div class='output co'>#&gt; Removed sample(s): sample1 sample2 sample3 </div><div class='output co'>#&gt;   sample ex_min ex_max em_min em_max is_blank_corrected is_scatter_corrected
 #&gt; 1   nano    220    450    230    600              FALSE                FALSE
-#&gt;   is_ife_corrected is_raman_normalized manufacturer
-#&gt; 1            FALSE               FALSE Cary Eclipse</div><div class='input'>
+#&gt;   is_ife_corrected is_raman_normalized
+#&gt; 1            FALSE               FALSE</div><div class='input'>
 <span class='co'># Remove all samples containing "blank" or "nano"</span>
 <span class='fu'>eem_extract</span>(<span class='no'>eems</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"blank"</span>, <span class='st'>"nano"</span>))</div><div class='output co'>#&gt; Removed sample(s): nano </div><div class='output co'>#&gt;    sample ex_min ex_max em_min em_max is_blank_corrected is_scatter_corrected
 #&gt; 1 sample1    220    450    230    600              FALSE                FALSE
 #&gt; 2 sample2    220    450    230    600              FALSE                FALSE
 #&gt; 3 sample3    220    450    230    600              FALSE                FALSE
-#&gt;   is_ife_corrected is_raman_normalized manufacturer
-#&gt; 1            FALSE               FALSE Cary Eclipse
-#&gt; 2            FALSE               FALSE Cary Eclipse
-#&gt; 3            FALSE               FALSE Cary Eclipse</div><div class='input'>
+#&gt;   is_ife_corrected is_raman_normalized
+#&gt; 1            FALSE               FALSE
+#&gt; 2            FALSE               FALSE
+#&gt; 3            FALSE               FALSE</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

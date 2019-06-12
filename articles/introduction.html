@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">eemR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9000</span>
       </span>
     </div>
 
@@ -53,6 +53,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../articles/custom-import-function.html">Creating custom import functions</a>
+    </li>
+    <li>
       <a href="../articles/introduction.html">Introduction to eemR</a>
     </li>
   </ul>
@@ -83,7 +86,7 @@
       <h1>Introduction to eemR</h1>
                         <h4 class="author">Philippe Massicotte</h4>
             
-            <h4 class="date">2019-06-06</h4>
+            <h4 class="date">2019-06-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/PMassicotte/eemR/blob/master/vignettes/introduction.Rmd"><code>vignettes/introduction.Rmd</code></a></small>
       <div class="hidden name"><code>introduction.Rmd</code></div>
@@ -295,7 +298,7 @@ IFE correction process. Panel (A) shows an uncorrected EEM (the color bar is the
 <a href="#data-importation-and-plotting" class="anchor"></a>Data importation and plotting</h3>
 <p>Importation of EEMs into  is done using the <code><a href="../reference/eem_read.html">eem_read()</a></code> function. Given that fluorescence files are dependent on the spectrofluorometer used,  will determine automatically from which manufacturer the files are from and load them accordingly.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">file &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata/cary/scans_day_1"</span>, <span class="dt">package =</span> <span class="st">"eemR"</span>)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">eems &lt;-<span class="st"> </span><span class="kw"><a href="../reference/eem_read.html">eem_read</a></span>(file)</a></code></pre></div>
+<a class="sourceLine" id="cb3-2" data-line-number="2">eems &lt;-<span class="st"> </span><span class="kw"><a href="../reference/eem_read.html">eem_read</a></span>(file, <span class="dt">import_function =</span> <span class="st">"cary"</span>)</a></code></pre></div>
 <p>The generic <code><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary()</a></code> function displays useful information such as: (1) the wavelength ranges used in both emission and excitation modes, (2) the manufacturer from which the file was read and (3) the state of the EEM which indicate which corrections have been applied.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(eems)</a></code></pre></div>
 <pre><code>##    sample ex_min ex_max em_min em_max is_blank_corrected
@@ -303,11 +306,11 @@ IFE correction process. Panel (A) shows an uncorrected EEM (the color bar is the
 ## 2 sample1    220    450    230    600              FALSE
 ## 3 sample2    220    450    230    600              FALSE
 ## 4 sample3    220    450    230    600              FALSE
-##   is_scatter_corrected is_ife_corrected is_raman_normalized manufacturer
-## 1                FALSE            FALSE               FALSE Cary Eclipse
-## 2                FALSE            FALSE               FALSE Cary Eclipse
-## 3                FALSE            FALSE               FALSE Cary Eclipse
-## 4                FALSE            FALSE               FALSE Cary Eclipse</code></pre>
+##   is_scatter_corrected is_ife_corrected is_raman_normalized
+## 1                FALSE            FALSE               FALSE
+## 2                FALSE            FALSE               FALSE
+## 3                FALSE            FALSE               FALSE
+## 4                FALSE            FALSE               FALSE</code></pre>
 <p>A surface plot of EEMs is made using the <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(x, which = 1)</a></code> function where <code>which</code> is the index of the EEM to be plotted (see Fig. 3).</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(eems, <span class="dt">which =</span> <span class="dv">3</span>)</a></code></pre></div>
 <p>Interactive plots using a simple shiny app can be lunched to interactively browse EEMs.</p>
@@ -318,7 +321,7 @@ IFE correction process. Panel (A) shows an uncorrected EEM (the color bar is the
 <a href="#blank-subtraction" class="anchor"></a>Blank subtraction</h3>
 <p>Subtraction of a water blank from the measured samples may help to reduce scattering <span class="citation">(Murphy et al. 2013; Stedmon and Bro 2008)</span>. In , this is done using the <code><a href="../reference/eem_remove_blank.html">eem_remove_blank(eem, blank)</a></code> function where <code>eem</code> is a list of EEMs and <code>blank</code> is a water blank.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">file &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata/cary/scans_day_1"</span>, <span class="st">"nano.csv"</span>, <span class="dt">package =</span> <span class="st">"eemR"</span>)</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">blank &lt;-<span class="st"> </span><span class="kw"><a href="../reference/eem_read.html">eem_read</a></span>(file)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">blank &lt;-<span class="st"> </span><span class="kw"><a href="../reference/eem_read.html">eem_read</a></span>(file, <span class="dt">import_function =</span> <span class="st">"cary"</span>)</a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb8-4" data-line-number="4">eems &lt;-<span class="st"> </span><span class="kw"><a href="../reference/eem_remove_blank.html">eem_remove_blank</a></span>(eems, blank)</a></code></pre></div>
 </div>
@@ -388,11 +391,11 @@ Fluorescence profile of a pure water sample at excitation 350 nm between 300 and
 ## 2 sample1    220    450    230    600               TRUE
 ## 3 sample2    220    450    230    600               TRUE
 ## 4 sample3    220    450    230    600               TRUE
-##   is_scatter_corrected is_ife_corrected is_raman_normalized manufacturer
-## 1                 TRUE            FALSE               FALSE Cary Eclipse
-## 2                 TRUE             TRUE                TRUE Cary Eclipse
-## 3                 TRUE             TRUE                TRUE Cary Eclipse
-## 4                 TRUE             TRUE                TRUE Cary Eclipse</code></pre>
+##   is_scatter_corrected is_ife_corrected is_raman_normalized
+## 1                 TRUE            FALSE               FALSE
+## 2                 TRUE             TRUE                TRUE
+## 3                 TRUE             TRUE                TRUE
+## 4                 TRUE             TRUE                TRUE</code></pre>
 </div>
 <div id="exporting-to-matlab" class="section level3">
 <h3 class="hasAnchor">
@@ -406,7 +409,7 @@ Fluorescence profile of a pure water sample at excitation 350 nm between 300 and
 <a href="#metric-extraction" class="anchor"></a>Metric extraction</h3>
 <p>Coble’s peaks can be extracted using the <code><a href="../reference/eem_coble_peaks.html">eem_coble_peaks(eem)</a></code> function. Note that for peaks <strong>A, M, C</strong>, the maximum fluorescence intensity in the range of emission region is returned.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">file &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata/cary/scans_day_1"</span>, <span class="dt">package =</span> <span class="st">"eemR"</span>)</a>
-<a class="sourceLine" id="cb24-2" data-line-number="2">eems &lt;-<span class="st"> </span><span class="kw"><a href="../reference/eem_read.html">eem_read</a></span>(file)</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2">eems &lt;-<span class="st"> </span><span class="kw"><a href="../reference/eem_read.html">eem_read</a></span>(file, <span class="dt">import_function =</span> <span class="st">"cary"</span>)</a>
 <a class="sourceLine" id="cb24-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb24-4" data-line-number="4"><span class="kw"><a href="../reference/eem_coble_peaks.html">eem_coble_peaks</a></span>(eems, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>##    sample         b         t        a          m         c
@@ -444,7 +447,7 @@ Fluorescence profile of a pure water sample at excitation 350 nm between 300 and
 <a class="sourceLine" id="cb32-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb32-3" data-line-number="3">file &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata/cary/scans_day_1/"</span>, <span class="dt">package =</span> <span class="st">"eemR"</span>)</a>
 <a class="sourceLine" id="cb32-4" data-line-number="4">file <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb32-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/eem_read.html">eem_read</a></span>(<span class="dt">recursive =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb32-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/eem_read.html">eem_read</a></span>(<span class="dt">recursive =</span> <span class="ot">TRUE</span>, <span class="dt">import_function =</span> <span class="st">"cary"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb32-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="../reference/eem_raman_normalisation.html">eem_raman_normalisation</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb32-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="../reference/eem_remove_scattering.html">eem_remove_scattering</a></span>(<span class="dt">type =</span> <span class="st">"raman"</span>, <span class="dt">order =</span> <span class="dv">1</span>, <span class="dt">width =</span> <span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb32-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="../reference/eem_remove_scattering.html">eem_remove_scattering</a></span>(<span class="dt">type =</span> <span class="st">"rayleigh"</span>, <span class="dt">order =</span> <span class="dv">1</span>, <span class="dt">width =</span> <span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
