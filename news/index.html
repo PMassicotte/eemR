@@ -118,14 +118,30 @@
       <small>Source: <a href='https://github.com/PMassicotte/eemR/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="eemr-0-1-6-unreleased" class="section level1">
+    <div id="eemr-0-2-0-unreleased" class="section level1">
 <h1 class="page-header">
-<a href="#eemr-0-1-6-unreleased" class="anchor"></a>eemR 0.1.6 (Unreleased)<small> Unreleased </small>
+<a href="#eemr-0-2-0-unreleased" class="anchor"></a>eemR 0.2.0 (Unreleased)<small> Unreleased </small>
 </h1>
+<div id="major-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-changes" class="anchor"></a>Major changes</h2>
+<p><code>eemR</code> can use user-defined function to import eems data. A new argument <code>import_function</code> in the <code><a href="../reference/eem_read.html">eem_read()</a></code> function can be used to provide a custom functio to read a speficic eem file format.</p>
+<p>## Bracking changes</p>
+<p>Because of the major change of <code><a href="../reference/eem_read.html">eem_read()</a></code>, existing code will brake. The user still can uses the old importing functions by specifying the spectrofluorometer to use as follows:</p>
 <ul>
-<li><p>New function <code><a href="../reference/eem_peaks.html">eem_peaks()</a></code> to extract user-defined fluorescence peaks (<a href='https://github.com/PMassicotte/eemR/issues/42'>#42</a>).</p></li>
-<li><p><code><a href="../reference/eem_read.html">eem_read()</a></code> will try to import unknown file format if it fails to determine it. At the moment the heuristic is not perfect, so the file must be “easy” to read (i.e. contain a square matrix of data).</p></li>
+<li><code>eem_read(file, import_function = "cary"</code></li>
+<li><code>eem_read(file, import_function = "aqualog"</code></li>
+<li><code>eem_read(file, import_function = "shimadzu"</code></li>
+<li><code>eem_read(file, import_function = "fluoromax4"</code></li>
 </ul>
+</div>
+<div id="new-functions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-functions" class="anchor"></a>New functions</h2>
+<ul>
+<li>New function <code><a href="../reference/eem_peaks.html">eem_peaks()</a></code> to extract user-defined fluorescence peaks (<a href='https://github.com/PMassicotte/eemR/issues/42'>#42</a>).</li>
+</ul>
+</div>
 </div>
     <div id="eemr-0-1-5" class="section level1">
 <h1 class="page-header">
@@ -236,7 +252,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#eemr-0-1-6-unreleased">0.1.6</a></li>
+        <li><a href="#eemr-0-2-0-unreleased">0.2.0</a></li>
         <li><a href="#eemr-0-1-5">0.1.5</a></li>
         <li><a href="#eemr-0-1-4">0.1.4</a></li>
         <li><a href="#eemr-0-1-3">0.1.3</a></li>
