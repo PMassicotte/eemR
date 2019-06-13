@@ -36,6 +36,7 @@ Suggests:
     extrafont,
     tidyr,
     shiny,
-    DT
+    DT,
+    MBA
 VignetteBuilder: knitr
 Encoding: UTF-8
