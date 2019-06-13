@@ -1,4 +1,4 @@
-# eemR 0.2.0 (Unreleased)
+# eemR 1.0.0 
 
 ## Major changes
 
@@ -13,7 +13,7 @@
  - `eem_read(file, import_function = "shimadzu"`
  - `eem_read(file, import_function = "fluoromax4"`
 
-## New functions
+## New features
  
  - New function `eem_peaks()` to extract user-defined fluorescence peaks (#42).
  
