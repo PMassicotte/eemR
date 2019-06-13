@@ -1,4 +1,4 @@
-# eemR 1.0.0 
+# eemR 1.0.0
 
 ## Major changes
 

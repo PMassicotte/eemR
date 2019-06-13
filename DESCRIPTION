@@ -2,7 +2,7 @@ Package: eemR
 Type: Package
 Title: Tools for Pre-Processing Emission-Excitation-Matrix (EEM) Fluorescence
     Data
-Version: 0.1.5.9000
+Version: 1.0.0
 Date: 2019-06-13
 Authors@R: person("Philippe", "Massicotte", email = "pmassicotte@hotmail.com",
   role = c("aut", "cre"))
