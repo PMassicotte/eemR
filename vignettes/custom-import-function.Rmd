@@ -64,29 +64,29 @@ import_cary <- function(file) {
   em <- outer(ex, em, "+")
   em <- as.vector(em)
   ex <- rep(ex, 57)
-  
+
   x <- dat[, -1]
   x <- x[-1, ]
   x <- matrix(as.numeric(unlist(x, use.names = FALSE)), ncol = 101, byrow = FALSE)
 
-  res <- tibble(ex, em, x = as.vector(x)) %>% 
-    arrange(ex, em) %>% 
+  res <- tibble(ex, em, x = as.vector(x)) %>%
+    arrange(ex, em) %>%
     complete(ex, em, fill = list(x = NA))
-  
+
   ex <- sort(unique(ex))
   em <- sort(unique(em))
   x <- matrix(res$x, ncol = length(ex), byrow = TRUE)
-  
+
   # We need to interpolate because you do not have a regular grid (i.e. asynchronous)
   r <- MBA::mba.surf(res %>% drop_na(), no.X = 200, no.Y = 200, extend = FALSE)
- 
+
   l <- list(
     file = file,
     x = t(r$xyz.est$z),
     ex = r$xyz.est$x,
     em = r$xyz.est$y
   )
-  
+
   return(l)
 }
 ```
