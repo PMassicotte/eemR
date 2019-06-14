@@ -145,7 +145,7 @@ eem_coble_peaks <- function(eem, verbose = TRUE) {
 #'   details for more information.
 #'
 #' @importFrom purrr map2
-#' @import assertthat
+#' @importFrom assertthat assert_that
 #'
 #' @examples
 #' file <- system.file("extdata/cary/scans_day_1/", "sample1.csv", package = "eemR")

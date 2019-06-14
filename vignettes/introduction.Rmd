@@ -150,8 +150,9 @@ where $X_0$ is the fluorescence in the absence of IFE, $X$ is the measured fluor
 
 ```{r fig3, echo = FALSE, message=FALSE, dev='png', fig.align='center', fig.width=7, fig.height=5, fig.cap = 'Surface plot of an EEM with first order of Raman and Rayleigh scattering removed. Missing values (`NA`) have been placed in both diagonals using a bandwidth of 10 nm.', results="hide"}
 
-file <- system.file("extdata/cary/scans_day_1/", "sample3.csv", 
-                    package = "eemR")
+file <- system.file("extdata/cary/scans_day_1/", "sample3.csv",
+  package = "eemR"
+)
 
 eem <- eem_read(file, recursive = FALSE, import_function = "cary")
 
