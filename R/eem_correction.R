@@ -292,7 +292,7 @@ eem_remove_scattering <- function(eem, type, order = 1, width = 10) {
 #' Lawaetz, A. J., & Stedmon, C. A. (2009). Fluorescence Intensity Calibration
 #' Using the Raman Scatter Peak of Water. Applied Spectroscopy, 63(8), 936-940.
 #'
-#' \url{http://doi.org/10.1366/000370209788964548}
+#' \url{https://journals.sagepub.com/doi/10.1366/000370209788964548}
 #'
 #' Murphy, K. R., Stedmon, C. a., Graeber, D., & Bro, R. (2013). Fluorescence
 #' spectroscopy and multi-way techniques. PARAFAC. Analytical Methods, 5(23),

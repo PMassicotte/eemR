@@ -14,3 +14,5 @@ revdep/
 ^doc$
 ^Meta$
 ^\.github$
+^CRAN-RELEASE$
+^CODE_OF_CONDUCT\.md$
