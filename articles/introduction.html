@@ -86,7 +86,7 @@
       <h1>Introduction to eemR</h1>
                         <h4 class="author">Philippe Massicotte</h4>
             
-            <h4 class="date">2019-06-13</h4>
+            <h4 class="date">2019-06-14</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/PMassicotte/eemR/blob/master/vignettes/introduction.Rmd"><code>vignettes/introduction.Rmd</code></a></small>
       <div class="hidden name"><code>introduction.Rmd</code></div>
@@ -356,9 +356,11 @@ Fluorescence profile of a pure water sample at excitation 350 nm between 300 and
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="../reference/eem_names.html">eem_names</a></span>(eems)</a></code></pre></div>
 <pre><code>## [1] "nano"    "sample1" "sample2" "sample3"</code></pre>
 <p>IFE correction is performed using the <code><a href="../reference/eem_inner_filter_effect.html">eem_inner_filter_effect(eem, absorbance, pathlength)</a></code> function where <code>eem</code> is a list of EEMs, <code>absorbance</code> is a data frame containing absorbance spectra and <code>pathlength</code> is the absorbance cuvette pathlength expressed in <span class="math inline">\(cm\)</span> (Fig. 4B). For each EEM contained in <code>eem</code>, the ranges spanned by the IFE correction factors and total absorbance <span class="math inline">\(A_{\text{total}}\)</span> (Equation (4)) are displayed to the user. This can serve as diagnostic tool to determine if the mathematical correction was the appropriate method to use to handle IFE.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">eems &lt;-<span class="st"> </span><span class="kw"><a href="../reference/eem_inner_filter_effect.html">eem_inner_filter_effect</a></span>(<span class="dt">eem =</span> eems,</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2">                                <span class="dt">absorbance =</span> absorbance,</a>
-<a class="sourceLine" id="cb14-3" data-line-number="3">                                <span class="dt">pathlength =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">eems &lt;-<span class="st"> </span><span class="kw"><a href="../reference/eem_inner_filter_effect.html">eem_inner_filter_effect</a></span>(</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">  <span class="dt">eem =</span> eems,</a>
+<a class="sourceLine" id="cb14-3" data-line-number="3">  <span class="dt">absorbance =</span> absorbance,</a>
+<a class="sourceLine" id="cb14-4" data-line-number="4">  <span class="dt">pathlength =</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5">)</a></code></pre></div>
 <pre><code>## Warning: Absorbance spectrum for nano was not found. Returning uncorrected
 ## EEM.</code></pre>
 <pre><code>## sample1 
@@ -446,11 +448,11 @@ Fluorescence profile of a pure water sample at excitation 350 nm between 300 and
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(magrittr)</a>
 <a class="sourceLine" id="cb32-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb32-3" data-line-number="3">file &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata/cary/scans_day_1/"</span>, <span class="dt">package =</span> <span class="st">"eemR"</span>)</a>
-<a class="sourceLine" id="cb32-4" data-line-number="4">file <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb32-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/eem_read.html">eem_read</a></span>(<span class="dt">recursive =</span> <span class="ot">TRUE</span>, <span class="dt">import_function =</span> <span class="st">"cary"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb32-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="../reference/eem_raman_normalisation.html">eem_raman_normalisation</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb32-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="../reference/eem_remove_scattering.html">eem_remove_scattering</a></span>(<span class="dt">type =</span> <span class="st">"raman"</span>, <span class="dt">order =</span> <span class="dv">1</span>, <span class="dt">width =</span> <span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb32-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="../reference/eem_remove_scattering.html">eem_remove_scattering</a></span>(<span class="dt">type =</span> <span class="st">"rayleigh"</span>, <span class="dt">order =</span> <span class="dv">1</span>, <span class="dt">width =</span> <span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb32-4" data-line-number="4">file <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb32-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/eem_read.html">eem_read</a></span>(<span class="dt">recursive =</span> <span class="ot">TRUE</span>, <span class="dt">import_function =</span> <span class="st">"cary"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb32-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="../reference/eem_raman_normalisation.html">eem_raman_normalisation</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb32-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="../reference/eem_remove_scattering.html">eem_remove_scattering</a></span>(<span class="dt">type =</span> <span class="st">"raman"</span>, <span class="dt">order =</span> <span class="dv">1</span>, <span class="dt">width =</span> <span class="dv">10</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb32-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="../reference/eem_remove_scattering.html">eem_remove_scattering</a></span>(<span class="dt">type =</span> <span class="st">"rayleigh"</span>, <span class="dt">order =</span> <span class="dv">1</span>, <span class="dt">width =</span> <span class="dv">10</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb32-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(<span class="dv">2</span>)</a></code></pre></div>
 </div>
 <div id="conclusion" class="section level2">

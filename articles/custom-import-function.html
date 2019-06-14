@@ -170,29 +170,29 @@
 <a class="sourceLine" id="cb2-12" data-line-number="12">  em &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/outer">outer</a></span>(ex, em, <span class="st">"+"</span>)</a>
 <a class="sourceLine" id="cb2-13" data-line-number="13">  em &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/vector">as.vector</a></span>(em)</a>
 <a class="sourceLine" id="cb2-14" data-line-number="14">  ex &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(ex, <span class="dv">57</span>)</a>
-<a class="sourceLine" id="cb2-15" data-line-number="15">  </a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"></a>
 <a class="sourceLine" id="cb2-16" data-line-number="16">  x &lt;-<span class="st"> </span>dat[, <span class="dv">-1</span>]</a>
 <a class="sourceLine" id="cb2-17" data-line-number="17">  x &lt;-<span class="st"> </span>x[<span class="op">-</span><span class="dv">1</span>, ]</a>
 <a class="sourceLine" id="cb2-18" data-line-number="18">  x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/matrix">matrix</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/numeric">as.numeric</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/unlist">unlist</a></span>(x, <span class="dt">use.names =</span> <span class="ot">FALSE</span>)), <span class="dt">ncol =</span> <span class="dv">101</span>, <span class="dt">byrow =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb2-19" data-line-number="19"></a>
-<a class="sourceLine" id="cb2-20" data-line-number="20">  res &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(ex, em, <span class="dt">x =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/vector">as.vector</a></span>(x)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="st">    </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(ex, em) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-20" data-line-number="20">  res &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(ex, em, <span class="dt">x =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/vector">as.vector</a></span>(x)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="st">    </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(ex, em) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-22" data-line-number="22"><span class="st">    </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/complete.html">complete</a></span>(ex, em, <span class="dt">fill =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">x =</span> <span class="ot">NA</span>))</a>
-<a class="sourceLine" id="cb2-23" data-line-number="23">  </a>
+<a class="sourceLine" id="cb2-23" data-line-number="23"></a>
 <a class="sourceLine" id="cb2-24" data-line-number="24">  ex &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sort">sort</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/unique">unique</a></span>(ex))</a>
 <a class="sourceLine" id="cb2-25" data-line-number="25">  em &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sort">sort</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/unique">unique</a></span>(em))</a>
 <a class="sourceLine" id="cb2-26" data-line-number="26">  x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/matrix">matrix</a></span>(res<span class="op">$</span>x, <span class="dt">ncol =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(ex), <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb2-27" data-line-number="27">  </a>
+<a class="sourceLine" id="cb2-27" data-line-number="27"></a>
 <a class="sourceLine" id="cb2-28" data-line-number="28">  <span class="co"># We need to interpolate because you do not have a regular grid (i.e. asynchronous)</span></a>
 <a class="sourceLine" id="cb2-29" data-line-number="29">  r &lt;-<span class="st"> </span>MBA<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/MBA/topics/mba.surf">mba.surf</a></span>(res <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span>(), <span class="dt">no.X =</span> <span class="dv">200</span>, <span class="dt">no.Y =</span> <span class="dv">200</span>, <span class="dt">extend =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb2-30" data-line-number="30"> </a>
+<a class="sourceLine" id="cb2-30" data-line-number="30"></a>
 <a class="sourceLine" id="cb2-31" data-line-number="31">  l &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
 <a class="sourceLine" id="cb2-32" data-line-number="32">    <span class="dt">file =</span> file,</a>
 <a class="sourceLine" id="cb2-33" data-line-number="33">    <span class="dt">x =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/t">t</a></span>(r<span class="op">$</span>xyz.est<span class="op">$</span>z),</a>
 <a class="sourceLine" id="cb2-34" data-line-number="34">    <span class="dt">ex =</span> r<span class="op">$</span>xyz.est<span class="op">$</span>x,</a>
 <a class="sourceLine" id="cb2-35" data-line-number="35">    <span class="dt">em =</span> r<span class="op">$</span>xyz.est<span class="op">$</span>y</a>
 <a class="sourceLine" id="cb2-36" data-line-number="36">  )</a>
-<a class="sourceLine" id="cb2-37" data-line-number="37">  </a>
+<a class="sourceLine" id="cb2-37" data-line-number="37"></a>
 <a class="sourceLine" id="cb2-38" data-line-number="38">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">return</a></span>(l)</a>
 <a class="sourceLine" id="cb2-39" data-line-number="39">}</a></code></pre></div>
 <p>We can now try our function and have a look to the structure of the returned list.</p>
