@@ -4,7 +4,7 @@
 #' @param ... One or more object of class \code{eemlist}.
 #'
 #' @details The function exports EEMs into PARAFAC-ready Matlab \code{.mat} file
-#'   usable by the \href{www.models.life.ku.dk/drEEM}{drEEM} toolbox.
+#'   usable by the \href{http://www.models.life.ku.dk/drEEM}{drEEM} toolbox.
 #'
 #' @return A structure named \code{OriginalData} is created and contains:
 #'

@@ -56,9 +56,11 @@ officially supported.
 
   - Hitachi F-7000 FL `.TXT` files
 
-EEM can be read using the `eem_read()` function. *Please fill an
+EEM can be read using the `eem_read()` function. Please fill an
 [issue](https://github.com/PMassicotte/eemR/issues) if you have other
-file formats you would like to add to the package*.
+file formats you would like to add to the package. You can also write
+your own [import
+function](http://www.pmassicotte.com/eemR/articles/custom-import-function.html)\!
 
 Please note that the ‘eemR’ project is released with a [Contributor Code
 of Conduct](CODE_OF_CONDUCT.md). By contributing to this project, you
