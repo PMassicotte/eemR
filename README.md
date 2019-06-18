@@ -5,8 +5,6 @@
 
 <!-- badges: start -->
 
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis-CI Build
 Status](https://api.travis-ci.org/PMassicotte/eemR.svg?branch=master)](https://travis-ci.org/PMassicotte/eemR)
 [![AppVeyor Build
@@ -61,7 +59,3 @@ EEM can be read using the `eem_read()` function. Please fill an
 file formats you would like to add to the package. You can also write
 your own [import
 function](http://www.pmassicotte.com/eemR/articles/custom-import-function.html)\!
-
-Please note that the ‘eemR’ project is released with a [Contributor Code
-of Conduct](CODE_OF_CONDUCT.md). By contributing to this project, you
-agree to abide by its terms.
