@@ -4,12 +4,10 @@
 \alias{eem}
 \title{eem constructor}
 \usage{
-eem(data, location = NA)
+eem(data)
 }
 \arguments{
 \item{data}{A list containing "file", "x", "em", "ex".}
-
-\item{location}{Location of the eem file.}
 }
 \value{
 An object of class \code{eem} containing:

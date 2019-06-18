@@ -18,7 +18,6 @@ eem_import_function_factory <- function(import_function) {
 #' eem constructor
 #'
 #' @param data A list containing "file", "x", "em", "ex".
-#' @param location Location of the eem file.
 #'
 #' @importFrom tools file_path_sans_ext
 #'
@@ -30,23 +29,19 @@ eem_import_function_factory <- function(import_function) {
 #'  \item ex Excitation vector of wavelengths.
 #' }
 
-eem <- function(data, location = NA) {
-
-  # Use dirname if location if not provided
-  if (is.na(location)) {
-    location <- dirname(data$file)
-  }
+eem <- function(data) {
 
   if (!all(c("file", "x", "em", "ex") %in% names(data))) {
     stop("Your custom function should return a named list with four components: file, x, ex, em")
   }
 
   res <- list(
+    file = data$file,
     sample = file_path_sans_ext(basename(data$file)),
     x = data$x,
     ex = data$ex,
     em = data$em,
-    location = location
+    location = dirname(data$file)
   )
 
 
