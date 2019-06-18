@@ -1,5 +1,7 @@
 # eemR 1.0.1
 
+- Fixing file location that was not following when creating eems (#52).
+
 # eemR 1.0.0
 
 ## Major changes
