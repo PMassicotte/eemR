@@ -58,4 +58,4 @@ EEM can be read using the `eem_read()` function. Please fill an
 [issue](https://github.com/PMassicotte/eemR/issues) if you have other
 file formats you would like to add to the package. You can also write
 your own [import
-function](http://www.pmassicotte.com/eemR/articles/custom-import-function.html)\!
+function](http://pmassicotte.github.io/eemR/articles/custom-import-function.html)\!
