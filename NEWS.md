@@ -2,15 +2,15 @@
 
 # eemR 1.0.1
 
-- Fixing file location that was not following when creating eems (#52).
+- Fixing the file location that was not following when creating eems (#52).
 
 # eemR 1.0.0
 
 ## Major changes
 
-`eemR` can use user-defined function to import eems data. A new argument `import_function` in the `eem_read()` function can be used to provide a custom functio to read a speficic eem file format.
+`eemR` can use a user-defined function to import eems data. A new argument `import_function` in the `eem_read()` function can be used to provide a custom function to read a specific eem file format.
  
- ## Bracking changes
+ ## Breaking changes
  
  Because of the major change of `eem_read()`, existing code will brake. The user still can uses the old importing functions by specifying the spectrofluorometer to use as follows:
  
