@@ -60,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">eemR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1.9000</span>
       </span>
     </div>
 
@@ -123,7 +123,7 @@
 <a href="#eemr-1-0-1" class="anchor"></a>eemR 1.0.1<small> Unreleased </small>
 </h1>
 <ul>
-<li>Fixing file location that was not following when creating eems (<a href='https://github.com/PMassicotte/eemR/issues/52'>#52</a>).</li>
+<li>Fixing the file location that was not following when creating eems (<a href='https://github.com/PMassicotte/eemR/issues/52'>#52</a>).</li>
 </ul>
 </div>
     <div id="eemr-1-0-0" class="section level1">
@@ -133,14 +133,14 @@
 <div id="major-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#major-changes" class="anchor"></a>Major changes</h2>
-<p><code>eemR</code> can use user-defined function to import eems data. A new argument <code>import_function</code> in the <code><a href="../reference/eem_read.html">eem_read()</a></code> function can be used to provide a custom functio to read a speficic eem file format.</p>
-<p>## Bracking changes</p>
+<p><code>eemR</code> can use a user-defined function to import eems data. A new argument <code>import_function</code> in the <code><a href="../reference/eem_read.html">eem_read()</a></code> function can be used to provide a custom function to read a specific eem file format.</p>
+<p>## Breaking changes</p>
 <p>Because of the major change of <code><a href="../reference/eem_read.html">eem_read()</a></code>, existing code will brake. The user still can uses the old importing functions by specifying the spectrofluorometer to use as follows:</p>
 <ul>
-<li><code>eem_read(file, import_function = "cary"</code></li>
-<li><code>eem_read(file, import_function = "aqualog"</code></li>
-<li><code>eem_read(file, import_function = "shimadzu"</code></li>
-<li><code>eem_read(file, import_function = "fluoromax4"</code></li>
+<li><code><a href="../reference/eem_read.html">eem_read(file, import_function = "cary")</a></code></li>
+<li><code><a href="../reference/eem_read.html">eem_read(file, import_function = "aqualog")</a></code></li>
+<li><code><a href="../reference/eem_read.html">eem_read(file, import_function = "shimadzu")</a></code></li>
+<li><code><a href="../reference/eem_read.html">eem_read(file, import_function = "fluoromax4")</a></code></li>
 </ul>
 </div>
 <div id="new-features" class="section level2">
