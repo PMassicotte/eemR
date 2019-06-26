@@ -14,10 +14,10 @@
  
  Because of the major change of `eem_read()`, existing code will brake. The user still can uses the old importing functions by specifying the spectrofluorometer to use as follows:
  
- - `eem_read(file, import_function = "cary"`
- - `eem_read(file, import_function = "aqualog"`
- - `eem_read(file, import_function = "shimadzu"`
- - `eem_read(file, import_function = "fluoromax4"`
+ - `eem_read(file, import_function = "cary")`
+ - `eem_read(file, import_function = "aqualog")`
+ - `eem_read(file, import_function = "shimadzu")`
+ - `eem_read(file, import_function = "fluoromax4")`
 
 ## New features
  
