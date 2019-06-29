@@ -87,9 +87,9 @@ eem_raman_normalisation_ <- function(eem, blank = NA) {
       }
     }
 
-    res <- lapply(eem, eem_raman_normalisation_, blank = blank)
+    res <- eem_lapply(eem, eem_raman_normalisation_, blank = blank)
 
-    class(res) <- class(eem)
+
     return(res)
   }
 

@@ -87,7 +87,7 @@ blank <- eem_read(file, import_function = "cary")
 plot(blank)
 
 # Remove the blank
-eem <- eem_remove_blank(eems, blank)
+eems <- eem_remove_blank(eems, blank)
 
 plot(eems, which = 3)
 

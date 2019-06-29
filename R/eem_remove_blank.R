@@ -55,7 +55,7 @@
 #' plot(blank)
 #'
 #' # Remove the blank
-#' eem <- eem_remove_blank(eems, blank)
+#' eems <- eem_remove_blank(eems, blank)
 #'
 #' plot(eems, which = 3)
 #'
@@ -120,9 +120,9 @@ eem_remove_blank_ <- function(eem, blank = NA) {
       }
     }
 
-    res <- lapply(eem, eem_remove_blank, blank = blank)
+    res <- eem_lapply(eem, eem_remove_blank, blank = blank)
 
-    class(res) <- class(eem)
+
     return(res)
   }
 
