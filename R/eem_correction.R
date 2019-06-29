@@ -146,6 +146,7 @@ eem_remove_blank <- function(eem, blank = NA) {
   ## Construct an eem object.
   res <- list(
     file = eem$file,
+    sample = eem$sample,
     x = x,
     ex = eem$ex,
     em = eem$em
@@ -406,6 +407,7 @@ eem_raman_normalisation <- function(eem, blank = NA) {
   ## Construct an eem object.
   res <- list(
     file = eem$file,
+    sample = eem$sample,
     x = x,
     ex = eem$ex,
     em = eem$em
@@ -588,6 +590,7 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
   ## Construct an eem object.
   res <- list(
     file = eem$file,
+    sample = eem$sample,
     x = x,
     ex = eem$ex,
     em = eem$em
