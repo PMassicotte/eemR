@@ -16,6 +16,8 @@ install:
 # Adapt as necessary starting from here
 
 build_script:
+  - travis-tool.sh install_r pillar
+  - travis-tool.sh install_r dplyr
   - travis-tool.sh install_deps
 
 test_script:
