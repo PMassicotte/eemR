@@ -1,5 +1,7 @@
 # eemR (development version)
 
+- Correction functions do not modify the name of the eem (#53 #56).
+
 # eemR 1.0.1
 
 - Fixing the file location that was not following when creating eems (#52).

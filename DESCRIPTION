@@ -27,7 +27,7 @@ RoxygenNote: 6.1.1
 Suggests:
     cdom,
     magrittr,
-    testthat,
+    testthat (>= 2.1.0),
     knitr,
     rmarkdown,
     ggplot2,
@@ -36,6 +36,7 @@ Suggests:
     tidyr,
     shiny,
     DT,
-    MBA
+    MBA,
+    here
 VignetteBuilder: knitr
 Encoding: UTF-8
