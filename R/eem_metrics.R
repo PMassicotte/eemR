@@ -244,12 +244,12 @@ eem_humification_index <- function(eem, scale = FALSE, verbose = TRUE) {
   sum_em_435_480 <- sum(pracma::interp2(
     eem$ex, eem$em, eem$x,
     ex_254, em_435_480
-  ))
+  ), na.rm = TRUE)
 
   sum_em_300_345 <- sum(pracma::interp2(
     eem$ex, eem$em, eem$x,
     ex_254, em_300_345
-  ))
+  ), na.rm = TRUE)
 
   if (scale) {
     hix <- sum_em_435_480 / (sum_em_300_345 + sum_em_435_480)
