@@ -37,6 +37,7 @@ Suggests:
     shiny,
     DT,
     MBA,
-    here
+    here,
+    covr
 VignetteBuilder: knitr
 Encoding: UTF-8

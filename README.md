@@ -13,6 +13,8 @@ Status](https://ci.appveyor.com/api/projects/status/github/PMassicotte/eemR?bran
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/eemR)](https://cran.r-project.org/package=eemR)
 [![Downloads](http://cranlogs.r-pkg.org/badges/eemR?color=brightgreen)](http://www.r-pkg.org/pkg/eemR)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3257526.svg)](https://doi.org/10.5281/zenodo.3257526)
+[![Codecov test
+coverage](https://codecov.io/gh/PMassicotte/eemR/branch/master/graph/badge.svg)](https://codecov.io/gh/PMassicotte/eemR?branch=master)
 <!-- badges: end -->
 
 The **eemR** package implements various functions used calculate metrics

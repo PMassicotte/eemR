@@ -15,3 +15,4 @@ revdep/
 ^Meta$
 ^\.github$
 ^CRAN-RELEASE$
+^codecov\.yml$
