@@ -8,21 +8,25 @@
 
 <title>Changelog • eemR</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,7 +34,9 @@
 
 
 
+
 <meta property="og:title" content="Changelog" />
+
 
 
 
@@ -42,6 +48,7 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -68,7 +75,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -94,11 +101,10 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/PMassicotte/eemR">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -109,6 +115,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -118,6 +125,17 @@
       <small>Source: <a href='https://github.com/PMassicotte/eemR/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="eemr-development-version" class="section level1">
+<h1 class="page-header">
+<a href="#eemr-development-version" class="anchor"></a>eemR (development version)<small> Unreleased </small>
+</h1>
+<ul>
+<li>Correction functions do not modify the name of the eem (<a href='https://github.com/PMassicotte/eemR/issues/53'>#53</a> <a href='https://github.com/PMassicotte/eemR/issues/56'>#56</a>).</li>
+<li>
+<code><a href="../reference/eem_humification_index.html">eem_humification_index()</a></code> now ignore missing values (for example due to scattering removal) in the calculation.</li>
+<li>Increasing code coverage from 40% to xxx%.</li>
+</ul>
+</div>
     <div id="eemr-1-0-1" class="section level1">
 <h1 class="page-header">
 <a href="#eemr-1-0-1" class="anchor"></a>eemR 1.0.1<small> 2019-06-26 </small>
@@ -179,7 +197,7 @@
 <li><p>Now using <a href="https://cran.r-project.org/package=viridis">viridis</a> space colors for plotting EEMs instead of color jet.</p></li>
 <li><p><code><a href="../reference/eem_remove_scattering.html">eem_remove_scattering()</a></code> no longer <code>tolower</code> absorbance names and will assume that the provided absorbance spectra match exactly EEM’s names.</p></li>
 <li><p>Fixing a bug that prevented the interactive plot to work properly.</p></li>
-<li><p><code><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary(x)</a></code> and <code><a href="https://www.rdocumentation.org/packages/base/topics/print">print(x)</a></code> now return a data frame containing summarized information on EEMs contained in <code>x</code>. See <code><a href="../reference/summary.eemlist.html">?summary.eemlist</a></code>.</p></li>
+<li><p><code><a href="https://rdrr.io/r/base/summary.html">summary(x)</a></code> and <code><a href="https://rdrr.io/r/base/print.html">print(x)</a></code> now return a data frame containing summarized information on EEMs contained in <code>x</code>. See <code><a href="../reference/summary.eemlist.html">?summary.eemlist</a></code>.</p></li>
 <li><p><code><a href="../reference/eem_raman_normalisation.html">eem_raman_normalisation()</a></code> and <code><a href="../reference/eem_remove_blank.html">eem_remove_blank()</a></code> will average blank EEMs if more than one are provided or found in the folder (<a href='https://github.com/PMassicotte/eemR/issues/23'>#23</a>).</p></li>
 <li><p><code><a href="../reference/eem_raman_normalisation.html">eem_raman_normalisation()</a></code>, <code><a href="../reference/eem_remove_blank.html">eem_remove_blank()</a></code> and <code><a href="../reference/eem_inner_filter_effect.html">eem_inner_filter_effect()</a></code> will now verify if the correction has been already performed. If so, an unmodified EEM will be returned.</p></li>
 <li><p><code><a href="../reference/eem_raman_normalisation.html">eem_raman_normalisation()</a></code> now interpolates blank EEM to ensure that em at 350 and excitation between 371 and 428 exist (<a href='https://github.com/PMassicotte/eemR/issues/31'>#31</a>).</p></li>
@@ -192,12 +210,12 @@
 <a href="#eemr-0-1-3" class="anchor"></a>eemR 0.1.3<small> 2016-05-02 </small>
 </h1>
 <ul>
-<li><p>Interactive plot using a simple shiny app. Using <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(eems, interactive = TRUE)</a></code> will lunch a shiny app that allows to interactively browse EEMs contained in <code>eems</code>.</p></li>
+<li><p>Interactive plot using a simple shiny app. Using <code><a href="https://rdrr.io/r/graphics/plot.html">plot(eems, interactive = TRUE)</a></code> will lunch a shiny app that allows to interactively browse EEMs contained in <code>eems</code>.</p></li>
 <li><p>A vignette has been added to the package which can be viewed using <code><a href="../articles/introduction.html">vignette(topic = "introduction", package = "eemR")</a></code>.</p></li>
 <li><p>An error will occur if one try to do raman normalization on a blank where scattering bands have been removed.</p></li>
 <li><p><code>eem_sample_names()</code> has been replaced by <code><a href="../reference/eem_names.html">eem_names()</a></code>.</p></li>
 <li><p>Reading Aqualog files is now ~20% faster (<a href='https://github.com/PMassicotte/eemR/issues/26'>#26</a>).</p></li>
-<li><p><code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot()</a></code> gains an argument <code>show_peaks = TRUE/FALSE</code> which can be used to display most common fluorescence peaks used in the literature.</p></li>
+<li><p><code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code> gains an argument <code>show_peaks = TRUE/FALSE</code> which can be used to display most common fluorescence peaks used in the literature.</p></li>
 <li><p><code><a href="../reference/eem_remove_blank.html">eem_remove_blank()</a></code> and <code><a href="../reference/eem_raman_normalisation.html">eem_raman_normalisation()</a></code> can now try to implicitly use a blank eem from a <code>eemlist</code> object (<a href='https://github.com/PMassicotte/eemR/issues/20'>#20</a>). If blank is omitted (<code>blank = NA</code>), the functions will try to extract the blank from the <code>eemlist</code> object. This is done by looking for sample names containing one of these complete or partial strings (ignoring case): - “nano” - “miliq” - “milliq” - “mq” - “blank”</p></li>
 </ul>
 <p>Consider the following example where there are two folders that could represent scans performed on two different days <code>scans_day_1</code> and <code>scans_day_2</code>. In each folder there are three samples and one blank files. In that context, <code><a href="../reference/eem_remove_blank.html">eem_remove_blank()</a></code> will use the blank <code>nano.csv</code> from <code>sample1.csv</code>, <code>sample2.csv</code> and <code>sample3.csv</code>. The same strategy will be used for files in folder <code>scans_day_2</code> but with blank named <code>blank.csv</code>.</p>
@@ -212,7 +230,7 @@
     └── s1.csv</code></pre>
 <ul>
 <li><p><code><a href="../reference/eem_extract.html">eem_extract()</a></code> has now an argument <code>verbose</code> (default = FALSE) that determine if the names of removed or extracted eems should be printed on screen.</p></li>
-<li><p>Implemented the generic <code><a href="https://www.rdocumentation.org/packages/base/topics/print">print()</a></code> method which calls <code><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary()</a></code>.</p></li>
+<li><p>Implemented the generic <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> method which calls <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>.</p></li>
 <li><p>Added tests to the packages to verify metrics.</p></li>
 <li><p>Now better estimate the number of columns to read in Cary Eclipse files (<a href='https://github.com/PMassicotte/eemR/issues/27'>#27</a>). This also makes reading much faster.</p></li>
 </ul>
@@ -234,7 +252,7 @@
 </ul>
 </li>
 <li><p><code><a href="../reference/eem_extract.html">eem_extract()</a></code> has now an argument <code>ignore_case</code> (<a href='https://github.com/PMassicotte/eemR/issues/10'>#10</a>) to specify if the regular expression search should ignore sample name case (TRUE) or not (FALSE).</p></li>
-<li><p>Sample names (i.e. file names) are now verified with <code><a href="https://www.rdocumentation.org/packages/base/topics/make.names">make.names()</a></code> (<a href='https://github.com/PMassicotte/eemR/issues/15'>#15</a>).</p></li>
+<li><p>Sample names (i.e. file names) are now verified with <code><a href="https://rdrr.io/r/base/make.names.html">make.names()</a></code> (<a href='https://github.com/PMassicotte/eemR/issues/15'>#15</a>).</p></li>
 <li><p>Various improvements in documentation.</p></li>
 </ul>
 </div>
@@ -260,6 +278,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#eemr-development-version">development version</a></li>
         <li><a href="#eemr-1-0-1">1.0.1</a></li>
         <li><a href="#eemr-1-0-0">1.0.0</a></li>
         <li><a href="#eemr-0-1-5">0.1.5</a></li>
@@ -274,19 +293,23 @@
 
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by Philippe Massicotte.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
