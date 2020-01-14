@@ -10,6 +10,7 @@ eem_import_function_factory <- function(import_function) {
     "aqualog" = eem_read_aqualog,
     "shimadzu" = eem_read_shimadzu,
     "fluoromax4" = eem_read_fluoromax4,
+    "horiba" = eem_read_horiba,
     # is.function = return(import_function),
     stop("I do not know how to read a file from ", import_function, ". You may want to create your own import function. See vignette browseVignettes('eemR')")
   )
