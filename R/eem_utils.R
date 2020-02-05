@@ -471,7 +471,7 @@ eem_names <- function(eem) {
 #'
 #' eem <- eem_bind(eem, eem)
 eem_bind <- function(...) {
-  eem <- list(...)
+  eem <- c(...)
 
   list_classes <- unlist(lapply(eem, function(x) {
     class(x)
