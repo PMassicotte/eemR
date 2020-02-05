@@ -13,8 +13,8 @@ eem_read(file, recursive = FALSE, import_function)
 
 \item{import_function}{Either a character or a user-defined function to
 import a single eem. If a character, it should be one of "cary", "aqualog",
-"shimadzu", "fluoromax4". See \code{browseVignettes("eemR")} to learn how to create your own
-import function.}
+"shimadzu", "fluoromax4", "horiba". See \code{browseVignettes("eemR")} to
+learn how to create your own import function.}
 }
 \value{
 If \code{file} is a single filename:
@@ -31,7 +31,7 @@ If \code{file} is a single filename:
 Read excitation-emission fluorescence matrix (eem)
 }
 \details{
-At the moment, Cary Eclipse, Aqualog and Shimadzu EEMs are
+At the moment, Cary Eclipse, Aqualog, Shimadzu, and Horiba EEMs are
   supported.
 
   \code{eemR} will automatically try to determine from which
