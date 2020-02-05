@@ -4,8 +4,8 @@
 #' @param recursive logical. Should the listing recurse into directories?
 #' @param import_function Either a character or a user-defined function to
 #'   import a single eem. If a character, it should be one of "cary", "aqualog",
-#'   "shimadzu", "fluoromax4". See \code{browseVignettes("eemR")} to learn how to create your own
-#'   import function.
+#'   "shimadzu", "fluoromax4", "horiba". See \code{browseVignettes("eemR")} to
+#'   learn how to create your own import function.
 #'
 #' @return If \code{file} is a single filename:
 #'
@@ -17,7 +17,7 @@
 #'   If \code{file} is a folder, the function returns an object of class
 #'   \code{eemlist} which is simply a list of \code{eem}.
 #'
-#' @details At the moment, Cary Eclipse, Aqualog and Shimadzu EEMs are
+#' @details At the moment, Cary Eclipse, Aqualog, Shimadzu, and Horiba EEMs are
 #'   supported.
 #'
 #'   \code{eemR} will automatically try to determine from which
