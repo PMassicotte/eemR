@@ -1,7 +1,11 @@
 # eemR (development version)
 
+- Allow `eem_bind()` to accept a list of eemlists (#66 #64) @jpshanno
+
 - Correction functions do not modify the name of the eem (#53 #56).
+
 - `eem_humification_index()` now ignore missing values (for example due to scattering removal) in the calculation.
+
 - Increasing code coverage from 40% to xxx%.
 
 # eemR 1.0.1
