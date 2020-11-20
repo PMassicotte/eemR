@@ -5,10 +5,6 @@
 
 <!-- badges: start -->
 
-[![Travis-CI Build
-Status](https://api.travis-ci.org/PMassicotte/eemR.svg?branch=master)](https://travis-ci.org/PMassicotte/eemR)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/PMassicotte/eemR?branch=master&svg=true)](https://ci.appveyor.com/project/PMassicotte/eemR)
 [![Package-License](https://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/eemR)](https://cran.r-project.org/package=eemR)
 [![Downloads](http://cranlogs.r-pkg.org/badges/eemR?color=brightgreen)](http://www.r-pkg.org/pkg/eemR)
