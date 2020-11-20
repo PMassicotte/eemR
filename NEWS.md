@@ -1,5 +1,7 @@
 # eemR (development version)
 
+- Continuous integration is now based on Github Actions.
+
 - Allow `eem_bind()` to accept a list of eemlists (#66 #64) @jpshanno
 
 - Correction functions do not modify the name of the eem (#53 #56).
