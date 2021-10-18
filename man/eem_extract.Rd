@@ -4,8 +4,7 @@
 \alias{eem_extract}
 \title{Extract EEM samples}
 \usage{
-eem_extract(eem, sample, keep = FALSE, ignore_case = FALSE,
-  verbose = TRUE)
+eem_extract(eem, sample, keep = FALSE, ignore_case = FALSE, verbose = TRUE)
 }
 \arguments{
 \item{eem}{An object of class \code{eemlist}.}

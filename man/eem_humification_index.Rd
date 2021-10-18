@@ -48,7 +48,7 @@ Ohno, T. (2002). Fluorescence Inner-Filtering Correction for
   Determining the Humification Index of Dissolved Organic Matter.
   Environmental Science & Technology, 36(4), 742-746.
 
-  \url{http://doi.org/10.1021/es0155276}
+  \url{https://doi.org/10.1021/es0155276}
 }
 \seealso{
 \link[pracma]{interp2}

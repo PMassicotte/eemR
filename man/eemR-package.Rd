@@ -4,11 +4,9 @@
 \name{eemR-package}
 \alias{eemR}
 \alias{eemR-package}
-\title{eemR: Tools for Pre-Processing Emission-Excitation-Matrix (EEM) Fluorescence
-    Data}
+\title{eemR: Tools for Pre-Processing Emission-Excitation-Matrix (EEM) Fluorescence Data}
 \description{
-Provides various tools for preprocessing Emission-Excitation-Matrix (EEM) for Parallel Factor Analysis (PARAFAC). Different
-  methods are also provided to calculate common metrics such as humification index and fluorescence index.
+Provides various tools for preprocessing Emission-Excitation-Matrix (EEM) for Parallel Factor Analysis (PARAFAC). Different methods are also provided to calculate common metrics such as humification index and fluorescence index.
 }
 \seealso{
 Useful links:

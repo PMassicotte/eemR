@@ -6,11 +6,11 @@
 <!-- badges: start -->
 
 [![Package-License](https://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/eemR)](https://cran.r-project.org/package=eemR)
-[![Downloads](http://cranlogs.r-pkg.org/badges/eemR?color=brightgreen)](http://www.r-pkg.org/pkg/eemR)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/eemR)](https://cran.r-project.org/package=eemR)
+[![Downloads](http://cranlogs.r-pkg.org/badges/eemR?color=brightgreen)](https://www.r-pkg.org:443/pkg/eemR)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3257526.svg)](https://doi.org/10.5281/zenodo.3257526)
 [![Codecov test
-coverage](https://codecov.io/gh/PMassicotte/eemR/branch/master/graph/badge.svg)](https://codecov.io/gh/PMassicotte/eemR?branch=master)
+coverage](https://codecov.io/gh/PMassicotte/eemR/branch/master/graph/badge.svg)](https://app.codecov.io/gh/PMassicotte/eemR?branch=master)
 [![R build
 status](https://github.com/PMassicotte/eemR/workflows/R-CMD-check/badge.svg)](https://github.com/PMassicotte/eemR/actions)
 <!-- badges: end -->

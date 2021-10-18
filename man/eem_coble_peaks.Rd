@@ -58,7 +58,7 @@ Coble, P. G. (1996). Characterization of marine and terrestrial
   DOM in seawater using excitation-emission matrix spectroscopy. Marine
   Chemistry, 51(4), 325-346.
 
-  \url{http://doi.org/10.1016/0304-4203(95)00062-3}
+  \url{https://doi.org/10.1016/0304-4203(95)00062-3}
 }
 \seealso{
 \link[pracma]{interp2}

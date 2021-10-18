@@ -1,5 +1,7 @@
 # eemR (development version)
 
+- Update all URLs in the packages using the `checkurl` package.
+
 - Continuous integration is now based on Github Actions.
 
 - Allow `eem_bind()` to accept a list of eemlists (#66 #64) @jpshanno

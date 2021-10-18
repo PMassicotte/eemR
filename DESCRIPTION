@@ -23,7 +23,7 @@ Imports:
     viridis,
     purrr,
     assertthat
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.2
 Suggests:
     cdom,
     magrittr,

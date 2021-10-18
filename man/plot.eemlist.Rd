@@ -4,8 +4,7 @@
 \alias{plot.eemlist}
 \title{Surface plot of eem}
 \usage{
-\method{plot}{eemlist}(x, which = 1, interactive = FALSE,
-  show_peaks = FALSE, ...)
+\method{plot}{eemlist}(x, which = 1, interactive = FALSE, show_peaks = FALSE, ...)
 }
 \arguments{
 \item{x}{An object of class \code{eemlist}.}

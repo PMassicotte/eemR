@@ -44,7 +44,7 @@ Huguet, A., Vacher, L., Relexans, S., Saubusse, S., Froidefond,
   J. M., & Parlanti, E. (2009). Properties of fluorescent dissolved organic
   matter in the Gironde Estuary. Organic Geochemistry, 40(6), 706-719.
 
-  \url{http://doi.org/10.1016/j.orggeochem.2009.03.002}
+  \url{https://doi.org/10.1016/j.orggeochem.2009.03.002}
 }
 \seealso{
 \link[pracma]{interp2}
