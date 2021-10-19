@@ -73,7 +73,7 @@ eem_fluorescence_index <- function(eem, verbose = TRUE) {
 #'   DOM in seawater using excitation-emission matrix spectroscopy. Marine
 #'   Chemistry, 51(4), 325-346.
 #'
-#'   \url{https://doi.org/10.1016/0304-4203(95)00062-3}
+#'   \doi{10.1016/0304-4203(95)00062-3}
 #'
 #' @examples
 #' file <- system.file("extdata/cary/scans_day_1/", "sample1.csv", package = "eemR")
@@ -206,7 +206,7 @@ eem_peaks <- function(eem, ex, em, verbose = TRUE) {
 #'   Determining the Humification Index of Dissolved Organic Matter.
 #'   Environmental Science & Technology, 36(4), 742-746.
 #'
-#'   \url{https://doi.org/10.1021/es0155276}
+#'   \doi{10.1021/es0155276}
 #'
 #' @return A data frame containing the humification index (HIX) for each eem.
 #' @export
@@ -275,7 +275,7 @@ eem_humification_index <- function(eem, scale = FALSE, verbose = TRUE) {
 #'   J. M., & Parlanti, E. (2009). Properties of fluorescent dissolved organic
 #'   matter in the Gironde Estuary. Organic Geochemistry, 40(6), 706-719.
 #'
-#'   \url{https://doi.org/10.1016/j.orggeochem.2009.03.002}
+#'   \doi{10.1016/j.orggeochem.2009.03.002}
 #'
 #' @return A data frame containing the biological index (BIX) for each eem.
 #' @export

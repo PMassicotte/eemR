@@ -11,7 +11,7 @@
 #' Lakowicz, J. R. (2006). Principles of Fluorescence Spectroscopy.
 #' Boston, MA: Springer US.#'
 #'
-#' \url{https://doi.org/10.1007/978-0-387-46312-4}
+#' \doi{10.1007/978-0-387-46312-4}
 #'
 #' Murphy, K. R., Stedmon, C. a., Graeber, D., & Bro, R. (2013).
 #' Fluorescence spectroscopy and multi-way techniques. PARAFAC. Analytical

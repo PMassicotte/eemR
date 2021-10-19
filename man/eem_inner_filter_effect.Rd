@@ -72,10 +72,10 @@ par(op)
 \references{
 Parker, C. a., & Barnes, W. J. (1957). Some experiments with
   spectrofluorometers and filter fluorimeters. The Analyst, 82(978), 606.
-  \url{https://doi.org/10.1039/an9578200606}
+  \doi{10.1039/an9578200606}
 
   Kothawala, D. N., Murphy, K. R., Stedmon, C. A., Weyhenmeyer, G. A., &
   Tranvik, L. J. (2013). Inner filter correction of dissolved organic matter
   fluorescence. Limnology and Oceanography: Methods, 11(12), 616-630.
-  \url{https://doi.org/10.4319/lom.2013.11.616}
+  \doi{10.4319/lom.2013.11.616}
 }
