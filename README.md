@@ -10,7 +10,7 @@
 [![Downloads](http://cranlogs.r-pkg.org/badges/eemR?color=brightgreen)](https://www.r-pkg.org:443/pkg/eemR)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3257526.svg)](https://doi.org/10.5281/zenodo.3257526)
 [![Codecov test
-coverage](https://codecov.io/gh/PMassicotte/eemR/branch/master/graph/badge.svg)](https://app.codecov.io/gh/PMassicotte/eemR?branch=master)
+coverage](https://codecov.io/gh/PMassicotte/eemR/branch/main/graph/badge.svg)](https://app.codecov.io/gh/PMassicotte/eemR?branch=main)
 [![R build
 status](https://github.com/PMassicotte/eemR/workflows/R-CMD-check/badge.svg)](https://github.com/PMassicotte/eemR/actions)
 <!-- badges: end -->
