@@ -2,7 +2,7 @@
 title: "Creating custom import functions"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Creating your custom import function}
+  %\VignetteIndexEntry{Creating custom import functions}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

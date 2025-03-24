@@ -5,7 +5,7 @@ bibliography: biblio.bib
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction}
+  %\VignetteIndexEntry{Introduction to eemR}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -250,7 +250,7 @@ bty = "n",
 adj = c(1.5, 0.25)
 )
 
-````
+```
 
 It was recently shown that IFE corrected algebraically was not appropriate when total absorbance, defined as $A_{\text{total}} = A_{\text{ex}} + A_{\text{em}}$ (see Equation (@ife)), is greater than 1.5 [@Kothawala2013]. Under this circumstance, a two-fold dilution of the sample has been recommended. If this happen, a warning message will be displayed by the package during the correction process.
 
@@ -281,7 +281,7 @@ ggplot(df, aes(x = em, y = raman)) +
     label = "First order Rayleigh scattering",
     size = 3
   )
-````
+```
 
 Mathematically, the value of $A_{\text{rp}}$ is calculated using the following integral (Equation(@arp)):
 
