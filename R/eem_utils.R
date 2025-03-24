@@ -15,18 +15,6 @@
     nlevels = 7,
     ...
   )
-  #
-  # fields::image.plot(y = x$em,
-  #              x = x$ex,
-  #              z = t(x$x),
-  #              main = paste(x$sample, "\n", attr(x, "manucafturer"), sep = ""),
-  #              xlab = "Excitation (nm.)",
-  #              ylab = "Emission (nm.)",
-  #              legend.lab = "Fluorescence intensity",
-  #              col = viridis::viridis(256),
-  #              nlevel = 7,
-  #
-  #              ...)
 
   if (show_peaks) {
     coble_ex_peak <- list(b = 275, t = 275, a = 260, m = 312, c = 350)
