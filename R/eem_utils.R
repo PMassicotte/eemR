@@ -100,7 +100,7 @@ eem_as_summary <- function(object) {
 #'
 #' print(eem)
 print.eemlist <- function(x, ...) {
-  stopifnot(class(x) == "eemlist")
+  stopifnot(inherits(x, "eemlist"))
 
   df <- lapply(x, eem_as_summary)
   df <- do.call(rbind, df)
@@ -122,7 +122,7 @@ print.eemlist <- function(x, ...) {
 #'
 #' summary(eem)
 summary.eemlist <- function(object, ...) {
-  stopifnot(class(object) == "eemlist")
+  stopifnot(inherits(object, "eemlist"))
 
   df <- lapply(object, eem_as_summary)
   df <- do.call(rbind, df)
@@ -348,10 +348,7 @@ eem_extract <- function(
   ignore_case = FALSE,
   verbose = TRUE
 ) {
-  stopifnot(
-    class(eem) == "eemlist",
-    is.character(sample) | is.numeric(sample)
-  )
+  stopifnot(inherits(eem, "eemlist"), is.character(sample) | is.numeric(sample))
 
   sample_names <- unlist(lapply(eem, function(x) {
     x$sample
@@ -499,7 +496,7 @@ eem_bind <- function(...) {
 }
 
 my_unlist <- function(x) {
-  if (class(x) == "eem") {
+  if (inherits(x, "eem")) {
     x <- list(x)
 
     class(x) <- "eemlist"
@@ -511,11 +508,11 @@ my_unlist <- function(x) {
 }
 
 .is_eemlist <- function(eem) {
-  ifelse(class(eem) == "eemlist", TRUE, FALSE)
+  inherits(eem, "eemlist")
 }
 
 .is_eem <- function(eem) {
-  ifelse(class(eem) == "eem", TRUE, FALSE)
+  inherits(eem, "eem")
 }
 
 .plot_shiny <- function(eem) {
