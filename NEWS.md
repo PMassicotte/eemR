@@ -1,5 +1,7 @@
 # eemR (development version)
 
+- Vignettes are now built with quarto.
+
 # eemR 1.0.2
 
 - Update all URLs in the packages using the `checkurl` package.

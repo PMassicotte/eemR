@@ -3,11 +3,18 @@ title: "Introduction to eemR"
 author: "Philippe Massicotte"
 bibliography: biblio.bib
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+format:
+  html:
+    toc: true
+    html-math-method: mathjax
 vignette: >
   %\VignetteIndexEntry{Introduction to eemR}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: "#>"
 ---
 
 ```{r setup, warning=FALSE, message=FALSE, echo=FALSE}
@@ -17,7 +24,7 @@ library(tidyr)
 library(eemR)
 library(plot3D)
 
-theme_set(theme_bw(base_size = 8))
+theme_set(theme_bw(base_size = 8L))
 ```
 
 ## Introduction
@@ -26,17 +33,24 @@ Dissolved organic matter (DOM) plays a central role in the functioning of aquati
 
 The seminal paper of [@Stedmon2003a] put at the forefront the use of parallel factor analysis (PARAFAC) to aid the characterization of fluorescent DOM. Briefly, this three-way technique allows the decomposition of complex DOM fluorescence signals contained in the excitation-emission matrix (EEM, Fig. 1) into a set of individual chemical components and provides estimations of their relative contribution to the total fluorescence [@Bro1997;@Fellman2010;@Stedmon2003a].
 
-```{r fig1, echo = FALSE, fig.width=5, fig.height=5, dev='png', fig.align='center', fig.cap = "Example of an excitation-emission fluorescence matrix (EEM). The diagonal structure with high fluorescence corresponds to the first order of Rayleigh scattering."}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+#| dev: png
+#| fig-align: center
+#| fig-cap: "Example of an excitation-emission fluorescence matrix (EEM). The diagonal structure with high fluorescence corresponds to the first order of Rayleigh scattering."
+
 file <- system.file("extdata/cary/scans_day_1", "sample3.csv", package = "eemR")
 
 eem <- eem_read(file, import_function = "cary")
 
 persp3D(
-  x = eem[[1]]$ex,
-  y = eem[[1]]$em,
-  z = t(eem[[1]]$x),
+  x = eem[[1L]]$ex,
+  y = eem[[1L]]$em,
+  z = t(eem[[1L]]$x),
   theta = -37.5,
-  phi = 20,
+  phi = 20L,
   facets = TRUE,
   xlab = "Excitation (nm)",
   ylab = "Emisison (nm)",
@@ -76,26 +90,33 @@ The following sections present the main correction steps for fluorescence data a
 
 Rayleigh and Raman scattering are optical processes by which some of the incident energy can be absorbed and converted into vibrational and rotational energy [@Lakowicz2006]. The resulting scattered energy produce the so-called scattering bands which are visually easily identifiable (Figs. 1 and 2). Given that both types of scattering are repeated across EEMs, it is important to remove such artifacts prior to analysis [@Bahram2006;@Zepp2004].
 
-```{r fig2, echo=FALSE, fig.height=3, fig.width=5, warning=FALSE, dev='png', fig.align='center', fig.cap = "Emission fluorescence emitted at excitation $ex = 350$. First order of Rayleigh and Raman scattering regions are identified in blue and red."}
+```{r}
+#| echo: false
+#| fig-height: 3
+#| fig-width: 5
+#| warning: false
+#| dev: png
+#| fig-align: center
+#| fig-cap: "Emission fluorescence emitted at excitation $ex = 350$. First order of Rayleigh and Raman scattering regions are identified in blue and red."
 
 file <- system.file("extdata/cary/scans_day_1", "sample3.csv", package = "eemR")
 
 x_raw <- eem_read(file, recursive = TRUE, import_function = "cary")
 
-x_cor <- eem_remove_scattering(x_raw, "rayleigh", 1, 12)
-x_cor <- eem_remove_scattering(x_cor, "raman", 1, 5)
+x_cor <- eem_remove_scattering(x_raw, "rayleigh", 1L, 12L)
+x_cor <- eem_remove_scattering(x_cor, "raman", 1L, 5L)
 
-ex <- 350
-em <- x_raw[[1]]$em
+ex <- 350L
+em <- x_raw[[1L]]$em
 
-em_raw <- x_raw[[1]]$x[, which(x_raw[[1]]$ex == 350)]
-em_cor <- x_cor[[1]]$x[, which(x_cor[[1]]$ex == 350)]
+em_raw <- x_raw[[1L]]$x[, which(x_raw[[1L]]$ex == 350L)]
+em_cor <- x_cor[[1L]]$x[, which(x_cor[[1L]]$ex == 350L)]
 
 df <- data.frame(em, em_raw, em_cor)
 df$em_raman <- df$em_raw
-df$em_raman[df$em <= 375] <- NA
+df$em_raman[df$em <= 375L] <- NA
 df$em_rayleigh <- df$em_raw
-df$em_rayleigh[df$em > 375] <- NA
+df$em_rayleigh[df$em > 375L] <- NA
 
 ggplot(df, aes(x = em)) +
   geom_line(
@@ -119,7 +140,7 @@ ggplot(df, aes(x = em)) +
   scale_color_manual(values = c("black", "#D55E00", "#0072B2")) +
   theme(legend.key = element_blank()) +
   theme(
-    legend.justification = c(1, 1),
+    legend.justification = c(1L, 1L),
     legend.position = c(0.9, 0.9)
   )
 ```
@@ -148,108 +169,122 @@ The inner-filter effect (IFE) is an optical phenomenon of reabsorption of emitte
 
 where $X_0$ is the fluorescence in the absence of IFE, $X$ is the measured fluorescence intensity, $b$ is half the cuvette pathlength (usually 0.5 cm) for excitation and emission absorbance, $A_{ex}$ is the absorbance at the excitation wavelength $ex$ and $A_{em}$ the absorbance at the emission wavelength $em$ (Fig. 4B).
 
-```{r fig3, echo = FALSE, message=FALSE, dev='png', fig.align='center', fig.width=7, fig.height=5, fig.cap = 'Surface plot of an EEM with first order of Raman and Rayleigh scattering removed. Missing values (`NA`) have been placed in both diagonals using a bandwidth of 10 nm.', results="hide"}
+```{r}
+#| echo: false
+#| message: false
+#| dev: png
+#| fig-align: center
+#| fig-width: 7
+#| fig-height: 5
+#| fig-cap: 'Surface plot of an EEM with first order of Raman and Rayleigh scattering removed. Missing values (`NA`) have been placed in both diagonals using a bandwidth of 10 nm.'
+#| results: hide
 
-file <- system.file("extdata/cary/scans_day_1/", "sample3.csv",
-package = "eemR"
+file <- system.file(
+  "extdata/cary/scans_day_1/",
+  "sample3.csv",
+  package = "eemR"
 )
 
 eem <- eem_read(file, recursive = FALSE, import_function = "cary")
 
-eem <- eem_remove_scattering(eem, "rayleigh", 1, 10)
-eem <- eem_remove_scattering(eem, "raman", 1, 10)
+eem <- eem_remove_scattering(eem, "rayleigh", 1L, 10L)
+eem <- eem_remove_scattering(eem, "raman", 1L, 10L)
 
 data("absorbance")
 
-eem_scatter_removed <- eem_inner_filter_effect(eem, absorbance, 1)
+eem_scatter_removed <- eem_inner_filter_effect(eem, absorbance, 1L)
 
 load("ife.rda")
 
 jet.colors <- colorRampPalette(c(
-"#00007F",
-"blue",
-"#007FFF",
-"cyan",
-"#7FFF7F",
-"yellow",
-"#FF7F00",
-"red",
-"#7F0000"
+  "#00007F",
+  "blue",
+  "#007FFF",
+  "cyan",
+  "#7FFF7F",
+  "yellow",
+  "#FF7F00",
+  "red",
+  "#7F0000"
 ))
 
-par(mfrow = c(2, 2), mar = c(4, 4, 1, 2) + 0.1, oma = c(0, 0, 0, 2))
+par(mfrow = c(2L, 2L), mar = c(4L, 4L, 1L, 2L) + 0.1, oma = c(0L, 0L, 0L, 2L))
 
 plot3D::image2D(
-y = eem[[1]]$em,
-  x = eem[[1]]$ex,
-z = t(eem[[1]]$x),
-xlab = "Excitation (nm.)",
-ylab = "Emission (nm.)",
-legend.lab = "IFE correction factors",
-col = jet.colors(255)
+  y = eem[[1L]]$em,
+  x = eem[[1L]]$ex,
+  z = t(eem[[1L]]$x),
+  xlab = "Excitation (nm.)",
+  ylab = "Emission (nm.)",
+  legend.lab = "IFE correction factors",
+  col = jet.colors(255L)
 )
 
-legend("topleft",
-expression(bold("A")),
-text.font = 1,
-cex = 1.5,
-bty = "n",
-adj = c(1.5, 0.25)
+legend(
+  "topleft",
+  expression(bold("A")),
+  text.font = 1L,
+  cex = 1.5,
+  bty = "n",
+  adj = c(1.5, 0.25)
 )
 
-plot(absorbance$wavelength,
+plot(
+  absorbance$wavelength,
   absorbance$sample3,
-type = "l",
-lwd = 2,
-col = "red",
-xlab = "Wavelength (nm)",
-ylab = "Absorbance"
+  type = "l",
+  lwd = 2L,
+  col = "red",
+  xlab = "Wavelength (nm)",
+  ylab = "Absorbance"
 )
 
-legend("topleft",
-expression(bold("B")),
-text.font = 1,
-cex = 1.5,
-bty = "n",
-adj = c(1.5, 0.25)
-)
-
-plot3D::image2D(
-y = eem[[1]]$em,
-  x = eem[[1]]$ex,
-z = t(ife),
-xlab = "Excitation (nm.)",
-ylab = "Emission (nm.)",
-legend.lab = "IFE correction factors",
-col = rev(jet.colors(255))
-)
-
-legend("topleft",
-expression(bold("C")),
-text.font = 1,
-cex = 1.5,
-bty = "n",
-adj = c(1.5, 0.25)
+legend(
+  "topleft",
+  expression(bold("B")),
+  text.font = 1L,
+  cex = 1.5,
+  bty = "n",
+  adj = c(1.5, 0.25)
 )
 
 plot3D::image2D(
-y = eem_scatter_removed[[1]]$em,
-  x = eem_scatter_removed[[1]]$ex,
-z = t(eem_scatter_removed[[1]]$x),
-xlab = "Excitation (nm.)",
-ylab = "Emission (nm.)",
-legend.lab = "IFE correction factors",
-col = jet.colors(255)
+  y = eem[[1L]]$em,
+  x = eem[[1L]]$ex,
+  z = t(ife),
+  xlab = "Excitation (nm.)",
+  ylab = "Emission (nm.)",
+  legend.lab = "IFE correction factors",
+  col = rev(jet.colors(255L))
 )
 
-legend("topleft",
-expression(bold("D")),
-text.font = 1,
-cex = 1.5,
-bty = "n",
-adj = c(1.5, 0.25)
+legend(
+  "topleft",
+  expression(bold("C")),
+  text.font = 1L,
+  cex = 1.5,
+  bty = "n",
+  adj = c(1.5, 0.25)
 )
 
+plot3D::image2D(
+  y = eem_scatter_removed[[1L]]$em,
+  x = eem_scatter_removed[[1L]]$ex,
+  z = t(eem_scatter_removed[[1L]]$x),
+  xlab = "Excitation (nm.)",
+  ylab = "Emission (nm.)",
+  legend.lab = "IFE correction factors",
+  col = jet.colors(255L)
+)
+
+legend(
+  "topleft",
+  expression(bold("D")),
+  text.font = 1L,
+  cex = 1.5,
+  bty = "n",
+  adj = c(1.5, 0.25)
+)
 ```
 
 It was recently shown that IFE corrected algebraically was not appropriate when total absorbance, defined as $A_{\text{total}} = A_{\text{ex}} + A_{\text{em}}$ (see Equation (@ife)), is greater than 1.5 [@Kothawala2013]. Under this circumstance, a two-fold dilution of the sample has been recommended. If this happen, a warning message will be displayed by the package during the correction process.
@@ -258,28 +293,39 @@ It was recently shown that IFE corrected algebraically was not appropriate when 
 
 The same DOM sample measured on different spectrofluorometers (or even the same but with different settings) can give important differences in fluorescence intensities [@Lawaetz2009;@Coble1993]. The purpose of the Raman calibration is to remove the dependency of fluorescence intensities on the measuring equipment, thus allowing cross-study comparisons. Given that the Raman peak position of a water sample is located at a fixed position, [@Lawaetz2009] proposed to use the Raman integral of a blank-water sample measured the same day as the EEM to perform calibration. Moreover, the area of the Raman peak ($A_{\text{rp}}$, Fig. 5) is defined as the area of the emission profile between 371 and 428 nm at a fixed excitation of 350 nm [@Lawaetz2009].
 
-```{r fig4, echo = FALSE, warning=FALSE, dev="png", fig.width = 7, fig.align="center", fig.cap = "IFE correction process. Panel (A) shows an uncorrected EEM (the color bar is the florescence intensity in A.U.). Panel (B) is the corresponding absorbance spectra measured on the same sample. Panel (C) shows the IFE correction factors corresponding to the values of the denominator in Equation (@ife) with values close to 1 indicating less pronounced correction. Panel (D) shows the corrected sample (the color bar is the fluorescence intensity in A.U.)."}
+```{r}
+#| echo: false
+#| warning: false
+#| dev: png
+#| fig-width: 7
+#| fig-align: center
+#| fig-cap: "IFE correction process. Panel (A) shows an uncorrected EEM (the color bar is the florescence intensity in A.U.). Panel (B) is the corresponding absorbance spectra measured on the same sample. Panel (C) shows the IFE correction factors corresponding to the values of the denominator in Equation (@ife) with values close to 1 indicating less pronounced correction. Panel (D) shows the corrected sample (the color bar is the fluorescence intensity in A.U.)."
 
 load(here::here("vignettes/blank.rda"))
 
-raman <- blank[[1]]$x[, which(blank[[1]]$ex == 350)]
+raman <- blank[[1L]]$x[, which(blank[[1L]]$ex == 350L)]
 
-df <- data.frame(em = blank[[1]]$em, raman)
+df <- data.frame(em = blank[[1L]]$em, raman)
 
-shade <- rbind(c(371, 0), subset(df, em >= 371 & em <= 428), c(df[nrow(df), "X"], 0))
+shade <- rbind(
+  c(371L, 0L),
+  subset(df, em >= 371L & em <= 428L),
+  c(df[nrow(df), "X"], 0L)
+)
 
 ggplot(df, aes(x = em, y = raman)) +
   geom_line(size = 0.2, na.rm = TRUE) +
   xlab("Emission (nm)") +
   ylab("Fluorescence (A.U)") +
   geom_polygon(data = shade, aes(em, raman)) +
-  xlim(300, 450) +
-  annotate("text", x = 400, y = 1, label = "A[rp]", size = 3, parse = TRUE) +
-  annotate("text",
-    x = 390,
+  xlim(300L, 450L) +
+  annotate("text", x = 400L, y = 1L, label = "A[rp]", size = 3L, parse = TRUE) +
+  annotate(
+    "text",
+    x = 390L,
     y = 7.5,
     label = "First order Rayleigh scattering",
-    size = 3
+    size = 3L
   )
 ```
 
@@ -359,13 +405,17 @@ summary(eems)
 
 A surface plot of EEMs is made using the `plot(x, which = 1)` function where `which` is the index of the EEM to be plotted (see Fig. 3).
 
-```{r, eval = FALSE}
-plot(eems, which = 3)
+```{r}
+#| eval: false
+
+plot(eems, which = 3L)
 ```
 
 Interactive plots using a simple shiny app can be lunched to interactively browse EEMs.
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
+
 plot(eems, interactive = TRUE)
 ```
 
@@ -384,12 +434,22 @@ eems <- eem_remove_blank(eems, blank)
 
 Scattering removal (Equation (@raman1) and Equation (@raman2)) is performed using the `eem_remove_scattering(eem, type, order, width)` function where `eem` is a list of EEMs, `type` is the scattering type (`raman` or `rayleigh`), `order` is the order of the scattering (1 or 2) and `width` the width in nanometers of the slit windows to be removed. In the following example, only first order and Raman and Rayleigh scattering are removed using a bandwidth of 10 nm (Fig. 3).
 
-```{r fig5, tidy=FALSE, fig.height=4, fig.width=5, warning=FALSE, dev='png', fig.align='center', fig.cap = 'Fluorescence profile of a pure water sample at excitation 350 nm between 300 and 450 nm emission. The area of the Raman peak is identified by the shaded polygon and is calculated using Equation (@arp).'}
+```{r}
+#| tidy: false
+#| fig-height: 4
+#| fig-width: 5
+#| warning: false
+#| dev: png
+#| fig-align: center
+#| fig-cap: 'Fluorescence profile of a pure water sample at excitation
+#| 350 nm between 300 and 450 nm emission. The area of the Raman peak
+#| is identified by the shaded polygon and is calculated using Equation
+#| (@arp).'
 
-eems <- eem_remove_scattering(eems, "rayleigh", 1, 10) %>%
-  eem_remove_scattering("raman", 1, 10)
+eems <- eem_remove_scattering(eems, "rayleigh", 1L, 10L) |>
+  eem_remove_scattering("raman", 1L, 10L)
 
-plot(eems, which = 3)
+plot(eems, which = 3L)
 ```
 
 ### Inner-filter effect correction
@@ -409,14 +469,15 @@ eem_names(eems)
 
 IFE correction is performed using the `eem_inner_filter_effect(eem, absorbance, pathlength)` function where `eem` is a list of EEMs, `absorbance` is a data frame containing absorbance spectra and `pathlength` is the absorbance cuvette pathlength expressed in $cm$ (Fig. 4B). For each EEM contained in `eem`, the ranges spanned by the IFE correction factors and total absorbance $A_{\text{total}}$ (Equation (@ife)) are displayed to the user. This can serve as diagnostic tool to determine if the mathematical correction was the appropriate method to use to handle IFE.
 
-```{r, fig.keep="none"}
+```{r}
+#| fig-keep: none
 eems <- eem_inner_filter_effect(
   eem = eems,
   absorbance = absorbance,
-  pathlength = 1
+  pathlength = 1L
 )
 
-plot(eems, which = 3)
+plot(eems, which = 3L)
 ```
 
 Fig. 4 presents intermediate results obtained for the correction of `sample3`. Note the nonlinearity of the correction with higher effect at lower wavelengths (bottom-left corner in panel C). The corrected EEM is presented in Fig. 4D which is the result of the operation of dividing matrix in 4A by 4C.
@@ -425,10 +486,11 @@ Fig. 4 presents intermediate results obtained for the correction of `sample3`. N
 
 The last step of the correction process consist to calibrate fluorescence intensities using the Raman scatter peak of water [@Lawaetz2009]. This is performed using the `eem_raman_normalisation(eem, blank)` function where `eem` is a list of EEMs and `blank` is a water blank measured the same day. Here, the same water-blank is used for the three EEMs. Note that the value of the Raman area ($A_{\text{rp}}$, Equation(@arp)) is printed.
 
-```{r, fig.keep="none"}
+```{r}
+#| fig-keep: none
 eems <- eem_raman_normalisation(eems, blank)
 
-plot(eems, which = 3)
+plot(eems, which = 3L)
 ```
 
 At this stage, all corrections have been performed and EEMs are ready to be exported into MATLAB for PARAFAC analysis. The state of the EEMs can be verified using the `summary()` function.
@@ -441,7 +503,8 @@ summary(eems)
 
 The **drEEM** MATLAB toolbox [@Murphy2013] used to perform PARAFAC analysis requires data in a specific format (structure). The `eem_export_matlab(file, ...)` function can be used to export corrected EEMs into a PARAFAC ready format. The first `file` argument is the mat file where to export the structure and the second argument `...` is one or more `eem` object.
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 eem_export_matlab("myfile.mat", eems)
 ```
 
@@ -474,16 +537,16 @@ It should be noted that different excitation and emission wavelengths are often 
 
 Note that it is also possible to use the [magrittr](https://CRAN.R-project.org/package=magrittr) pipe line with most functions from `eemR`.
 
-```{r, eval=FALSE}
-library(magrittr)
+```{r}
+#| eval: false
 
 file <- system.file("extdata/cary/scans_day_1/", package = "eemR")
-file %>%
-  eem_read(recursive = TRUE, import_function = "cary") %>%
-  eem_raman_normalisation() %>%
-  eem_remove_scattering(type = "raman", order = 1, width = 10) %>%
-  eem_remove_scattering(type = "rayleigh", order = 1, width = 10) %>%
-  plot(2)
+file |>
+  eem_read(recursive = TRUE, import_function = "cary") |>
+  eem_raman_normalisation() |>
+  eem_remove_scattering(type = "raman", order = 1L, width = 10L) |>
+  eem_remove_scattering(type = "rayleigh", order = 1L, width = 10L) |>
+  plot(2L)
 ```
 
 ## Conclusion

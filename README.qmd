@@ -1,7 +1,5 @@
 ---
-output:
-  github_document:
-    html_preview: true
+format: gfm
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -26,13 +24,16 @@ The **eemR** package implements various functions used calculate metrics from ex
 
 The latest release of the package from CRAN can be installed with:
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 install.packages("eemR")
 ```
 
 The latest development version of the package can be installed with:
 
-```{r install, eval = FALSE}
+```{r}
+#| label: install
+#| eval: false
 devtools::install_github("PMassicotte/eemR")
 ```
 
@@ -40,7 +41,8 @@ devtools::install_github("PMassicotte/eemR")
 
 A detailed vignette presenting the package which can be viewed using:
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 vignette(topic = "introduction", package = "eemR")
 ```
 

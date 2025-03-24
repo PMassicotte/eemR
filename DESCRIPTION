@@ -39,5 +39,5 @@ Suggests:
     MBA,
     here,
     covr
-VignetteBuilder: knitr
+VignetteBuilder: quarto
 Encoding: UTF-8

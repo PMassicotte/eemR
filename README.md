@@ -1,4 +1,5 @@
 
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ## eemR
@@ -6,8 +7,8 @@
 <!-- badges: start -->
 
 [![Package-License](https://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/eemR)](https://cran.r-project.org/package=eemR)
-[![Downloads](http://cranlogs.r-pkg.org/badges/eemR?color=brightgreen)](https://www.r-pkg.org:443/pkg/eemR)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/eemR.png)](https://cran.r-project.org/package=eemR)
+[![Downloads](http://cranlogs.r-pkg.org/badges/eemR?color=brightgreen.png)](https://www.r-pkg.org:443/pkg/eemR)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3257526.svg)](https://doi.org/10.5281/zenodo.3257526)
 [![Codecov test
 coverage](https://codecov.io/gh/PMassicotte/eemR/branch/main/graph/badge.svg)](https://app.codecov.io/gh/PMassicotte/eemR?branch=main)
