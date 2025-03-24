@@ -55,7 +55,8 @@ eem_export_matlab <- function(file, ...) {
   nEm <- unique(unlist(lapply(eem, function(x) length(x$em))))
 
   if (length(nEm) != 1) {
-    stop("Length of emission vectors are not the same across all eem.",
+    stop(
+      "Length of emission vectors are not the same across all eem.",
       call. = FALSE
     )
   }
@@ -63,9 +64,7 @@ eem_export_matlab <- function(file, ...) {
   Em <- mapply(function(x) x$em, eem)
 
   if (ncol(unique(Em, MARGIN = 2)) != 1) {
-    stop("Emission vectors are not the same across all eem.",
-      call. = FALSE
-    )
+    stop("Emission vectors are not the same across all eem.", call. = FALSE)
   }
 
   Em <- Em[, 1] ## Just get the first column
@@ -76,7 +75,8 @@ eem_export_matlab <- function(file, ...) {
   nEx <- unique(unlist(lapply(eem, function(x) length(x$ex))))
 
   if (length(nEx) != 1) {
-    stop("Length of excitation vectors are not the same across all eem.",
+    stop(
+      "Length of excitation vectors are not the same across all eem.",
       call. = FALSE
     )
   }
@@ -84,9 +84,7 @@ eem_export_matlab <- function(file, ...) {
   Ex <- mapply(function(x) x$ex, eem)
 
   if (ncol(unique(Ex, MARGIN = 2)) != 1) {
-    stop("Exctiation vectors are not the same across all eem.",
-      call. = FALSE
-    )
+    stop("Exctiation vectors are not the same across all eem.", call. = FALSE)
   }
 
   Ex <- Ex[, 1] ## Just get the first column
@@ -98,7 +96,8 @@ eem_export_matlab <- function(file, ...) {
   ncol <- unique(unlist(lapply(eem, function(x) ncol(x$x))))
 
   if (length(ncol) != 1) {
-    stop("EEMs do not have all the same number of columns across the dataset.",
+    stop(
+      "EEMs do not have all the same number of columns across the dataset.",
       call. = FALSE
     )
   }
@@ -106,7 +105,8 @@ eem_export_matlab <- function(file, ...) {
   nrow <- unique(unlist(lapply(eem, function(x) nrow(x$x))))
 
   if (length(nrow) != 1) {
-    stop("EEMs do not have all the same number of rows across the dataset.",
+    stop(
+      "EEMs do not have all the same number of rows across the dataset.",
       call. = FALSE
     )
   }
@@ -125,7 +125,8 @@ eem_export_matlab <- function(file, ...) {
     Em = Em
   )
 
-  R.matlab::writeMat(file,
+  R.matlab::writeMat(
+    file,
     OriginalData = OriginalData,
     sample_names = eem_names(eem)
   )

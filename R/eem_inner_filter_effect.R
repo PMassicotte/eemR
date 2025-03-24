@@ -69,7 +69,8 @@ eem_inner_filter_effect <- function(eem, absorbance, pathlength = 1) {
 
   ## It is a list of eems, then call lapply
   if (.is_eemlist(eem)) {
-    res <- eem_lapply(eem,
+    res <- eem_lapply(
+      eem,
       eem_inner_filter_effect_,
       absorbance = absorbance,
       pathlength = pathlength
@@ -87,7 +88,8 @@ eem_inner_filter_effect_ <- function(eem, absorbance, pathlength = 1) {
   # names(absorbance) <- tolower(names(absorbance))
 
   if (!any(names(absorbance) == "wavelength")) {
-    stop("'wavelength' variable was not found in the data frame.",
+    stop(
+      "'wavelength' variable was not found in the data frame.",
       call. = FALSE
     )
   }
@@ -95,20 +97,29 @@ eem_inner_filter_effect_ <- function(eem, absorbance, pathlength = 1) {
   wl <- absorbance[["wavelength"]]
 
   if (!all(is_between(range(eem$em), min(wl), max(wl)))) {
-    stop("absorbance wavelengths are not in the range of
-         emission wavelengths", call. = FALSE)
+    stop(
+      "absorbance wavelengths are not in the range of
+         emission wavelengths",
+      call. = FALSE
+    )
   }
 
   if (!all(is_between(range(eem$ex), min(wl), max(wl)))) {
-    stop("absorbance wavelengths are not in the range of
-         excitation wavelengths", call. = FALSE)
+    stop(
+      "absorbance wavelengths are not in the range of
+         excitation wavelengths",
+      call. = FALSE
+    )
   }
 
   index <- which(names(absorbance) == eem$sample)
 
   ## absorbance spectra not found, we return the uncorected eem
   if (length(index) == 0) {
-    warning("Absorbance spectrum for ", eem$sample, " was not found. Returning uncorrected EEM.",
+    warning(
+      "Absorbance spectrum for ",
+      eem$sample,
+      " was not found. Returning uncorrected EEM.",
       call. = FALSE
     )
 
@@ -137,12 +148,16 @@ eem_inner_filter_effect_ <- function(eem, absorbance, pathlength = 1) {
   # This also assume that the fluorescence has been measured in 1 cm cuvette.
   total_absorbance <- sapply(ex, function(x) {
     x + em
-  }) / pathlength
+  }) /
+    pathlength
 
   max_abs <- max(total_absorbance)
 
   if (max_abs > 1.5) {
-    cat("Total absorbance is > 1.5 (Atotal = ", max_abs, ")\n",
+    cat(
+      "Total absorbance is > 1.5 (Atotal = ",
+      max_abs,
+      ")\n",
       "A 2-fold dilution is recommended. See ?eem_inner_filter_effect.\n",
       sep = ""
     )
@@ -152,12 +167,14 @@ eem_inner_filter_effect_ <- function(eem, absorbance, pathlength = 1) {
 
   cat(
     "Range of IFE correction factors:",
-    round(range(ife_correction_factor), digits = 4), "\n"
+    round(range(ife_correction_factor), digits = 4),
+    "\n"
   )
 
   cat(
     "Range of total absorbance (Atotal) :",
-    round(range(total_absorbance / pathlength), digits = 4), "\n\n"
+    round(range(total_absorbance / pathlength), digits = 4),
+    "\n\n"
   )
 
   x <- eem$x * ife_correction_factor

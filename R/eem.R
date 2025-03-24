@@ -16,7 +16,9 @@
 
 eem <- function(data) {
   if (!all(c("file", "x", "em", "ex") %in% names(data))) {
-    stop("Your custom function should return a named list with four components: file, x, ex, em")
+    stop(
+      "Your custom function should return a named list with four components: file, x, ex, em"
+    )
   }
 
   res <- list(

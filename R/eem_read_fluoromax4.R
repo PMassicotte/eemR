@@ -11,7 +11,11 @@ eem_read_fluoromax4 <- function(file) {
   expected_col <- as.numeric(names(sort(-table(n_col)))[1])
   data[lapply(data, length) != expected_col] <- NULL
 
-  data <- suppressWarnings(matrix(as.numeric(unlist(data, use.names = FALSE)), ncol = expected_col, byrow = TRUE))
+  data <- suppressWarnings(matrix(
+    as.numeric(unlist(data, use.names = FALSE)),
+    ncol = expected_col,
+    byrow = TRUE
+  ))
 
   ex <- as.vector(na.omit(data[1, ]))
   em <- as.vector(na.omit(data[, 1]))

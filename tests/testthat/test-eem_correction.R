@@ -1,5 +1,4 @@
 test_that("Correction functions do not change the sample names of the eems", {
-
   folder <- system.file("extdata/cary/scans_day_1", package = "eemR")
   eems <- eem_read(folder, import_function = "cary")
 
@@ -20,7 +19,12 @@ test_that("Correction functions do not change the sample names of the eems", {
 
   data("absorbance")
   names(absorbance) <- c("wavelength", "sample_a", "sample_b", "sample_c")
-  suppressWarnings(eems <- eem_inner_filter_effect(eems, absorbance = absorbance, pathlength = 1))
+  suppressWarnings(
+    eems <- eem_inner_filter_effect(
+      eems,
+      absorbance = absorbance,
+      pathlength = 1
+    )
+  )
   expect_equal(eem_names(eems), new_names)
-
 })

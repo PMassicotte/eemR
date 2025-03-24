@@ -77,7 +77,6 @@ eem_raman_normalisation_ <- function(eem, blank = NA) {
 
   ## It is a list of eems, then call lapply
   if (.is_eemlist(eem)) {
-
     # if blank is NA then try to split the eemlist into blank and eems
     if (is.na(blank)) {
       blank <- eem_extract_blank(eem)
@@ -88,7 +87,6 @@ eem_raman_normalisation_ <- function(eem, blank = NA) {
     }
 
     res <- eem_lapply(eem, eem_raman_normalisation_, blank = blank)
-
 
     return(res)
   }
@@ -120,8 +118,10 @@ eem_raman_normalisation_ <- function(eem, blank = NA) {
   # y <- blank$x[index_em, index_ex]
 
   if (any(is.na(em)) | any(is.na(fluo))) {
-    stop("NA values found in the blank sample. Maybe you removed scattering too soon?",
-         call. = FALSE)
+    stop(
+      "NA values found in the blank sample. Maybe you removed scattering too soon?",
+      call. = FALSE
+    )
   }
 
   area <- sum(diff(em) * (fluo[-length(fluo)] + fluo[-1]) / 2)

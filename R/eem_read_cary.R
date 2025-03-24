@@ -15,12 +15,17 @@ eem_read_cary <- function(file) {
 
   data[lapply(data, length) != expected_col] <- NULL
 
-  ex <- as.numeric(na.omit(stringr::str_match(data[[1]], stringr::regex("Ex_(\\d+\\.?\\d*)", ignore_case = TRUE))[, 2]))
+  ex <- as.numeric(na.omit(stringr::str_match(
+    data[[1]],
+    stringr::regex("Ex_(\\d+\\.?\\d*)", ignore_case = TRUE)
+  )[, 2]))
 
   data[1:2] <- NULL ## Remove the first 2 header lines
 
-  data <- matrix(as.numeric(unlist(data, use.names = FALSE)),
-                 ncol = expected_col, byrow = TRUE
+  data <- matrix(
+    as.numeric(unlist(data, use.names = FALSE)),
+    ncol = expected_col,
+    byrow = TRUE
   )
 
   data <- data[, which(colMeans(is.na(data)) < 1)] ## remove na columns

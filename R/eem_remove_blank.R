@@ -82,8 +82,11 @@ eem_remove_blank <- function(eem, blank = NA) {
   is_raman_normalized <- unlist(is_raman_normalized)
 
   if (any(is_raman_normalized)) {
-    stop("Samples have been Raman normalized. Please perform blank removal
-         before Raman normalization.", call. = FALSE)
+    stop(
+      "Samples have been Raman normalized. Please perform blank removal
+         before Raman normalization.",
+      call. = FALSE
+    )
   }
 
   if (is.na(blank)) {
@@ -110,7 +113,6 @@ eem_remove_blank_ <- function(eem, blank = NA) {
 
   ## It is a list of eems, then call lapply
   if (.is_eemlist(eem)) {
-
     # if blank is NA then try to split the eemlist into blank and eems
     if (is.na(blank)) {
       blank <- eem_extract_blank(eem)
@@ -121,7 +123,6 @@ eem_remove_blank_ <- function(eem, blank = NA) {
     }
 
     res <- eem_lapply(eem, eem_remove_blank, blank = blank)
-
 
     return(res)
   }
