@@ -49,6 +49,8 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v1
 
+      - uses: quarto-dev/quarto-actions/setup@v2
+
       - name: Query dependencies
         run: |
           install.packages('remotes')
