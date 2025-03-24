@@ -1,1 +1,4 @@
-destination: docs
+url: http://pmassicotte.github.io/eemR/
+template:
+  bootstrap: 5
+

@@ -9,7 +9,7 @@ Description: Provides various tools for preprocessing Emission-Excitation-Matrix
   methods are also provided to calculate common metrics such as humification index and fluorescence index.
 License: GPL (>= 2)
 BugReports: https://github.com/PMassicotte/eemR/issues
-URL: https://github.com/PMassicotte/eemR
+URL: https://github.com/PMassicotte/eemR, http://pmassicotte.github.io/eemR/
 Depends:
     R (>= 3.2.1)
 LazyData: TRUE
@@ -22,7 +22,7 @@ Imports:
     rlist,
     viridis,
     purrr,
-    assertthat
+    assertthat,
 RoxygenNote: 7.3.2
 Suggests:
     cdom,
@@ -38,6 +38,7 @@ Suggests:
     DT,
     MBA,
     here,
-    covr
+    covr,
+    quarto
 VignetteBuilder: quarto
 Encoding: UTF-8
