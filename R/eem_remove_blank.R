@@ -13,9 +13,9 @@
 #'
 #' @references Murphy, K. R., Stedmon, C. a., Graeber, D., & Bro, R. (2013).
 #'   Fluorescence spectroscopy and multi-way techniques. PARAFAC. Analytical
-#'   Methods, 5(23), 6557. http://doi.org/10.1039/c3ay41160e
+#'   Methods, 5(23), 6557. https://pubs.rsc.org/en/content/articlelanding/2013/ay/c3ay41160e
 #'
-#'   \url{http://xlink.rsc.org/?DOI=c3ay41160e}
+#'   \url{https://pubs.rsc.org/en/content/articlelanding/2013/ay/c3ay41160e}
 #'
 #' @importFrom rlist list.apply list.group list.ungroup
 #' @export

@@ -28,7 +28,7 @@ Export EEMs to Matlab
 }
 \details{
 The function exports EEMs into PARAFAC-ready Matlab \code{.mat} file
-  usable by the \href{http://www.models.life.ku.dk/drEEM}{drEEM} toolbox.
+  usable by the \href{https://dreem.openfluor.org/}{drEEM} toolbox.
 }
 \section{Known bug in export}{
  \code{eemR} uses \code{R.Matlab} to export the

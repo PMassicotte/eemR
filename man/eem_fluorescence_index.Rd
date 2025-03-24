@@ -38,7 +38,7 @@ eem <- eem_read(file, import_function = "cary")
 eem_fluorescence_index(eem)
 }
 \references{
-\url{https://doi.wiley.com/10.4319/lo.2001.46.1.0038}
+\url{https://doi.org/10.4319/lo.2001.46.1.0038}
 }
 \seealso{
 \link[pracma]{interp2}

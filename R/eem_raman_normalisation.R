@@ -24,7 +24,7 @@
 #' spectroscopy and multi-way techniques. PARAFAC. Analytical Methods, 5(23),
 #' 6557.
 #'
-#' \url{http://xlink.rsc.org/?DOI=c3ay41160e}
+#' \url{https://pubs.rsc.org/en/content/articlelanding/2013/ay/c3ay41160e}
 #'
 #' @return An object of class \code{eem} containing: \itemize{ \item sample The
 #'   file name of the eem. \item x A matrix with fluorescence values. \item em

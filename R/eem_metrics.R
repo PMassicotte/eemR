@@ -13,7 +13,7 @@ msg_warning_wavelength <- function() {
 #'
 #' @template template_section_interp2
 #'
-#' @references \url{https://doi.wiley.com/10.4319/lo.2001.46.1.0038}
+#' @references \url{https://doi.org/10.4319/lo.2001.46.1.0038}
 #'
 #' @return A data frame containing fluorescence index (FI) for each eem.
 #' @export
