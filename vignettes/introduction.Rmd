@@ -20,13 +20,11 @@ library(plot3D)
 theme_set(theme_bw(base_size = 8))
 ```
 
-
 ## Introduction
 
 Dissolved organic matter (DOM) plays a central role in the functioning of aquatic ecosystems. For example, characteristics of the DOM pool (quantity and quality) determine underwater light climate [@Kirk1994], the composition of aquatic microbial communities [@Foreman2003;@Kritzberg2006a] and the carbon cycling on local to global scales [@Cole2007]. Chemically, the DOM pool is complex (> 1500 compounds) and analytical methods used to characterize it are relatively complex, time-consuming and costly [@Benner2002;@Seitzinger2005;@Fellman2010]. This situation called for the development of rapid and cost effective characterization techniques. Because optical properties of DOM can be related to its chemical properties, optical techniques such as fluorescence spectroscopy have been developed and rapidly adopted by the community to characterize the DOM pool in aquatic ecosystems [@Coble1990;@Coble1996;@McKnight2001].
 
 The seminal paper of [@Stedmon2003a] put at the forefront the use of parallel factor analysis (PARAFAC) to aid the characterization of fluorescent DOM. Briefly, this three-way technique allows the decomposition of complex DOM fluorescence signals contained in the excitation-emission matrix (EEM, Fig. 1) into a set of individual chemical components and provides estimations of their relative contribution to the total fluorescence [@Bro1997;@Fellman2010;@Stedmon2003a].
-
 
 ```{r fig1, echo = FALSE, fig.width=5, fig.height=5, dev='png', fig.align='center', fig.cap = "Example of an excitation-emission fluorescence matrix (EEM). The diagonal structure with high fluorescence corresponds to the first order of Rayleigh scattering."}
 file <- system.file("extdata/cary/scans_day_1", "sample3.csv", package = "eemR")
@@ -49,7 +47,6 @@ persp3D(
 )
 ```
 
-
 The PARAFAC model is described as [@Bro1997;@Harshman1970]:
 
 <div class="equation">
@@ -68,16 +65,16 @@ Let us define $X$, an EEM of fluorescence intensities measured along a vector of
 
 The following sections present the main correction steps for fluorescence data aiming to correct any systematic bias in the measurements and remove signal unrelated to fluorescence prior to any analysis.
 
-| Correction | Description |
-|------------------|:--------------------------------:|
-| Blank subtraction | Subtract a pure water sample blank from the fluorescence data to  help the removal of Raman and Rayleigh scattering peaks. |
-| Scattering removal | Remove the the so-called scattering bands caused by first and  second order of Raman and Rayleigh scattering. |
-| Inner-filter effect correction | Correct for reabsorption of light occurring at both the excitation  and emission wavelengths during measurement. |
-| Raman normalization | Remove the dependency of fluorescence intensities from the  measuring equipments thus allowing cross-study comparisons. |
+| Correction                     |                                                        Description                                                        |
+| ------------------------------ | :-----------------------------------------------------------------------------------------------------------------------: |
+| Blank subtraction              | Subtract a pure water sample blank from the fluorescence data to help the removal of Raman and Rayleigh scattering peaks. |
+| Scattering removal             |       Remove the the so-called scattering bands caused by first and second order of Raman and Rayleigh scattering.        |
+| Inner-filter effect correction |      Correct for reabsorption of light occurring at both the excitation and emission wavelengths during measurement.      |
+| Raman normalization            |  Remove the dependency of fluorescence intensities from the measuring equipments thus allowing cross-study comparisons.   |
 
 ### Scattering correction
 
-Rayleigh and Raman scattering are optical processes by which some of the incident energy can be absorbed and converted into vibrational and rotational energy [@Lakowicz2006].  The resulting scattered energy produce the so-called scattering bands which are visually easily identifiable (Figs. 1 and 2). Given that both types of scattering are repeated across EEMs, it is important to remove such artifacts prior to analysis [@Bahram2006;@Zepp2004].
+Rayleigh and Raman scattering are optical processes by which some of the incident energy can be absorbed and converted into vibrational and rotational energy [@Lakowicz2006]. The resulting scattered energy produce the so-called scattering bands which are visually easily identifiable (Figs. 1 and 2). Given that both types of scattering are repeated across EEMs, it is important to remove such artifacts prior to analysis [@Bahram2006;@Zepp2004].
 
 ```{r fig2, echo=FALSE, fig.height=3, fig.width=5, warning=FALSE, dev='png', fig.align='center', fig.cap = "Emission fluorescence emitted at excitation $ex = 350$. First order of Rayleigh and Raman scattering regions are identified in blue and red."}
 
@@ -101,15 +98,18 @@ df$em_rayleigh <- df$em_raw
 df$em_rayleigh[df$em > 375] <- NA
 
 ggplot(df, aes(x = em)) +
-  geom_line(aes(y = em_rayleigh, color = "Rayleigh scattering"),
+  geom_line(
+    aes(y = em_rayleigh, color = "Rayleigh scattering"),
     size = 0.75,
     na.rm = TRUE
   ) +
-  geom_line(aes(y = em_raman, color = "Raman scattering"),
+  geom_line(
+    aes(y = em_raman, color = "Raman scattering"),
     size = 0.75,
     na.rm = TRUE
   ) +
-  geom_line(aes(y = em_cor, color = "Fluorescence signal"),
+  geom_line(
+    aes(y = em_cor, color = "Fluorescence signal"),
     size = 0.75,
     na.rm = TRUE
   ) +
@@ -151,7 +151,7 @@ where $X_0$ is the fluorescence in the absence of IFE, $X$ is the measured fluor
 ```{r fig3, echo = FALSE, message=FALSE, dev='png', fig.align='center', fig.width=7, fig.height=5, fig.cap = 'Surface plot of an EEM with first order of Raman and Rayleigh scattering removed. Missing values (`NA`) have been placed in both diagonals using a bandwidth of 10 nm.', results="hide"}
 
 file <- system.file("extdata/cary/scans_day_1/", "sample3.csv",
-  package = "eemR"
+package = "eemR"
 )
 
 eem <- eem_read(file, recursive = FALSE, import_function = "cary")
@@ -166,91 +166,91 @@ eem_scatter_removed <- eem_inner_filter_effect(eem, absorbance, 1)
 load("ife.rda")
 
 jet.colors <- colorRampPalette(c(
-  "#00007F",
-  "blue",
-  "#007FFF",
-  "cyan",
-  "#7FFF7F",
-  "yellow",
-  "#FF7F00",
-  "red",
-  "#7F0000"
+"#00007F",
+"blue",
+"#007FFF",
+"cyan",
+"#7FFF7F",
+"yellow",
+"#FF7F00",
+"red",
+"#7F0000"
 ))
 
 par(mfrow = c(2, 2), mar = c(4, 4, 1, 2) + 0.1, oma = c(0, 0, 0, 2))
 
 plot3D::image2D(
-  y = eem[[1]]$em,
+y = eem[[1]]$em,
   x = eem[[1]]$ex,
-  z = t(eem[[1]]$x),
-  xlab = "Excitation (nm.)",
-  ylab = "Emission (nm.)",
-  legend.lab = "IFE correction factors",
-  col = jet.colors(255)
+z = t(eem[[1]]$x),
+xlab = "Excitation (nm.)",
+ylab = "Emission (nm.)",
+legend.lab = "IFE correction factors",
+col = jet.colors(255)
 )
 
 legend("topleft",
-  expression(bold("A")),
-  text.font = 1,
-  cex = 1.5,
-  bty = "n",
-  adj = c(1.5, 0.25)
+expression(bold("A")),
+text.font = 1,
+cex = 1.5,
+bty = "n",
+adj = c(1.5, 0.25)
 )
-
 
 plot(absorbance$wavelength,
   absorbance$sample3,
-  type = "l",
-  lwd = 2,
-  col = "red",
-  xlab = "Wavelength (nm)",
-  ylab = "Absorbance"
+type = "l",
+lwd = 2,
+col = "red",
+xlab = "Wavelength (nm)",
+ylab = "Absorbance"
 )
 
 legend("topleft",
-  expression(bold("B")),
-  text.font = 1,
-  cex = 1.5,
-  bty = "n",
-  adj = c(1.5, 0.25)
+expression(bold("B")),
+text.font = 1,
+cex = 1.5,
+bty = "n",
+adj = c(1.5, 0.25)
 )
 
 plot3D::image2D(
-  y = eem[[1]]$em,
+y = eem[[1]]$em,
   x = eem[[1]]$ex,
-  z = t(ife),
-  xlab = "Excitation (nm.)",
-  ylab = "Emission (nm.)",
-  legend.lab = "IFE correction factors",
-  col = rev(jet.colors(255))
+z = t(ife),
+xlab = "Excitation (nm.)",
+ylab = "Emission (nm.)",
+legend.lab = "IFE correction factors",
+col = rev(jet.colors(255))
 )
 
 legend("topleft",
-  expression(bold("C")),
-  text.font = 1,
-  cex = 1.5,
-  bty = "n",
-  adj = c(1.5, 0.25)
+expression(bold("C")),
+text.font = 1,
+cex = 1.5,
+bty = "n",
+adj = c(1.5, 0.25)
 )
 
 plot3D::image2D(
-  y = eem_scatter_removed[[1]]$em,
+y = eem_scatter_removed[[1]]$em,
   x = eem_scatter_removed[[1]]$ex,
-  z = t(eem_scatter_removed[[1]]$x),
-  xlab = "Excitation (nm.)",
-  ylab = "Emission (nm.)",
-  legend.lab = "IFE correction factors",
-  col = jet.colors(255)
+z = t(eem_scatter_removed[[1]]$x),
+xlab = "Excitation (nm.)",
+ylab = "Emission (nm.)",
+legend.lab = "IFE correction factors",
+col = jet.colors(255)
 )
 
 legend("topleft",
-  expression(bold("D")),
-  text.font = 1,
-  cex = 1.5,
-  bty = "n",
-  adj = c(1.5, 0.25)
+expression(bold("D")),
+text.font = 1,
+cex = 1.5,
+bty = "n",
+adj = c(1.5, 0.25)
 )
-```
+
+````
 
 It was recently shown that IFE corrected algebraically was not appropriate when total absorbance, defined as $A_{\text{total}} = A_{\text{ex}} + A_{\text{em}}$ (see Equation (@ife)), is greater than 1.5 [@Kothawala2013]. Under this circumstance, a two-fold dilution of the sample has been recommended. If this happen, a warning message will be displayed by the package during the correction process.
 
@@ -281,8 +281,7 @@ ggplot(df, aes(x = em, y = raman)) +
     label = "First order Rayleigh scattering",
     size = 3
   )
-```
-
+````
 
 Mathematically, the value of $A_{\text{rp}}$ is calculated using the following integral (Equation(@arp)):
 
@@ -306,13 +305,13 @@ A wide range of different metrics obtained from EEMs have been proposed to chara
 
 The following table presents the five major fluorescent components identified by [@Coble1996] in marine EEMs. Peaks **B** and **T** represent protein-like compounds (tyrosine and tryptophane), peaks **A** and **C** are indicators of humic-like components whereas peak **M** was associated to marine humic-like fluorescence.
 
-| Peak 	| Ex (nm) 	| Em (nm) 	|
-|------	|---------	|---------	|
-| B    	| 275     	| 310     	|
-| T    	| 275     	| 340     	|
-| A    	| 260     	| 380-460 	|
-| M    	| 312     	| 380-420 	|
-| C    	| 350     	| 420-480 	|
+| Peak | Ex (nm) | Em (nm) |
+| ---- | ------- | ------- |
+| B    | 275     | 310     |
+| T    | 275     | 340     |
+| A    | 260     | 380-460 |
+| M    | 312     | 380-420 |
+| C    | 350     | 420-480 |
 
 #### Fluorescence, humification and biological indices
 
@@ -440,7 +439,7 @@ summary(eems)
 
 ### Exporting to MATLAB
 
- The **drEEM** MATLAB toolbox [@Murphy2013] used to perform PARAFAC analysis requires data in a specific format (structure). The `eem_export_matlab(file, ...)` function can be used to export corrected EEMs into a PARAFAC ready format. The first `file` argument is the mat file where to export the structure and the second argument `...` is one or more `eem` object.
+The **drEEM** MATLAB toolbox [@Murphy2013] used to perform PARAFAC analysis requires data in a specific format (structure). The `eem_export_matlab(file, ...)` function can be used to export corrected EEMs into a PARAFAC ready format. The first `file` argument is the mat file where to export the structure and the second argument `...` is one or more `eem` object.
 
 ```{r, eval=FALSE}
 eem_export_matlab("myfile.mat", eems)
@@ -486,7 +485,6 @@ file %>%
   eem_remove_scattering(type = "rayleigh", order = 1, width = 10) %>%
   plot(2)
 ```
-
 
 ## Conclusion
 
