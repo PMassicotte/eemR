@@ -10,7 +10,7 @@
 
 - `eem_humification_index()` now ignore missing values (for example due to scattering removal) in the calculation.
 
-- Increasing code coverage from 40% to xxx%.
+- Increasing code coverage from 40% to 55%.
 
 # eemR 1.0.1
 
@@ -21,25 +21,25 @@
 ## Major changes
 
 `eemR` can use a user-defined function to import eems data. A new argument `import_function` in the `eem_read()` function can be used to provide a custom function to read a specific eem file format.
- 
- ## Breaking changes
- 
- Because of the major change of `eem_read()`, existing code will brake. The user still can uses the old importing functions by specifying the spectrofluorometer to use as follows:
- 
- - `eem_read(file, import_function = "cary")`
- - `eem_read(file, import_function = "aqualog")`
- - `eem_read(file, import_function = "shimadzu")`
- - `eem_read(file, import_function = "fluoromax4")`
+
+## Breaking changes
+
+Because of the major change of `eem_read()`, existing code will brake. The user still can uses the old importing functions by specifying the spectrofluorometer to use as follows:
+
+- `eem_read(file, import_function = "cary")`
+- `eem_read(file, import_function = "aqualog")`
+- `eem_read(file, import_function = "shimadzu")`
+- `eem_read(file, import_function = "fluoromax4")`
 
 ## New features
- 
- - New function `eem_peaks()` to extract user-defined fluorescence peaks (#42).
- 
+
+- New function `eem_peaks()` to extract user-defined fluorescence peaks (#42).
+
 # eemR 0.1.5
 
 - Improved plot visualization to the same look and feel as those produced in Matlab with DrEEM.
 
-- Use file name as is for the name of the eem. 
+- Use file name as is for the name of the eem.
 
 - Reading Cary Eclipse files is more robust at detecting correct excitation wavelengths.
 
@@ -69,7 +69,7 @@
 
 - `eem_remove_scattering()` no longer `tolower` absorbance names and will assume that the provided absorbance spectra match exactly EEM's names.
 
-- Fixing a bug that prevented the interactive plot to work properly. 
+- Fixing a bug that prevented the interactive plot to work properly.
 
 - `summary(x)` and `print(x)` now return a data frame containing summarized information on EEMs contained in `x`. See `?summary.eemlist`.
 
@@ -79,9 +79,9 @@
 
 - `eem_raman_normalisation()` now interpolates blank EEM to ensure that em at 350 and excitation between 371 and 428 exist (#31).
 
-- `eem_remove_blank()` and `eem_raman_normalisation()` will now keep blank samples when automatic correction is used. When automatic correction is used, the *untransformed* blank sample will be keep in the list.
+- `eem_remove_blank()` and `eem_raman_normalisation()` will now keep blank samples when automatic correction is used. When automatic correction is used, the _untransformed_ blank sample will be keep in the list.
 
-- An error will now occur if trying to perform blank correction after Raman normalization. 
+- An error will now occur if trying to perform blank correction after Raman normalization.
 
 # eemR 0.1.3
 
@@ -95,14 +95,9 @@
 
 - Reading Aqualog files is now ~20% faster (#26).
 
-- `plot()` gains an argument `show_peaks = TRUE/FALSE` which can be used to display most common fluorescence peaks used in the literature. 
+- `plot()` gains an argument `show_peaks = TRUE/FALSE` which can be used to display most common fluorescence peaks used in the literature.
 
-- `eem_remove_blank()` and `eem_raman_normalisation()` can now try to implicitly use a blank eem from a `eemlist` object (#20). If blank is omitted (`blank = NA`), the functions will try to extract the blank from the `eemlist` object. This is done by looking for sample names containing one of these complete or partial strings (ignoring case):
-      - "nano"
-      - "miliq"
-      - "milliq"
-      - "mq"
-      - "blank"
+- `eem_remove_blank()` and `eem_raman_normalisation()` can now try to implicitly use a blank eem from a `eemlist` object (#20). If blank is omitted (`blank = NA`), the functions will try to extract the blank from the `eemlist` object. This is done by looking for sample names containing one of these complete or partial strings (ignoring case): - "nano" - "miliq" - "milliq" - "mq" - "blank"
 
 Consider the following example where there are two folders that could represent scans performed on two different days `scans_day_1` and `scans_day_2`. In each folder there are three samples and one blank files. In that context, `eem_remove_blank()` will use the blank `nano.csv` from `sample1.csv`, `sample2.csv` and `sample3.csv`. The same strategy will be used for files in folder `scans_day_2` but with blank named `blank.csv`.
 
@@ -135,8 +130,9 @@ inst/extdata/cary/
 - Reading EEMs should be ~ 50% faster.
 
 - New function `eem_sample_names()` implemented.
-    - `eem_sample_names(eem)` returns a vector containing the sample names of all EEMs.
-    - `eem_sample_names(eem) <- c(...)` sets the sample names of all EEMs.
+
+  - `eem_sample_names(eem)` returns a vector containing the sample names of all EEMs.
+  - `eem_sample_names(eem) <- c(...)` sets the sample names of all EEMs.
 
 - `eem_extract()` has now an argument `ignore_case` (#10) to specify if the regular expression search should ignore sample name case (TRUE) or not (FALSE).
 
