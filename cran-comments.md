@@ -1,3 +1,7 @@
+## CRAN Submission Comments
+
+This submission addresses the NOTEs regarding Rd file(s) with Rd \link{} targets missing package anchors in the "Rd cross-references" check.
+
 ## Test environments
 
 Tested on the following configuration matrix for both R-release and R-devel:
