@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   custom-import-function: custom-import-function.html
   introduction: introduction.html
-last_built: 2025-03-25T15:55Z
+last_built: 2025-03-25T16:10Z
 urls:
   reference: http://pmassicotte.github.io/eemR/reference
   article: http://pmassicotte.github.io/eemR/articles
