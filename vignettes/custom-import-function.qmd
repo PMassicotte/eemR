@@ -5,6 +5,7 @@ bibliography: biblio.bib
 date: "`r Sys.Date()`"
 format:
   html:
+    minimal: true
     toc: true
     html-math-method: mathjax
 vignette: >

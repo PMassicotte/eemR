@@ -5,12 +5,17 @@ bibliography: biblio.bib
 date: "`r Sys.Date()`"
 format:
   html:
+    minimal: true
     toc: true
     html-math-method: mathjax
 vignette: >
   %\VignetteIndexEntry{Introduction to eemR}
   %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
+ressource_files:
+  - mtcars.csv
+  - ife.rda
+  - blank.rda
 knitr:
   opts_chunk:
     collapse: true
@@ -190,11 +195,26 @@ eem <- eem_read(file, recursive = FALSE, import_function = "cary")
 eem <- eem_remove_scattering(eem, "rayleigh", 1L, 10L)
 eem <- eem_remove_scattering(eem, "raman", 1L, 10L)
 
-data("absorbance")
+# Work around to get the path of the current file
+me <- normalizePath(
+  if (Sys.getenv("QUARTO_DOCUMENT_PATH") != "") {
+    Sys.getenv("QUARTO_DOCUMENT_PATH")
+  } else if (file.exists("ife.rda")) {
+    getwd()
+  } else {
+    "vignettes/articles"
+  }
+)
+
+writeLines(me, "/tmp/me")
+load(file = file.path(me, "ife.rda"))
+load(file = file.path(me, "blank.rda"))
+
+
+# data("absorbance")
+# data("ife")
 
 eem_scatter_removed <- eem_inner_filter_effect(eem, absorbance, 1L)
-
-load("ife.rda")
 
 jet.colors <- colorRampPalette(c(
   "#00007F",
@@ -301,7 +321,7 @@ The same DOM sample measured on different spectrofluorometers (or even the same 
 #| fig-align: center
 #| fig-cap: "IFE correction process. Panel (A) shows an uncorrected EEM (the color bar is the florescence intensity in A.U.). Panel (B) is the corresponding absorbance spectra measured on the same sample. Panel (C) shows the IFE correction factors corresponding to the values of the denominator in Equation (@ife) with values close to 1 indicating less pronounced correction. Panel (D) shows the corrected sample (the color bar is the fluorescence intensity in A.U.)."
 
-load(here::here("vignettes/blank.rda"))
+# data("blank")
 
 raman <- blank[[1L]]$x[, which(blank[[1L]]$ex == 350L)]
 

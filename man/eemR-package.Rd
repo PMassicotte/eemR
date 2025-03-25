@@ -12,6 +12,7 @@ Provides various tools for preprocessing Emission-Excitation-Matrix (EEM) for Pa
 Useful links:
 \itemize{
   \item \url{https://github.com/PMassicotte/eemR}
+  \item \url{http://pmassicotte.github.io/eemR/}
   \item Report bugs at \url{https://github.com/PMassicotte/eemR/issues}
 }
 

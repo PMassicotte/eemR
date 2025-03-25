@@ -11,7 +11,7 @@ License: GPL (>= 2)
 BugReports: https://github.com/PMassicotte/eemR/issues
 URL: https://github.com/PMassicotte/eemR, http://pmassicotte.github.io/eemR/
 Depends:
-    R (>= 3.2.1)
+    R (>= 3.5)
 LazyData: TRUE
 Imports:
     stringr,
