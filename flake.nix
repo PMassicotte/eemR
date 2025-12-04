@@ -64,6 +64,7 @@
           languageserver
           lintr
           nvimcom
+          plot3D
           pracma
           purrr
           quarto
@@ -87,6 +88,7 @@
               wrappedR # R with packages for LSP
               wrappedRadian # radian with packages for interactive use
               glibcLocales # Locale support for proper UTF-8 handling
+              quarto
             ];
 
             shellHook = ''
