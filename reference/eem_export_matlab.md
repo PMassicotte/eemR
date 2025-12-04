@@ -70,5 +70,5 @@ eem <- eem_read(file, recursive = TRUE, import_function = "cary")
 
 export_to <- paste(tempfile(), ".mat", sep = "")
 eem_export_matlab(export_to, eem)
-#> Successfully exported 6 EEMs to /tmp/Rtmpy8QqM4/file192e214c32fe.mat.
+#> Successfully exported 6 EEMs to /tmp/Rtmps8GbQS/file1938653721ff.mat.
 ```
