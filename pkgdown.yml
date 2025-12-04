@@ -1,10 +1,10 @@
 pandoc: 3.1.11
-pkgdown: 2.1.1
+pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   custom-import-function: custom-import-function.html
   introduction: introduction.html
-last_built: 2025-03-25T16:10Z
+last_built: 2025-12-04T14:54Z
 urls:
   reference: http://pmassicotte.github.io/eemR/reference
   article: http://pmassicotte.github.io/eemR/articles

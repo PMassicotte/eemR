@@ -1,0 +1,269 @@
+# Changelog
+
+## eemR (development version)
+
+- Vignettes are now built with quarto.
+
+## eemR 1.0.2
+
+CRAN release: 2025-03-24
+
+- Update all URLs in the packages using the `checkurl` package.
+
+- Continuous integration is now based on Github Actions.
+
+- Allow
+  [`eem_bind()`](http://pmassicotte.github.io/eemR/reference/eem_bind.md)
+  to accept a list of eemlists
+  ([\#66](https://github.com/PMassicotte/eemR/issues/66)
+  [\#64](https://github.com/PMassicotte/eemR/issues/64))
+  [@jpshanno](https://github.com/jpshanno)
+
+- Correction functions do not modify the name of the eem
+  ([\#53](https://github.com/PMassicotte/eemR/issues/53)
+  [\#56](https://github.com/PMassicotte/eemR/issues/56)).
+
+- [`eem_humification_index()`](http://pmassicotte.github.io/eemR/reference/eem_humification_index.md)
+  now ignore missing values (for example due to scattering removal) in
+  the calculation.
+
+- Increasing code coverage from 40% to 55%.
+
+## eemR 1.0.1
+
+CRAN release: 2019-06-26
+
+- Fixing the file location that was not following when creating eems
+  ([\#52](https://github.com/PMassicotte/eemR/issues/52)).
+
+## eemR 1.0.0
+
+### Major changes
+
+`eemR` can use a user-defined function to import eems data. A new
+argument `import_function` in the
+[`eem_read()`](http://pmassicotte.github.io/eemR/reference/eem_read.md)
+function can be used to provide a custom function to read a specific eem
+file format.
+
+### Breaking changes
+
+Because of the major change of
+[`eem_read()`](http://pmassicotte.github.io/eemR/reference/eem_read.md),
+existing code will brake. The user still can uses the old importing
+functions by specifying the spectrofluorometer to use as follows:
+
+- `eem_read(file, import_function = "cary")`
+- `eem_read(file, import_function = "aqualog")`
+- `eem_read(file, import_function = "shimadzu")`
+- `eem_read(file, import_function = "fluoromax4")`
+
+### New features
+
+- New function
+  [`eem_peaks()`](http://pmassicotte.github.io/eemR/reference/eem_peaks.md)
+  to extract user-defined fluorescence peaks
+  ([\#42](https://github.com/PMassicotte/eemR/issues/42)).
+
+## eemR 0.1.5
+
+CRAN release: 2017-05-08
+
+- Improved plot visualization to the same look and feel as those
+  produced in Matlab with DrEEM.
+
+- Use file name as is for the name of the eem.
+
+- Reading Cary Eclipse files is more robust at detecting correct
+  excitation wavelengths.
+
+- `eemR` can now read Fluoromax-4 files
+  ([\#40](https://github.com/PMassicotte/eemR/issues/40)).
+
+- [`eem_cut()`](http://pmassicotte.github.io/eemR/reference/eem_cut.md)
+  gains a logical argument `exact`. If `TRUE`, only wavelengths matching
+  `em` and/or `ex` will be removed. If `FALSE`, all wavelengths in the
+  range of `em` and/or `ex` will be removed.
+
+- Taking into account cuvette size to calculate the 1.5 threshold
+  proposed by Kothawala when correcting for IFE.
+
+- Inner-filter effect correction factors are now corrected correctly.
+  Because fluorescence is assumed to be measured in 1 cm cuvette,
+  absorbance is now expressed per centimeter.
+
+- Better guessing the number of columns of the fluorescence matrix
+  produced by Cary Eclipse software.
+
+- Fixed many typos.
+
+## eemR 0.1.4
+
+CRAN release: 2016-08-29
+
+- [`eem_extract()`](http://pmassicotte.github.io/eemR/reference/eem_extract.md)
+  is now more intuitive to use. `remove` argument has been replace by
+  `keep`. If `TRUE`, the specified samples will be returned. If `FALSE`,
+  they will be removed
+  ([\#37](https://github.com/PMassicotte/eemR/issues/37)).
+
+- [`eem_cut()`](http://pmassicotte.github.io/eemR/reference/eem_cut.md)
+  now removes specified wavelengths instead of keeping them.
+
+- [`eem_cut()`](http://pmassicotte.github.io/eemR/reference/eem_cut.md)
+  gains an argument `fill_with_na`. If `TRUE` fluorescence at specified
+  wavelengths will be replaced with `NA` instead of being removed.
+
+- File structure is now kept when performing inner-filter effect
+  correction ([\#35](https://github.com/PMassicotte/eemR/issues/35)).
+
+- Now using [viridis](https://cran.r-project.org/package=viridis) space
+  colors for plotting EEMs instead of color jet.
+
+- [`eem_remove_scattering()`](http://pmassicotte.github.io/eemR/reference/eem_remove_scattering.md)
+  no longer `tolower` absorbance names and will assume that the provided
+  absorbance spectra match exactly EEM’s names.
+
+- Fixing a bug that prevented the interactive plot to work properly.
+
+- `summary(x)` and `print(x)` now return a data frame containing
+  summarized information on EEMs contained in `x`. See
+  [`?summary.eemlist`](http://pmassicotte.github.io/eemR/reference/summary.eemlist.md).
+
+- [`eem_raman_normalisation()`](http://pmassicotte.github.io/eemR/reference/eem_raman_normalisation.md)
+  and
+  [`eem_remove_blank()`](http://pmassicotte.github.io/eemR/reference/eem_remove_blank.md)
+  will average blank EEMs if more than one are provided or found in the
+  folder ([\#23](https://github.com/PMassicotte/eemR/issues/23)).
+
+- [`eem_raman_normalisation()`](http://pmassicotte.github.io/eemR/reference/eem_raman_normalisation.md),
+  [`eem_remove_blank()`](http://pmassicotte.github.io/eemR/reference/eem_remove_blank.md)
+  and
+  [`eem_inner_filter_effect()`](http://pmassicotte.github.io/eemR/reference/eem_inner_filter_effect.md)
+  will now verify if the correction has been already performed. If so,
+  an unmodified EEM will be returned.
+
+- [`eem_raman_normalisation()`](http://pmassicotte.github.io/eemR/reference/eem_raman_normalisation.md)
+  now interpolates blank EEM to ensure that em at 350 and excitation
+  between 371 and 428 exist
+  ([\#31](https://github.com/PMassicotte/eemR/issues/31)).
+
+- [`eem_remove_blank()`](http://pmassicotte.github.io/eemR/reference/eem_remove_blank.md)
+  and
+  [`eem_raman_normalisation()`](http://pmassicotte.github.io/eemR/reference/eem_raman_normalisation.md)
+  will now keep blank samples when automatic correction is used. When
+  automatic correction is used, the *untransformed* blank sample will be
+  keep in the list.
+
+- An error will now occur if trying to perform blank correction after
+  Raman normalization.
+
+## eemR 0.1.3
+
+CRAN release: 2016-05-02
+
+- Interactive plot using a simple shiny app. Using
+  `plot(eems, interactive = TRUE)` will lunch a shiny app that allows to
+  interactively browse EEMs contained in `eems`.
+
+- A vignette has been added to the package which can be viewed using
+  [`vignette(topic = "introduction", package = "eemR")`](http://pmassicotte.github.io/eemR/articles/introduction.md).
+
+- An error will occur if one try to do raman normalization on a blank
+  where scattering bands have been removed.
+
+- `eem_sample_names()` has been replaced by
+  [`eem_names()`](http://pmassicotte.github.io/eemR/reference/eem_names.md).
+
+- Reading Aqualog files is now ~20% faster
+  ([\#26](https://github.com/PMassicotte/eemR/issues/26)).
+
+- [`plot()`](https://rdrr.io/r/graphics/plot.default.html) gains an
+  argument `show_peaks = TRUE/FALSE` which can be used to display most
+  common fluorescence peaks used in the literature.
+
+- [`eem_remove_blank()`](http://pmassicotte.github.io/eemR/reference/eem_remove_blank.md)
+  and
+  [`eem_raman_normalisation()`](http://pmassicotte.github.io/eemR/reference/eem_raman_normalisation.md)
+  can now try to implicitly use a blank eem from a `eemlist` object
+  ([\#20](https://github.com/PMassicotte/eemR/issues/20)). If blank is
+  omitted (`blank = NA`), the functions will try to extract the blank
+  from the `eemlist` object. This is done by looking for sample names
+  containing one of these complete or partial strings (ignoring case): -
+  “nano” - “miliq” - “milliq” - “mq” - “blank”
+
+Consider the following example where there are two folders that could
+represent scans performed on two different days `scans_day_1` and
+`scans_day_2`. In each folder there are three samples and one blank
+files. In that context,
+[`eem_remove_blank()`](http://pmassicotte.github.io/eemR/reference/eem_remove_blank.md)
+will use the blank `nano.csv` from `sample1.csv`, `sample2.csv` and
+`sample3.csv`. The same strategy will be used for files in folder
+`scans_day_2` but with blank named `blank.csv`.
+
+    inst/extdata/cary/
+    ├── scans_day_1
+    │   ├── nano.csv
+    │   ├── sample1.csv
+    │   ├── sample2.csv
+    │   └── sample3.csv
+    └── scans_day_2
+        ├── blank.csv
+        └── s1.csv
+
+- [`eem_extract()`](http://pmassicotte.github.io/eemR/reference/eem_extract.md)
+  has now an argument `verbose` (default = FALSE) that determine if the
+  names of removed or extracted eems should be printed on screen.
+
+- Implemented the generic [`print()`](https://rdrr.io/r/base/print.html)
+  method which calls [`summary()`](https://rdrr.io/r/base/summary.html).
+
+- Added tests to the packages to verify metrics.
+
+- Now better estimate the number of columns to read in Cary Eclipse
+  files ([\#27](https://github.com/PMassicotte/eemR/issues/27)). This
+  also makes reading much faster.
+
+## eemR 0.1.2
+
+CRAN release: 2016-02-04
+
+- Sample names are now exported when using the
+  [`eem_export_matlab()`](http://pmassicotte.github.io/eemR/reference/eem_export_matlab.md)
+  function.
+
+- New function
+  [`eem_bind()`](http://pmassicotte.github.io/eemR/reference/eem_bind.md)
+  implemented to merge objects of class `eem` and `eemlist`.
+
+- Reading EEMs should be ~ 50% faster.
+
+- New function `eem_sample_names()` implemented.
+
+  - `eem_sample_names(eem)` returns a vector containing the sample names
+    of all EEMs.
+  - `eem_sample_names(eem) <- c(...)` sets the sample names of all EEMs.
+
+- [`eem_extract()`](http://pmassicotte.github.io/eemR/reference/eem_extract.md)
+  has now an argument `ignore_case`
+  ([\#10](https://github.com/PMassicotte/eemR/issues/10)) to specify if
+  the regular expression search should ignore sample name case (TRUE) or
+  not (FALSE).
+
+- Sample names (i.e. file names) are now verified with
+  [`make.names()`](https://rdrr.io/r/base/make.names.html)
+  ([\#15](https://github.com/PMassicotte/eemR/issues/15)).
+
+- Various improvements in documentation.
+
+## eemR 0.1.1
+
+CRAN release: 2015-11-24
+
+- Fixing minimal R version to run the package (R \>= 3.2.1)
+
+## eemR 0.1.0
+
+CRAN release: 2015-11-19
+
+- First version of eemR
