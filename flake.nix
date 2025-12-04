@@ -51,26 +51,38 @@
           };
         };
 
+        eemR = final.rPackages.buildRPackage {
+          name = "eemR";
+          src = ./.;
+          # optional:
+          propagatedBuildInputs = with final.rPackages; [
+            MBA
+            R_matlab
+            assertthat
+            dplyr
+            ggplot2
+            plot3D
+            pracma
+            purrr
+            rlist
+            stringr
+            tidyr
+            viridis
+          ];
+        };
+
         # Shared R package list for both wrappers
         rPackageList = with final.rPackages; [
-          R_matlab
-          assertthat
           cli
           cyclocomp
           devtools
-          dplyr
+          eemR
           fs
           httpgd
           languageserver
           lintr
           nvimcom
-          plot3D
-          pracma
-          purrr
           quarto
-          rlist
-          stringr
-          viridis
         ];
 
         # Create rWrapper with packages (for LSP and R.nvim)
