@@ -1,6 +1,7 @@
 # eemR (development version)
 
 - Vignettes are now built with quarto.
+- Implement the aromaticity index by @MatthiasPucher (#76).
 
 # eemR 1.0.2
 
@@ -134,7 +135,6 @@ inst/extdata/cary/
 - Reading EEMs should be ~ 50% faster.
 
 - New function `eem_sample_names()` implemented.
-
   - `eem_sample_names(eem)` returns a vector containing the sample names of all EEMs.
   - `eem_sample_names(eem) <- c(...)` sets the sample names of all EEMs.
 
