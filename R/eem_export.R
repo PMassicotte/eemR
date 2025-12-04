@@ -125,10 +125,15 @@ eem_export_matlab <- function(file, ...) {
     Em = Em
   )
 
-  R.matlab::writeMat(
-    file,
-    OriginalData = OriginalData,
-    sample_names = eem_names(eem)
+  # Suppress UTF-8 translation warnings from R.matlab's binary encoding These
+  # warnings occur in ASCII locales (common in Nix environments) but don't
+  # affect functionality
+  suppressWarnings(
+    R.matlab::writeMat(
+      file,
+      OriginalData = OriginalData,
+      sample_names = eem_names(eem)
+    )
   )
 
   message("Successfully exported ", nSample, " EEMs to ", file, ".\n")
