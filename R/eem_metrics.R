@@ -353,7 +353,7 @@ eem_biological_index <- function(eem, verbose = TRUE) {
 #' Concentrations in Inland Waters Using Optical Proxies of Aromaticity.
 #' Environmental Science & Technology 2025 59 (31), 16430-16442
 #'
-#'   \doi{10.1021/acs.est.5c05408 }
+#'   \doi{10.1021/acs.est.5c05408}
 #'
 #' @return A data frame containing the aromaticity index (ARIX) for each eem.
 #' @export
