@@ -66,6 +66,7 @@
           nvimcom
           pracma
           purrr
+          quarto
           rlist
           stringr
           viridis
