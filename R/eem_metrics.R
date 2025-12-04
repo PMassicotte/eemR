@@ -337,3 +337,54 @@ eem_biological_index <- function(eem, verbose = TRUE) {
 
   return(data.frame(sample = eem$sample, bix = bix, stringsAsFactors = FALSE))
 }
+
+#' Calculate the aromaticity fluorescence index (ARIX)
+#'
+#' @template template_eem
+#'
+#' @template template_section_interp2
+#'
+#' @description The aromaticity fluorescence index (ARIX) is calculated by
+#'   dividing the fluorescence at excitation 320 nm and emission at 520 nm (ex =
+#'   320, em = 520) by that at excitation 320 nm and emission at 390 nm (ex =
+#'   320, em = 390).
+#'
+#' @references Murphy K.R. (2025). Prediction of Dissolved Organic Carbon
+#' Concentrations in Inland Waters Using Optical Proxies of Aromaticity.
+#' Environmental Science & Technology 2025 59 (31), 16430-16442
+#'
+#'   \doi{10.1021/acs.est.5c05408 }
+#'
+#' @return A data frame containing the aromaticity index (ARIX) for each eem.
+#' @export
+#' @examples
+#' file <- system.file("extdata/cary/scans_day_1/", package = "eemR")
+#' eem <- eem_read(file, import_function = "cary")
+#'
+#' eem_aromaticity_index(eem)
+eem_aromaticity_index <- function(eem, verbose = TRUE) {
+  stopifnot(.is_eemlist(eem) | .is_eem(eem))
+
+  ## It is a list of eems, then call lapply
+  if (.is_eemlist(eem)) {
+    res <- lapply(eem, eem_aromaticity_index, verbose = verbose)
+    res <- dplyr::bind_rows(res)
+
+    return(res)
+  }
+
+  #---------------------------------------------------------------------
+  # Get the data and calculate the aromaticity index (ARIX)
+  #---------------------------------------------------------------------
+
+  if (!all(320 %in% eem$ex & c(520, 390) %in% eem$em) & verbose) {
+    warning(msg_warning_wavelength(), call. = FALSE)
+  }
+
+  fluo_520 <- pracma::interp2(eem$ex, eem$em, eem$x, 320, 520)
+  fluo_390 <- pracma::interp2(eem$ex, eem$em, eem$x, 320, 390)
+
+  arix <- fluo_520 / fluo_390
+
+  return(data.frame(sample = eem$sample, arix = arix, stringsAsFactors = FALSE))
+}
