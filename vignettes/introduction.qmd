@@ -190,12 +190,7 @@ file <- system.file(
   package = "eemR"
 )
 
-here::i_am("vignettes/introduction.qmd")
-load(here::here("vignettes", "ife.rda"))
-load(here::here("vignettes", "blank.rda"))
-
-# load(quarto::project_path("vignettes", "ife.rda"))
-# load(quarto::project_path("vignettes", "blank.rda"))
+load(here::here("R", "sysdata.rda"))
 
 eem <- eem_read(file, recursive = FALSE, import_function = "cary")
 eem <- eem_remove_scattering(eem, "rayleigh", 1L, 10L)
