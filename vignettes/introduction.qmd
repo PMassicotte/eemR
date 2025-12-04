@@ -195,20 +195,16 @@ eem <- eem_read(file, recursive = FALSE, import_function = "cary")
 eem <- eem_remove_scattering(eem, "rayleigh", 1L, 10L)
 eem <- eem_remove_scattering(eem, "raman", 1L, 10L)
 
-# Work around to get the path of the current file
-me <- normalizePath(
-  if (Sys.getenv("QUARTO_DOCUMENT_PATH") != "") {
-    Sys.getenv("QUARTO_DOCUMENT_PATH")
-  } else if (file.exists("ife.rda")) {
-    getwd()
-  } else {
-    "vignettes/articles"
-  }
-)
 
-writeLines(me, "/tmp/me")
-load(file = file.path(me, "ife.rda"))
-load(file = file.path(me, "blank.rda"))
+load(system.file(
+  "vignettes/ife.rda",
+  package = "eemR"
+))
+
+load(system.file(
+  "vignettes/blank.rda",
+  package = "eemR"
+))
 
 
 # data("absorbance")
