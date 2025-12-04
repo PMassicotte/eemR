@@ -19,3 +19,5 @@ revdep/
 ^codecov\.yml$
 ^flake\.nix$
 ^flake\.lock$
+^\.envrc$
+^\.linter\.R$
