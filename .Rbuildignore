@@ -17,3 +17,5 @@ revdep/
 ^\.github$
 ^CRAN-RELEASE$
 ^codecov\.yml$
+^flake\.nix$
+^flake\.lock$
