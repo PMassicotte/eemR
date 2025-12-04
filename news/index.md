@@ -3,6 +3,9 @@
 ## eemR (development version)
 
 - Vignettes are now built with quarto.
+- Implement the aromaticity index by
+  [@MatthiasPucher](https://github.com/MatthiasPucher)
+  ([\#76](https://github.com/PMassicotte/eemR/issues/76)).
 
 ## eemR 1.0.2
 
