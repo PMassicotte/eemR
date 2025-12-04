@@ -20,4 +20,4 @@ revdep/
 ^flake\.nix$
 ^flake\.lock$
 ^\.envrc$
-^\.linter\.R$
+^\.lintr\.R$
