@@ -1,7 +1,7 @@
 {
   description = "A Nix-flake-based R development environment";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
 
   inputs.rNvim = {
     url = "github:R-nvim/R.nvim";
